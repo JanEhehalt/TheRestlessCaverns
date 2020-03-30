@@ -1,0 +1,78 @@
+package com.dungeoncrawler;
+
+
+public abstract class Entity {
+    
+    private int xPos;
+    private int yPos;
+    private int hp;
+    private int maxhp;
+    private int dmg;
+    private int lvl;
+
+    
+
+    public void attack(){
+    
+    }
+    public void update(){
+        
+    }
+    public void die(){
+    
+    }
+    public void move(int movementX, int movementY){
+    
+    }
+    
+    
+    public int getxPos() {
+        return xPos;
+    }
+
+    public void setxPos(int xPos) {
+        this.xPos = xPos;
+    }
+
+    public int getyPos() {
+        return yPos;
+    }
+
+    public void setyPos(int yPos) {
+        this.yPos = yPos;
+    }
+
+    public int getHp() {
+        return hp;
+    }
+
+    public void setHp(int hp) {
+        this.hp = hp;
+    }
+
+    public int getMaxhp() {
+        return maxhp;
+    }
+
+    public void setMaxhp(int maxhp) {
+        this.maxhp = maxhp;
+    }
+
+    public int getDmg() {
+        return dmg;
+    }
+
+    public void setDmg(int dmg) {
+        this.dmg = dmg;
+    }
+
+    public int getLvl() {
+        return lvl;
+    }
+
+    public void setLvl(int lvl) {
+        this.lvl = lvl;
+    }
+
+
+}
