@@ -10,6 +10,11 @@ public abstract class Entity {
     protected int dmg;
     protected int lvl;
 
+    public Entity(int xPos, int yPos, int lvl){
+        this.xPos = xPos;
+        this.yPos = yPos;
+        this.lvl = lvl;
+    }
     
 
     public void attack(){
