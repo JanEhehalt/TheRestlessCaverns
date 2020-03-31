@@ -3,12 +3,12 @@ package com.dungeoncrawler;
 
 public abstract class Entity {
     
-    private int xPos;
-    private int yPos;
-    private int hp;
-    private int maxhp;
-    private int dmg;
-    private int lvl;
+    protected int xPos;
+    protected int yPos;
+    protected int hp;
+    protected int maxhp;
+    protected int dmg;
+    protected int lvl;
 
     
 
