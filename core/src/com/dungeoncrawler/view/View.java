@@ -1,14 +1,12 @@
 package com.dungeoncrawler.view;
 
-import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
-public class View extends ApplicationAdapter {
-	SpriteBatch batch;
+public class View {
 	Texture b;
         Texture t;
         Texture p;
@@ -16,10 +14,7 @@ public class View extends ApplicationAdapter {
         Sprite title;
         Sprite player;
         
-        
-	@Override
-	public void create () {
-		batch = new SpriteBatch();
+	public View() {
                 b = new Texture("Button.png");
                 t = new Texture("Title.png");
                 p = new Texture("Player.png");
@@ -38,20 +33,15 @@ public class View extends ApplicationAdapter {
 	}
 
         
-	public void render () {
+	public void render (SpriteBatch batch) {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+                
                 batch.begin();
                 title.draw(batch);
                 button.draw(batch);
                 player.draw(batch);
                 batch.end();
-	}
-        
-        
-	public void dispose () {
-            batch.dispose();
-                
 	}
         
         public void move(float x, float y){
