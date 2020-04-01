@@ -17,19 +17,22 @@ public class View extends ApplicationAdapter {
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-                b = new Texture("button.png");
-                t = new Texture("title.png");
+                b = new Texture("Button.png");
+                t = new Texture("Title.png");
                 button = new Sprite(b);
                 title = new Sprite(t);
-                title.setX(0);
-                title.setY(0);
-                button.setX(75);
-                button.setY(150);
+                float w = Gdx.graphics.getWidth();
+                float h = Gdx.graphics.getHeight();
+                float wc = w/2;
+                title.setX(wc - (title.getWidth()/2));
+                title.setY(h - 200);
+                button.setX(wc - (button.getWidth()/2));
+                button.setY(400);
 	}
 
 	@Override
 	public void render () {
-		Gdx.gl.glClearColor(1, 0, 0, 1);
+		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
                 
 		batch.begin();
