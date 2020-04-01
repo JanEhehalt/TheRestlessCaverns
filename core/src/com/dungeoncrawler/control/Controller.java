@@ -33,7 +33,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
     
     @Override
     public void render(){
-        v.render(batch);
+        v.render(batch, movementX ,movementY);
     }
     
     @Override
@@ -45,32 +45,36 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
     public boolean keyDown(int keycode) {
                 if(keycode == Input.Keys.LEFT){
                     movementX = -3f;
-                    v.move(movementX, movementY);
-                    System.out.println("EY");
+                    v.render(batch, movementX, movementY);
                 }
                 
                 if(keycode == Input.Keys.RIGHT){
                     movementX = 3f;
-                    v.move(movementX, movementY);
+                    v.render(batch, movementX, movementY);
                 }
                 
                 if(keycode == Input.Keys.UP){
-                    movementY = 3f;
-                    v.move(movementX, movementY);
+                    movementY = 4f;
+                    v.render(batch, movementX, movementY);
                 }
                 
                 if(keycode == Input.Keys.DOWN){
-                    movementY = -3f;
-                    v.move(movementX, movementY);
+                    movementY = -4f;
+                    v.render(batch, movementX, movementY);
                 } 
                 return true;
     }
 
     @Override
-    public boolean keyUp(int i) {
-        movementY = 0f;
-        movementX = 0f;
-        return true;
+    public boolean keyUp(int keycode) {
+                if(keycode == Input.Keys.LEFT || keycode == Input.Keys.RIGHT){
+                    movementX = 0f;
+                }
+                
+                if(keycode == Input.Keys.DOWN || keycode == Input.Keys.UP){
+                    movementY = 0f;
+                } 
+                return true;
     }
 
     @Override
