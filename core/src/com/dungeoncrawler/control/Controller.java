@@ -4,15 +4,18 @@
  * and open the template in the editor.
  */
 package com.dungeoncrawler.control;
+
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dungeoncrawler.view.View;
 import com.dungeoncrawler.model.Dungeon;
 import com.dungeoncrawler.model.entities.Player;
 
 public class Controller extends ApplicationAdapter implements InputProcessor{
+    SpriteBatch batch;
     Dungeon d;
     View v;
     Player p;
@@ -21,6 +24,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
     
     @Override
     public void create(){
+        batch = new SpriteBatch();
         v = new View();
         p = new Player(0,0,0);
         d = new Dungeon(p);
@@ -29,12 +33,12 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
     
     @Override
     public void render(){
-        v.render();
+        v.render(batch);
     }
     
     @Override
 	public void dispose () {
-            v.dispose();
+            batch.dispose();
 	}
         
     @Override
