@@ -19,14 +19,24 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
     float movementX = 0f;
     float movementY = 0f;
     
-    public Controller(){
+    @Override
+    public void create(){
         v = new View();
         p = new Player(0,0,0);
         d = new Dungeon(p);
         Gdx.input.setInputProcessor(this);
     }
     
+    @Override
+    public void render(){
+        v.render();
+    }
     
+    @Override
+	public void dispose () {
+            v.dispose();
+	}
+        
     @Override
     public boolean keyDown(int keycode) {
                 if(keycode == Input.Keys.LEFT){
