@@ -11,16 +11,21 @@ public class View extends ApplicationAdapter {
 	SpriteBatch batch;
 	Texture b;
         Texture t;
+        Texture p;
         Sprite button;
         Sprite title;
+        Sprite player;
+        
         
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
                 b = new Texture("Button.png");
                 t = new Texture("Title.png");
+                p = new Texture("Player.png");
                 button = new Sprite(b);
                 title = new Sprite(t);
+                player = new Sprite(p);
                 float w = Gdx.graphics.getWidth();
                 float h = Gdx.graphics.getHeight();
                 float wc = w/2;
@@ -28,6 +33,8 @@ public class View extends ApplicationAdapter {
                 title.setY(h - 200);
                 button.setX(wc - (button.getWidth()/2));
                 button.setY(400);
+                player.setX(200);
+                player.setY(200);
 	}
 
 	@Override
@@ -38,12 +45,21 @@ public class View extends ApplicationAdapter {
 		batch.begin();
                 title.draw(batch);
                 button.draw(batch);
+                player.draw(batch);
 		batch.end();
 	}
 	
 	@Override
 	public void dispose () {
-		batch.dispose();
+            batch.dispose();
                 
 	}
+        
+        public void move(float x, float y){
+            player.setX(player.getX()+x);
+            player.setY(player.getY()+y);
+            System.out.println("PRESS");
+        }
+        
+        
 }
