@@ -1,4 +1,4 @@
-package src.com.dungeoncrawler;
+package com.dungeoncrawler;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;

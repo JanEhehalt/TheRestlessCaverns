@@ -3,10 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package src.com.dungeoncrawler;
+package com.dungeoncrawler;
 
-//import com.dungeoncrawler.items.*;
-class Item{}
+import com.dungeoncrawler.items.*;
 /**
  *
  * @author jonathan

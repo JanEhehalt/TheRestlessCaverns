@@ -1,4 +1,4 @@
-package src.com.dungeoncrawler.entities;
+package com.dungeoncrawler.entities;
 import com.dungeoncrawler.Entity;
 
 public class Archer extends Entity{
