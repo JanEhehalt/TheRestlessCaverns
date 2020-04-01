@@ -7,7 +7,7 @@ public class Main extends ApplicationAdapter {
 	
     View v;
     
-    Main(){
+    public Main(){
         v = new View();
     }
     
