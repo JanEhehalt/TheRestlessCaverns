@@ -33,10 +33,11 @@ public class View {
 	}
 
         
-	public void render (SpriteBatch batch) {
+	public void render (SpriteBatch batch, float x, float y) {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-                
+                player.setX(player.getX()+x);
+                player.setY(player.getY()+y);
                 batch.begin();
                 title.draw(batch);
                 button.draw(batch);
@@ -44,11 +45,7 @@ public class View {
                 batch.end();
 	}
         
-        public void move(float x, float y){
-            player.setX(player.getX()+x);
-            player.setY(player.getY()+y);
-            System.out.println("PRESS");
-        }
+        
         
         
 }
