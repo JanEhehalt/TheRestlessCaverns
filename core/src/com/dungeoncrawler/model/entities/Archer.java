@@ -1,5 +1,5 @@
-package com.dungeoncrawler.entities;
-import com.dungeoncrawler.Entity;
+package com.dungeoncrawler.model.entities;
+import com.dungeoncrawler.model.Entity;
 
 public class Archer extends Entity{
     

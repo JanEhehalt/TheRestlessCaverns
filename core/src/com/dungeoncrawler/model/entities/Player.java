@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.dungeoncrawler.entities;
+package com.dungeoncrawler.model.entities;
 
 
-import com.dungeoncrawler.Entity;
+import com.dungeoncrawler.model.Entity;
 /**
  *
  * @author Jan

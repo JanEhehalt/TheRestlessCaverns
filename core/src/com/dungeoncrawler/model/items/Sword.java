@@ -3,17 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.dungeoncrawler.items;
+package com.dungeoncrawler.model.items;
 
-import com.dungeoncrawler.Item;
+import com.dungeoncrawler.model.Item;
 
 /**
  *
  * @author jonathan
  */
-public class Key extends Item {
+public class Sword extends Item {
     
-    public Key(int amount) {
+    public Sword(int amount) {
         super(amount);
     }
     
