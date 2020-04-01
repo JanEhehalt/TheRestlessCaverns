@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.dungeoncrawler.entities;
+package src.com.dungeoncrawler.entities;
 
 import com.dungeoncrawler.Entity;
 

@@ -1,4 +1,4 @@
-package com.dungeoncrawler;
+package src.com.dungeoncrawler;
 
 
 public abstract class Entity {
