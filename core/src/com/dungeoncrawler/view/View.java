@@ -37,19 +37,18 @@ public class View extends ApplicationAdapter {
                 player.setY(200);
 	}
 
-	@Override
+        
 	public void render () {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-                
-		batch.begin();
+                batch.begin();
                 title.draw(batch);
                 button.draw(batch);
                 player.draw(batch);
-		batch.end();
+                batch.end();
 	}
-	
-	@Override
+        
+        
 	public void dispose () {
             batch.dispose();
                 
