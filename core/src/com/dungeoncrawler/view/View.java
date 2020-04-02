@@ -177,7 +177,8 @@ public class View {
         public void tlinksstop(){    
             tlinks.stop();
             frame = 0;
-            player.setRegion(regions[zeile][frame]);}
+            player.setRegion(regions[zeile][frame]);
+            player.flip(true, false);}
         public void trechtsstop(){    
             trechts.stop();
             frame = 0;
