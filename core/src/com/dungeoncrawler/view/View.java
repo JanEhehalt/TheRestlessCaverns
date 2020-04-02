@@ -40,6 +40,8 @@ public class View extends ApplicationAdapter {
                 tmr = new OrthogonalTiledMapRenderer(map.getMap());
                 
                 camera = new OrthographicCamera(1, h/w);
+                camera.position.x = 200;
+                camera.position.y = 200;
 
 	}
 

@@ -34,11 +34,12 @@ public class Map {
         TextureRegion[][] splitTiles = TextureRegion.split(getTiles(), 48, 48);
         MapLayers layers = getMap().getLayers();
         
-        for(int i=0;i<6;i++){
-            TiledMapTileLayer layer = new TiledMapTileLayer(6, 6, 48, 48);
+        //for(int i=0;i<6;i++){
+        int size = 10;
+            TiledMapTileLayer layer = new TiledMapTileLayer(size, size, 48, 48);
             
-            for(int x=0;x<6;x++){
-                for(int y=0;y<6;y++){
+            for(int x=0;x<size;x++){
+                for(int y=0;y<size;y++){
                     
                     int ty = (int)(Math.random() * splitTiles.length);
                     int tx = (int)(Math.random() * splitTiles[ty].length);
@@ -50,7 +51,7 @@ public class Map {
                 }
                 layers.add(layer);
             }
-        }
+        //}
     }
 
     /**
