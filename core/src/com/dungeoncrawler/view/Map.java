@@ -41,11 +41,20 @@ public class Map {
             for(int x=0;x<size;x++){
                 for(int y=0;y<size;y++){
                     
-                    int ty = (int)(Math.random() * splitTiles.length);
-                    int tx = (int)(Math.random() * splitTiles[ty].length);
+                    if(x == 0 || x == size -1 || y == 0 || y == size -1){
+                        
+                            Cell cell = new Cell();
+                            cell.setTile(new StaticTiledMapTile(splitTiles[0][5]));
+                            layer.setCell(x, y, cell);
+                            continue;
+                            
+                    }
+                    
+                    //int ty = (int)(Math.random() * splitTiles.length);
+                    //int tx = (int)(Math.random() * splitTiles[ty].length);
                     
                     Cell cell = new Cell();
-                    cell.setTile(new StaticTiledMapTile(splitTiles[ty][tx]));
+                    cell.setTile(new StaticTiledMapTile(splitTiles[0][0]));
                     layer.setCell(x, y, cell);
                     
                 }
