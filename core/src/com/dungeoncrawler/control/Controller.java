@@ -67,17 +67,25 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
 
     @Override
     public boolean keyUp(int keycode) {
-                if(keycode == Input.Keys.LEFT || keycode == Input.Keys.RIGHT){
+                if(keycode == Input.Keys.LEFT){
                     movementX = 0f;
-                    v.trechtsstop();
                     v.tlinksstop();
                 }
                 
-                if(keycode == Input.Keys.DOWN || keycode == Input.Keys.UP){
+                if(keycode == Input.Keys.RIGHT){
+                    movementX = 0f;
+                    v.trechtsstop();
+                }
+                
+                if(keycode == Input.Keys.DOWN){
                     movementY = 0f;
-                    v.tobenstop();
                     v.tuntenstop();
                 } 
+                
+                if(keycode == Input.Keys.UP){
+                    movementY = 0f;
+                    v.tobenstop();
+                }
                 return true;
     }
 
