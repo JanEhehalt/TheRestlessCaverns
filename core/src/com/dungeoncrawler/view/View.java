@@ -158,15 +158,19 @@ public class View {
         
         public void tuntenstop(){
             tunten.stop();
-            frame = 0;}
+            frame = 0;
+            player.setRegion(regions[zeile][frame]);}
         public void tobenstop(){    
             toben.stop();
-            frame = 0;}
+            frame = 0;
+            player.setRegion(regions[zeile][frame]);}
         public void tlinksstop(){    
             tlinks.stop();
-            frame = 0;}
+            frame = 0;
+            player.setRegion(regions[zeile][frame]);}
         public void trechtsstop(){    
             trechts.stop();
-            frame = 0;}
+            frame = 0;
+            player.setRegion(regions[zeile][frame]);}
             
         }
