@@ -86,11 +86,11 @@ public class View {
                     @Override
                     public void run() {
                         zeile = 2;
-                        if(player.isFlipY() == true){
+                        if(player.isFlipX() == true){
                         
                         }
                         else{
-                            player.flip(false, true);
+                            player.flip(true, false);
                         }
                         if(frame == 9){
                             frame = 0;
@@ -109,7 +109,7 @@ public class View {
                     @Override
                     public void run() {
                         zeile = 2;
-                        if(player.isFlipY() == true){
+                        if(player.isFlipX() == true){
                             player.flip(false, false);
                         }
                         if(frame == 9){
@@ -134,11 +134,21 @@ public class View {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
                 player.setX(player.getX()+x);
                 player.setY(player.getY()+y);
+                
                 if(x == 3f){
                     trechts.start();
+                    if(player.isFlipX() == true){
+                            player.flip(false, false);
+                        }
                 }
                 if(x == -3f){
-                   tlinks.start();
+                    tlinks.start();
+                    if(player.isFlipX() == true){
+                        
+                    }
+                    else{
+                        player.flip(true, false);
+                    }
                 }
                 if(y == 3f){
                     toben.start();
