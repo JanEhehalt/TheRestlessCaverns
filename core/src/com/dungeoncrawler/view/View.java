@@ -63,6 +63,7 @@ public class View {
                      }
                 },0,1/5f);
                 tunten.stop();
+                
                 toben.scheduleTask(new Timer.Task() {
                     @Override
                     public void run() {
@@ -80,42 +81,50 @@ public class View {
                      }
                 }, 0,1/5f);
                 toben.stop();
+                
                 tlinks.scheduleTask(new Timer.Task() {
                     @Override
                     public void run() {
                         zeile = 2;
+                        if(player.isFlipY() == true){
                         
+                        }
+                        else{
+                            player.flip(false, true);
+                        }
                         if(frame == 9){
                             frame = 0;
                         }
                         else{
                             frame++;
                         }
-                 
+                        
                         player.setRegion(regions[zeile][frame]);
                         
                      }
                 }, 0,1/5f);
                 tlinks.stop();
+                
                 trechts.scheduleTask(new Timer.Task() {
                     @Override
                     public void run() {
                         zeile = 2;
-                        
+                        if(player.isFlipY() == true){
+                            player.flip(false, false);
+                        }
                         if(frame == 9){
                             frame = 0;
                         }
                         else{
                             frame++;
                         }
+                        
                  
                         player.setRegion(regions[zeile][frame]);
                         
                      }
                 }, 0,1/5f);
                 trechts.stop();
-              
-                
                 
 	}
 
