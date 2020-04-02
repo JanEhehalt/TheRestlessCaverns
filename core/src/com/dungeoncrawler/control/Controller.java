@@ -13,27 +13,31 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dungeoncrawler.view.View;
 import com.dungeoncrawler.model.Dungeon;
 import com.dungeoncrawler.model.entities.Player;
+import com.dungeoncrawler.model.entities.Archer;
 
 public class Controller extends ApplicationAdapter implements InputProcessor{
     SpriteBatch batch;
     Dungeon d;
     View v;
-    Player p;
+    Player p; 
+    Archer a;
     float movementX = 0f;
     float movementY = 0f;
+    
     
     @Override
     public void create(){
         batch = new SpriteBatch();
         v = new View();
-        p = new Player(0,0,0);
+        p = new Player(0,0,1);
         d = new Dungeon(p);
+        a = new Archer(500, 200, 1);
         Gdx.input.setInputProcessor(this);
     }
     
     @Override
     public void render(){
-        v.render(batch, movementX ,movementY);
+        v.render(batch, movementX ,movementY, a.getxPos(), a.getyPos());
     }
     
     @Override
@@ -45,23 +49,26 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
     public boolean keyDown(int keycode) {
                 if(keycode == Input.Keys.LEFT){
                     movementX = -3f;
-                    v.render(batch, movementX, movementY);
+                    v.render(batch, movementX, movementY, a.getxPos(), a.getyPos());
                 }
                 
                 if(keycode == Input.Keys.RIGHT){
                     movementX = 3f;
-                    v.render(batch, movementX, movementY);
+                    v.render(batch, movementX, movementY, a.getxPos(), a.getyPos());
                 }
                 
                 if(keycode == Input.Keys.UP){
-                    movementY = 3f;
-                    v.render(batch, movementX, movementY);
+                    movementY = 2f;
+                    v.render(batch, movementX, movementY, a.getxPos(), a.getyPos());
                 }
                 
                 if(keycode == Input.Keys.DOWN){
-                    movementY = -3f;
-                    v.render(batch, movementX, movementY);
+                    movementY = -2f;
+                    v.render(batch, movementX, movementY, a.getxPos(), a.getyPos());
                 } 
+                if(keycode == Input.Keys.W){
+                    
+                }
                 return true;
     }
 

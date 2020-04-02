@@ -24,4 +24,6 @@ public class Player extends Entity {
         // TODO: Sinnvolle Werte finden
     }
     
+    
+    
 }

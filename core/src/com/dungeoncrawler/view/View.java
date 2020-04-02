@@ -12,9 +12,11 @@ public class View {
 	Texture b;
         Texture t;
         Texture p;
+        Texture a;
         Sprite button;
         Sprite title;
         Sprite player;
+        Sprite archer;
         int frame = 0;
         int zeile = 0;
         TextureRegion[][] regions;
@@ -27,8 +29,10 @@ public class View {
                 b = new Texture("Button.png");
                 t = new Texture("Title.png");
                 p = new Texture("animplay.png");
+                a = new Texture("Archer.png");
                 button = new Sprite(b);
                 title = new Sprite(t);
+                archer = new Sprite(a);
                 
                 float w = Gdx.graphics.getWidth();
                 float h = Gdx.graphics.getHeight();
@@ -129,12 +133,13 @@ public class View {
 	}
 
         
-	public void render (SpriteBatch batch, float x, float y) {
+	public void render (SpriteBatch batch, float x, float y, int archerX, int archerY) {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
                 player.setX(player.getX()+x);
                 player.setY(player.getY()+y);
-                
+                archer.setX(archerX);
+                archer.setY(archerY);
                 if(x == 3f){
                     trechts.start();
                     if(player.isFlipX() == true){
@@ -161,6 +166,7 @@ public class View {
                 title.draw(batch);
                 button.draw(batch);
                 player.draw(batch);
+                archer.draw(batch);
                 batch.end();
 	}
         
