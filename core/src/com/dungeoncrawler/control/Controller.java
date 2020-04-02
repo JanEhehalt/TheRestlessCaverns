@@ -54,12 +54,12 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                 }
                 
                 if(keycode == Input.Keys.UP){
-                    movementY = 4f;
+                    movementY = 3f;
                     v.render(batch, movementX, movementY);
                 }
                 
                 if(keycode == Input.Keys.DOWN){
-                    movementY = -4f;
+                    movementY = -3f;
                     v.render(batch, movementX, movementY);
                 } 
                 return true;
@@ -69,10 +69,14 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
     public boolean keyUp(int keycode) {
                 if(keycode == Input.Keys.LEFT || keycode == Input.Keys.RIGHT){
                     movementX = 0f;
+                    v.trechtsstop();
+                    v.tlinksstop();
                 }
                 
                 if(keycode == Input.Keys.DOWN || keycode == Input.Keys.UP){
                     movementY = 0f;
+                    v.tobenstop();
+                    v.tuntenstop();
                 } 
                 return true;
     }
