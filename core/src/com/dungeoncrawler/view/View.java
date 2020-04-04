@@ -17,8 +17,8 @@ public class View {
         Sprite title;
         Sprite player;
         Sprite archer;
-        int frame = 0;
-        int zeile = 0;
+        int PlayerFrame = 0;
+        int PlayerZeile = 0;
         TextureRegion[][] regions;
         Timer tunten;
         Timer toben;
@@ -29,7 +29,7 @@ public class View {
                 b = new Texture("Button.png");
                 t = new Texture("Title.png");
                 p = new Texture("animplay.png");
-                a = new Texture("Archer.png");
+                a = new Texture("Archer-64.png");
                 button = new Sprite(b);
                 title = new Sprite(t);
                 archer = new Sprite(a);
@@ -53,16 +53,16 @@ public class View {
         tunten.scheduleTask(new Timer.Task() {
                     @Override
                     public void run() {
-                        zeile = 2;
+                        PlayerZeile = 2;
                         
-                        if(frame == 9){
-                            frame = 0;
+                        if(PlayerFrame == 9){
+                            PlayerFrame = 0;
                         }
                         else{
-                            frame++;
+                            PlayerFrame++;
                         }
                         
-                        player.setRegion(regions[zeile][frame]);
+                        player.setRegion(regions[PlayerZeile][PlayerFrame]);
                         
                      }
                 },0,1/5f);
@@ -71,16 +71,16 @@ public class View {
                 toben.scheduleTask(new Timer.Task() {
                     @Override
                     public void run() {
-                        zeile = 2;
+                        PlayerZeile = 2;
                         
-                        if(frame == 9){
-                            frame = 0;
+                        if(PlayerFrame == 9){
+                            PlayerFrame = 0;
                         }
                         else{
-                            frame++;
+                            PlayerFrame++;
                         }
                  
-                        player.setRegion(regions[zeile][frame]);
+                        player.setRegion(regions[PlayerZeile][PlayerFrame]);
                         
                      }
                 }, 0,1/5f);
@@ -89,21 +89,21 @@ public class View {
                 tlinks.scheduleTask(new Timer.Task() {
                     @Override
                     public void run() {
-                        zeile = 2;
+                        PlayerZeile = 2;
                         if(player.isFlipX() == true){
                         
                         }
                         else{
                             player.flip(true, false);
                         }
-                        if(frame == 9){
-                            frame = 0;
+                        if(PlayerFrame == 9){
+                            PlayerFrame = 0;
                         }
                         else{
-                            frame++;
+                            PlayerFrame++;
                         }
                         
-                        player.setRegion(regions[zeile][frame]);
+                        player.setRegion(regions[PlayerZeile][PlayerFrame]);
                         
                      }
                 }, 0,1/5f);
@@ -112,19 +112,19 @@ public class View {
                 trechts.scheduleTask(new Timer.Task() {
                     @Override
                     public void run() {
-                        zeile = 2;
+                        PlayerZeile = 2;
                         if(player.isFlipX() == true){
                             player.flip(false, false);
                         }
-                        if(frame == 9){
-                            frame = 0;
+                        if(PlayerFrame == 9){
+                            PlayerFrame = 0;
                         }
                         else{
-                            frame++;
+                            PlayerFrame++;
                         }
                         
                  
-                        player.setRegion(regions[zeile][frame]);
+                        player.setRegion(regions[PlayerZeile][PlayerFrame]);
                         
                      }
                 }, 0,1/5f);
@@ -174,20 +174,20 @@ public class View {
         
         public void tuntenstop(){
             tunten.stop();
-            frame = 0;
-            player.setRegion(regions[zeile][frame]);}
+            PlayerFrame = 0;
+            player.setRegion(regions[PlayerZeile][PlayerFrame]);}
         public void tobenstop(){    
             toben.stop();
-            frame = 0;
-            player.setRegion(regions[zeile][frame]);}
+            PlayerFrame = 0;
+            player.setRegion(regions[PlayerZeile][PlayerFrame]);}
         public void tlinksstop(){    
             tlinks.stop();
-            frame = 0;
-            player.setRegion(regions[zeile][frame]);
+            PlayerFrame = 0;
+            player.setRegion(regions[PlayerZeile][PlayerFrame]);
             player.flip(true, false);}
         public void trechtsstop(){    
             trechts.stop();
-            frame = 0;
-            player.setRegion(regions[zeile][frame]);}
+            PlayerFrame = 0;
+            player.setRegion(regions[PlayerZeile][PlayerFrame]);}
             
         }

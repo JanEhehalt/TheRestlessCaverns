@@ -1,5 +1,7 @@
 package com.dungeoncrawler.model;
-
+import com.dungeoncrawler.model.entities.Archer;
+import com.dungeoncrawler.model.entities.Player;
+import com.dungeoncrawler.model.entities.Swordsman;
 
 public abstract class Entity {
     
@@ -29,6 +31,7 @@ public abstract class Entity {
     public void move(int movementX, int movementY){
     
     }
+    
     
     
     public int getxPos() {

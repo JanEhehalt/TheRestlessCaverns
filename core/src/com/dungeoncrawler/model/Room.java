@@ -5,8 +5,6 @@
  */
 package com.dungeoncrawler.model;
 
-import com.dungeoncrawler.model.Entity;
-
 /**
  *
  * @author jonathan
@@ -14,14 +12,18 @@ import com.dungeoncrawler.model.Entity;
 public class Room {
     private ItemContainer item;
     private Entity[] enemies;
+    int lvl;
     
     public Room(ItemContainer item, Entity[] enemies){
         this.item = item;
         this.enemies = enemies;
+        
     }
     
-    public void spawnEnemies(int xPos, int yPos){
-        // TODO: Zu Implementieren
+    
+    public void spawnEnemies(int xPos, int yPos, Entity enemy){
+        enemy.setxPos(xPos);
+        enemy.setyPos(yPos);
     }
     
     public void spawnItem(int xPos, int yPos){
@@ -55,6 +57,8 @@ public class Room {
     public void setEnemies(Entity[] enemies) {
         this.enemies = enemies;
     }
+    
+    
     
     
 }
