@@ -59,4 +59,18 @@ public class DungeonGenerator {
         
         return position;
     }
+    
+    public void ichWillSpielen(){
+        Dungeon d = this.generateDungeon(200, 200, 200, new Player());
+        
+        for(int i=0;i<d.getLevel().length;i++){
+            Level temp = d.getLevel()[i];
+            System.out.println("Level " + i);
+            
+            for(int j=0;j<temp.getRooms().length;j++){
+                Room tempRoom = temp.getRooms()[j];
+                System.out.println("    Room " + j);
+            }
+        }
+    }
 }
