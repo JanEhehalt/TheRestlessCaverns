@@ -30,5 +30,11 @@ public class Level {
         this.rooms = rooms;
     }
     
+    public void setRoom(Room room, int i){
+        if(i < this.rooms.length){
+            this.rooms[i] = room;
+        }
+    }
+    
     
 }

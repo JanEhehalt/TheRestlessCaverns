@@ -42,6 +42,12 @@ public class Dungeon {
         this.level = level;
     }
     
+    public void setLevel(Level level, int i){
+        if(i < this.level.length){
+            this.level[i] = level;
+        }
+    }
+    
     /**
      * @return the player
      */

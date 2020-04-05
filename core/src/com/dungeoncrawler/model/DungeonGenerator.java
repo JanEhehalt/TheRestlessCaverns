@@ -5,6 +5,8 @@
  */
 package com.dungeoncrawler.model;
 
+import com.dungeoncrawler.model.entities.Player;
+
 /**
  *
  * @author jonathan
@@ -15,7 +17,33 @@ public class DungeonGenerator {
         
     }
     
-    public Dungeon generateDungeon(int sizeX, int sizeY, int tileSize){
+    public Dungeon generateDungeon(int sizeX, int sizeY, int tileSize, Player player){
+        
+        Dungeon tempDungeon = new Dungeon(player);
+        int levelAmount = tempDungeon.getLevel().length;
+        
+        for(int i = 0; i < levelAmount; i++){
+            tempDungeon.setLevel(generateLevel(), i);
+        }
+        
+        return tempDungeon;
+        
+    }
+    
+    private Level generateLevel(){
+        
+        int roomAmount = (int) (Math.random() * 6) + 5;
+        Level tempLevel = new Level(roomAmount);
+        
+        for(int i = 0; i < roomAmount; i++){
+            Room tempRoom = generateRoom();
+            tempLevel.setRoom(tempRoom, i);
+        }
+        
+        return tempLevel;
+    }
+    
+    private Room generateRoom(){
         
         return null;
     }
@@ -26,13 +54,6 @@ public class DungeonGenerator {
         
         int xPos = (int) (Math.random() * sizeX);
         int yPos = (int) (Math.random() * sizeY);
-        
-        if(xPos > sizeX / 2){
-            xPos -= tileSize;
-        }
-        else if(xPos < sizeX / 2){
-            
-        }
         
         return position;
     }
