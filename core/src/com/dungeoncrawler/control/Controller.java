@@ -22,8 +22,6 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
     View v;
     Player p; 
     Archer a;
-    float movementX = 0f;
-    float movementY = 0f;
     Timer t;
     
     @Override
@@ -45,7 +43,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
     
     @Override
     public void render(){
-        v.render(batch, movementX ,movementY, a.getxPos(), a.getyPos());
+        v.render(batch, p , a);
     }
     
     @Override
@@ -56,23 +54,19 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
     @Override
     public boolean keyDown(int keycode) {
                 if(keycode == Input.Keys.LEFT){
-                    movementX = -3f;
-                    v.render(batch, movementX, movementY, a.getxPos(), a.getyPos());
+                    p.setMovementX(-3);
                 }
                 
                 if(keycode == Input.Keys.RIGHT){
-                    movementX = 3f;
-                    v.render(batch, movementX, movementY, a.getxPos(), a.getyPos());
+                    p.setMovementX(3);
                 }
                 
                 if(keycode == Input.Keys.UP){
-                    movementY = 2f;
-                    v.render(batch, movementX, movementY, a.getxPos(), a.getyPos());
+                    p.setMovementY(3);
                 }
                 
                 if(keycode == Input.Keys.DOWN){
-                    movementY = -2f;
-                    v.render(batch, movementX, movementY, a.getxPos(), a.getyPos());
+                    p.setMovementY(-3);
                 } 
                 if(keycode == Input.Keys.W){
                     
@@ -83,22 +77,22 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
     @Override
     public boolean keyUp(int keycode) {
                 if(keycode == Input.Keys.LEFT){
-                    movementX = 0f;
+                    p.setMovementX(0);
                     v.tlinksstop();
                 }
                 
                 if(keycode == Input.Keys.RIGHT){
-                    movementX = 0f;
+                    p.setMovementX(0);
                     v.trechtsstop();
                 }
                 
                 if(keycode == Input.Keys.DOWN){
-                    movementY = 0f;
+                    p.setMovementY(0);
                     v.tuntenstop();
                 } 
                 
                 if(keycode == Input.Keys.UP){
-                    movementY = 0f;
+                    p.setMovementY(0);
                     v.tobenstop();
                 }
                 return true;

@@ -31,7 +31,7 @@ public abstract class Entity {
     public void die(){
     
     }
-    public void move(int movementX, int movementY){
+    public void move(){
             xPos = xPos + movementX;
             yPos = yPos + movementY;
     }
@@ -40,16 +40,20 @@ public abstract class Entity {
             
                  switch((int) (Math.random() * 5)){
                     case 0: //left
-                        move(-3 , 0);
+                        setMovementX(-3);
+                        move();
                         break;
                     case 1: //right
-                        move(3 , 0);
+                        setMovementX(3);
+                        move();
                         break;
                     case 2: //up
-                        move(0 , 3);
+                        setMovementY(3);
+                        move();
                         break;
                     case 3: //down
-                        move(0 , -3);
+                        setMovementY(-3);
+                        move();
                         break;
                  }
         }
@@ -102,6 +106,20 @@ public abstract class Entity {
     public void setLvl(int lvl) {
         this.lvl = lvl;
     }
+    
+    public int getMovementX(){
+        return movementX;
+    }
+    
+    public void setMovementX(int movementX){
+        this.movementX = movementX;
+    }
 
-
+    public int getMovementY(){
+        return movementY;
+    }
+    
+    public void setMovementY(int movementY){
+        this.movementY = movementY;
+    }
 }

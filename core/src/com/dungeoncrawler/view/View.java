@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.dungeoncrawler.model.entities.*;
 
 public class View {
 	Texture b;
@@ -133,21 +134,21 @@ public class View {
 	}
 
         
-	public void render (SpriteBatch batch, float x, float y, int archerX, int archerY) {
+	public void render (SpriteBatch batch, Player p, Archer a) {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-                player.setX(player.getX()+x);
-                player.setY(player.getY()+y);
-                archer.setX(archerX);
-                archer.setY(archerY);
+                player.setX(player.getX()+ (float) p.getMovementX());
+                player.setY(player.getY()+ (float) p.getMovementY());
+                archer.setX((float)a.getxPos());
+                archer.setY((float)a.getyPos());
                 
-                if(x == 3f){
+                if(p.getMovementX() == 3){
                     trechts.start();
                     if(player.isFlipX() == true){
                             player.flip(false, false);
                         }
                 }
-                if(x == -3f){
+                if(p.getMovementX() == -3){
                     tlinks.start();
                     if(player.isFlipX() == true){
                         
@@ -156,10 +157,10 @@ public class View {
                         player.flip(true, false);
                     }
                 }
-                if(y == 3f){
+                if(p.getMovementY() == 3){
                     toben.start();
                 }
-                if(y == -3f){
+                if(p.getMovementY() == -3){
                     tunten.start();
                 }
                 
