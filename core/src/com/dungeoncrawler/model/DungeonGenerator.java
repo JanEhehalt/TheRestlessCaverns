@@ -40,6 +40,8 @@ public class DungeonGenerator {
             tempLevel.setRoom(tempRoom, i);
         }
         
+        // TODO: Zufällig Türen setzen
+        
         return tempLevel;
     }
     
