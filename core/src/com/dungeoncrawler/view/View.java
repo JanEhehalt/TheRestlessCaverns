@@ -140,6 +140,7 @@ public class View {
                 player.setY(player.getY()+y);
                 archer.setX(archerX);
                 archer.setY(archerY);
+                
                 if(x == 3f){
                     trechts.start();
                     if(player.isFlipX() == true){

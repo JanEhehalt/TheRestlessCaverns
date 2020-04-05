@@ -14,6 +14,7 @@ import com.dungeoncrawler.view.View;
 import com.dungeoncrawler.model.Dungeon;
 import com.dungeoncrawler.model.entities.Player;
 import com.dungeoncrawler.model.entities.Archer;
+import com.badlogic.gdx.utils.Timer;
 
 public class Controller extends ApplicationAdapter implements InputProcessor{
     SpriteBatch batch;
@@ -23,7 +24,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
     Archer a;
     float movementX = 0f;
     float movementY = 0f;
-    
+    Timer t;
     
     @Override
     public void create(){
@@ -33,22 +34,18 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
         d = new Dungeon(p);
         a = new Archer(500, 200, 1);
         Gdx.input.setInputProcessor(this);
+        t = new Timer();
+        t.scheduleTask(new Timer.Task() {
+                    @Override
+                    public void run() {
+                        a.rdmMove();
+                     }
+                },0,0.1f);
     }
     
     @Override
     public void render(){
-        switch((int) (Math.random() * 5)){
-                    case 0: //left
-                        a.move(-3,0);
-                    case 1: //right     
-                        a.move(3,0);
-                    case 2: //up    
-                        a.move(0,3);
-                    case 3: //down
-                        a.move(0,-3);
-        }
         v.render(batch, movementX ,movementY, a.getxPos(), a.getyPos());
-                
     }
     
     @Override

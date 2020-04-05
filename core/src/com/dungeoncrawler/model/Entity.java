@@ -1,7 +1,5 @@
 package com.dungeoncrawler.model;
-import com.dungeoncrawler.model.entities.Archer;
-import com.dungeoncrawler.model.entities.Player;
-import com.dungeoncrawler.model.entities.Swordsman;
+
 
 public abstract class Entity {
     
@@ -11,12 +9,17 @@ public abstract class Entity {
     protected int maxhp;
     protected int dmg;
     protected int lvl;
+    protected int movementX;
+    protected int movementY;
 
     public Entity(int xPos, int yPos, int lvl){
         this.xPos = xPos;
         this.yPos = yPos;
         this.lvl = lvl;
+        this.movementX = 0;
+        this.movementY = 0;
     }
+    
     
 
     public void attack(){
@@ -33,8 +36,25 @@ public abstract class Entity {
             yPos = yPos + movementY;
     }
     
+    public void rdmMove(){
+            
+                 switch((int) (Math.random() * 5)){
+                    case 0: //left
+                        move(-3 , 0);
+                        break;
+                    case 1: //right
+                        move(3 , 0);
+                        break;
+                    case 2: //up
+                        move(0 , 3);
+                        break;
+                    case 3: //down
+                        move(0 , -3);
+                        break;
+                 }
+        }
     
-    
+            
     public int getxPos() {
         return xPos;
     }
