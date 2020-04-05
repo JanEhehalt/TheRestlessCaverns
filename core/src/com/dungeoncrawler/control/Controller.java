@@ -14,15 +14,17 @@ import com.dungeoncrawler.view.View;
 import com.dungeoncrawler.model.Dungeon;
 import com.dungeoncrawler.model.DungeonGenerator;
 import com.dungeoncrawler.model.entities.Player;
+import com.dungeoncrawler.model.entities.Archer;
+import com.badlogic.gdx.utils.Timer;
 
 public class Controller extends ApplicationAdapter implements InputProcessor{
     SpriteBatch batch;
     Dungeon d;
     DungeonGenerator dg;
     View v;
-    Player p;
-    float movementX = 0f;
-    float movementY = 0f;
+    Player p; 
+    Archer a;
+    Timer t;
     
     @Override
     public void create(){
@@ -30,14 +32,27 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
         v = new View();
         p = new Player();
         d = new Dungeon(p);
+        
         dg = new DungeonGenerator();
         dg.ichWillSpielen();
+        
+        p = new Player();
+        d = new Dungeon(p);
+        a = new Archer(500, 200, 1);
+        
         Gdx.input.setInputProcessor(this);
+        t = new Timer();
+        t.scheduleTask(new Timer.Task() {
+                    @Override
+                    public void run() {
+                        a.rdmMove();
+                     }
+                },0,0.1f);
     }
     
     @Override
     public void render(){
-        v.render(batch, movementX ,movementY);
+        v.render(batch, p , a);
     }
     
     @Override
@@ -48,36 +63,47 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
     @Override
     public boolean keyDown(int keycode) {
                 if(keycode == Input.Keys.LEFT){
-                    movementX = -3f;
-                    v.render(batch, movementX, movementY);
+                    p.setMovementX(-3);
                 }
                 
                 if(keycode == Input.Keys.RIGHT){
-                    movementX = 3f;
-                    v.render(batch, movementX, movementY);
+                    p.setMovementX(3);
                 }
                 
                 if(keycode == Input.Keys.UP){
-                    movementY = 4f;
-                    v.render(batch, movementX, movementY);
+                    p.setMovementY(3);
                 }
                 
                 if(keycode == Input.Keys.DOWN){
-                    movementY = -4f;
-                    v.render(batch, movementX, movementY);
+                    p.setMovementY(-3);
                 } 
+                if(keycode == Input.Keys.W){
+                    
+                }
                 return true;
     }
 
     @Override
     public boolean keyUp(int keycode) {
-                if(keycode == Input.Keys.LEFT || keycode == Input.Keys.RIGHT){
-                    movementX = 0f;
+                if(keycode == Input.Keys.LEFT){
+                    p.setMovementX(0);
+                    v.tlinksstop();
                 }
                 
-                if(keycode == Input.Keys.DOWN || keycode == Input.Keys.UP){
-                    movementY = 0f;
+                if(keycode == Input.Keys.RIGHT){
+                    p.setMovementX(0);
+                    v.trechtsstop();
+                }
+                
+                if(keycode == Input.Keys.DOWN){
+                    p.setMovementY(0);
+                    v.tuntenstop();
                 } 
+                
+                if(keycode == Input.Keys.UP){
+                    p.setMovementY(0);
+                    v.tobenstop();
+                }
                 return true;
     }
 

@@ -14,4 +14,8 @@ public class Archer extends Entity{
         // TODO: Sinnvolle Werte finden
     }
     
+    
+    
+    
+    
 }

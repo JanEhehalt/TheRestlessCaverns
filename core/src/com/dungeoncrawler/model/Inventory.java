@@ -4,7 +4,7 @@ package com.dungeoncrawler.model;
 public class Inventory {
     
     Item items[][];
-    
+    Item equip;
     
     Inventory(int width, int height){
         items = new Item[width][height];
@@ -23,6 +23,14 @@ public class Inventory {
             }
         }
     }
+    
+    public void equipItem(int x, int y){
+        if(equip == null){
+            equip = items[x][y];
+            dropItem(x,y);
+        }
+    }
+    
     
     public void dropItem(int x, int y){
         items[x][y] = null;
