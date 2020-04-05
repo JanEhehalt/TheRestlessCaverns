@@ -20,7 +20,7 @@ public abstract class Entity {
     
 
     public void attack(){
-    
+        
     }
     public void update(){
         
@@ -29,7 +29,8 @@ public abstract class Entity {
     
     }
     public void move(int movementX, int movementY){
-    
+            xPos = xPos + movementX;
+            yPos = yPos + movementY;
     }
     
     

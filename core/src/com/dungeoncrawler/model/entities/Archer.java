@@ -16,4 +16,6 @@ public class Archer extends Entity{
     
     
     
+    
+    
 }

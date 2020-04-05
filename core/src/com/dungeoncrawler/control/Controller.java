@@ -37,7 +37,18 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
     
     @Override
     public void render(){
+        switch((int) (Math.random() * 5)){
+                    case 0: //left
+                        a.move(-3,0);
+                    case 1: //right     
+                        a.move(3,0);
+                    case 2: //up    
+                        a.move(0,3);
+                    case 3: //down
+                        a.move(0,-3);
+        }
         v.render(batch, movementX ,movementY, a.getxPos(), a.getyPos());
+                
     }
     
     @Override

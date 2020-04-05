@@ -24,4 +24,6 @@ public class Swordsman extends Entity {
         // TODO: Sinnvolle Werte finden
     }
     
+    
+    
 }
