@@ -7,13 +7,17 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.dungeoncrawler.model.entities.*;
 
 public class View {
 	Texture b;
         Texture t;
+        Texture p;
+        Texture a;
         Sprite button;
         Sprite title;
         Sprite player;
+        Sprite archer;
         int PlayerFrame = 0;
         int PlayerZeile = 0;
         TextureRegion[][] regions;
@@ -25,9 +29,11 @@ public class View {
 	public View() {
                 b = new Texture("Button.png");
                 t = new Texture("Title.png");
+                p = new Texture("animplay.png");
+                a = new Texture("Archer-64.png");
                 button = new Sprite(b);
                 title = new Sprite(t);
-                player = new Sprite(t);
+                archer = new Sprite(a);
                 
                 float w = Gdx.graphics.getWidth();
                 float h = Gdx.graphics.getHeight();
@@ -36,6 +42,8 @@ public class View {
                 title.setY(h - 200);
                 button.setX(wc - (button.getWidth()/2));
                 button.setY(400);
+                regions = TextureRegion.split(p, 32, 32);
+                player = new Sprite(regions[0][2]);
                 player.setX(200);
                 player.setY(200);
                 tunten = new Timer();
@@ -126,19 +134,21 @@ public class View {
 	}
 
         
-	public void render (SpriteBatch batch, float x, float y) {
+	public void render (SpriteBatch batch, Player p, Archer a) {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-                player.setX(player.getX()+x);
-                player.setY(player.getY()+y);
+                player.setX(player.getX()+ (float) p.getMovementX());
+                player.setY(player.getY()+ (float) p.getMovementY());
+                archer.setX((float)a.getxPos());
+                archer.setY((float)a.getyPos());
                 
-                if(x == 3f){
+                if(p.getMovementX() == 3){
                     trechts.start();
                     if(player.isFlipX() == true){
                             player.flip(false, false);
                         }
                 }
-                if(x == -3f){
+                if(p.getMovementX() == -3){
                     tlinks.start();
                     if(player.isFlipX() == true){
                         
@@ -147,10 +157,10 @@ public class View {
                         player.flip(true, false);
                     }
                 }
-                if(y == 3f){
+                if(p.getMovementY() == 3){
                     toben.start();
                 }
-                if(y == -3f){
+                if(p.getMovementY() == -3){
                     tunten.start();
                 }
                 
@@ -158,6 +168,7 @@ public class View {
                 title.draw(batch);
                 button.draw(batch);
                 player.draw(batch);
+                archer.draw(batch);
                 batch.end();
 	}
         
