@@ -12,10 +12,10 @@ import com.dungeoncrawler.model.Entity;
  * @author jonathan
  */
 public class Room {
-    private ItemContainer item;
+    private ItemContainer[] item;
     private Entity[] enemies;
     
-    public Room(ItemContainer item, Entity[] enemies){
+    public Room(ItemContainer[] item, Entity[] enemies){
         this.item = item;
         this.enemies = enemies;
     }
@@ -31,14 +31,14 @@ public class Room {
     /**
      * @return the item
      */
-    public ItemContainer getItem() {
+    public ItemContainer[] getItem() {
         return item;
     }
 
     /**
      * @param item the item to set
      */
-    public void setItem(ItemContainer item) {
+    public void setItem(ItemContainer[] item) {
         this.item = item;
     }
 

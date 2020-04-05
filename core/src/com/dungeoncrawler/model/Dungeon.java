@@ -22,18 +22,12 @@ public class Dungeon {
         this.player = player;
         this.playerRoom = 0;
         this.playerLevel = 0;
-        
-        createLvl();
     }
     
     public void update(){
         // TODO: Implementieren
     }
     
-    private void createLvl(){
-        // TODO. Implementieren
-    }
-
     /**
      * @return the level
      */
@@ -46,6 +40,12 @@ public class Dungeon {
      */
     public void setLevel(Level[] level) {
         this.level = level;
+    }
+    
+    public void setLevel(Level level, int i){
+        if(i < this.level.length){
+            this.level[i] = level;
+        }
     }
     
     /**
