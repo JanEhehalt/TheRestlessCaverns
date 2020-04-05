@@ -11,12 +11,9 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 public class View {
 	Texture b;
         Texture t;
-        Texture p;
-        Texture a;
         Sprite button;
         Sprite title;
         Sprite player;
-        Sprite archer;
         int PlayerFrame = 0;
         int PlayerZeile = 0;
         TextureRegion[][] regions;
@@ -28,11 +25,9 @@ public class View {
 	public View() {
                 b = new Texture("Button.png");
                 t = new Texture("Title.png");
-                p = new Texture("animplay.png");
-                a = new Texture("Archer-64.png");
                 button = new Sprite(b);
                 title = new Sprite(t);
-                archer = new Sprite(a);
+                player = new Sprite(t);
                 
                 float w = Gdx.graphics.getWidth();
                 float h = Gdx.graphics.getHeight();
@@ -41,8 +36,6 @@ public class View {
                 title.setY(h - 200);
                 button.setX(wc - (button.getWidth()/2));
                 button.setY(400);
-                regions = TextureRegion.split(p, 32, 32);
-                player = new Sprite(regions[0][2]);
                 player.setX(200);
                 player.setY(200);
                 tunten = new Timer();
@@ -133,13 +126,11 @@ public class View {
 	}
 
         
-	public void render (SpriteBatch batch, float x, float y, int archerX, int archerY) {
+	public void render (SpriteBatch batch, float x, float y) {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
                 player.setX(player.getX()+x);
                 player.setY(player.getY()+y);
-                archer.setX(archerX);
-                archer.setY(archerY);
                 
                 if(x == 3f){
                     trechts.start();
@@ -167,7 +158,6 @@ public class View {
                 title.draw(batch);
                 button.draw(batch);
                 player.draw(batch);
-                archer.draw(batch);
                 batch.end();
 	}
         

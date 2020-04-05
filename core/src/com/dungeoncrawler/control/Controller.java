@@ -12,11 +12,13 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dungeoncrawler.view.View;
 import com.dungeoncrawler.model.Dungeon;
+import com.dungeoncrawler.model.DungeonGenerator;
 import com.dungeoncrawler.model.entities.Player;
 
 public class Controller extends ApplicationAdapter implements InputProcessor{
     SpriteBatch batch;
     Dungeon d;
+    DungeonGenerator dg;
     View v;
     Player p;
     float movementX = 0f;
@@ -26,8 +28,10 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
     public void create(){
         batch = new SpriteBatch();
         v = new View();
-        p = new Player(0,0,0);
+        p = new Player();
         d = new Dungeon(p);
+        dg = new DungeonGenerator();
+        dg.ichWillSpielen();
         Gdx.input.setInputProcessor(this);
     }
     
