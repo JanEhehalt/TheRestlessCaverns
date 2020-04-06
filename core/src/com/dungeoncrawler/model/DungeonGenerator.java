@@ -57,13 +57,13 @@ public class DungeonGenerator {
                     break;
             // Rechts
                 case 1:
-                    if(xPos != roomAmount){
+                    if(xPos != roomAmount - 1){
                         xPos += 1;
                     }
                     break;
             // Unten
                 case 2:
-                    if(yPos != roomAmount){
+                    if(yPos != roomAmount - 1){
                         yPos += 1;
                     }
                     break;
