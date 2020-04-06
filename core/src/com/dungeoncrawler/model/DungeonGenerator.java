@@ -37,10 +37,13 @@ public class DungeonGenerator {
         
         for(int i = 0; i < roomAmount; i++){
             Room tempRoom = generateRoom();
-            tempLevel.setRoom(tempRoom, i);
+            //tempLevel.setRoom(tempRoom, i);
         }
         
         // TODO: Zufällig Türen setzen
+        for(int i = 0; i < roomAmount; i++){
+            
+        }
         
         return tempLevel;
     }
@@ -68,7 +71,7 @@ public class DungeonGenerator {
             System.out.println("Level " + i);
             
             for(int j=0;j<temp.getRooms().length;j++){
-                Room tempRoom = temp.getRooms()[j];
+                //Room tempRoom = temp.getRooms()[j];
                 System.out.println("    Room " + j);
             }
         }
