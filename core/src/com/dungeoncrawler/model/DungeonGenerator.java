@@ -44,7 +44,7 @@ public class DungeonGenerator {
         int yPos = (int) (Math.random() * roomAmount);
         tempLevel.setRoom(generateRoom(), xPos, yPos);
         
-        for(int i = 0; i < roomAmount;){
+        for(int i = 1; i < roomAmount;){
             // Zufallszahl für die Richtung wird generiert, Oben: 0, Rechts: 1, Unten: 2, Links: 3
             int direction = (int) (Math.random() * 4);
             
@@ -91,8 +91,13 @@ public class DungeonGenerator {
     }
     
     private Room generateRoom(){
+        int itemAmount = (int) (Math.random() * 2);
+        int enemyAmount = (int) (Math.random() * 6);
         
-        return new Room(null, null);
+        Room tempRoom = new Room(new ItemContainer[itemAmount], new Entity[enemyAmount]);
+        
+        
+        return tempRoom;
     }
     
     private int[] generatePos(int sizeX, int sizeY, int tileSize){
