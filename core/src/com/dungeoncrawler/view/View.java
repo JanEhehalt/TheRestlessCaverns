@@ -25,6 +25,13 @@ public class View {
         Timer toben;
         Timer tlinks;
         Timer trechts;
+        Texture arrow;
+        Sprite Arrow;
+        Timer tArrowLeft = new Timer();
+        Timer tArrowRight = new Timer();
+        Timer tArrowUp = new Timer();
+        Timer tArrowDown = new Timer();
+        int ArrowTravel = 0;
         
 	public View() {
                 b = new Texture("Button.png");
@@ -34,7 +41,8 @@ public class View {
                 button = new Sprite(b);
                 title = new Sprite(t);
                 archer = new Sprite(a);
-                
+                arrow = new Texture("Archer.png");
+                Arrow = new Sprite(arrow);
                 float w = Gdx.graphics.getWidth();
                 float h = Gdx.graphics.getHeight();
                 float wc = w/2;
@@ -130,6 +138,54 @@ public class View {
                      }
                 }, 0,1/5f);
                 trechts.stop();
+                tArrowLeft.scheduleTask(new Timer.Task() {
+                    @Override
+                    public void run() {
+                        Arrow.setX(Arrow.getX() - 3);
+                        ArrowTravel++;
+                        if(ArrowTravel >= 300){
+                            ArrowTravel = 0;
+                            tArrowLeft.stop();
+                        }
+                    }
+                }, 0,1/50f);
+                tArrowLeft.stop();
+                tArrowRight.scheduleTask(new Timer.Task() {
+                    @Override
+                    public void run() {
+                        Arrow.setX(Arrow.getX() + 3);
+                        ArrowTravel++;
+                        if(ArrowTravel >= 300){
+                            ArrowTravel = 0;
+                            tArrowLeft.stop();
+                        }
+                    }
+                }, 0,1/40f);
+                tArrowRight.stop();
+                tArrowUp.scheduleTask(new Timer.Task() {
+                    @Override
+                    public void run() {
+                        Arrow.setY(Arrow.getY() + 3);
+                        ArrowTravel++;
+                        if(ArrowTravel >= 300){
+                            ArrowTravel = 0;
+                            tArrowLeft.stop();
+                        }
+                    }
+                }, 0,1/50f);
+                tArrowUp.stop();
+                tArrowDown.scheduleTask(new Timer.Task() {
+                    @Override
+                    public void run() {
+                        Arrow.setY(Arrow.getY() - 3);
+                        ArrowTravel++;
+                        if(ArrowTravel >= 300){
+                            ArrowTravel = 0;
+                            tArrowLeft.stop();
+                        }
+                    }
+                }, 0,1/50f);
+                tArrowDown.stop();
                 
 	}
 
@@ -169,10 +225,40 @@ public class View {
                 button.draw(batch);
                 player.draw(batch);
                 archer.draw(batch);
+                if(ArrowTravel > 0){
+                    Arrow.draw(batch);
+                }
                 batch.end();
 	}
         
-        
+        public void arrow(Archer a, int i){
+            switch(i){
+                case 0:
+                        Arrow.setX((float) a.getxPos());
+                        Arrow.setY((float) a.getyPos());
+                        tArrowDown.start();
+                    break;
+                case 1:
+                        Arrow.setX((float) a.getxPos());
+                        Arrow.setY((float) a.getyPos());
+                        tArrowUp.start();
+                    break;
+                case 2:
+                    for(int n = 0; n < 50; n++){
+                        Arrow.setX((float) a.getxPos());
+                        Arrow.setY((float) a.getyPos());
+                        tArrowLeft.start();
+                    }
+                    break;
+                case 3:
+                        Arrow.setX((float) a.getxPos());
+                        Arrow.setY((float) a.getyPos());
+                        tArrowRight.start();
+                    break;
+                } 
+            
+                
+        }
         
         public void tuntenstop(){
             tunten.stop();

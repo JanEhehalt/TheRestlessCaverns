@@ -45,9 +45,31 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
         t.scheduleTask(new Timer.Task() {
                     @Override
                     public void run() {
-                        a.rdmMove();
+                        if(p.getxPos() == a.getxPos()){
+                            if(p.getyPos() < a.getyPos()){
+                                a.attack(0); //unten
+                                v.arrow(a,0);
+                            }
+                            if(p.getyPos() > a.getyPos()){
+                                a.attack(1); //oben
+                                v.arrow(a,1);
+                            }
+                        }
+                        else if(p.getyPos() == a.getyPos()){
+                            if(p.getxPos() < a.getxPos()){
+                                a.attack(2); //links
+                                v.arrow(a,2);
+                            }
+                            if(p.getxPos() > a.getxPos()){
+                                a.attack(3); //rechts
+                                v.arrow(a,3);
+                            }
+                        }
+                        else{
+                            a.rdmMove();
+                        }
                      }
-                },0,0.1f);
+                },0,0.5f);
     }
     
     @Override
@@ -64,18 +86,22 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
     public boolean keyDown(int keycode) {
                 if(keycode == Input.Keys.LEFT){
                     p.setMovementX(-3);
+                    p.move();
                 }
                 
                 if(keycode == Input.Keys.RIGHT){
                     p.setMovementX(3);
+                    p.move();
                 }
                 
                 if(keycode == Input.Keys.UP){
                     p.setMovementY(3);
+                    p.move();
                 }
                 
                 if(keycode == Input.Keys.DOWN){
                     p.setMovementY(-3);
+                    p.move();
                 } 
                 if(keycode == Input.Keys.W){
                     
@@ -87,21 +113,25 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
     public boolean keyUp(int keycode) {
                 if(keycode == Input.Keys.LEFT){
                     p.setMovementX(0);
+                    p.move();
                     v.tlinksstop();
                 }
                 
                 if(keycode == Input.Keys.RIGHT){
                     p.setMovementX(0);
+                    p.move();
                     v.trechtsstop();
                 }
                 
                 if(keycode == Input.Keys.DOWN){
                     p.setMovementY(0);
+                    p.move();
                     v.tuntenstop();
                 } 
                 
                 if(keycode == Input.Keys.UP){
                     p.setMovementY(0);
+                    p.move();
                     v.tobenstop();
                 }
                 return true;

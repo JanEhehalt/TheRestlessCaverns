@@ -22,7 +22,11 @@ public abstract class Entity {
     
     
 
-    public void attack(){
+    public void attack(int i){
+        if(i == 0){System.out.println("UNTEN");}
+        if(i == 1){System.out.println("OBEN");}
+        if(i == 2){System.out.println("LINKS");}
+        if(i == 3){System.out.println("RECHTS");}
         
     }
     public void update(){
@@ -37,23 +41,30 @@ public abstract class Entity {
     }
     
     public void rdmMove(){
-            
                  switch((int) (Math.random() * 5)){
                     case 0: //left
-                        setMovementX(-3);
-                        move();
+                        for(int i = 0; i<=32;i++){
+                            setMovementX(-1);
+                            move();
+                        }
                         break;
                     case 1: //right
-                        setMovementX(3);
-                        move();
+                        for(int i = 0; i<=32;i++){
+                            setMovementX(1);
+                            move();
+                        }
                         break;
                     case 2: //up
-                        setMovementY(3);
-                        move();
+                        for(int i = 0; i<=32;i++){
+                            setMovementY(1);
+                            move();
+                        }
                         break;
                     case 3: //down
-                        setMovementY(-3);
-                        move();
+                        for(int i = 0; i<=32;i++){
+                            setMovementY(-1);
+                            move();
+                        }
                         break;
                  }
         }
