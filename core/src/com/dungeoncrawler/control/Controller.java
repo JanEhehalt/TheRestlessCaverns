@@ -24,50 +24,55 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
     View v;
     Player p; 
     Archer a;
-    Timer t;
+    Timer tAttack;
+    Timer coords;
     
     @Override
     public void create(){
         batch = new SpriteBatch();
-        v = new View();
-        p = new Player();
+        p = new Player(200f, 200f);
         d = new Dungeon(p);
+        v = new View();
+        p.setxPos(v.getPlayerX());
+        p.setyPos(v.getPlayerY());
         
         dg = new DungeonGenerator();
         dg.ichWillSpielen();
         
-        p = new Player();
         d = new Dungeon(p);
-        a = new Archer(500, 200, 1);
+        a = new Archer(500f, 200f, 1);
+        a.setxPos(v.getArcherX());
+        a.setyPos(v.getArcherY());
         
         Gdx.input.setInputProcessor(this);
-        t = new Timer();
-        t.scheduleTask(new Timer.Task() {
+        tAttack = new Timer();
+        tAttack.scheduleTask(new Timer.Task() {
                     @Override
                     public void run() {
                         if(p.getxPos() == a.getxPos()){
-                            if(p.getyPos() < a.getyPos()){
-                                a.attack(0); //unten
+                            if(p.getyPos() > a.getyPos()){
+                                a.attack(0); //UP
                                 if(v.getArrowTravel() == 0){
                                 v.arrow(a,0);
                                 }
                             }
-                            if(p.getyPos() > a.getyPos()){
-                                a.attack(1); //oben
-                                if(v.getArrowTravel() == 0){
-                                v.arrow(a,1);
-                                }
-                            }
-                        }
-                        else if(p.getyPos() == a.getyPos()){
-                            if(p.getxPos() < a.getxPos()){
-                                a.attack(2); //links
+                            else if(p.getyPos() < a.getyPos()){
+                                a.attack(2); //DOWN
                                 if(v.getArrowTravel() == 0){
                                 v.arrow(a,2);
                                 }
                             }
+                            
+                        }
+                        else if(p.getyPos() == a.getyPos()){
                             if(p.getxPos() > a.getxPos()){
-                                a.attack(3); //rechts
+                                a.attack(1); //RIGHT
+                                if(v.getArrowTravel() == 0){
+                                v.arrow(a,1);
+                                }
+                            }
+                            else if(p.getxPos() < a.getxPos()){
+                                a.attack(3); //LEFT
                                 if(v.getArrowTravel() == 0){
                                 v.arrow(a,3);
                                 }
@@ -78,10 +83,29 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                         }
                      }
                 },0,0.5f);
+        
+        coords = new Timer();
+                
+                coords.scheduleTask(new Timer.Task() {
+                    @Override
+                    public void run() {
+                        System.out.println("Player:");
+                        System.out.println("X:" + p.getxPos());
+                        System.out.println("Y:" + p.getyPos());
+                        System.out.println("Archer:");
+                        System.out.println("X:" + a.getxPos());
+                        System.out.println("Y:" + a.getyPos());
+                        
+                    }
+                },0,2f);
     }
     
     @Override
     public void render(){
+        p.setxPos(v.getPlayerX());
+        p.setyPos(v.getPlayerY());
+        a.setxPos(v.getArcherX());
+        a.setyPos(v.getArcherY());
         v.render(batch, p , a);
     }
     

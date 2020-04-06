@@ -13,9 +13,10 @@ import com.dungeoncrawler.model.Entity;
  */
 public class Player extends Entity {
     
-    public Player() {
-        super(200, 200, 1);
-        
+    public Player(float xPos, float yPos) {
+        super(xPos, yPos, 0);
+        this.xPos = xPos;
+        this.yPos = yPos;
         this.maxhp = 5*lvl;
         this.hp = this.maxhp;
         

@@ -61,7 +61,7 @@ public class DungeonGenerator {
     }
     
     public void ichWillSpielen(){
-        Dungeon d = this.generateDungeon(200, 200, 200, new Player());
+        Dungeon d = this.generateDungeon(200, 200, 200, new Player(200,200));
         
         for(int i=0;i<d.getLevel().length;i++){
             Level temp = d.getLevel()[i];

@@ -33,6 +33,7 @@ public class View {
         Timer tArrowDown = new Timer();
         int ArrowTravel = 0;
         
+        
 	public View() {
                 b = new Texture("Button.png");
                 t = new Texture("Title.png");
@@ -41,6 +42,8 @@ public class View {
                 button = new Sprite(b);
                 title = new Sprite(t);
                 archer = new Sprite(a);
+                archer.setX(500f);
+                archer.setY(200f);
                 arrow = new Texture("Archer.png");
                 Arrow = new Sprite(arrow);
                 float w = Gdx.graphics.getWidth();
@@ -52,12 +55,13 @@ public class View {
                 button.setY(400);
                 regions = TextureRegion.split(p, 32, 32);
                 player = new Sprite(regions[0][2]);
-                player.setX(200);
-                player.setY(200);
+                player.setX(200f);
+                player.setY(200f);
                 tunten = new Timer();
                 toben = new Timer();
                 tlinks = new Timer();
                 trechts = new Timer();
+                
                 
         tunten.scheduleTask(new Timer.Task() {
                     @Override
@@ -141,7 +145,7 @@ public class View {
                 tArrowLeft.scheduleTask(new Timer.Task() {
                     @Override
                     public void run() {
-                        Arrow.setX(Arrow.getX() - 3);
+                        Arrow.setX(Arrow.getX() - 3f);
                         ArrowTravel++;
                         if(ArrowTravel >= 100){
                             ArrowTravel = 0;
@@ -153,11 +157,11 @@ public class View {
                 tArrowRight.scheduleTask(new Timer.Task() {
                     @Override
                     public void run() {
-                        Arrow.setX(Arrow.getX() + 3);
+                        Arrow.setX(Arrow.getX() + 3f);
                         ArrowTravel++;
                         if(ArrowTravel >= 100){
                             ArrowTravel = 0;
-                            tArrowLeft.stop();
+                            tArrowRight.stop();
                         }
                     }
                 }, 0,1/40f);
@@ -165,11 +169,11 @@ public class View {
                 tArrowUp.scheduleTask(new Timer.Task() {
                     @Override
                     public void run() {
-                        Arrow.setY(Arrow.getY() + 3);
+                        Arrow.setY(Arrow.getY() + 3f);
                         ArrowTravel++;
                         if(ArrowTravel >= 100){
                             ArrowTravel = 0;
-                            tArrowLeft.stop();
+                            tArrowUp.stop();
                         }
                     }
                 }, 0,1/50f);
@@ -177,11 +181,11 @@ public class View {
                 tArrowDown.scheduleTask(new Timer.Task() {
                     @Override
                     public void run() {
-                        Arrow.setY(Arrow.getY() - 3);
+                        Arrow.setY(Arrow.getY() - 3f);
                         ArrowTravel++;
                         if(ArrowTravel >= 100){
                             ArrowTravel = 0;
-                            tArrowLeft.stop();
+                            tArrowDown.stop();
                         }
                     }
                 }, 0,1/50f);
@@ -193,10 +197,10 @@ public class View {
 	public void render (SpriteBatch batch, Player p, Archer a) {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-                player.setX(player.getX()+ (float) p.getMovementX());
-                player.setY(player.getY()+ (float) p.getMovementY());
-                archer.setX((float)a.getxPos());
-                archer.setY((float)a.getyPos());
+                player.setX(player.getX()+ p.getMovementX());
+                player.setY(player.getY()+ p.getMovementY());
+                archer.setX(a.getxPos());
+                archer.setY(a.getyPos());
                 
                 if(p.getMovementX() == 3){
                     trechts.start();
@@ -225,7 +229,7 @@ public class View {
                 button.draw(batch);
                 player.draw(batch);
                 archer.draw(batch);
-                if(ArrowTravel > 0){
+                if(ArrowTravel > 0 && ArrowTravel < 100){
                     Arrow.draw(batch);
                 }
                 batch.end();
@@ -233,27 +237,27 @@ public class View {
         
         public void arrow(Archer a, int i){
             switch(i){
-                case 0:
-                        Arrow.setX((float) a.getxPos());
-                        Arrow.setY((float) a.getyPos());
-                        tArrowDown.start();
-                    break;
-                case 1:
+                case 0: //UP
                         Arrow.setX((float) a.getxPos());
                         Arrow.setY((float) a.getyPos());
                         tArrowUp.start();
                     break;
-                case 2:
-                    for(int n = 0; n < 50; n++){
-                        Arrow.setX((float) a.getxPos());
-                        Arrow.setY((float) a.getyPos());
-                        tArrowLeft.start();
-                    }
-                    break;
-                case 3:
+                case 1: //RIGHT
                         Arrow.setX((float) a.getxPos());
                         Arrow.setY((float) a.getyPos());
                         tArrowRight.start();
+                    break;
+                case 2: //DOWN
+                    for(int n = 0; n < 50; n++){
+                        Arrow.setX((float) a.getxPos());
+                        Arrow.setY((float) a.getyPos());
+                        tArrowDown.start();
+                    }
+                    break;
+                case 3: //LEFT
+                        Arrow.setX((float) a.getxPos());
+                        Arrow.setY((float) a.getyPos());
+                        tArrowLeft.start();
                     break;
                 } 
             
@@ -280,5 +284,18 @@ public class View {
             
         public int getArrowTravel(){
             return ArrowTravel;
+        }
+        
+        public float getPlayerX(){
+            return player.getX();
+        }
+        public float getPlayerY(){
+            return player.getY();
+        }
+        public float getArcherX(){
+            return archer.getX();
+        }
+        public float getArcherY(){
+            return archer.getY();
         }
         }

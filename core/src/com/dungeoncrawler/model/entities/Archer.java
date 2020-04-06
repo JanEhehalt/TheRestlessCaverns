@@ -3,7 +3,7 @@ import com.dungeoncrawler.model.Entity;
 
 public class Archer extends Entity{
     
-    public Archer(int xPos, int yPos, int lvl) {
+    public Archer(float xPos, float yPos, int lvl) {
         super(xPos, yPos, lvl);
         
         this.maxhp = 5*lvl;
