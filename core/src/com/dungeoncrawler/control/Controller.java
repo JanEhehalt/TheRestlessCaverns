@@ -48,21 +48,29 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                         if(p.getxPos() == a.getxPos()){
                             if(p.getyPos() < a.getyPos()){
                                 a.attack(0); //unten
+                                if(v.getArrowTravel() == 0){
                                 v.arrow(a,0);
+                                }
                             }
                             if(p.getyPos() > a.getyPos()){
                                 a.attack(1); //oben
+                                if(v.getArrowTravel() == 0){
                                 v.arrow(a,1);
+                                }
                             }
                         }
                         else if(p.getyPos() == a.getyPos()){
                             if(p.getxPos() < a.getxPos()){
                                 a.attack(2); //links
+                                if(v.getArrowTravel() == 0){
                                 v.arrow(a,2);
+                                }
                             }
                             if(p.getxPos() > a.getxPos()){
                                 a.attack(3); //rechts
+                                if(v.getArrowTravel() == 0){
                                 v.arrow(a,3);
+                                }
                             }
                         }
                         else{

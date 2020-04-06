@@ -143,7 +143,7 @@ public class View {
                     public void run() {
                         Arrow.setX(Arrow.getX() - 3);
                         ArrowTravel++;
-                        if(ArrowTravel >= 300){
+                        if(ArrowTravel >= 100){
                             ArrowTravel = 0;
                             tArrowLeft.stop();
                         }
@@ -155,7 +155,7 @@ public class View {
                     public void run() {
                         Arrow.setX(Arrow.getX() + 3);
                         ArrowTravel++;
-                        if(ArrowTravel >= 300){
+                        if(ArrowTravel >= 100){
                             ArrowTravel = 0;
                             tArrowLeft.stop();
                         }
@@ -167,7 +167,7 @@ public class View {
                     public void run() {
                         Arrow.setY(Arrow.getY() + 3);
                         ArrowTravel++;
-                        if(ArrowTravel >= 300){
+                        if(ArrowTravel >= 100){
                             ArrowTravel = 0;
                             tArrowLeft.stop();
                         }
@@ -179,7 +179,7 @@ public class View {
                     public void run() {
                         Arrow.setY(Arrow.getY() - 3);
                         ArrowTravel++;
-                        if(ArrowTravel >= 300){
+                        if(ArrowTravel >= 100){
                             ArrowTravel = 0;
                             tArrowLeft.stop();
                         }
@@ -278,4 +278,7 @@ public class View {
             PlayerFrame = 0;
             player.setRegion(regions[PlayerZeile][PlayerFrame]);}
             
+        public int getArrowTravel(){
+            return ArrowTravel;
+        }
         }
