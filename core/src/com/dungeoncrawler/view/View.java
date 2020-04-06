@@ -33,19 +33,26 @@ public class View {
         Timer tArrowDown = new Timer();
         int ArrowTravel = 0;
         
+        int ArrowFrame = 0;
+        int ArrowZeile = 0;
+        TextureRegion[][] pfeil;
+        Texture animArrow;
+        Sprite Errow;
+        Timer pfeilAnim;
+        
         
 	public View() {
                 b = new Texture("Button.png");
                 t = new Texture("Title.png");
                 p = new Texture("animplay.png");
                 a = new Texture("Archer-64.png");
+                animArrow= new Texture("HorizontalArrow.png");
                 button = new Sprite(b);
                 title = new Sprite(t);
                 archer = new Sprite(a);
                 archer.setX(500f);
                 archer.setY(200f);
                 arrow = new Texture("Archer.png");
-                Arrow = new Sprite(arrow);
                 float w = Gdx.graphics.getWidth();
                 float h = Gdx.graphics.getHeight();
                 float wc = w/2;
@@ -55,14 +62,39 @@ public class View {
                 button.setY(400);
                 regions = TextureRegion.split(p, 32, 32);
                 player = new Sprite(regions[0][2]);
-                player.setX(200f);
-                player.setY(200f);
+                pfeil = TextureRegion.split(animArrow, 64, 16);
+                Errow = new Sprite(pfeil[0][0]);
+                player.setX(20f);
+                player.setY(205f);
                 tunten = new Timer();
                 toben = new Timer();
                 tlinks = new Timer();
                 trechts = new Timer();
+                pfeilAnim = new Timer();
+                Errow.setX(900);
+                Errow.setY(400);
                 
                 
+        pfeilAnim.scheduleTask(new Timer.Task() {
+                    @Override
+                    public void run() {
+                        ArrowZeile = 0;
+                        
+                        if(ArrowFrame == 3){
+                            ArrowFrame = 0;
+                        }
+                        else{
+                            ArrowFrame++;
+                        }
+                        
+                        Errow.setRegion(pfeil[ArrowZeile][ArrowFrame]);
+                        
+                        Errow.setX(Errow.getX() - 1f);
+                        
+                     }
+                },0,1/300f);        
+        pfeilAnim.start();
+        
         tunten.scheduleTask(new Timer.Task() {
                     @Override
                     public void run() {
@@ -195,7 +227,7 @@ public class View {
 
         
 	public void render (SpriteBatch batch, Player p, Archer a) {
-		Gdx.gl.glClearColor(0, 0, 0, 1);
+		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
                 player.setX(player.getX()+ p.getMovementX());
                 player.setY(player.getY()+ p.getMovementY());
@@ -229,6 +261,7 @@ public class View {
                 button.draw(batch);
                 player.draw(batch);
                 archer.draw(batch);
+                Errow.draw(batch);
                 if(ArrowTravel > 0 && ArrowTravel < 100){
                     Arrow.draw(batch);
                 }
@@ -238,25 +271,25 @@ public class View {
         public void arrow(Archer a, int i){
             switch(i){
                 case 0: //UP
-                        Arrow.setX((float) a.getxPos());
-                        Arrow.setY((float) a.getyPos());
+                        Arrow.setX(a.getxPos());
+                        Arrow.setY(a.getyPos());
                         tArrowUp.start();
                     break;
                 case 1: //RIGHT
-                        Arrow.setX((float) a.getxPos());
-                        Arrow.setY((float) a.getyPos());
+                        Arrow.setX(a.getxPos());
+                        Arrow.setY(a.getyPos());
                         tArrowRight.start();
                     break;
                 case 2: //DOWN
                     for(int n = 0; n < 50; n++){
-                        Arrow.setX((float) a.getxPos());
-                        Arrow.setY((float) a.getyPos());
+                        Arrow.setX(a.getxPos());
+                        Arrow.setY(a.getyPos());
                         tArrowDown.start();
                     }
                     break;
                 case 3: //LEFT
-                        Arrow.setX((float) a.getxPos());
-                        Arrow.setY((float) a.getyPos());
+                        Arrow.setX(a.getxPos());
+                        Arrow.setY(a.getyPos());
                         tArrowLeft.start();
                     break;
                 } 
