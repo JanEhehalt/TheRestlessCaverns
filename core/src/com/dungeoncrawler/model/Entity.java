@@ -41,19 +41,19 @@ public abstract class Entity {
                     case 0: //UP
                             setMovementY(32f);
                             move();
-                        break;
+                            break;
                     case 1: //RIGHT
                             setMovementX(32f);
                             move();
-                        break;
+                            break;
                     case 2: //DOWN
                             setMovementY(-32f);
                             move();
-                        break;
+                            break;
                     case 3: //LEFT
                             setMovementX(-32f);
                             move();
-                        break;
+                            break;
                  }
         }
     

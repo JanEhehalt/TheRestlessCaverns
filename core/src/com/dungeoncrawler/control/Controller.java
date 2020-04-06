@@ -64,7 +64,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                             }
                             
                         }
-                        else if(p.getyPos() == a.getyPos()){
+                        if(p.getyPos() == a.getyPos()){
                             if(p.getxPos() > a.getxPos()){
                                 a.attack(1); //RIGHT
                                 if(v.getArrowTravel() == 0){
@@ -102,10 +102,10 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
     
     @Override
     public void render(){
-        p.setxPos(v.getPlayerX());
-        p.setyPos(v.getPlayerY());
-        a.setxPos(v.getArcherX());
-        a.setyPos(v.getArcherY());
+        v.setPlayerX(p.getxPos());
+        v.setPlayerY(p.getyPos());
+        v.setArcherX(a.getxPos());
+        v.setArcherY(a.getyPos());
         v.render(batch, p , a);
     }
     

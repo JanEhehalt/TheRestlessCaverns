@@ -298,4 +298,18 @@ public class View {
         public float getArcherY(){
             return archer.getY();
         }
+        public void setPlayerX(float x){
+            player.setX(x);
+        }
+        public void setPlayerY(float y){
+            player.setY(y);
+        }
+        public void setArcherX(float x){
+            archer.setX(x);
+        }
+        public void setArcherY(float y){
+            archer.setY(y);
+        }
+        
+        
         }
