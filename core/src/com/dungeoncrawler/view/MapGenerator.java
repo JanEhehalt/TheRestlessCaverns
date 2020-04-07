@@ -5,10 +5,8 @@
  */
 package com.dungeoncrawler.view;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapLayers;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -52,14 +50,33 @@ public class MapGenerator {
                 Room room = l.getRooms()[x][y];
                 
                 if(room != null){
-                    TiledMap tempRoom = generateRoom(room, sizeX, sizeY);
+                    int tempX = 7;
+                    int tempY = 5;
+                    
+                    TiledMap tempRoom = generateRoom(room, tempX, tempY);
                     
                     // Wenn es Fehler gibt, dann wohl hier: Viel Spaß beim Suchen!        Danke!
                     TiledMapTileLayer temp = (TiledMapTileLayer) tempRoom.getLayers().get(2);
-                    temp.getCell(0, 3).setTile(new StaticTiledMapTile(splitTiles[0][3]));
-                    temp.getCell(4, 6).setTile(new StaticTiledMapTile(splitTiles[0][3]));
-                    temp.getCell(4, 0).setTile(new StaticTiledMapTile(splitTiles[0][3]));
-                    temp.getCell(8, 3).setTile(new StaticTiledMapTile(splitTiles[0][3]));
+                    
+                    // Ausgang oben
+                    if(y < l.getRooms()[0].length - 1 && l.getRooms()[x][y + 1] != null){
+                        temp.getCell((tempX / 2) + 1, tempY + 1).setTile(new StaticTiledMapTile(splitTiles[0][3])); //oben
+                    }
+                    
+                    // Ausgang rechts
+                        if(x > 0 && l.getRooms()[x - 1][y] != null){
+                        temp.getCell(tempX + 1, (tempY / 2) + 1).setTile(new StaticTiledMapTile(splitTiles[0][3])); //rechts
+                    }
+                    
+                    // Ausgang unten
+                    if(y > 0 && l.getRooms()[x][y - 1] != null){
+                        temp.getCell((tempX / 2) + 1, 0).setTile(new StaticTiledMapTile(splitTiles[0][3])); //unten
+                    }
+                    
+                    // Ausgang links
+                    if(x < l.getRooms().length - 1 && l.getRooms()[x + 1][y] != null){
+                        temp.getCell(0, (tempY / 2) + 1).setTile(new StaticTiledMapTile(splitTiles[0][3])); //links
+                    }
                     
                     tempLevel[x][y] = tempRoom;
                 }
@@ -70,10 +87,8 @@ public class MapGenerator {
         return tempLevel;
     }
     
-    private TiledMap generateRoom(Room r, int sizeX, int sizeY){
+    private TiledMap generateRoom(Room r, int roomDimensionX, int roomDimensionY){
         TiledMap tempRoom = new TiledMap();
-        int roomDimensionX = 7;
-        int roomDimensionY = 5;
         
         int mapDimensionX = roomDimensionX + 2;
         int mapDimensionY = roomDimensionY + 2;

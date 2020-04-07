@@ -38,11 +38,11 @@ public class DungeonGenerator {
         
         // TODO: Zufällig Türen setzen
         
-        //int xPos = roomAmount / 2;
-        //int yPos = roomAmount / 2;
+        int xPos = roomAmount / 2;
+        int yPos = roomAmount / 2;
         
-        int xPos = (int) (Math.random() * roomAmount);
-        int yPos = (int) (Math.random() * roomAmount);
+        //int xPos = (int) (Math.random() * roomAmount);
+        //int yPos = (int) (Math.random() * roomAmount);
 
         tempLevel.setRoom(generateRoom(), xPos, yPos);
         
@@ -53,8 +53,8 @@ public class DungeonGenerator {
             switch (direction) {
             // Oben
                 case 0:
-                    if(yPos != 0){
-                        yPos -= 1;
+                    if(yPos != roomAmount - 1){
+                        yPos += 1;
                     }
                     break;
             // Rechts
@@ -65,8 +65,8 @@ public class DungeonGenerator {
                     break;
             // Unten
                 case 2:
-                    if(yPos != roomAmount - 1){
-                        yPos += 1;
+                    if(yPos != 0){
+                        yPos -= 1;
                     }
                     break;
             // Links
@@ -95,12 +95,10 @@ public class DungeonGenerator {
         
         Room tempRoom = new Room(new ItemContainer[itemAmount], new Entity[enemyAmount]);
         
-        
         return tempRoom;
     }
     
     private int[] generatePos(int sizeX, int sizeY, int tileSize){
-        
         int[] position = new int[2];
         
         int xPos = (int) (Math.random() * sizeX);
@@ -117,17 +115,17 @@ public class DungeonGenerator {
             System.out.println("Level " + i);
             
             for(int j = 0; j < temp.getRooms().length; j++){
-            //System.out.print(knoten[i].gebeName() + " ");
-            for(int k = 0; k < temp.getRooms().length; k++){
-                if(temp.getRooms()[j][k] == null){
-                    System.out.print("0 ");
+                
+                for(int k = 0; k < temp.getRooms().length; k++){
+                    if(temp.getRooms()[j][k] == null){
+                        System.out.print("0 ");
+                    }
+                    else{
+                        System.out.print("1 ");
+                    }
                 }
-                else{
-                    System.out.print("1 ");
-                }
+                System.out.println();
             }
-            System.out.println();
-        }
         }
     }
 }
