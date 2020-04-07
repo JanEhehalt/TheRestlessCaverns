@@ -8,6 +8,7 @@ package com.dungeoncrawler.view;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapLayers;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -52,11 +53,17 @@ public class MapGenerator {
                 
                 if(room != null){
                     TiledMap tempRoom = generateRoom(room, sizeX, sizeY);
+                    
+                    // Wenn es Fehler gibt, dann wohl hier: Viel Spaß beim Suchen!        Danke!
+                    TiledMapTileLayer temp = (TiledMapTileLayer) tempRoom.getLayers().get(2);
+                    temp.getCell(0, 3).setTile(new StaticTiledMapTile(splitTiles[0][3]));
+                    temp.getCell(4, 6).setTile(new StaticTiledMapTile(splitTiles[0][3]));
+                    temp.getCell(4, 0).setTile(new StaticTiledMapTile(splitTiles[0][3]));
+                    temp.getCell(8, 3).setTile(new StaticTiledMapTile(splitTiles[0][3]));
+                    
                     tempLevel[x][y] = tempRoom;
                 }
-                else{
-                    tempLevel[x][y] = null;
-                }
+                
             }
         }
         
@@ -65,16 +72,29 @@ public class MapGenerator {
     
     private TiledMap generateRoom(Room r, int sizeX, int sizeY){
         TiledMap tempRoom = new TiledMap();
+        int roomDimensionX = 7;
+        int roomDimensionY = 5;
+        
+        int mapDimensionX = roomDimensionX + 2;
+        int mapDimensionY = roomDimensionY + 2;
         
         MapLayers layers = tempRoom.getLayers();
-        TiledMapTileLayer collisionLayer = new TiledMapTileLayer(7, 5, 48, 48);
-        TiledMapTileLayer dynamicLayer = new TiledMapTileLayer(7, 5, 48, 48);
-        TiledMapTileLayer staticLayer = new TiledMapTileLayer(7, 5, 48, 48);
+        TiledMapTileLayer collisionLayer = new TiledMapTileLayer(mapDimensionX, mapDimensionY, 48, 48);
+        TiledMapTileLayer dynamicLayer = new TiledMapTileLayer(mapDimensionX, mapDimensionY, 48, 48);
+        TiledMapTileLayer staticLayer = new TiledMapTileLayer(mapDimensionX, mapDimensionY, 48, 48);
         
-        for(int x = 0; x < 7; x++){
-            for(int y = 0; y < 5; y++){
+        for(int x = 0; x < mapDimensionX + 1; x++){
+            for(int y = 0; y < mapDimensionY + 1; y++){
+                
                 TiledMapTileLayer.Cell cell = new TiledMapTileLayer.Cell();
-                cell.setTile(new StaticTiledMapTile(splitTiles[0][0]));
+                
+                if(x == 0 || x == mapDimensionX - 1 || y == 0 || y == mapDimensionY - 1){
+                    cell.setTile(new StaticTiledMapTile(splitTiles[0][5]));
+                }
+                else{
+                    cell.setTile(new StaticTiledMapTile(splitTiles[0][0]));
+                }
+                
                 staticLayer.setCell(x, y, cell);
             }
         }

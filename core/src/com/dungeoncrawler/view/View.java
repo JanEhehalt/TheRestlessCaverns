@@ -68,7 +68,6 @@ public class View {
                 }
                 tmr = new OrthogonalTiledMapRenderer(test);
 
- 
 	}
 
         
@@ -94,7 +93,7 @@ public class View {
                 
                 tmr.setView(camera);
                 tmr.render();
-                camera.zoom = 1000f;
+                camera.zoom = 1500f;
                 camera.update();
                 batch.setProjectionMatrix(camera.combined);
 
