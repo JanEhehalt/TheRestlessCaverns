@@ -10,103 +10,78 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.dungeoncrawler.view.View;
+import com.dungeoncrawler.view.*;
 import com.dungeoncrawler.model.Dungeon;
 import com.dungeoncrawler.model.DungeonGenerator;
-import com.dungeoncrawler.model.entities.Player;
-import com.dungeoncrawler.model.entities.Archer;
+import com.dungeoncrawler.model.entities.*;
+import com.dungeoncrawler.model.Entity;
 import com.badlogic.gdx.utils.Timer;
 
 public class Controller extends ApplicationAdapter implements InputProcessor{
     SpriteBatch batch;
     Dungeon d;
     DungeonGenerator dg;
-    View v;
-    Player p; 
-    Archer a;
-    Timer tAttack;
-    Timer coords;
+    MainMenu v;
+    Player p;
+    Entity[] e;
+    Timer t;
+    Map m;
     
     @Override
     public void create(){
         batch = new SpriteBatch();
-        p = new Player(200f, 200f);
+        v = new MainMenu();
+        p = new Player();
         d = new Dungeon(p);
-        v = new View();
-        p.setxPos(v.getPlayerX());
-        p.setyPos(v.getPlayerY());
-        
         dg = new DungeonGenerator();
         dg.ichWillSpielen();
-        
-        d = new Dungeon(p);
-        a = new Archer(500f, 200f, 1);
-        a.setxPos(v.getArcherX());
-        a.setyPos(v.getArcherY());
-        
+        e = new Entity[5];
+        //TEST
+        Archer a = new Archer(0,0,0);
+        newEntity(a, 200, 500, 200);
+        Swordsman s = new Swordsman(0,0,0);
+        newEntity(s, 500, 200, 500);
+        //
         Gdx.input.setInputProcessor(this);
-        tAttack = new Timer();
-        tAttack.scheduleTask(new Timer.Task() {
+        t = new Timer();
+        t.scheduleTask(new Timer.Task() {
                     @Override
                     public void run() {
-                        if(p.getxPos() == a.getxPos()){
-                            if(p.getyPos() > a.getyPos()){
-                                a.attack(0); //UP
-                                if(v.getArrowTravel() == 0){
-                                v.arrow(a,0);
-                                }
+                        for(int i = 0; i< e.length; i++){
+                            if(e[i] == null){}
+                            else{
+                                e[i].rdmMove();
                             }
-                            else if(p.getyPos() < a.getyPos()){
-                                a.attack(2); //DOWN
-                                if(v.getArrowTravel() == 0){
-                                v.arrow(a,2);
-                                }
-                            }
-                            
-                        }
-                        if(p.getyPos() == a.getyPos()){
-                            if(p.getxPos() > a.getxPos()){
-                                a.attack(1); //RIGHT
-                                if(v.getArrowTravel() == 0){
-                                v.arrow(a,1);
-                                }
-                            }
-                            else if(p.getxPos() < a.getxPos()){
-                                a.attack(3); //LEFT
-                                if(v.getArrowTravel() == 0){
-                                v.arrow(a,3);
-                                }
-                            }
-                        }
-                        else{
-                            a.rdmMove();
                         }
                      }
-                },0,0.5f);
-        
-        coords = new Timer();
-                
-                coords.scheduleTask(new Timer.Task() {
-                    @Override
-                    public void run() {
-                        System.out.println("Player:");
-                        System.out.println("X:" + p.getxPos());
-                        System.out.println("Y:" + p.getyPos());
-                        System.out.println("Archer:");
-                        System.out.println("X:" + a.getxPos());
-                        System.out.println("Y:" + a.getyPos());
-                        
+                },0,0.1f);
+    }
+    
+    public void newEntity(Entity ent, int x, int y, int lvl){
+        for(int i = 0; i < e.length ; i++){
+                if(e[i] == null){
+                    switch(ent.getId()){
+                        case 0:
+                        e[i] = new Archer(x,y,lvl);
+                        v.newEntity(i,ent,x,y);
+                        i = 10;
+                        break;
+                        case 1:    
+                        e[i] = new Swordsman(x,y,lvl);
+                        v.newEntity(i,ent,x,y);
+                        i = 10;
+                        break;
                     }
-                },0,2f);
+                    
+                }
+            }
     }
     
     @Override
     public void render(){
-        v.setPlayerX(p.getxPos());
-        v.setPlayerY(p.getyPos());
-        v.setArcherX(a.getxPos());
-        v.setArcherY(a.getyPos());
-        v.render(batch, p , a);
+        if(v != null){
+        v.render(batch, p , e);
+        }
     }
     
     @Override
@@ -117,26 +92,50 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
     @Override
     public boolean keyDown(int keycode) {
                 if(keycode == Input.Keys.LEFT){
-                    p.setMovementX(-3);
-                    p.move();
+                    if(v != null){
+                    v.moveCursor(3);
+                    }
+                    if(m != null){
+                    p.setMovementX(-5);
+                    }
                 }
                 
                 if(keycode == Input.Keys.RIGHT){
-                    p.setMovementX(3);
-                    p.move();
-                }
-                
-                if(keycode == Input.Keys.UP){
-                    p.setMovementY(3);
-                    p.move();
+                    if(v != null){
+                    v.moveCursor(1);
+                    }
+                    if(m != null){
+                    p.setMovementX(5);
+                    }
                 }
                 
                 if(keycode == Input.Keys.DOWN){
-                    p.setMovementY(-3);
-                    p.move();
+                    if(v != null){
+                    v.moveCursor(2);
+                    }
+                    if(m != null){
+                    p.setMovementY(-5);
+                    }
                 } 
-                if(keycode == Input.Keys.W){
-                    
+                
+                if(keycode == Input.Keys.UP){
+                    if(v != null){
+                    v.moveCursor(0);
+                    }
+                    if(m != null){
+                    p.setMovementY(5);
+                    }
+                } 
+                
+                if(keycode == Input.Keys.ENTER){
+                    if(v != null){
+                    if(v.click() == -1){}
+                    else if(v.click() == 0){
+                        v = null;
+                        m = new Map();
+                        System.out.println("NICE");
+                    }
+                    }
                 }
                 return true;
     }
@@ -144,28 +143,40 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
     @Override
     public boolean keyUp(int keycode) {
                 if(keycode == Input.Keys.LEFT){
+                    if(v != null){
+                    v.stopCursor(3);
+                    }
+                    if(m != null){
                     p.setMovementX(0);
-                    p.move();
-                    v.tlinksstop();
+                    }
                 }
                 
                 if(keycode == Input.Keys.RIGHT){
+                    if(v != null){
+                    v.stopCursor(1);
+                    }
+                    if(m != null){
                     p.setMovementX(0);
-                    p.move();
-                    v.trechtsstop();
+                    }
                 }
                 
                 if(keycode == Input.Keys.DOWN){
+                    if(v != null){
+                    v.stopCursor(2);
+                    }
+                    if(m != null){
                     p.setMovementY(0);
-                    p.move();
-                    v.tuntenstop();
+                    }
                 } 
                 
                 if(keycode == Input.Keys.UP){
+                    if(v != null){
+                    v.stopCursor(0);
+                    }
+                    if(m != null){
                     p.setMovementY(0);
-                    p.move();
-                    v.tobenstop();
-                }
+                    }
+                } 
                 return true;
     }
 
@@ -175,9 +186,11 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
     }
 
     @Override
-    public boolean touchDown(int i, int i1, int i2, int i3) {
-        return false;
-    }
+  public boolean touchDown(int screenX, int screenY, int pointer, int button)
+  {
+      
+      return false;
+  }
 
     @Override
     public boolean touchUp(int i, int i1, int i2, int i3) {

@@ -3,19 +3,15 @@ import com.dungeoncrawler.model.Entity;
 
 public class Archer extends Entity{
     
-    public Archer(float xPos, float yPos, int lvl) {
+    public Archer(int xPos, int yPos, int lvl) {
         super(xPos, yPos, lvl);
         
         this.maxhp = 5*lvl;
         this.hp = this.maxhp;
         
         this.dmg = 3*lvl;
-        
+        this.id = 0;
         // TODO: Sinnvolle Werte finden
     }
-    
-    
-    
-    
     
 }

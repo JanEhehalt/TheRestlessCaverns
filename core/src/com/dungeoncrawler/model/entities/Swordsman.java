@@ -1,16 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.dungeoncrawler.model.entities;
-
 import com.dungeoncrawler.model.Entity;
 
-/**
- *
- * @author Jan
- */
 public class Swordsman extends Entity {
     
     public Swordsman(int xPos, int yPos, int lvl) {
@@ -20,10 +10,8 @@ public class Swordsman extends Entity {
         this.hp = this.maxhp;
         
         this.dmg = 3*lvl;
-        
+        this.id = 1;
         // TODO: Sinnvolle Werte finden
     }
-    
-    
     
 }

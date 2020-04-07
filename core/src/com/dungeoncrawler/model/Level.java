@@ -10,31 +10,40 @@ package com.dungeoncrawler.model;
  * @author jonathan
  */
 public class Level {
-    private Room[] rooms;
+    private Room[][] rooms;
+    private int[] exit;
     
     public Level(int amount){
-        this.rooms = new Room[amount];
+        this.rooms = new Room[amount][amount];
+        exit = new int[2];
     }
 
     /**
      * @return the rooms
      */
-    public Room[] getRooms() {
+    public Room[][] getRooms() {
         return rooms;
     }
 
     /**
      * @param rooms the rooms to set
      */
-    public void setRooms(Room[] rooms) {
+    public void setRooms(Room[][] rooms) {
         this.rooms = rooms;
     }
     
-    public void setRoom(Room room, int i){
-        if(i < this.rooms.length){
-            this.rooms[i] = room;
+    public void setRoom(Room room, int x, int y){
+        if(x < this.rooms.length){
+            this.rooms[x][y] = room;
         }
     }
     
+    public int[] getExit(){
+        return exit;
+    }
+    
+    public void setExit(int number, int i){
+        exit[i] = number;
+    }
     
 }

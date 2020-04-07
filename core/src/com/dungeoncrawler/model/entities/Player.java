@@ -13,15 +13,14 @@ import com.dungeoncrawler.model.Entity;
  */
 public class Player extends Entity {
     
-    public Player(float xPos, float yPos) {
-        super(xPos, yPos, 0);
-        this.xPos = xPos;
-        this.yPos = yPos;
+    public Player() {
+        super(0, 0, 1);
+        
         this.maxhp = 5*lvl;
         this.hp = this.maxhp;
         
         this.dmg = 3*lvl;
-        
+        id = -1;
         // TODO: Sinnvolle Werte finden
     }
     
