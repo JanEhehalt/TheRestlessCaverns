@@ -36,12 +36,6 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
         dg = new DungeonGenerator();
         dg.ichWillSpielen();
         e = new Entity[5];
-        //TEST
-        Archer a = new Archer(0,0,0);
-        newEntity(a, 200, 500, 200);
-        Swordsman s = new Swordsman(0,0,0);
-        newEntity(s, 500, 200, 500);
-        //
         Gdx.input.setInputProcessor(this);
         t = new Timer();
         t.scheduleTask(new Timer.Task() {
