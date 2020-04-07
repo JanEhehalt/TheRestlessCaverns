@@ -2,11 +2,17 @@ package com.dungeoncrawler.view;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
+import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.dungeoncrawler.model.Dungeon;
+import com.dungeoncrawler.model.DungeonGenerator;
 import com.dungeoncrawler.model.entities.*;
 
 public class View {
@@ -25,6 +31,12 @@ public class View {
         Timer toben;
         Timer tlinks;
         Timer trechts;
+        
+        Map tm;
+        TiledMapRenderer tmr;
+        TiledMap test;
+        OrthographicCamera camera;
+        Dungeon d;
         
 	public View() {
                 b = new Texture("Button.png");
@@ -50,6 +62,23 @@ public class View {
                 toben = new Timer();
                 tlinks = new Timer();
                 trechts = new Timer();
+                
+                tm = new Map();
+                camera = new OrthographicCamera(1, h/w);
+                d = new DungeonGenerator().generateDungeon(10, 10, 48, new Player());
+                MapGenerator mg = new MapGenerator(new Texture(Gdx.files.internal("tiles.gif")));
+                TiledMap[][][] maps = mg.generateMap(7, d);
+                tm.setMaps(maps);
+                
+                for(int i=0;i<tm.getMaps()[0].length;i++){
+                    for(int j=0;j<tm.getMaps()[0][0].length;j++){
+                        if(tm.getMaps()[0][i][j] != null){
+                            test = tm.getMaps()[0][i][j];
+                        }
+                    }
+                }
+                tmr = new OrthogonalTiledMapRenderer(test);
+
                 
         tunten.scheduleTask(new Timer.Task() {
                     @Override
@@ -163,6 +192,13 @@ public class View {
                 if(p.getMovementY() == -3){
                     tunten.start();
                 }
+                
+                tmr.setView(camera);
+                tmr.render();
+                camera.zoom = 1000f;
+                camera.update();
+                batch.setProjectionMatrix(camera.combined);
+
                 
                 batch.begin();
                 title.draw(batch);

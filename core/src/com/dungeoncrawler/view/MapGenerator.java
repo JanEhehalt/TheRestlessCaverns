@@ -24,8 +24,8 @@ public class MapGenerator {
     Texture tiles;
     TextureRegion[][] splitTiles;
     
-    public MapGenerator(String tiles){
-        this.tiles = new Texture(Gdx.files.internal(tiles));
+    public MapGenerator(Texture tiles){
+        this.tiles = tiles;
         splitTiles = TextureRegion.split(this.tiles, 48, 48);
     }
     
@@ -41,25 +41,47 @@ public class MapGenerator {
     }
     
     private TiledMap[][] generateLevel(int i, Level l){
-        int width = l.getRooms().length;
-        int height = l.getRooms()[0].length;
+        int sizeX = l.getRooms().length;
+        int sizeY = l.getRooms()[0].length;
         
-        TiledMap[][] tempLevel = new TiledMap[width][height];
+        TiledMap[][] tempLevel = new TiledMap[sizeX][sizeY];
         
-        for(int x = 0; x < width; x++){
-            for(int y = 0; y < height; y++){
+        for(int x = 0; x < sizeX; x++){
+            for(int y = 0; y < sizeY; y++){
                 Room room = l.getRooms()[x][y];
                 
-                TiledMap tempRoom = generateRoom(room);
-                tempLevel[x][y] = tempRoom;
+                if(room != null){
+                    TiledMap tempRoom = generateRoom(room, sizeX, sizeY);
+                    tempLevel[x][y] = tempRoom;
+                }
+                else{
+                    tempLevel[x][y] = null;
+                }
             }
         }
         
         return tempLevel;
     }
     
-    private TiledMap generateRoom(Room r){
+    private TiledMap generateRoom(Room r, int sizeX, int sizeY){
         TiledMap tempRoom = new TiledMap();
+        
+        MapLayers layers = tempRoom.getLayers();
+        TiledMapTileLayer collisionLayer = new TiledMapTileLayer(7, 5, 48, 48);
+        TiledMapTileLayer dynamicLayer = new TiledMapTileLayer(7, 5, 48, 48);
+        TiledMapTileLayer staticLayer = new TiledMapTileLayer(7, 5, 48, 48);
+        
+        for(int x = 0; x < 7; x++){
+            for(int y = 0; y < 5; y++){
+                TiledMapTileLayer.Cell cell = new TiledMapTileLayer.Cell();
+                cell.setTile(new StaticTiledMapTile(splitTiles[0][0]));
+                staticLayer.setCell(x, y, cell);
+            }
+        }
+        
+        layers.add(collisionLayer);
+        layers.add(dynamicLayer);
+        layers.add(staticLayer);
         
         return tempRoom;
     }
