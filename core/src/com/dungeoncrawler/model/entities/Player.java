@@ -20,7 +20,7 @@ public class Player extends Entity {
         this.hp = this.maxhp;
         
         this.dmg = 3*lvl;
-        
+        id = -1;
         // TODO: Sinnvolle Werte finden
     }
     

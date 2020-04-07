@@ -37,11 +37,13 @@ public class DungeonGenerator {
         System.out.println(roomAmount);
         
         // TODO: Zufällig Türen setzen
+        
         //int xPos = roomAmount / 2;
         //int yPos = roomAmount / 2;
         
         int xPos = (int) (Math.random() * roomAmount);
         int yPos = (int) (Math.random() * roomAmount);
+
         tempLevel.setRoom(generateRoom(), xPos, yPos);
         
         for(int i = 1; i < roomAmount;){

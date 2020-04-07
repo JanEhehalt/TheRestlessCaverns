@@ -11,6 +11,7 @@ public abstract class Entity {
     protected int lvl;
     protected int movementX;
     protected int movementY;
+    protected int id;
 
     public Entity(int xPos, int yPos, int lvl){
         this.xPos = xPos;
@@ -121,5 +122,9 @@ public abstract class Entity {
     
     public void setMovementY(int movementY){
         this.movementY = movementY;
+    }
+    
+    public int getId(){
+        return this.id;
     }
 }

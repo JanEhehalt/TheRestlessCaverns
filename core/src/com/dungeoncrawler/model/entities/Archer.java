@@ -10,12 +10,8 @@ public class Archer extends Entity{
         this.hp = this.maxhp;
         
         this.dmg = 3*lvl;
-        
+        this.id = 0;
         // TODO: Sinnvolle Werte finden
     }
-    
-    
-    
-    
     
 }
