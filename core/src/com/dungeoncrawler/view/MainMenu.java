@@ -45,9 +45,8 @@ public class MainMenu{
                 title.setY(h - 200);
                 button.setX(wc - (button.getWidth()/2));
                 button.setY(400);
+                
                 //ENTITIES
-                entityTextures = new Texture[5];
-                entitySprites = new Sprite[5];
                 
                 //CURSOR
                 c = new Texture("cursor.png");
@@ -58,13 +57,6 @@ public class MainMenu{
                 CursorMoveY = 0f;
                 
                 //PLAYER
-                /*
-                p = new Texture("player.png");
-                regions = TextureRegion.split(p, 64, 64);
-                player = new Sprite(regions[0][0]);
-                player.setX(200);
-                player.setY(200);
-                */
 	}
 
         
@@ -73,50 +65,15 @@ public class MainMenu{
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
                 cursor.setX(cursor.getX()+ CursorMoveX);
                 cursor.setY(cursor.getY()+ CursorMoveY);
-                                                            /*
-                                                            player.setX(player.getX()+ (float) p.getMovementX());
-                                                            player.setY(player.getY()+ (float) p.getMovementY());
-
-                                                            if(p.getMovementX() == 5){
-                                                                player.setRegion(regions[0][1]);
-                                                            }
-                                                            if(p.getMovementX() == -5){
-                                                                player.setRegion(regions[0][3]);
-                                                            }
-                                                            if(p.getMovementY() == 5){
-                                                                player.setRegion(regions[0][0]);
-                                                            }
-                                                            if(p.getMovementY() == -5){
-                                                                player.setRegion(regions[0][2]);
-                                                            }
-                                                            */
+                
                 batch.begin();
                 title.draw(batch);
                 button.draw(batch);
                 cursor.draw(batch);
-                if(entitySprites[0] != null){
-                    entitySprites[0].draw(batch);
-                }
-                if(entitySprites[1] != null){
-                    entitySprites[1].draw(batch);
-                }
                 batch.end();
 	}
 
-        public void newEntity(int i,Entity e, int x, int y){
-                    if(e.getId() == 0){
-                        entityTextures[i] = new Texture("archer.png");
-                        entitySprites[i] = new Sprite(entityTextures[i]);
-                        entitySprites[i].setX(x);
-                        entitySprites[i].setY(y);
-                    }
-                    else if(e.getId() == 1){
-                        entityTextures[i] = new Texture("Swordsman.png");
-                        entitySprites[i] = new Sprite(entityTextures[i]);
-                        entitySprites[i].setX(x);
-                        entitySprites[i].setY(y);
-                    }
-        }
+        
             
         
         
@@ -153,6 +110,7 @@ public class MainMenu{
             }
             else{return -1;}
         }
+        
         
         
        

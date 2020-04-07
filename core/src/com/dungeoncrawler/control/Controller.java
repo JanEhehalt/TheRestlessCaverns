@@ -9,6 +9,7 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dungeoncrawler.view.*;
 import com.dungeoncrawler.model.Dungeon;
@@ -25,10 +26,13 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
     Player p;
     Entity[] e;
     Timer t;
-    Map m;
+    View m;
+    Archer a;
     
     @Override
     public void create(){
+        a = new Archer(200,200,200);
+        
         batch = new SpriteBatch();
         v = new MainMenu();
         p = new Player();
@@ -57,12 +61,12 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                     switch(ent.getId()){
                         case 0:
                         e[i] = new Archer(x,y,lvl);
-                        v.newEntity(i,ent,x,y);
+                        m.newEntity(i,ent,x,y);
                         i = 10;
                         break;
                         case 1:    
                         e[i] = new Swordsman(x,y,lvl);
-                        v.newEntity(i,ent,x,y);
+                        m.newEntity(i,ent,x,y);
                         i = 10;
                         break;
                     }
@@ -75,6 +79,9 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
     public void render(){
         if(v != null){
         v.render(batch, p , e);
+        }
+        if(v == null){
+        m.render(batch, p, a);
         }
     }
     
@@ -90,7 +97,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                     v.moveCursor(3);
                     }
                     if(m != null){
-                    p.setMovementX(-5);
+                    p.setMovementX(-3);
                     }
                 }
                 
@@ -99,7 +106,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                     v.moveCursor(1);
                     }
                     if(m != null){
-                    p.setMovementX(5);
+                    p.setMovementX(3);
                     }
                 }
                 
@@ -108,7 +115,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                     v.moveCursor(2);
                     }
                     if(m != null){
-                    p.setMovementY(-5);
+                    p.setMovementY(-3);
                     }
                 } 
                 
@@ -117,7 +124,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                     v.moveCursor(0);
                     }
                     if(m != null){
-                    p.setMovementY(5);
+                    p.setMovementY(3);
                     }
                 } 
                 
@@ -126,7 +133,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                     if(v.click() == -1){}
                     else if(v.click() == 0){
                         v = null;
-                        m = new Map();
+                        m = new View();
                         System.out.println("NICE");
                     }
                     }
@@ -171,6 +178,14 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                     p.setMovementY(0);
                     }
                 } 
+                
+                if(keycode == Input.Keys.ENTER){
+                    if(v != null){
+                    }
+                    if(m != null){
+                        
+                    }
+                }
                 return true;
     }
 
