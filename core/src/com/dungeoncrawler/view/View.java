@@ -26,6 +26,8 @@ public class View {
         //ENTITIES
         Texture[] entityTextures;
         Sprite[] entitySprites;
+        TextureRegion[][] archerRegions;
+        Texture archerTexture;
         
         //MAP
         Map tm;
@@ -49,6 +51,9 @@ public class View {
                 //ENTITIES
                 entityTextures = new Texture[5];
                 entitySprites = new Sprite[5];
+                archerTexture = new Texture("archer.png");
+                archerRegions = TextureRegion.split(archerTexture, 64, 64);
+                
                 
                 
                 //MAP
@@ -72,9 +77,11 @@ public class View {
 	}
 
         
-	public void render (SpriteBatch batch, Player p, Archer a) {
+	public void render (SpriteBatch batch, Player p, Entity[] e) {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+                
+                //PLAYER
                 player.setX(player.getX()+ p.getMovementX());
                 player.setY(player.getY()+ p.getMovementY());
                 
@@ -92,6 +99,7 @@ public class View {
                     player.setRegion(regions[0][2]);
                 }
                 
+                //MAP
                 tmr.setView(camera);
                 tmr.render();
                 camera.zoom = 1000f;
@@ -99,22 +107,35 @@ public class View {
                 batch.setProjectionMatrix(camera.combined);
 
                 
+                
+
+                //BATCH
                 batch.begin();
                 player.draw(batch);
-                if(entitySprites[0] != null){
-                    entitySprites[0].draw(batch);
-                }
-                if(entitySprites[1] != null){
-                    entitySprites[1].draw(batch);
-                }
-                if(entitySprites[2] != null){
-                    entitySprites[2].draw(batch);
-                }
-                if(entitySprites[3] != null){
-                    entitySprites[3].draw(batch);
-                }
-                if(entitySprites[4] != null){
-                    entitySprites[4].draw(batch);
+                for(int i = 0; i < e.length; i++){
+                
+                if(entitySprites[i] != null){
+                    entitySprites[i].setX(e[i].getxPos());
+                    entitySprites[i].setY(e[i].getyPos());
+                    switch(e[i].direction()){
+                        case -1:
+                            break;
+                        case 0:
+                            entitySprites[i].setRegion(archerRegions[0][0]);
+                            break;
+                        case 1:
+                            entitySprites[i].setRegion(archerRegions[0][1]);
+                            break;
+                        case 2:
+                            entitySprites[i].setRegion(archerRegions[0][2]);
+                            break;
+                        case 3:
+                            entitySprites[i].setRegion(archerRegions[0][3]);
+                            break;
+                    
+                        }
+                        entitySprites[i].draw(batch);
+                    }
                 }
                 batch.end();
 	}
@@ -123,7 +144,7 @@ public class View {
         public void newEntity(int i,Entity e, int x, int y){
                     if(e.getId() == 0){
                         entityTextures[i] = new Texture("archer.png");
-                        entitySprites[i] = new Sprite(entityTextures[i]);
+                        entitySprites[i] = new Sprite(archerRegions[0][2]);
                         entitySprites[i].setX(x);
                         entitySprites[i].setY(y);
                     }

@@ -59,6 +59,22 @@ public abstract class Entity {
                  }
         }
     
+    public int direction(){
+        if(movementX == -3){
+            return 3;
+        }
+        if(movementX == 3){
+            return 1;
+        }
+        if(movementY == 3){
+            return 0;
+        }
+        if(movementY == -3){
+            return 2;
+        }
+        return -1;
+    }
+    
             
     public int getxPos() {
         return xPos;

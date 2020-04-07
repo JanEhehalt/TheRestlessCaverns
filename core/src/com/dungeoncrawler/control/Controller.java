@@ -31,17 +31,18 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
     
     @Override
     public void create(){
-        a = new Archer(200,200,200);
         
+        e = new Entity[5];
         batch = new SpriteBatch();
         v = new MainMenu();
         p = new Player();
         d = new Dungeon(p);
         dg = new DungeonGenerator();
         dg.ichWillSpielen();
-        e = new Entity[5];
         Gdx.input.setInputProcessor(this);
         t = new Timer();
+        a = new Archer(0,0,0);
+        
         t.scheduleTask(new Timer.Task() {
                     @Override
                     public void run() {
@@ -55,41 +56,51 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                 },0,0.1f);
     }
     
-    public void newEntity(Entity ent, int x, int y, int lvl){
-        for(int i = 0; i < e.length ; i++){
-                if(e[i] == null){
-                    switch(ent.getId()){
-                        case 0:
-                        e[i] = new Archer(x,y,lvl);
-                        m.newEntity(i,ent,x,y);
-                        i = 10;
-                        break;
-                        case 1:    
-                        e[i] = new Swordsman(x,y,lvl);
-                        m.newEntity(i,ent,x,y);
-                        i = 10;
-                        break;
-                    }
-                    
-                }
-            }
-    }
     
     @Override
     public void render(){
+        //PASSIERT IN MAINMENU
         if(v != null){
         v.render(batch, p , e);
         }
-        if(v == null){
-        m.render(batch, p, a);
+        //PASSIERT IN GAMESCREEN (view)
+        if(m != null){
+        //ENTITIES
+            
+            
+        
+        //RENDER
+            m.render(batch, p, e);
+        
         }
     }
+    
     
     @Override
 	public void dispose () {
             batch.dispose();
 	}
         
+    public void newEntity(Entity ent, int x, int y, int lvl){
+        for(int i = 0; i < e.length ; i++){
+                if(e[i] == null){
+                    switch(ent.getId()){
+                        case 0:
+                            e[i] = new Archer(x,y,lvl);
+                            m.newEntity(i,ent,x,y);
+                            i = 10;
+                            break;
+                        case 1:    
+                            e[i] = new Swordsman(x,y,lvl);
+                            m.newEntity(i,ent,x,y);
+                            i = 10;
+                            break;
+                    }
+                    
+                }
+            }
+    }    
+    
     @Override
     public boolean keyDown(int keycode) {
                 if(keycode == Input.Keys.LEFT){
@@ -134,6 +145,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                     else if(v.click() == 0){
                         v = null;
                         m = new View();
+                        newEntity(a, 200, 200, 200);
                         System.out.println("NICE");
                     }
                     }
