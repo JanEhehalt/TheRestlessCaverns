@@ -73,9 +73,6 @@ public class DungeonGenerator {
                         xPos -= 1;
                     }
                     break;
-                default:
-                    System.out.println("Die Random Methode ist kacke!!!!!!!!!!!!!!!!!!");
-                    break;
             }
             
             // An der neuen Stelle vom Cursor gibt es noch keinen Raum
