@@ -42,22 +42,21 @@ public abstract class Entity {
     public void rdmMove(float xPlayer, float yPlayer){
             if(xPlayer == xPos){
                 if(yPlayer == yPos){}
-                else if(yPlayer > yPos){movementY = 1f;}
-                else if(yPlayer < yPos){movementY = -1f;}
+                else if(yPlayer > yPos){movementY = -1f;}
+                else if(yPlayer < yPos){movementY = 1f;}
             }
             else if(yPlayer == yPos){
                 if(xPlayer == xPos){}
-                else if(xPlayer > xPos){movementX = -1f;}
-                else if(xPlayer < xPos){movementX = 1f;}
+                else if(xPlayer > xPos){movementX = 1f;}
+                else if(xPlayer < xPos){movementX = -1f;}
             }
-        /////
             else if(xPlayer > xPos){
                 if(yPlayer > yPos){     //archer ist im Quadrant III
                     if((yPos - yPlayer) > (xPos - xPlayer)){ 
-                        movementX = 1f;
+                        movementY = 1f;
                     }
                     else{
-                        movementY = 1f;
+                        movementX = 1f;
                     }
                 }
                 else if(yPlayer < yPos){ //archer ist im Quadrant IV
@@ -80,10 +79,10 @@ public abstract class Entity {
                 }
                 else if(yPlayer > yPos){ //archer ist im Quadrant I
                     if((yPlayer - yPos) > (xPos - xPlayer)){
-                        movementX = -1;
+                        movementY = -1;
                     }
                     else{
-                        movementY = -1;
+                        movementX = -1;
                     }
                 }
             }
@@ -114,16 +113,16 @@ public abstract class Entity {
         }
     
     public int direction(){
-        if(movementX < 0){
+        if(movementX < 0f){
             return 3;
         }
-        else if(movementX < 3){
+        else if(movementX < 3f){
             return 1;
         }
-        else if(movementY > 3){
+        else if(movementY > 3f){
             return 0;
         }
-        else if(movementY < -3){
+        else if(movementY < -3f){
             return 2;
         }
         return -1;
