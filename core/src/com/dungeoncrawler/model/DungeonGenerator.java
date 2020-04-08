@@ -107,14 +107,13 @@ public class DungeonGenerator {
         return position;
     }
     
-    public void ichWillSpielen(){
-        Dungeon d = this.generateDungeon(200, 200, 200, new Player());
+    public void ichWillSpielen(Dungeon d){
         
         for(int i=0;i<d.getLevel().length;i++){
             Level temp = d.getLevel()[i];
             System.out.println("Level " + i);
             
-            for(int j = temp.getRooms().length - 1; j >=0; j--){
+            for(int j = 0; j < temp.getRooms().length; j++){
                 
                 for(int k = temp.getRooms().length - 1; k >= 0; k--){
                     if(temp.getRooms()[j][k] == null){

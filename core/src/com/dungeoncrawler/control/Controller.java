@@ -35,7 +35,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
         v = new MainMenu();
         dg = new DungeonGenerator();
         d = dg.generateDungeon(0, 0, 0, new Player());
-        dg.ichWillSpielen();
+        dg.ichWillSpielen(d);
         e = new Entity[5];
         Gdx.input.setInputProcessor(this);
         t = new Timer();
@@ -90,7 +90,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
             int roomLengthY = d.getLevel()[0].getRooms()[0].length;
             int roomAmount = d.getLevel()[0].getRooms().length;
             
-            int startRoom = (int) (Math.random() * roomAmount);
+            int startRoom = (int) (0.5 * roomAmount);//(int) (Math.random() * roomAmount);
             
             int[] posRoom = new int[2];
             int level = 0;
@@ -98,15 +98,17 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
             int k = 0;
             for(int i = 0; i < roomLengthX; i++){
                 for(int j = 0; j < roomLengthY; j++){
-                    
-                    if(d.getLevel()[0].getRooms()[i][j] != null){
-                        k++;
-                            
-                        if(k == startRoom){
+                    if(d.getLevel()[level].getRooms()[i][j] != null){
+                          
+                        if(true){
                             // Startraum wurde ausgewählt
                             posRoom[0] = i;
                             posRoom[1] = j;
+                            System.out.println(i + " " + j);
+                            break;
                         }
+                        
+                        k++;
                     }
                     
                 }
@@ -165,7 +167,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                     if(v.click() == -1){}
                     else if(v.click() == 0){
                         v = null;
-                        m = new View();
+                        m = new View(d);
                         System.out.println("NICE");
                     }
                     }

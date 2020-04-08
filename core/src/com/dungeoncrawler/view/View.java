@@ -6,13 +6,11 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.dungeoncrawler.model.Dungeon;
-import com.dungeoncrawler.model.DungeonGenerator;
 import com.dungeoncrawler.model.Entity;
 import com.dungeoncrawler.model.entities.*;
 
@@ -32,9 +30,8 @@ public class View {
         TiledMapRenderer tmr;
         TiledMap test;
         OrthographicCamera camera;
-        Dungeon d;
         
-	public View() {
+	public View(Dungeon d) {
                 float w = Gdx.graphics.getWidth();
                 float h = Gdx.graphics.getHeight();
                 float wc = w/2;
@@ -54,10 +51,12 @@ public class View {
                 //MAP
                 m = new Map();
                 camera = new OrthographicCamera(1, h/w);
-                d = new DungeonGenerator().generateDungeon(10, 10, 48, new Player());
+                
                 MapGenerator mg = new MapGenerator(new Texture(Gdx.files.internal("tiles.gif")));
-                TiledMap[][][] maps = mg.generateMap(7, d);
+                
+                TiledMap[][][] maps = mg.generateMap(d);
                 m.setMaps(maps);
+                mg.ichWillSpielen(m.getMaps());
                 
                 test = new TiledMap();
                 tmr = new OrthogonalTiledMapRenderer(test);
@@ -76,6 +75,13 @@ public class View {
                 int yPosRoom = posRoom[1];
                 
                 test = m.getMaps()[level][xPosRoom][yPosRoom];
+                
+                if(test == null){
+                    System.out.println("Dein scheiß geht net");
+                }
+                else{
+                    tmr = new OrthogonalTiledMapRenderer(test);
+                }
                 
                 if(p.getMovementX() == 3){
                     player.setRegion(regions[0][1]);

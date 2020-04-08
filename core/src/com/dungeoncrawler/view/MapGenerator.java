@@ -28,7 +28,9 @@ public class MapGenerator {
         splitTiles = TextureRegion.split(this.tiles, 48, 48);
     }
     
-    public TiledMap[][][] generateMap(int levelAmount, Dungeon d){
+    public TiledMap[][][] generateMap(Dungeon d){
+        int levelAmount = d.getLevel().length;
+     
         TiledMap[][][] tempMap = new TiledMap[levelAmount][][];
         
         for(int i = 0; i < levelAmount; i++){
@@ -54,7 +56,7 @@ public class MapGenerator {
                     int tempY = 5;
                     
                     TiledMap tempRoom = generateRoom(room, tempX, tempY);
-                    
+                    /*
                     // Wenn es Fehler gibt, dann wohl hier: Viel Spaß beim Suchen!        Danke!
                     TiledMapTileLayer temp = (TiledMapTileLayer) tempRoom.getLayers().get(2);
                     
@@ -76,7 +78,7 @@ public class MapGenerator {
                     // Ausgang links
                     if(x > 0 && l.getRooms()[x - 1][y] != null){
                         temp.getCell(0, (tempY / 2) + 1).setTile(new StaticTiledMapTile(splitTiles[0][3])); //links
-                    }
+                    }*/
                     
                     tempLevel[x][y] = tempRoom;
                 }
@@ -119,5 +121,27 @@ public class MapGenerator {
         layers.add(staticLayer);
         
         return tempRoom;
+    }
+    
+    public void ichWillSpielen(TiledMap[][][] map){
+
+        for(int i=0;i<map.length;i++){
+            TiledMap[][] temp = map[i];
+
+            System.out.println("MapLevel " + i);
+
+            for(int j = 0; j < temp.length; j++){
+
+                for(int k = temp[j].length - 1; k >= 0; k--){
+                    if(temp[j][k] == null){
+                        System.out.print("0 ");
+                    }
+                    else{
+                        System.out.print("1 ");
+                    }
+                }
+                System.out.println();
+            }
+        }
     }
 }
