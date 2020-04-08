@@ -28,7 +28,7 @@ public class View {
         Sprite[] entitySprites;
         
         //MAP
-        Map tm;
+        Map m;
         TiledMapRenderer tmr;
         TiledMap test;
         OrthographicCamera camera;
@@ -52,17 +52,17 @@ public class View {
                 
                 
                 //MAP
-                tm = new Map();
+                m = new Map();
                 camera = new OrthographicCamera(1, h/w);
                 d = new DungeonGenerator().generateDungeon(10, 10, 48, new Player());
                 MapGenerator mg = new MapGenerator(new Texture(Gdx.files.internal("tiles.gif")));
                 TiledMap[][][] maps = mg.generateMap(7, d);
-                tm.setMaps(maps);
+                m.setMaps(maps);
                 
-                for(int i=0;i<tm.getMaps()[0].length;i++){
-                    for(int j=0;j<tm.getMaps()[0][0].length;j++){
-                        if(tm.getMaps()[0][i][j] != null){
-                            test = tm.getMaps()[0][i][j];
+                for(int i=0;i<m.getMaps()[0].length;i++){
+                    for(int j=0;j<m.getMaps()[0][0].length;j++){
+                        if(m.getMaps()[0][i][j] != null){
+                            test = m.getMaps()[0][i][j];
                         }
                     }
                 }
@@ -71,12 +71,12 @@ public class View {
 	}
 
         
-	public void render (SpriteBatch batch, Player p, Archer a) {
+	public void render (SpriteBatch batch, Player p, Archer a, int xPosRoom, int yPosRoom) {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-                player.setX(player.getX()+ p.getMovementX());
-                player.setY(player.getY()+ p.getMovementY());
                 
+                player.setX(p.getxPos());
+                player.setY(p.getyPos());
                 
                 if(p.getMovementX() == 3){
                     player.setRegion(regions[0][1]);

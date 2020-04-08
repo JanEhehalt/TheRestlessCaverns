@@ -9,7 +9,6 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dungeoncrawler.view.*;
 import com.dungeoncrawler.model.Dungeon;
@@ -23,7 +22,6 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
     Dungeon d;
     DungeonGenerator dg;
     MainMenu v;
-    Player p;
     Entity[] e;
     Timer t;
     View m;
@@ -35,8 +33,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
         
         batch = new SpriteBatch();
         v = new MainMenu();
-        p = new Player();
-        d = new Dungeon(p);
+        d = new Dungeon(new Player());
         dg = new DungeonGenerator();
         dg.ichWillSpielen();
         e = new Entity[5];
@@ -78,10 +75,19 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
     @Override
     public void render(){
         if(v != null){
-        v.render(batch, p , e);
+            v.render(batch, d.getPlayer() , e);
         }
         if(v == null){
-        m.render(batch, p, a);
+            int xPosRoom = d.getPlayer().getxPos() / 48;
+            int yPosRoom = d.getPlayer().getyPos() / 48;
+            
+            System.out.println(xPosRoom + " " + yPosRoom);
+            
+            d.getPlayer().setxPos(d.getPlayer().getxPos()+ d.getPlayer().getMovementX());
+            d.getPlayer().setyPos(d.getPlayer().getyPos()+ d.getPlayer().getMovementY());
+            
+            // Render methode zum rendern der einzelnen Sprites wird aufgerufen
+            m.render(batch, d.getPlayer(), a, xPosRoom, yPosRoom);
         }
     }
     
@@ -94,19 +100,19 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
     public boolean keyDown(int keycode) {
                 if(keycode == Input.Keys.LEFT){
                     if(v != null){
-                    v.moveCursor(3);
+                        v.moveCursor(3);
                     }
                     if(m != null){
-                    p.setMovementX(-3);
+                        d.getPlayer().setMovementX(-3);
                     }
                 }
                 
                 if(keycode == Input.Keys.RIGHT){
                     if(v != null){
-                    v.moveCursor(1);
+                        v.moveCursor(1);
                     }
                     if(m != null){
-                    p.setMovementX(3);
+                        d.getPlayer().setMovementX(3);
                     }
                 }
                 
@@ -115,7 +121,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                     v.moveCursor(2);
                     }
                     if(m != null){
-                    p.setMovementY(-3);
+                    d.getPlayer().setMovementY(-3);
                     }
                 } 
                 
@@ -124,7 +130,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                     v.moveCursor(0);
                     }
                     if(m != null){
-                    p.setMovementY(3);
+                    d.getPlayer().setMovementY(3);
                     }
                 } 
                 
@@ -148,7 +154,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                     v.stopCursor(3);
                     }
                     if(m != null){
-                    p.setMovementX(0);
+                    d.getPlayer().setMovementX(0);
                     }
                 }
                 
@@ -157,7 +163,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                     v.stopCursor(1);
                     }
                     if(m != null){
-                    p.setMovementX(0);
+                    d.getPlayer().setMovementX(0);
                     }
                 }
                 
@@ -166,7 +172,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                     v.stopCursor(2);
                     }
                     if(m != null){
-                    p.setMovementY(0);
+                    d.getPlayer().setMovementY(0);
                     }
                 } 
                 
@@ -175,7 +181,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                     v.stopCursor(0);
                     }
                     if(m != null){
-                    p.setMovementY(0);
+                    d.getPlayer().setMovementY(0);
                     }
                 } 
                 
