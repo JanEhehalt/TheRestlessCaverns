@@ -23,6 +23,7 @@ public class View {
         TextureRegion[][] regions;
         
         
+        
         //ENTITIES
         Texture[] entityTextures;
         Sprite[] entitySprites;
@@ -155,4 +156,31 @@ public class View {
                         entitySprites[i].setY(y);
                     }
         }
+        
+        public float getPlayerSpriteX(){
+            return player.getX();
+        }
+        public float getPlayerSpriteY(){
+            return player.getY();
+        }
+        public void setPlayerSpriteX(float x){
+            player.setX(x);
+        }
+        public void setPlayerSpriteY(float y){
+            player.setY(y);
+        }
+        
+        public float getEntitySpriteX(int i){
+            return entitySprites[i].getX();
+        }
+        public float getEntitySpriteY(int i){
+            return entitySprites[i].getY();
+        }
+        public void setEntitySpriteX(int i,float x){
+            entitySprites[i].setX(x);
+        }
+        public void setEntitySpriteY(int i,float y){
+            entitySprites[i].setY(y);
+        }
+       
 }
