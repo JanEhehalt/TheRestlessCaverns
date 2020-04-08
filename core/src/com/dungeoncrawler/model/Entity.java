@@ -27,7 +27,8 @@ public abstract class Entity {
         
     }
     public void update(){
-        
+        xPos += movementX;
+        yPos += movementY;
     }
     public void die(){
     
@@ -127,23 +128,6 @@ public abstract class Entity {
         }
         return -1;
     }
-    
-    public int direction(){
-        if(movementX == -3){
-            return 3;
-        }
-        if(movementX == 3){
-            return 1;
-        }
-        if(movementY == 3){
-            return 0;
-        }
-        if(movementY == -3){
-            return 2;
-        }
-        return -1;
-    }
-    
             
     public float getxPos() {
         return xPos;

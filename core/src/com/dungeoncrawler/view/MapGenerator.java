@@ -5,7 +5,6 @@
  */
 package com.dungeoncrawler.view;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapLayers;
@@ -29,7 +28,9 @@ public class MapGenerator {
         splitTiles = TextureRegion.split(this.tiles, 48, 48);
     }
     
-    public TiledMap[][][] generateMap(int levelAmount, Dungeon d){
+    public TiledMap[][][] generateMap(Dungeon d){
+        int levelAmount = d.getLevel().length;
+     
         TiledMap[][][] tempMap = new TiledMap[levelAmount][][];
         
         for(int i = 0; i < levelAmount; i++){
@@ -51,30 +52,66 @@ public class MapGenerator {
                 Room room = l.getRooms()[x][y];
                 
                 if(room != null){
-                    TiledMap tempRoom = generateRoom(room, sizeX, sizeY);
+                    int tempX = 7;
+                    int tempY = 5;
+                    
+                    TiledMap tempRoom = generateRoom(room, tempX, tempY);
+                    
+                    // Wenn es Fehler gibt, dann wohl hier: Viel Spaß beim Suchen!        Danke!
+                    TiledMapTileLayer temp = (TiledMapTileLayer) tempRoom.getLayers().get(2);
+                    
+                    // Ausgang oben
+                    if(y < l.getRooms()[0].length - 1 && l.getRooms()[x][y + 1] != null){
+                        temp.getCell((tempX / 2) + 1, tempY + 1).setTile(new StaticTiledMapTile(splitTiles[0][3])); //oben
+                    }
+                    
+                    // Ausgang rechts    
+                    if(x < l.getRooms().length - 1 && l.getRooms()[x + 1][y] != null){
+                        temp.getCell(tempX + 1, (tempY / 2) + 1).setTile(new StaticTiledMapTile(splitTiles[0][3])); //rechts
+                    }
+                    
+                    // Ausgang unten
+                    if(y > 0 && l.getRooms()[x][y - 1] != null){
+                        temp.getCell((tempX / 2) + 1, 0).setTile(new StaticTiledMapTile(splitTiles[0][3])); //unten
+                    }
+                    
+                    // Ausgang links
+                    if(x > 0 && l.getRooms()[x - 1][y] != null){
+                        temp.getCell(0, (tempY / 2) + 1).setTile(new StaticTiledMapTile(splitTiles[0][3])); //links
+                    }
+                    
                     tempLevel[x][y] = tempRoom;
                 }
-                else{
-                    tempLevel[x][y] = null;
-                }
+                
             }
         }
         
         return tempLevel;
     }
     
-    private TiledMap generateRoom(Room r, int sizeX, int sizeY){
+    private TiledMap generateRoom(Room r, int roomDimensionX, int roomDimensionY){
         TiledMap tempRoom = new TiledMap();
         
-        MapLayers layers = tempRoom.getLayers();
-        TiledMapTileLayer collisionLayer = new TiledMapTileLayer(7, 5, 48, 48);
-        TiledMapTileLayer dynamicLayer = new TiledMapTileLayer(7, 5, 48, 48);
-        TiledMapTileLayer staticLayer = new TiledMapTileLayer(7, 5, 48, 48);
+        int mapDimensionX = roomDimensionX + 2;
+        int mapDimensionY = roomDimensionY + 2;
         
-        for(int x = 0; x < 7; x++){
-            for(int y = 0; y < 5; y++){
+        MapLayers layers = tempRoom.getLayers();
+        TiledMapTileLayer collisionLayer = new TiledMapTileLayer(mapDimensionX, mapDimensionY, 48, 48);
+        TiledMapTileLayer dynamicLayer = new TiledMapTileLayer(mapDimensionX, mapDimensionY, 48, 48);
+        TiledMapTileLayer staticLayer = new TiledMapTileLayer(mapDimensionX, mapDimensionY, 48, 48);
+        
+        for(int x = 0; x < mapDimensionX + 1; x++){
+            for(int y = 0; y < mapDimensionY + 1; y++){
+                
                 TiledMapTileLayer.Cell cell = new TiledMapTileLayer.Cell();
-                cell.setTile(new StaticTiledMapTile(splitTiles[0][0]));
+                
+                if(x == 0 || x == mapDimensionX - 1 || y == 0 || y == mapDimensionY - 1){
+                    cell.setTile(new StaticTiledMapTile(splitTiles[0][5]));
+                }
+                else{
+                    cell.setTile(new StaticTiledMapTile(splitTiles[0][0]));
+                }
+                
                 staticLayer.setCell(x, y, cell);
             }
         }
@@ -84,5 +121,27 @@ public class MapGenerator {
         layers.add(staticLayer);
         
         return tempRoom;
+    }
+    
+    public void ichWillSpielen(TiledMap[][][] map){
+
+        for(int i=0;i<map.length;i++){
+            TiledMap[][] temp = map[i];
+
+            System.out.println("MapLevel " + i);
+
+            for(int j = 0; j < temp.length; j++){
+
+                for(int k = temp[j].length - 1; k >= 0; k--){
+                    if(temp[j][k] == null){
+                        System.out.print("0 ");
+                    }
+                    else{
+                        System.out.print("1 ");
+                    }
+                }
+                System.out.println();
+            }
+        }
     }
 }

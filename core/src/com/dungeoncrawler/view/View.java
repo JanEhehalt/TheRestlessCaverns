@@ -6,13 +6,11 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.dungeoncrawler.model.Dungeon;
-import com.dungeoncrawler.model.DungeonGenerator;
 import com.dungeoncrawler.model.Entity;
 import com.dungeoncrawler.model.entities.*;
 
@@ -31,13 +29,12 @@ public class View {
         Texture archerTexture;
         
         //MAP
-        Map tm;
+        Map m;
         TiledMapRenderer tmr;
         TiledMap test;
         OrthographicCamera camera;
-        Dungeon d;
         
-	public View() {
+	public View(Dungeon d) {
                 float w = Gdx.graphics.getWidth();
                 float h = Gdx.graphics.getHeight();
                 float wc = w/2;
@@ -58,34 +55,38 @@ public class View {
                 
                 
                 //MAP
-                tm = new Map();
+                m = new Map();
                 camera = new OrthographicCamera(1, h/w);
-                d = new DungeonGenerator().generateDungeon(10, 10, 48, new Player());
-                MapGenerator mg = new MapGenerator(new Texture(Gdx.files.internal("tiles.gif")));
-                TiledMap[][][] maps = mg.generateMap(7, d);
-                tm.setMaps(maps);
                 
-                for(int i=0;i<tm.getMaps()[0].length;i++){
-                    for(int j=0;j<tm.getMaps()[0][0].length;j++){
-                        if(tm.getMaps()[0][i][j] != null){
-                            test = tm.getMaps()[0][i][j];
-                        }
-                    }
-                }
+                MapGenerator mg = new MapGenerator(new Texture(Gdx.files.internal("tiles.gif")));
+                
+                TiledMap[][][] maps = mg.generateMap(d);
+                m.setMaps(maps);
+                mg.ichWillSpielen(m.getMaps());
+                
+                test = new TiledMap();
                 tmr = new OrthogonalTiledMapRenderer(test);
 
- 
 	}
 
-        
-	public void render (SpriteBatch batch, Player p, Entity[] e) {
+	public void render (SpriteBatch batch, Player p, Entity[] e, int[] tile, int level, int[] posRoom) {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
                 
-                //PLAYER
-                player.setX(player.getX()+ p.getMovementX());
-                player.setY(player.getY()+ p.getMovementY());
+                player.setX(p.getxPos());
+                player.setY(p.getyPos());
                 
+                int xPosRoom = posRoom[0];
+                int yPosRoom = posRoom[1];
+                
+                test = m.getMaps()[level][xPosRoom][yPosRoom];
+                
+                if(test == null){
+                    System.out.println("Dein scheiß geht net");
+                }
+                else{
+                    tmr = new OrthogonalTiledMapRenderer(test);
+                }
                 
                 if(p.getMovementX() == 3){
                     player.setRegion(regions[0][1]);
@@ -103,7 +104,8 @@ public class View {
                 //MAP
                 tmr.setView(camera);
                 tmr.render();
-                camera.zoom = 1000f;
+
+                camera.zoom = 1500f;
                 camera.update();
                 batch.setProjectionMatrix(camera.combined);
 

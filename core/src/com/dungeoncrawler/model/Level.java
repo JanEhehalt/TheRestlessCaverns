@@ -33,7 +33,7 @@ public class Level {
     }
     
     public void setRoom(Room room, int x, int y){
-        if(x < this.rooms.length){
+        if(x < this.rooms.length && y < this.rooms.length){
             this.rooms[x][y] = room;
         }
     }
