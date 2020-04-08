@@ -56,7 +56,7 @@ public class MapGenerator {
                     int tempY = 5;
                     
                     TiledMap tempRoom = generateRoom(room, tempX, tempY);
-                    /*
+                    
                     // Wenn es Fehler gibt, dann wohl hier: Viel Spaß beim Suchen!        Danke!
                     TiledMapTileLayer temp = (TiledMapTileLayer) tempRoom.getLayers().get(2);
                     
@@ -78,7 +78,7 @@ public class MapGenerator {
                     // Ausgang links
                     if(x > 0 && l.getRooms()[x - 1][y] != null){
                         temp.getCell(0, (tempY / 2) + 1).setTile(new StaticTiledMapTile(splitTiles[0][3])); //links
-                    }*/
+                    }
                     
                     tempLevel[x][y] = tempRoom;
                 }

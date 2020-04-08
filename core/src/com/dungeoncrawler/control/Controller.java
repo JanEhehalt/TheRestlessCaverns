@@ -26,6 +26,9 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
     Timer t;
     View m;
     Archer a;
+    int[] tile;
+    int[] posRoom;
+    int level;
     
     @Override
     public void create(){
@@ -36,7 +39,38 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
         dg = new DungeonGenerator();
         d = dg.generateDungeon(0, 0, 0, new Player());
         dg.ichWillSpielen(d);
+        
+        tile = new int[2];
+        posRoom = new int[2];
+        
+        int roomLengthX = d.getLevel()[0].getRooms().length;
+        int roomLengthY = d.getLevel()[0].getRooms()[0].length;
+        int roomAmount = d.getLevel()[0].getRooms().length;
+        
+        int startRoom = (int) (Math.random() * roomAmount);
+            
+        level = 0;
+
+        int k = 0;
+        for(int i = 0; i < roomLengthX; i++){
+            for(int j = 0; j < roomLengthY; j++){
+                if(d.getLevel()[level].getRooms()[i][j] != null){
+
+                    if(k == startRoom){
+                        // Startraum wurde ausgewählt
+                        posRoom[0] = i;
+                        posRoom[1] = j;
+
+                    }
+
+                    k++;
+                }
+
+            }
+        }
+        
         e = new Entity[5];
+        
         Gdx.input.setInputProcessor(this);
         t = new Timer();
         t.scheduleTask(new Timer.Task() {
@@ -78,40 +112,51 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
             v.render(batch, d.getPlayer() , e);
         }
         if(v == null){
-            int[] tile = new int[2];
-            tile[0] = d.getPlayer().getxPos() / 48;
-            tile[1] = d.getPlayer().getyPos() / 48;
-            
-            System.out.println(tile[0] + " " + tile[1]);
             
             d.getPlayer().update();
             
-            int roomLengthX = d.getLevel()[0].getRooms().length;
-            int roomLengthY = d.getLevel()[0].getRooms()[0].length;
-            int roomAmount = d.getLevel()[0].getRooms().length;
+            tile[0] = d.getPlayer().getxPos() / 48;
+            tile[1] = d.getPlayer().getyPos() / 48;
             
-            int startRoom = (int) (0.5 * roomAmount);//(int) (Math.random() * roomAmount);
+            System.out.println("pos Player tiles: " + tile[0] + " " + tile[1]);
             
-            int[] posRoom = new int[2];
-            int level = 0;
+            int xPos = tile[0];
+            int yPos = tile[1];
             
-            int k = 0;
-            for(int i = 0; i < roomLengthX; i++){
-                for(int j = 0; j < roomLengthY; j++){
-                    if(d.getLevel()[level].getRooms()[i][j] != null){
-                          
-                        if(true){
-                            // Startraum wurde ausgewählt
-                            posRoom[0] = i;
-                            posRoom[1] = j;
-                            System.out.println(i + " " + j);
-                            break;
-                        }
-                        
-                        k++;
-                    }
-                    
-                }
+            // oben
+            if(xPos == 4 && yPos == 6){
+                System.out.println("oben");
+                
+                posRoom[1] += 1;
+                d.getPlayer().setxPos(100);
+                d.getPlayer().setyPos(100);
+            }
+            
+            // rechts
+            if(xPos == 8 && yPos == 3){
+                System.out.println("rechts");
+                
+                posRoom[0] += 1;
+                d.getPlayer().setxPos(100);
+                d.getPlayer().setyPos(100);
+            }
+            
+            // unten
+            if(xPos == 4 && yPos == 0){
+                System.out.println("unten");
+                
+                posRoom[1] -= 1;
+                d.getPlayer().setxPos(100);
+                d.getPlayer().setyPos(100);
+            }
+            
+            // links
+            if(xPos == 0 && yPos == 3){
+                System.out.println("links");
+                
+                posRoom[0] -= 1;
+                d.getPlayer().setxPos(100);
+                d.getPlayer().setyPos(100);
             }
             
             // Render methode zum rendern der einzelnen Sprites wird aufgerufen
