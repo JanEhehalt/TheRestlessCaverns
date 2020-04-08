@@ -176,7 +176,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                             m.newEntity(i,ent,x,y);
                             i = 10;
                             break;
-                        case 1:    
+                        case 1:
                             e[i] = new Swordsman(x,y,lvl);
                             m.newEntity(i,ent,x,y);
                             i = 10;
@@ -230,8 +230,6 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                     if(v.click() == -1){}
                     else if(v.click() == 0){
                         v = null;
-                        
-                        newEntity(a, 200, 200, 200);
                         m = new View(d);
                         
                         System.out.println("NICE");
