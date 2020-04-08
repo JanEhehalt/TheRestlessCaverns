@@ -114,9 +114,9 @@ public class DungeonGenerator {
             Level temp = d.getLevel()[i];
             System.out.println("Level " + i);
             
-            for(int j = 0; j < temp.getRooms().length; j++){
+            for(int j = temp.getRooms().length - 1; j >=0; j--){
                 
-                for(int k = 0; k < temp.getRooms().length; k++){
+                for(int k = temp.getRooms().length - 1; k >= 0; k--){
                     if(temp.getRooms()[j][k] == null){
                         System.out.print("0 ");
                     }

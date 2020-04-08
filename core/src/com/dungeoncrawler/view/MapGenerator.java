@@ -63,8 +63,8 @@ public class MapGenerator {
                         temp.getCell((tempX / 2) + 1, tempY + 1).setTile(new StaticTiledMapTile(splitTiles[0][3])); //oben
                     }
                     
-                    // Ausgang rechts
-                        if(x > 0 && l.getRooms()[x - 1][y] != null){
+                    // Ausgang rechts    
+                    if(x < l.getRooms().length - 1 && l.getRooms()[x + 1][y] != null){
                         temp.getCell(tempX + 1, (tempY / 2) + 1).setTile(new StaticTiledMapTile(splitTiles[0][3])); //rechts
                     }
                     
@@ -74,7 +74,7 @@ public class MapGenerator {
                     }
                     
                     // Ausgang links
-                    if(x < l.getRooms().length - 1 && l.getRooms()[x + 1][y] != null){
+                    if(x > 0 && l.getRooms()[x - 1][y] != null){
                         temp.getCell(0, (tempY / 2) + 1).setTile(new StaticTiledMapTile(splitTiles[0][3])); //links
                     }
                     
