@@ -33,8 +33,8 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
         
         batch = new SpriteBatch();
         v = new MainMenu();
-        d = new Dungeon(new Player());
         dg = new DungeonGenerator();
+        d = dg.generateDungeon(0, 0, 0, new Player());
         dg.ichWillSpielen();
         e = new Entity[5];
         Gdx.input.setInputProcessor(this);
@@ -78,16 +78,42 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
             v.render(batch, d.getPlayer() , e);
         }
         if(v == null){
-            int xPosRoom = d.getPlayer().getxPos() / 48;
-            int yPosRoom = d.getPlayer().getyPos() / 48;
+            int[] tile = new int[2];
+            tile[0] = d.getPlayer().getxPos() / 48;
+            tile[1] = d.getPlayer().getyPos() / 48;
             
-            System.out.println(xPosRoom + " " + yPosRoom);
+            System.out.println(tile[0] + " " + tile[1]);
             
-            d.getPlayer().setxPos(d.getPlayer().getxPos()+ d.getPlayer().getMovementX());
-            d.getPlayer().setyPos(d.getPlayer().getyPos()+ d.getPlayer().getMovementY());
+            d.getPlayer().update();
+            
+            int roomLengthX = d.getLevel()[0].getRooms().length;
+            int roomLengthY = d.getLevel()[0].getRooms()[0].length;
+            int roomAmount = d.getLevel()[0].getRooms().length;
+            
+            int startRoom = (int) (Math.random() * roomAmount);
+            
+            int[] posRoom = new int[2];
+            int level = 0;
+            
+            int k = 0;
+            for(int i = 0; i < roomLengthX; i++){
+                for(int j = 0; j < roomLengthY; j++){
+                    
+                    if(d.getLevel()[0].getRooms()[i][j] != null){
+                        k++;
+                            
+                        if(k == startRoom){
+                            // Startraum wurde ausgewählt
+                            posRoom[0] = i;
+                            posRoom[1] = j;
+                        }
+                    }
+                    
+                }
+            }
             
             // Render methode zum rendern der einzelnen Sprites wird aufgerufen
-            m.render(batch, d.getPlayer(), a, xPosRoom, yPosRoom);
+            m.render(batch, d.getPlayer(), a, tile, level, posRoom);
         }
     }
     

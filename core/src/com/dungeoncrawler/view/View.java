@@ -59,24 +59,23 @@ public class View {
                 TiledMap[][][] maps = mg.generateMap(7, d);
                 m.setMaps(maps);
                 
-                for(int i=0;i<m.getMaps()[0].length;i++){
-                    for(int j=0;j<m.getMaps()[0][0].length;j++){
-                        if(m.getMaps()[0][i][j] != null){
-                            test = m.getMaps()[0][i][j];
-                        }
-                    }
-                }
+                test = new TiledMap();
                 tmr = new OrthogonalTiledMapRenderer(test);
 
 	}
 
         
-	public void render (SpriteBatch batch, Player p, Archer a, int xPosRoom, int yPosRoom) {
+	public void render (SpriteBatch batch, Player p, Archer a, int[] tile, int level, int[] posRoom) {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
                 
                 player.setX(p.getxPos());
                 player.setY(p.getyPos());
+                
+                int xPosRoom = posRoom[0];
+                int yPosRoom = posRoom[1];
+                
+                test = m.getMaps()[level][xPosRoom][yPosRoom];
                 
                 if(p.getMovementX() == 3){
                     player.setRegion(regions[0][1]);
@@ -93,6 +92,7 @@ public class View {
                 
                 tmr.setView(camera);
                 tmr.render();
+
                 camera.zoom = 1500f;
                 camera.update();
                 batch.setProjectionMatrix(camera.combined);

@@ -27,7 +27,8 @@ public abstract class Entity {
         
     }
     public void update(){
-        
+        xPos += movementX;
+        yPos += movementY;
     }
     public void die(){
     
