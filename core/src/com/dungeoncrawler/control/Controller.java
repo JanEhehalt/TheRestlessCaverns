@@ -49,7 +49,11 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                         for(int i = 0; i< e.length; i++){
                             if(e[i] == null){}
                             else{
-                                e[i].rdmMove();
+                                e[i].rdmMove(p.getxPos(), p.getyPos());
+                                m.setPlayerSpriteX(p.getxPos());
+                                m.setPlayerSpriteY(p.getyPos());
+                                m.setEntitySpriteX(i,p.getxPos());
+                                m.setEntitySpriteY(i,p.getxPos());
                             }
                         }
                      }
@@ -66,7 +70,8 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
         //PASSIERT IN GAMESCREEN (view)
         if(m != null){
         //ENTITIES
-            
+            p.setxPos(m.getPlayerSpriteX());
+            p.setyPos(m.getPlayerSpriteY());
             
         
         //RENDER
@@ -145,7 +150,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                     else if(v.click() == 0){
                         v = null;
                         m = new View();
-                        newEntity(a, 200, 200, 200);
+                        newEntity(a, 0, 0, 0);
                         System.out.println("NICE");
                     }
                     }

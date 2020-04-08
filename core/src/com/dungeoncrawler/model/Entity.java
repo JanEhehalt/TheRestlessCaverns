@@ -3,17 +3,17 @@ package com.dungeoncrawler.model;
 
 public abstract class Entity {
     
-    protected int xPos;
-    protected int yPos;
+    protected float xPos;
+    protected float yPos;
     protected int hp;
     protected int maxhp;
     protected int dmg;
     protected int lvl;
-    protected int movementX;
-    protected int movementY;
+    protected float movementX;
+    protected float movementY;
     protected int id;
 
-    public Entity(int xPos, int yPos, int lvl){
+    public Entity(int xPos, float yPos, int lvl){
         this.xPos = xPos;
         this.yPos = yPos;
         this.lvl = lvl;
@@ -35,10 +35,63 @@ public abstract class Entity {
     public void move(){
             xPos = xPos + movementX;
             yPos = yPos + movementY;
+            movementX = 0;
+            movementY = 0;
     }
     
-    public void rdmMove(){
-            
+    public void rdmMove(float xPlayer, float yPlayer){
+            if(xPlayer == xPos){
+                if(yPlayer == yPos){}
+                else if(yPlayer > yPos){movementY = 1f;}
+                else if(yPlayer < yPos){movementY = -1f;}
+            }
+            else if(yPlayer == yPos){
+                if(xPlayer == xPos){}
+                else if(xPlayer > xPos){movementX = -1f;}
+                else if(xPlayer < xPos){movementX = 1f;}
+            }
+        /////
+            else if(xPlayer > xPos){
+                if(yPlayer > yPos){     //archer ist im Quadrant III
+                    if((yPos - yPlayer) > (xPos - xPlayer)){ 
+                        movementX = 1f;
+                    }
+                    else{
+                        movementY = 1f;
+                    }
+                }
+                else if(yPlayer < yPos){ //archer ist im Quadrant IV
+                    if((yPos - yPlayer) > (xPlayer - xPos)){
+                        movementX = 1f;
+                    }
+                    else{
+                        movementY = -1f;
+                    }
+                }
+            }
+            else if(xPlayer < xPos){
+                if(yPlayer < yPos){     //archer ist im Quadrant II
+                    if((yPlayer - yPos) > (xPlayer - xPos)){
+                        movementX = -1f;
+                    }
+                    else{
+                        movementY = 1f;
+                    }
+                }
+                else if(yPlayer > yPos){ //archer ist im Quadrant I
+                    if((yPlayer - yPos) > (xPos - xPlayer)){
+                        movementX = -1;
+                    }
+                    else{
+                        movementY = -1;
+                    }
+                }
+            }
+        
+        move();
+        
+        
+        /*
                  switch((int) (Math.random() * 5)){
                     case 0: //left
                         setMovementX(-3);
@@ -57,38 +110,39 @@ public abstract class Entity {
                         move();
                         break;
                  }
+        */
         }
     
     public int direction(){
-        if(movementX == -3){
+        if(movementX < 0){
             return 3;
         }
-        if(movementX == 3){
+        else if(movementX < 3){
             return 1;
         }
-        if(movementY == 3){
+        else if(movementY > 3){
             return 0;
         }
-        if(movementY == -3){
+        else if(movementY < -3){
             return 2;
         }
         return -1;
     }
     
             
-    public int getxPos() {
+    public float getxPos() {
         return xPos;
     }
 
-    public void setxPos(int xPos) {
+    public void setxPos(float xPos) {
         this.xPos = xPos;
     }
 
-    public int getyPos() {
+    public float getyPos() {
         return yPos;
     }
 
-    public void setyPos(int yPos) {
+    public void setyPos(float yPos) {
         this.yPos = yPos;
     }
 
@@ -124,19 +178,19 @@ public abstract class Entity {
         this.lvl = lvl;
     }
     
-    public int getMovementX(){
+    public float getMovementX(){
         return movementX;
     }
     
-    public void setMovementX(int movementX){
+    public void setMovementX(float movementX){
         this.movementX = movementX;
     }
 
-    public int getMovementY(){
+    public float getMovementY(){
         return movementY;
     }
     
-    public void setMovementY(int movementY){
+    public void setMovementY(float movementY){
         this.movementY = movementY;
     }
     
