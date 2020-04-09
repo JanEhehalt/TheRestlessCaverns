@@ -20,6 +20,7 @@ import com.dungeoncrawler.model.Room;
  * @author jonathan
  */
 public class MapGenerator {
+    
     Texture tiles;
     TextureRegion[][] splitTiles;
     
@@ -33,6 +34,7 @@ public class MapGenerator {
      
         TiledMap[][][] tempMap = new TiledMap[levelAmount][][];
         
+        // Jedes Level wird generiert
         for(int i = 0; i < levelAmount; i++){
             TiledMap[][] tempLevel = generateLevel(i, d.getLevel()[i]);
             tempMap[i] = tempLevel;
@@ -55,6 +57,7 @@ public class MapGenerator {
                     int tempX = 7;
                     int tempY = 5;
                     
+                    // Raum wird generiertf
                     TiledMap tempRoom = generateRoom(room, tempX, tempY);
                     
                     // Wenn es Fehler gibt, dann wohl hier: Viel Spaß beim Suchen!        Danke!
@@ -62,21 +65,29 @@ public class MapGenerator {
                     
                     // Ausgang oben
                     if(y < l.getRooms()[0].length - 1 && l.getRooms()[x][y + 1] != null){
+                        
+                        // X: Exakte Mitte der Gesamtlänge, Y: Gesamtlänge
                         temp.getCell((tempX / 2) + 1, tempY + 1).setTile(new StaticTiledMapTile(splitTiles[0][3])); //oben
                     }
                     
                     // Ausgang rechts    
                     if(x < l.getRooms().length - 1 && l.getRooms()[x + 1][y] != null){
+                        
+                        // X: Gesamtlänge, Y: Exakte Mitte der Gesamtlänge
                         temp.getCell(tempX + 1, (tempY / 2) + 1).setTile(new StaticTiledMapTile(splitTiles[0][3])); //rechts
                     }
                     
                     // Ausgang unten
                     if(y > 0 && l.getRooms()[x][y - 1] != null){
+                        
+                        // X: Exakte Mitte der Gesamtlänge, Y: 0
                         temp.getCell((tempX / 2) + 1, 0).setTile(new StaticTiledMapTile(splitTiles[0][3])); //unten
                     }
                     
                     // Ausgang links
                     if(x > 0 && l.getRooms()[x - 1][y] != null){
+                        
+                        // X: 0, Y: Exakte Mitte der Gesamtlänge
                         temp.getCell(0, (tempY / 2) + 1).setTile(new StaticTiledMapTile(splitTiles[0][3])); //links
                     }
                     
@@ -92,19 +103,27 @@ public class MapGenerator {
     private TiledMap generateRoom(Room r, int roomDimensionX, int roomDimensionY){
         TiledMap tempRoom = new TiledMap();
         
+        // roomDimension bezieht sich auf die Größe des Raumes, da aber noch die Wände fehlen,
+        // muss auf die Größe jeweils 2 addiert werden.
         int mapDimensionX = roomDimensionX + 2;
         int mapDimensionY = roomDimensionY + 2;
         
+        // Drei layer für die Map werden erstellt, die jeweils unterschiedliche Sachen speichern sollen:
+        // collisionLayer: Hier werden alle unsichtbaren Sprites gespeichert, anhand derer die Kollisionen berechnet werden
+        // dynamicLayer: Beinhaltet alle Sprites, die ihre Postition ändern können (Entities, Items)
+        // staticLayer: Beinhaltet alle Tiles und alles statische, was sich im Raum nicht ändern kann
         MapLayers layers = tempRoom.getLayers();
         TiledMapTileLayer collisionLayer = new TiledMapTileLayer(mapDimensionX, mapDimensionY, 48, 48);
         TiledMapTileLayer dynamicLayer = new TiledMapTileLayer(mapDimensionX, mapDimensionY, 48, 48);
         TiledMapTileLayer staticLayer = new TiledMapTileLayer(mapDimensionX, mapDimensionY, 48, 48);
         
+        // Schleife läuft über jedes Teil des Raumes und generiert ein Tile aus dem tileset
         for(int x = 0; x < mapDimensionX + 1; x++){
             for(int y = 0; y < mapDimensionY + 1; y++){
                 
                 TiledMapTileLayer.Cell cell = new TiledMapTileLayer.Cell();
                 
+                // Test, ob Tile eine Wand sein muss
                 if(x == 0 || x == mapDimensionX - 1 || y == 0 || y == mapDimensionY - 1){
                     cell.setTile(new StaticTiledMapTile(splitTiles[0][5]));
                 }
