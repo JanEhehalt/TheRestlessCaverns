@@ -75,7 +75,7 @@ public abstract class Entity {
                         movementX = -1f;                            //        //  //
                     }                                               //        //  //
                     else{                                           //        //  //Weg zu PLAYER y kuerzer als zu PLAYER x
-                        movementY = -1f;                            //       //
+                        movementY = -1f;                            //        //
                     }                                               //        //
                 }                                                   //        //
                 else if(yPlayer > yPos){                            //        //PLAYER ist im Quadrant IV

@@ -14,7 +14,7 @@ import com.dungeoncrawler.model.Dungeon;
 import com.dungeoncrawler.model.Entity;
 import com.dungeoncrawler.model.entities.*;
 
-public class View {
+public class GameScreen {
         //PLAYER
         Texture p;
         Sprite player;
@@ -32,7 +32,7 @@ public class View {
         TiledMap tm;
         OrthographicCamera camera;
         
-	public View(Dungeon d) {
+	public GameScreen(Dungeon d) {
             
                 //PLAYER
                 p = new Texture("Player.png");

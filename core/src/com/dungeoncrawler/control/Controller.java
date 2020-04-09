@@ -24,7 +24,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
     MainMenu v;
     Entity[] e;
     Timer t;
-    View m;
+    GameScreen m;
     Archer a;
     int[] tile;
     int[] posRoom;
@@ -246,7 +246,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                     if(v.click() == -1){}
                     else if(v.click() == 0){
                         v = null;
-                        m = new View(d);
+                        m = new GameScreen(d);
                         
                         System.out.println("NICE");
                     }
