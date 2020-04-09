@@ -29,9 +29,14 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
     int[] tile;
     int[] posRoom;
     int level;
+    int roomX;
+    int roomY;
     
     @Override
     public void create(){
+        
+        roomX = 8;
+        roomY = 6;
         
         e = new Entity[5];
         batch = new SpriteBatch();
@@ -107,84 +112,95 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
             d.getPlayer().setxPos(m.getPlayerSpriteX());
             d.getPlayer().setyPos(m.getPlayerSpriteY());
 
-        if(v == null){
-            
-            d.getPlayer().update();
-            
-            tile[0] = (int) d.getPlayer().getxPos() / 48;
-            tile[1] = (int) d.getPlayer().getyPos() / 48;
-            
-            System.out.println("pos Player tiles: " + tile[0] + " " + tile[1]);
-            
-            int xPos = tile[0];
-            int yPos = tile[1];
-            
-            // oben
-            if(xPos == 4 && yPos == 6){
-                System.out.println("oben");
+            if(v == null){
+                // Position des Players, etc. werden aktualisiert
+                updateObjects();
                 
-                posRoom[1] += 1;
-                d.getPlayer().setxPos(100);
-                d.getPlayer().setyPos(100);
+                // Raum, in dem sich der Player jetzt befindet, wird aktualisiert
+                updateRoom();
+
+                // Render methode zum rendern der einzelnen Sprites wird aufgerufen
+                m.render(batch, d.getPlayer(), e, tile, level, posRoom);
             }
-            
-            // rechts
-            if(xPos == 8 && yPos == 3){
-                System.out.println("rechts");
-                
-                posRoom[0] += 1;
-                d.getPlayer().setxPos(100);
-                d.getPlayer().setyPos(100);
-            }
-            
-            // unten
-            if(xPos == 4 && yPos == 0){
-                System.out.println("unten");
-                
-                posRoom[1] -= 1;
-                d.getPlayer().setxPos(100);
-                d.getPlayer().setyPos(100);
-            }
-            
-            // links
-            if(xPos == 0 && yPos == 3){
-                System.out.println("links");
-                
-                posRoom[0] -= 1;
-                d.getPlayer().setxPos(100);
-                d.getPlayer().setyPos(100);
-            }
-            
-            // Render methode zum rendern der einzelnen Sprites wird aufgerufen
-            m.render(batch, d.getPlayer(), e, tile, level, posRoom);
         }
-    }
     }
     
     
     @Override
-	public void dispose () {
-            batch.dispose();
-	}
+    public void dispose () {
+        batch.dispose();
+    }
+        
+    public void updateObjects(){
+        d.getPlayer().update();
+    }
+    
+    public void updateRoom(){
+        // tile[] beinhaltet die x und y Nummer des tiles, in dem sich der Player befindet
+        tile[0] = (int) d.getPlayer().getxPos() / 48;
+        tile[1] = (int) d.getPlayer().getyPos() / 48;
+        
+        System.out.println(roomX + " " + roomY);
+
+        System.out.println("pos Player tiles: " + tile[0] + " " + tile[1]);
+
+        int xPos = tile[0];
+        int yPos = tile[1];
+
+        // oben
+        if(xPos == (roomX / 2) && yPos == roomY){
+            System.out.println("oben");
+
+            posRoom[1] += 1;
+            d.getPlayer().setxPos(100);
+            d.getPlayer().setyPos(100);
+        }
+
+        // rechts
+        if(xPos == roomX && yPos == (roomY / 2)){
+            System.out.println("rechts");
+
+            posRoom[0] += 1;
+            d.getPlayer().setxPos(100);
+            d.getPlayer().setyPos(100);
+        }
+
+        // unten
+        if(xPos == (roomX / 2) && yPos == 0){
+            System.out.println("unten");
+
+            posRoom[1] -= 1;
+            d.getPlayer().setxPos(100);
+            d.getPlayer().setyPos(100);
+        }
+
+        // links
+        if(xPos == 0 && yPos == (roomY / 2)){
+            System.out.println("links");
+
+            posRoom[0] -= 1;
+            d.getPlayer().setxPos(100);
+            d.getPlayer().setyPos(100);
+        }
+    }
         
     public void newEntity(Entity ent, int x, int y, int lvl){
         for(int i = 0; i < e.length ; i++){
-                if(e[i] == null){
-                    switch(ent.getId()){
-                        case 0:
-                            e[i] = new Archer(x,y,lvl);
-                            m.newEntity(i,ent,x,y);
-                            i = 10;
-                            break;
-                        case 1:
-                            e[i] = new Swordsman(x,y,lvl);
-                            m.newEntity(i,ent,x,y);
-                            i = 10;
-                            break;
-                    }
-                    
+            if(e[i] == null){
+                switch(ent.getId()){
+                    case 0:
+                        e[i] = new Archer(x,y,lvl);
+                        m.newEntity(i,ent,x,y);
+                        i = 10;
+                        break;
+                    case 1:
+                        e[i] = new Swordsman(x,y,lvl);
+                        m.newEntity(i,ent,x,y);
+                        i = 10;
+                        break;
                 }
             }
+        }
     }    
     
     @Override

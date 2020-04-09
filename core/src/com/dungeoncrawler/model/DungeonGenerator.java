@@ -40,13 +40,12 @@ public class DungeonGenerator {
         
         int xPos = roomAmount / 2;
         int yPos = roomAmount / 2;
-        
-        //int xPos = (int) (Math.random() * roomAmount);
-        //int yPos = (int) (Math.random() * roomAmount);
 
         tempLevel.setRoom(generateRoom(), xPos, yPos);
         
+        // Schleife läuft so lange, bis die entsprechende Anzahl an Räumen generiert wurde
         for(int i = 1; i < roomAmount;){
+            
             // Zufallszahl für die Richtung wird generiert, Oben: 0, Rechts: 1, Unten: 2, Links: 3
             int direction = (int) (Math.random() * 4);
             
