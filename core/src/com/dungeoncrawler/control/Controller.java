@@ -25,7 +25,6 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
     Entity[] e;
     Timer t;
     GameScreen m;
-    Archer a;
     int[] tile;
     int[] posRoom;
     int level;
@@ -34,6 +33,10 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
     
     @Override
     public void create(){
+        //TEST
+        
+        //TEST
+        
         
         roomX = 8;
         roomY = 6;
@@ -79,7 +82,6 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
 
         Gdx.input.setInputProcessor(this);
         t = new Timer();
-        a = new Archer(0,0,0);
         
         t.scheduleTask(new Timer.Task() {
                     @Override
@@ -87,6 +89,9 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                         for(int i = 0; i< e.length; i++){
                             if(e[i] == null){}
                             else{
+                                if(Math.random() < 0.05){
+                                    m.arrow(e[i].direction(), e[i].getxPos(), e[i].getyPos());
+                                }
                                 e[i].rdmMove(d.getPlayer().getxPos(), d.getPlayer().getyPos());
                                 m.setPlayerSpriteX(d.getPlayer().getxPos());
                                 m.setPlayerSpriteY(d.getPlayer().getyPos());
@@ -247,7 +252,8 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                     else if(v.click() == 0){
                         v = null;
                         m = new GameScreen(d);
-                        
+                        Archer a = new Archer(0,0,0);
+                        newEntity(a,0,0,0);
                         System.out.println("NICE");
                     }
                     }

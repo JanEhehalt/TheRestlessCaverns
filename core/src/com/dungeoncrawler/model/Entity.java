@@ -41,10 +41,11 @@ public abstract class Entity {
     }
     
     public void rdmMove(float xPlayer, float yPlayer){
+        
             if(xPlayer == xPos){                                    //PLAYER auf X-Achse von Archer
                 if(yPlayer == yPos){}                               //  //PLAYER pos = Archer pos
-                else if(yPlayer > yPos){movementY = -1f;}           //  //PLAYER ueber Archer
-                else if(yPlayer < yPos){movementY = 1f;}            //  //PLAYER unter Archer
+                else if(yPlayer > yPos){movementY = 1f;}            //  //PLAYER ueber Archer
+                else if(yPlayer < yPos){movementY = -1f;}           //  //PLAYER unter Archer
             }                                                       //
             else if(yPlayer == yPos){                               //PLAYER auf Y-Achse von Archer
                 if(xPlayer == xPos){}                               //  //PLAYER pos = Archer pos
@@ -87,9 +88,15 @@ public abstract class Entity {
                     }                                               ////////////
                 }
             }
+        if(yPos + movementY < 0){
         
+        }
+        else if(xPos + movementX < 0){
+        
+        }
+        else{
         move();
-        
+        }
         }
     
     public int direction(){     // returns direction the entity is facing depending on its movement 

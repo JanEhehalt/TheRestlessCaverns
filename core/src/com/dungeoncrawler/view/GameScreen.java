@@ -13,6 +13,7 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.dungeoncrawler.model.Dungeon;
 import com.dungeoncrawler.model.Entity;
 import com.dungeoncrawler.model.entities.*;
+import com.badlogic.gdx.utils.Timer;
 
 public class GameScreen {
         //PLAYER
@@ -25,6 +26,11 @@ public class GameScreen {
         Sprite[] entitySprites;
         TextureRegion[][] archerRegions;
         Texture archerTexture;
+        TextureRegion[][] swordsmanRegions;
+        Texture swordsmanTexture;
+        
+        Texture[] arrowTextures;
+        Sprite[] arrowSprites;
         
         //MAP
         Map m;
@@ -45,6 +51,10 @@ public class GameScreen {
                 entityTextures = new Texture[5];
                 entitySprites = new Sprite[5];
                 
+                arrowTextures = new Texture[10];
+                arrowSprites = new Sprite[10];
+                //Timer[] arrows = new Timer[10];
+                    
                 //MAP
                 float w = Gdx.graphics.getWidth();
                 float h = Gdx.graphics.getHeight();
@@ -144,16 +154,26 @@ public class GameScreen {
         public void newEntity(int i,Entity e, int x, int y){
                     if(e.getId() == 0){ //nimmt entity ID -> 0 = Archer || 1 = Swordsman
                         entityTextures[i] = new Texture("archer.png");
+                        archerRegions = TextureRegion.split(entityTextures[i], 64, 64);
                         entitySprites[i] = new Sprite(archerRegions[0][2]);
                         entitySprites[i].setX(x);
                         entitySprites[i].setY(y);
                     }
                     else if(e.getId() == 1){
                         entityTextures[i] = new Texture("Swordsman.png");
+                        swordsmanRegions = TextureRegion.split(entityTextures[i], 64, 64);
+                        entitySprites[i] = new Sprite(swordsmanRegions[0][2]);
                         entitySprites[i] = new Sprite(entityTextures[i]);
                         entitySprites[i].setX(x);
                         entitySprites[i].setY(y);
                     }
+        }
+        
+        
+        public void arrow(int direction, float x, float y){
+            
+            
+            System.out.println("ATTACK");
         }
         
         //GETTER
