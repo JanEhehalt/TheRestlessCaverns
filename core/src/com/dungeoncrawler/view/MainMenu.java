@@ -26,12 +26,7 @@ public class MainMenu{
         Sprite cursor;
         float CursorMoveX;
         float CursorMoveY;
-        /*
-        //PLAYER
-        Texture p;
-        Sprite player;
-        TextureRegion[][] regions;
-        */
+        
 	public MainMenu() {
                 //MENU-SCREEN
                 float w = Gdx.graphics.getWidth();
@@ -78,7 +73,7 @@ public class MainMenu{
         
         
         public void moveCursor(int direction){
-            switch(direction){
+            switch(direction){                  //starts the directional movement of the cursor in one direction depending on the pressed key
                 case 0:
                 CursorMoveY = 10f; break;
                 case 1:
@@ -89,7 +84,7 @@ public class MainMenu{
                 CursorMoveX = -10f; break;
             }
         }
-        public void stopCursor(int direction){
+        public void stopCursor(int direction){  //stops the directional movement of the cursor in one direction depending on the released key
             switch(direction){
                 case 0:
                 CursorMoveY = 0f; break;
@@ -101,12 +96,12 @@ public class MainMenu{
                 CursorMoveX = 0f; break;
             }
         }
-        public int click(){
+        public int click(){     // prüft ob cursor mit button (START) überlappt
             Rectangle rectangleCursor = cursor.getBoundingRectangle();
             Rectangle rectangleButton = button.getBoundingRectangle();
             boolean overlapsPlay = rectangleCursor.overlaps(rectangleButton);
             if(overlapsPlay == true){
-                return 0;
+                return 0;           // ints weil für mehr buttons eine ID festgelegt werden kann. 0 = START - -1 = kein button
             }
             else{return -1;}
         }

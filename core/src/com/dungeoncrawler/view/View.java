@@ -20,8 +20,6 @@ public class View {
         Sprite player;
         TextureRegion[][] regions;
         
-        
-        
         //ENTITIES
         Texture[] entityTextures;
         Sprite[] entitySprites;
@@ -31,13 +29,10 @@ public class View {
         //MAP
         Map m;
         TiledMapRenderer tmr;
-        TiledMap test;
+        TiledMap tm;
         OrthographicCamera camera;
         
 	public View(Dungeon d) {
-                float w = Gdx.graphics.getWidth();
-                float h = Gdx.graphics.getHeight();
-                float wc = w/2;
             
                 //PLAYER
                 p = new Texture("Player.png");
@@ -49,12 +44,11 @@ public class View {
                 //ENTITIES
                 entityTextures = new Texture[5];
                 entitySprites = new Sprite[5];
-                archerTexture = new Texture("archer.png");
-                archerRegions = TextureRegion.split(archerTexture, 64, 64);
-                
-                
                 
                 //MAP
+                float w = Gdx.graphics.getWidth();
+                float h = Gdx.graphics.getHeight();
+                
                 m = new Map();
                 camera = new OrthographicCamera(1, h/w);
                 
@@ -64,40 +58,43 @@ public class View {
                 m.setMaps(maps);
                 mg.ichWillSpielen(m.getMaps());
                 
-                test = new TiledMap();
-                tmr = new OrthogonalTiledMapRenderer(test);
+                tm = new TiledMap();
+                tmr = new OrthogonalTiledMapRenderer(tm);
 
 	}
 
 	public void render (SpriteBatch batch, Player p, Entity[] e, int[] tile, int level, int[] posRoom) {
+            
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
                 
+                //setzt player Sprite auf richtige Position
                 player.setX(p.getxPos());
                 player.setY(p.getyPos());
                 
                 int xPosRoom = posRoom[0];
                 int yPosRoom = posRoom[1];
                 
-                test = m.getMaps()[level][xPosRoom][yPosRoom];
+                tm = m.getMaps()[level][xPosRoom][yPosRoom];
                 
-                if(test == null){
+                if(tm == null){
                     System.out.println("Dein scheiÃŸ geht net");
                 }
                 else{
-                    tmr = new OrthogonalTiledMapRenderer(test);
+                    tmr = new OrthogonalTiledMapRenderer(tm);
                 }
                 
-                if(p.getMovementX() == 3){
+                // dreht SpielerSprite je nach Bewegungsrichtung 
+                if(p.getMovementX() == 3){ //RECHTS
                     player.setRegion(regions[0][1]);
                 }
-                if(p.getMovementX() == -3){
+                if(p.getMovementX() == -3){ //LINKS
                     player.setRegion(regions[0][3]);
                 }
-                if(p.getMovementY() == 3){
+                if(p.getMovementY() == 3){ //OBEN
                     player.setRegion(regions[0][0]);
                 }
-                if(p.getMovementY() == -3){
+                if(p.getMovementY() == -3){ //UNTEN
                     player.setRegion(regions[0][2]);
                 }
                 
@@ -112,40 +109,40 @@ public class View {
                 
                 
 
-                //BATCH
-                batch.begin();
+            //BATCH
+            batch.begin();
                 player.draw(batch);
+                    //DRAW'T JEDES ENTITY - prüft vorher ob vorhanden
                 for(int i = 0; i < e.length; i++){
-                
-                if(entitySprites[i] != null){
-                    entitySprites[i].setX(e[i].getxPos());
-                    entitySprites[i].setY(e[i].getyPos());
-                    switch(e[i].direction()){
-                        case -1:
-                            break;
-                        case 0:
-                            entitySprites[i].setRegion(archerRegions[0][0]);
-                            break;
-                        case 1:
-                            entitySprites[i].setRegion(archerRegions[0][1]);
-                            break;
-                        case 2:
-                            entitySprites[i].setRegion(archerRegions[0][2]);
-                            break;
-                        case 3:
-                            entitySprites[i].setRegion(archerRegions[0][3]);
-                            break;
+                    if(entitySprites[i] != null){
+                        entitySprites[i].setX(e[i].getxPos());
+                        entitySprites[i].setY(e[i].getyPos());
+                        switch(e[i].direction()){
+                            case -1:
+                                break;
+                            case 0:
+                                entitySprites[i].setRegion(archerRegions[0][0]);
+                                break;
+                            case 1:
+                                entitySprites[i].setRegion(archerRegions[0][1]);
+                                break;
+                            case 2:
+                                entitySprites[i].setRegion(archerRegions[0][2]);
+                                break;
+                            case 3:
+                                entitySprites[i].setRegion(archerRegions[0][3]);
+                                break;
                     
                         }
                         entitySprites[i].draw(batch);
                     }
                 }
-                batch.end();
+            batch.end();
 	}
         
         
         public void newEntity(int i,Entity e, int x, int y){
-                    if(e.getId() == 0){
+                    if(e.getId() == 0){ //nimmt entity ID -> 0 = Archer || 1 = Swordsman
                         entityTextures[i] = new Texture("archer.png");
                         entitySprites[i] = new Sprite(archerRegions[0][2]);
                         entitySprites[i].setX(x);
@@ -159,17 +156,12 @@ public class View {
                     }
         }
         
+        //GETTER
         public float getPlayerSpriteX(){
             return player.getX();
         }
         public float getPlayerSpriteY(){
             return player.getY();
-        }
-        public void setPlayerSpriteX(float x){
-            player.setX(x);
-        }
-        public void setPlayerSpriteY(float y){
-            player.setY(y);
         }
         
         public float getEntitySpriteX(int i){
@@ -178,6 +170,15 @@ public class View {
         public float getEntitySpriteY(int i){
             return entitySprites[i].getY();
         }
+        
+        //SETTER
+        public void setPlayerSpriteX(float x){
+            player.setX(x);
+        }
+        public void setPlayerSpriteY(float y){
+            player.setY(y);
+        }
+        
         public void setEntitySpriteX(int i,float x){
             entitySprites[i].setX(x);
         }

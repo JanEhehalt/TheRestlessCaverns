@@ -41,80 +41,59 @@ public abstract class Entity {
     }
     
     public void rdmMove(float xPlayer, float yPlayer){
-            if(xPlayer == xPos){
-                if(yPlayer == yPos){}
-                else if(yPlayer > yPos){movementY = -1f;}
-                else if(yPlayer < yPos){movementY = 1f;}
-            }
-            else if(yPlayer == yPos){
-                if(xPlayer == xPos){}
-                else if(xPlayer > xPos){movementX = 1f;}
-                else if(xPlayer < xPos){movementX = -1f;}
-            }
-            else if(xPlayer > xPos){
-                if(yPlayer > yPos){     //archer ist im Quadrant III
-                    if((yPos - yPlayer) > (xPos - xPlayer)){ 
-                        movementY = 1f;
-                    }
-                    else{
-                        movementX = 1f;
-                    }
-                }
-                else if(yPlayer < yPos){ //archer ist im Quadrant IV
-                    if((yPos - yPlayer) > (xPlayer - xPos)){
-                        movementX = 1f;
-                    }
-                    else{
-                        movementY = -1f;
-                    }
-                }
-            }
-            else if(xPlayer < xPos){
-                if(yPlayer < yPos){     //archer ist im Quadrant II
-                    if((yPlayer - yPos) > (xPlayer - xPos)){
-                        movementX = -1f;
-                    }
-                    else{
-                        movementY = 1f;
-                    }
-                }
-                else if(yPlayer > yPos){ //archer ist im Quadrant I
-                    if((yPlayer - yPos) > (xPos - xPlayer)){
-                        movementY = -1;
-                    }
-                    else{
-                        movementX = -1;
-                    }
+            if(xPlayer == xPos){                                    //PLAYER auf X-Achse von Archer
+                if(yPlayer == yPos){}                               //  //PLAYER pos = Archer pos
+                else if(yPlayer > yPos){movementY = -1f;}           //  //PLAYER über Archer
+                else if(yPlayer < yPos){movementY = 1f;}            //  //PLAYER unter Archer
+            }                                                       //
+            else if(yPlayer == yPos){                               //PLAYER auf Y-Achse von Archer
+                if(xPlayer == xPos){}                               //  //PLAYER pos = Archer pos
+                else if(xPlayer > xPos){movementX = 1f;}            //  //PLAYER rechts von Archer
+                else if(xPlayer < xPos){movementX = -1f;}           //  //PLAYER links von Archer
+            }                                                       //
+            else if(xPlayer > xPos){                                //PLAYER rechts von Archer
+                if(yPlayer > yPos){                                 //      //PLAYER ist im Quadrant I
+                    if((yPlayer - yPos) > (xPlayer - xPos)){        //      //  //Weg zu PLAYER x kürzer als zu PLAYER y
+                        movementX = 1f;                             //      //  //
+                    }                                               //      //  //
+                    else{                                           //      //  //Weg zu PLAYER y kürzer als zu PLAYER x
+                        movementY = 1f;                             //      //
+                    }                                               //      //
+                }                                                   //      //
+                else if(yPlayer < yPos){                            //      //PLAYER ist im Quadrant II
+                    if((yPos - yPlayer) > (xPlayer - xPos)){        //          //Weg zu PLAYER x kürzer als zu PLAYER y
+                        movementX = 1f;                             //          //
+                    }                                               //          //
+                    else{                                           //          //Weg zu PLAYER y kürzer als zu PLAYER y
+                        movementY = -1f;                            //
+                    }                                               //
+                }                                                   //
+            }                                                       //
+            else if(xPlayer < xPos){                                //PLAYER links von Archer
+                if(yPlayer < yPos){                                 //        //PLAYER ist im Quadrant III
+                    if((yPlayer - yPos) > (xPlayer - xPos)){        //        //  //Weg zu PLAYER x kürzer als zu PLAYER y
+                        movementX = -1f;                            //        //  //
+                    }                                               //        //  //
+                    else{                                           //        //  //Weg zu PLAYER y kürzer als zu PLAYER x
+                        movementY = -1f;                            //       //
+                    }                                               //        //
+                }                                                   //        //
+                else if(yPlayer > yPos){                            //        //PLAYER ist im Quadrant IV
+                    if((yPlayer - yPos) > (xPos - xPlayer)){        //            //Weg zu PLAYER x kürzer als zu PLAYER y
+                        movementX = -1;                             //            //
+                    }                                               //            //
+                    else{                                           //            //Weg zu PLAYER y kürzer als zu PLAYER x
+                        movementY = 1;                              //
+                    }                                               ////////////
                 }
             }
         
         move();
         
-        
-        /*
-                 switch((int) (Math.random() * 5)){
-                    case 0: //left
-                        setMovementX(-3);
-                        move();
-                        break;
-                    case 1: //right
-                        setMovementX(3);
-                        move();
-                        break;
-                    case 2: //up
-                        setMovementY(3);
-                        move();
-                        break;
-                    case 3: //down
-                        setMovementY(-3);
-                        move();
-                        break;
-                 }
-        */
         }
     
-    public int direction(){
-        if(movementX < 0f){
+    public int direction(){     // returns direction the entity is facing depending on its movement 
+        if(movementX < 0f){     // TIS IS SHIT - NEED REWORK
             return 3;
         }
         else if(movementX < 3f){
@@ -128,7 +107,9 @@ public abstract class Entity {
         }
         return -1;
     }
-            
+    
+    
+    // GETTER + SETTER
     public float getxPos() {
         return xPos;
     }
