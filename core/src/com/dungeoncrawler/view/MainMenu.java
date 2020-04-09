@@ -96,12 +96,12 @@ public class MainMenu{
                 CursorMoveX = 0f; break;
             }
         }
-        public int click(){     // prüft ob cursor mit button (START) überlappt
+        public int click(){     // prueft ob cursor mit button (START) ueberlappt
             Rectangle rectangleCursor = cursor.getBoundingRectangle();
             Rectangle rectangleButton = button.getBoundingRectangle();
             boolean overlapsPlay = rectangleCursor.overlaps(rectangleButton);
             if(overlapsPlay == true){
-                return 0;           // ints weil für mehr buttons eine ID festgelegt werden kann. 0 = START - -1 = kein button
+                return 0;           // ints weil fuer mehr buttons eine ID festgelegt werden kann. 0 = START - -1 = kein button
             }
             else{return -1;}
         }

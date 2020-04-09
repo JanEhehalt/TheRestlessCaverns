@@ -112,7 +112,7 @@ public class View {
             //BATCH
             batch.begin();
                 player.draw(batch);
-                    //DRAW'T JEDES ENTITY - prüft vorher ob vorhanden
+                    //DRAW'T JEDES ENTITY - prueft vorher ob vorhanden
                 for(int i = 0; i < e.length; i++){
                     if(entitySprites[i] != null){
                         entitySprites[i].setX(e[i].getxPos());

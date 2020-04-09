@@ -43,7 +43,7 @@ public abstract class Entity {
     public void rdmMove(float xPlayer, float yPlayer){
             if(xPlayer == xPos){                                    //PLAYER auf X-Achse von Archer
                 if(yPlayer == yPos){}                               //  //PLAYER pos = Archer pos
-                else if(yPlayer > yPos){movementY = -1f;}           //  //PLAYER über Archer
+                else if(yPlayer > yPos){movementY = -1f;}           //  //PLAYER ueber Archer
                 else if(yPlayer < yPos){movementY = 1f;}            //  //PLAYER unter Archer
             }                                                       //
             else if(yPlayer == yPos){                               //PLAYER auf Y-Achse von Archer
@@ -53,36 +53,36 @@ public abstract class Entity {
             }                                                       //
             else if(xPlayer > xPos){                                //PLAYER rechts von Archer
                 if(yPlayer > yPos){                                 //      //PLAYER ist im Quadrant I
-                    if((yPlayer - yPos) > (xPlayer - xPos)){        //      //  //Weg zu PLAYER x kürzer als zu PLAYER y
+                    if((yPlayer - yPos) > (xPlayer - xPos)){        //      //  //Weg zu PLAYER x kuerzer als zu PLAYER y
                         movementX = 1f;                             //      //  //
                     }                                               //      //  //
-                    else{                                           //      //  //Weg zu PLAYER y kürzer als zu PLAYER x
+                    else{                                           //      //  //Weg zu PLAYER y kuerzer als zu PLAYER x
                         movementY = 1f;                             //      //
                     }                                               //      //
                 }                                                   //      //
                 else if(yPlayer < yPos){                            //      //PLAYER ist im Quadrant II
-                    if((yPos - yPlayer) > (xPlayer - xPos)){        //          //Weg zu PLAYER x kürzer als zu PLAYER y
+                    if((yPos - yPlayer) > (xPlayer - xPos)){        //          //Weg zu PLAYER x kuerzer als zu PLAYER y
                         movementX = 1f;                             //          //
                     }                                               //          //
-                    else{                                           //          //Weg zu PLAYER y kürzer als zu PLAYER y
+                    else{                                           //          //Weg zu PLAYER y kuerzer als zu PLAYER y
                         movementY = -1f;                            //
                     }                                               //
                 }                                                   //
             }                                                       //
             else if(xPlayer < xPos){                                //PLAYER links von Archer
                 if(yPlayer < yPos){                                 //        //PLAYER ist im Quadrant III
-                    if((yPlayer - yPos) > (xPlayer - xPos)){        //        //  //Weg zu PLAYER x kürzer als zu PLAYER y
+                    if((yPlayer - yPos) > (xPlayer - xPos)){        //        //  //Weg zu PLAYER x kuerzer als zu PLAYER y
                         movementX = -1f;                            //        //  //
                     }                                               //        //  //
-                    else{                                           //        //  //Weg zu PLAYER y kürzer als zu PLAYER x
+                    else{                                           //        //  //Weg zu PLAYER y kuerzer als zu PLAYER x
                         movementY = -1f;                            //       //
                     }                                               //        //
                 }                                                   //        //
                 else if(yPlayer > yPos){                            //        //PLAYER ist im Quadrant IV
-                    if((yPlayer - yPos) > (xPos - xPlayer)){        //            //Weg zu PLAYER x kürzer als zu PLAYER y
+                    if((yPlayer - yPos) > (xPos - xPlayer)){        //            //Weg zu PLAYER x kuerzer als zu PLAYER y
                         movementX = -1;                             //            //
                     }                                               //            //
-                    else{                                           //            //Weg zu PLAYER y kürzer als zu PLAYER x
+                    else{                                           //            //Weg zu PLAYER y kuerzer als zu PLAYER x
                         movementY = 1;                              //
                     }                                               ////////////
                 }
