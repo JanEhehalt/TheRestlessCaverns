@@ -139,7 +139,7 @@ public class MapGenerator {
             }
         }
         
-        RectangleMapObject collision = new RectangleMapObject(48, 48, roomDimensionX, roomDimensionY);
+        RectangleMapObject collision = new RectangleMapObject(48, 48, roomDimensionX*48, roomDimensionY*48);
         collisionLayer.getObjects().add(collision);
         
         collisionLayer.setVisible(false);

@@ -145,8 +145,14 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
         RectangleMapObject rectangleObject = objects.getByType(RectangleMapObject.class).get(0);
         
         Rectangle rectangle = rectangleObject.getRectangle();
-        if(Intersector.overlaps(rectangle, m.getPlayer().getBoundingRectangle())){
-            d.getPlayer().update();
+        
+        float x = d.getPlayer().getxPos();
+        float y = d.getPlayer().getyPos();
+        
+        d.getPlayer().update();
+        if(!Intersector.overlaps(rectangle, m.getPlayer().getBoundingRectangle())){
+            d.getPlayer().setxPos(x);
+            d.getPlayer().setyPos(y);
         }
     }
     
