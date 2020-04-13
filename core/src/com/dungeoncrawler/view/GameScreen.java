@@ -53,7 +53,6 @@ public class GameScreen {
                 
                 arrowTextures = new Texture[10];
                 arrowSprites = new Sprite[10];
-                //Timer[] arrows = new Timer[10];
                     
                 //MAP
                 float w = Gdx.graphics.getWidth();
@@ -73,7 +72,7 @@ public class GameScreen {
 
 	}
 
-	public void render (SpriteBatch batch, Player p, Entity[] e, int[] tile, int level, int[] posRoom) {
+	public void render (SpriteBatch batch, Player p, Entity[] e, Entity[] arrows, int[] tile, int level, int[] posRoom) {
             
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -147,11 +146,18 @@ public class GameScreen {
                         entitySprites[i].draw(batch);
                     }
                 }
+                for(int i = 0; i < arrowSprites.length; i++){
+                    if(arrowSprites[i] != null){
+                        arrowSprites[i].setX(arrows[i].getxPos());
+                        arrowSprites[i].setY(arrows[i].getyPos());
+                        arrowSprites[i].draw(batch);
+                    }
+                }
             batch.end();
 	}
         
         
-        public void newEntity(int i,Entity e, int x, int y){
+        public void newEntity(int i,Entity e, float x, float y){
                     if(e.getId() == 0){ //nimmt entity ID -> 0 = Archer || 1 = Swordsman
                         entityTextures[i] = new Texture("archer.png");
                         archerRegions = TextureRegion.split(entityTextures[i], 64, 64);
@@ -167,14 +173,14 @@ public class GameScreen {
                         entitySprites[i].setX(x);
                         entitySprites[i].setY(y);
                     }
+                    else if(e.getId() == 2){
+                        arrowTextures[i] = new Texture("key.png");
+                        arrowSprites[i] = new Sprite(arrowTextures[i]);
+                        arrowSprites[i].setX(x);
+                        arrowSprites[i].setY(y);
+                    }
         }
         
-        
-        public void arrow(int direction, float x, float y){
-            
-            
-            System.out.println("ATTACK");
-        }
         
         //GETTER
         public float getPlayerSpriteX(){

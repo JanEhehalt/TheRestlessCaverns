@@ -1,5 +1,7 @@
 package com.dungeoncrawler.model;
 
+import com.badlogic.gdx.utils.Timer;
+
 
 public abstract class Entity {
     
@@ -12,13 +14,92 @@ public abstract class Entity {
     protected float movementX;
     protected float movementY;
     protected int id;
+    
+    Timer tup;
+    Timer tright;
+    Timer tdown;
+    Timer tleft;
+    int timerRuns;
+    boolean isRunning;
+    int facing;
 
-    public Entity(int xPos, float yPos, int lvl){
+    public Entity(float xPos, float yPos, int lvl){
         this.xPos = xPos;
         this.yPos = yPos;
         this.lvl = lvl;
         this.movementX = 0;
         this.movementY = 0;
+        
+        
+        tup = new Timer();
+        tright = new Timer();
+        tdown = new Timer();
+        tleft = new Timer();
+        isRunning = false;
+        timerRuns = 0;
+        facing = 2;
+        
+        tup.scheduleTask(new Timer.Task() {
+                    @Override
+                    public void run() {
+                        setFacing(0);
+                        setIsRunning(true);
+                        setyPos(getyPos() + 1f);
+                        setTimerRuns(getTimerRuns() + 1);
+                        if(getTimerRuns() >= 48){
+                            setTimerRuns(0);
+                            setIsRunning(false);
+                            tup.stop();
+                        }
+                    }
+        },0,0.03f);
+        tup.stop();
+        tright.scheduleTask(new Timer.Task() {
+                    @Override
+                    public void run() {
+                        setFacing(1);
+                        setIsRunning(true);
+                        setxPos(getxPos() + 1f);
+                        setTimerRuns(getTimerRuns() + 1);
+                        if(getTimerRuns() >= 48){
+                            setTimerRuns(0);
+                            setIsRunning(false);
+                            tright.stop();
+                        }
+                    }
+        },0,0.03f);
+        tright.stop();
+        tdown.scheduleTask(new Timer.Task() {
+                    @Override
+                    public void run() {
+                        setFacing(2);
+                        setIsRunning(true);
+                        setyPos(getyPos() - 1f);
+                        setTimerRuns(getTimerRuns() + 1);
+                        if(getTimerRuns() >= 48){
+                            setTimerRuns(0);
+                            setIsRunning(false);
+                            tdown.stop();
+                        }
+                    }
+        },0,0.03f);
+        tdown.stop();
+        tleft.scheduleTask(new Timer.Task() {
+                    @Override
+                    public void run() {
+                        setFacing(3);
+                        setIsRunning(true);
+                        setxPos(getxPos() - 1f);
+                        setTimerRuns(getTimerRuns() + 1);
+                        
+                        if(getTimerRuns() >= 48){
+                            setTimerRuns(0);
+                            setIsRunning(false);
+                            tleft.stop();
+                        }
+                    }
+        },0,0.03f);
+        tleft.stop();
     }
     
     
@@ -40,64 +121,44 @@ public abstract class Entity {
             movementY = 0;
     }
     
-    public void rdmMove(float xPlayer, float yPlayer){
+    public void rdmMove(){
+        double i = Math.random();
         
-            if(xPlayer == xPos){                                    //PLAYER auf X-Achse von Archer
-                if(yPlayer == yPos){}                               //  //PLAYER pos = Archer pos
-                else if(yPlayer > yPos){movementY = 1f;}            //  //PLAYER ueber Archer
-                else if(yPlayer < yPos){movementY = -1f;}           //  //PLAYER unter Archer
-            }                                                       //
-            else if(yPlayer == yPos){                               //PLAYER auf Y-Achse von Archer
-                if(xPlayer == xPos){}                               //  //PLAYER pos = Archer pos
-                else if(xPlayer > xPos){movementX = 1f;}            //  //PLAYER rechts von Archer
-                else if(xPlayer < xPos){movementX = -1f;}           //  //PLAYER links von Archer
-            }                                                       //
-            else if(xPlayer > xPos){                                //PLAYER rechts von Archer
-                if(yPlayer > yPos){                                 //      //PLAYER ist im Quadrant I
-                    if((yPlayer - yPos) > (xPlayer - xPos)){        //      //  //Weg zu PLAYER x kuerzer als zu PLAYER y
-                        movementX = 1f;                             //      //  //
-                    }                                               //      //  //
-                    else{                                           //      //  //Weg zu PLAYER y kuerzer als zu PLAYER x
-                        movementY = 1f;                             //      //
-                    }                                               //      //
-                }                                                   //      //
-                else if(yPlayer < yPos){                            //      //PLAYER ist im Quadrant II
-                    if((yPos - yPlayer) > (xPlayer - xPos)){        //          //Weg zu PLAYER x kuerzer als zu PLAYER y
-                        movementX = 1f;                             //          //
-                    }                                               //          //
-                    else{                                           //          //Weg zu PLAYER y kuerzer als zu PLAYER y
-                        movementY = -1f;                            //
-                    }                                               //
-                }                                                   //
-            }                                                       //
-            else if(xPlayer < xPos){                                //PLAYER links von Archer
-                if(yPlayer < yPos){                                 //        //PLAYER ist im Quadrant III
-                    if((yPlayer - yPos) > (xPlayer - xPos)){        //        //  //Weg zu PLAYER x kuerzer als zu PLAYER y
-                        movementX = -1f;                            //        //  //
-                    }                                               //        //  //
-                    else{                                           //        //  //Weg zu PLAYER y kuerzer als zu PLAYER x
-                        movementY = -1f;                            //        //
-                    }                                               //        //
-                }                                                   //        //
-                else if(yPlayer > yPos){                            //        //PLAYER ist im Quadrant IV
-                    if((yPlayer - yPos) > (xPos - xPlayer)){        //            //Weg zu PLAYER x kuerzer als zu PLAYER y
-                        movementX = -1;                             //            //
-                    }                                               //            //
-                    else{                                           //            //Weg zu PLAYER y kuerzer als zu PLAYER x
-                        movementY = 1;                              //
-                    }                                               ////////////
+        if(i <= 0.2){
+            if(isRunning == false){
+                tup.start();
+            }
+        }
+        else if(i > 0.2 && i <= 0.4){
+            if(isRunning == false){
+                tright.start();
+            }
+        }
+        else if(i > 0.4 && i <= 0.6){
+            if(isRunning == false){
+                if(yPos == 0){
+                }
+                else{
+                    tdown.start();
                 }
             }
-        if(yPos + movementY < 0){
-        
         }
-        else if(xPos + movementX < 0){
-        
+        else if(i > 0.6 && i <= 0.8){
+            if(isRunning == false){
+                if(xPos == 0){
+                }
+                else{
+                    tleft.start();
+                }
+            }
         }
         else{
-        move();
+            facing = 2;
         }
-        }
+        
+        
+            move();
+    }
     
     public int direction(){     // returns direction the entity is facing depending on its movement 
         if(movementX < 0f){     // TIS IS SHIT - NEED REWORK
@@ -184,4 +245,28 @@ public abstract class Entity {
     public int getId(){
         return this.id;
     }
+    
+    private void setIsRunning(boolean n){
+        isRunning = n;
+    }
+    private boolean getIsRunning(){
+        return isRunning;
+    }
+    
+    public int getTimerRuns(){
+        return timerRuns;
+    }
+    
+    public void setTimerRuns(int n){
+        timerRuns = n;
+    }
+    
+    public void setFacing(int i){
+        facing = i;
+    }
+    
+    public int getFacing(){
+        return facing;
+    }
+    
 }

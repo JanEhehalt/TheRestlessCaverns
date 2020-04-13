@@ -23,7 +23,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
     DungeonGenerator dg;
     MainMenu v;
     Entity[] e;
-    Timer t;
+    Timer tEntities;
     GameScreen m;
     int[] tile;
     int[] posRoom;
@@ -31,13 +31,14 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
     int roomX;
     int roomY;
     
+    Entity[] arrows;
+    
+    
+    
     @Override
     public void create(){
-        //TEST
         
-        //TEST
-        
-        
+        arrows = new Entity[10];
         roomX = 8;
         roomY = 6;
         
@@ -45,6 +46,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
         batch = new SpriteBatch();
         v = new MainMenu();
         dg = new DungeonGenerator();
+        
         
         d = dg.generateDungeon(0, 0, 0, new Player());
         dg.ichWillSpielen(d);
@@ -81,18 +83,23 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
         e = new Entity[5];
 
         Gdx.input.setInputProcessor(this);
-        t = new Timer();
+        tEntities = new Timer();
         
-        t.scheduleTask(new Timer.Task() {
+        tEntities.scheduleTask(new Timer.Task() {
                     @Override
                     public void run() {
                         for(int i = 0; i< e.length; i++){
                             if(e[i] == null){}
                             else{
-                                if(Math.random() < 0.05){
-                                    m.arrow(e[i].direction(), e[i].getxPos(), e[i].getyPos());
+                                if(Math.random() < 0.05){   //Attacks with a chance of 5% every move
+                                    for(int n = 0; n < arrows.length; n++){
+                                        if(arrows[n] == null){
+                                            //arrows[n] = new Arrow(e[i].getxPos(), e[i].getyPos(), e[i].getLvl(), e[i].direction());
+                                            //m.newEntity(n,arrows[n],e[i].getxPos(),e[i].getyPos());
+                                        }
+                                    }
                                 }
-                                e[i].rdmMove(d.getPlayer().getxPos(), d.getPlayer().getyPos());
+                                e[i].rdmMove();
                                 m.setPlayerSpriteX(d.getPlayer().getxPos());
                                 m.setPlayerSpriteY(d.getPlayer().getyPos());
                                 m.setEntitySpriteX(i, d.getPlayer().getxPos());
@@ -100,7 +107,9 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                             }
                         }
                      }
-                },0,0.1f);
+                },0,0.4f);
+        
+        
     }
     
     
@@ -111,7 +120,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
             v.render(batch, d.getPlayer() , e);
         }
         
-        //PASSIERT IN GAMESCREEN (view)
+        //PASSIERT IN GAMESCREEN
         if(m != null){
         //ENTITIES
             d.getPlayer().setxPos(m.getPlayerSpriteX());
@@ -125,7 +134,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                 updateRoom();
 
                 // Render methode zum rendern der einzelnen Sprites wird aufgerufen
-                m.render(batch, d.getPlayer(), e, tile, level, posRoom);
+                m.render(batch, d.getPlayer(), e, arrows,  tile, level, posRoom);
             }
         }
     }
@@ -189,7 +198,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
         }
     }
         
-    public void newEntity(Entity ent, int x, int y, int lvl){
+    public void newEntity(Entity ent, float x, float y, int lvl){
         for(int i = 0; i < e.length ; i++){
             if(e[i] == null){
                 switch(ent.getId()){
@@ -206,7 +215,8 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                 }
             }
         }
-    }    
+    }
+
     
     @Override
     public boolean keyDown(int keycode) {
@@ -215,7 +225,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                         v.moveCursor(3);
                     }
                     if(m != null){
-                        d.getPlayer().setMovementX(-3);
+                            d.getPlayer().setMovementX(-3f);
                     }
                 }
                 
@@ -224,7 +234,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                         v.moveCursor(1);
                     }
                     if(m != null){
-                        d.getPlayer().setMovementX(3);
+                            d.getPlayer().setMovementX(+3f);
                     }
                 }
                 
@@ -233,7 +243,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                     v.moveCursor(2);
                     }
                     if(m != null){
-                    d.getPlayer().setMovementY(-3);
+                            d.getPlayer().setMovementY(-3f);
                     }
                 } 
                 
@@ -242,7 +252,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                     v.moveCursor(0);
                     }
                     if(m != null){
-                    d.getPlayer().setMovementY(3);
+                            d.getPlayer().setMovementY(3f);
                     }
                 } 
                 
@@ -253,7 +263,9 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                         v = null;
                         m = new GameScreen(d);
                         Archer a = new Archer(0,0,0);
-                        newEntity(a,0,0,0);
+                        newEntity(a,96,96,0);
+                        Swordsman s = new Swordsman(0,0,0);
+                        newEntity(s,288,96,0);
                         System.out.println("NICE");
                     }
                     }
@@ -340,4 +352,8 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
     public boolean scrolled(int i) {
         return false;
     }
+    
+    
+    
+    
 }

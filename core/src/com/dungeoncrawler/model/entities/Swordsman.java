@@ -3,7 +3,7 @@ import com.dungeoncrawler.model.Entity;
 
 public class Swordsman extends Entity {
     
-    public Swordsman(int xPos, int yPos, int lvl) {
+    public Swordsman(float xPos, float yPos, int lvl) {
         super(xPos, yPos, lvl);
         
         this.maxhp = 5*lvl;
