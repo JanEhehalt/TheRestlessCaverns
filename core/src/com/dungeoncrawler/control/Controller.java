@@ -10,6 +10,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.maps.MapLayers;
+import com.badlogic.gdx.maps.MapObjects;
+import com.badlogic.gdx.maps.objects.RectangleMapObject;
+import com.badlogic.gdx.math.Intersector;
+import com.badlogic.gdx.math.Rectangle;
 import com.dungeoncrawler.view.*;
 import com.dungeoncrawler.model.Dungeon;
 import com.dungeoncrawler.model.DungeonGenerator;
@@ -114,7 +119,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
 
             if(v == null){
                 // Position des Players, etc. werden aktualisiert
-                updateObjects();
+                updateObjects(level, posRoom);
                 
                 // Raum, in dem sich der Player jetzt befindet, wird aktualisiert
                 updateRoom();
@@ -131,8 +136,18 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
         batch.dispose();
     }
         
-    public void updateObjects(){
-        d.getPlayer().update();
+    public void updateObjects(int level, int[] posRoom){
+        
+        MapLayers layers = m.getM().getMaps()[level][posRoom[0]][posRoom[1]].getLayers();
+        MapObjects objects = layers.get(0).getObjects();
+        System.out.println(objects.getCount());
+        
+        RectangleMapObject rectangleObject = objects.getByType(RectangleMapObject.class).get(0);
+        
+        Rectangle rectangle = rectangleObject.getRectangle();
+        if(Intersector.overlaps(rectangle, m.getPlayer().getBoundingRectangle())){
+            d.getPlayer().update();
+        }
     }
     
     public void updateRoom(){
