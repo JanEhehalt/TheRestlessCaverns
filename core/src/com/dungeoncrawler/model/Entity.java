@@ -15,13 +15,7 @@ public abstract class Entity {
     protected float movementY;
     protected int id;
     
-    Timer tup;
-    Timer tright;
-    Timer tdown;
-    Timer tleft;
-    int timerRuns;
-    boolean isRunning;
-    int facing;
+    
 
     public Entity(float xPos, float yPos, int lvl){
         this.xPos = xPos;
@@ -31,75 +25,9 @@ public abstract class Entity {
         this.movementY = 0;
         
         
-        tup = new Timer();
-        tright = new Timer();
-        tdown = new Timer();
-        tleft = new Timer();
-        isRunning = false;
-        timerRuns = 0;
-        facing = 2;
         
-        tup.scheduleTask(new Timer.Task() {
-                    @Override
-                    public void run() {
-                        setFacing(0);
-                        setIsRunning(true);
-                        setyPos(getyPos() + 1f);
-                        setTimerRuns(getTimerRuns() + 1);
-                        if(getTimerRuns() >= 48){
-                            setTimerRuns(0);
-                            setIsRunning(false);
-                            tup.stop();
-                        }
-                    }
-        },0,0.03f);
-        tup.stop();
-        tright.scheduleTask(new Timer.Task() {
-                    @Override
-                    public void run() {
-                        setFacing(1);
-                        setIsRunning(true);
-                        setxPos(getxPos() + 1f);
-                        setTimerRuns(getTimerRuns() + 1);
-                        if(getTimerRuns() >= 48){
-                            setTimerRuns(0);
-                            setIsRunning(false);
-                            tright.stop();
-                        }
-                    }
-        },0,0.03f);
-        tright.stop();
-        tdown.scheduleTask(new Timer.Task() {
-                    @Override
-                    public void run() {
-                        setFacing(2);
-                        setIsRunning(true);
-                        setyPos(getyPos() - 1f);
-                        setTimerRuns(getTimerRuns() + 1);
-                        if(getTimerRuns() >= 48){
-                            setTimerRuns(0);
-                            setIsRunning(false);
-                            tdown.stop();
-                        }
-                    }
-        },0,0.03f);
-        tdown.stop();
-        tleft.scheduleTask(new Timer.Task() {
-                    @Override
-                    public void run() {
-                        setFacing(3);
-                        setIsRunning(true);
-                        setxPos(getxPos() - 1f);
-                        setTimerRuns(getTimerRuns() + 1);
-                        
-                        if(getTimerRuns() >= 48){
-                            setTimerRuns(0);
-                            setIsRunning(false);
-                            tleft.stop();
-                        }
-                    }
-        },0,0.03f);
-        tleft.stop();
+        
+        
     }
     
     
@@ -122,42 +50,7 @@ public abstract class Entity {
     }
     
     public void rdmMove(){
-        double i = Math.random();
         
-        if(i <= 0.2){
-            if(isRunning == false){
-                tup.start();
-            }
-        }
-        else if(i > 0.2 && i <= 0.4){
-            if(isRunning == false){
-                tright.start();
-            }
-        }
-        else if(i > 0.4 && i <= 0.6){
-            if(isRunning == false){
-                if(yPos == 0){
-                }
-                else{
-                    tdown.start();
-                }
-            }
-        }
-        else if(i > 0.6 && i <= 0.8){
-            if(isRunning == false){
-                if(xPos == 0){
-                }
-                else{
-                    tleft.start();
-                }
-            }
-        }
-        else{
-            facing = 2;
-        }
-        
-        
-            move();
     }
     
     public int direction(){     // returns direction the entity is facing depending on its movement 
@@ -246,27 +139,6 @@ public abstract class Entity {
         return this.id;
     }
     
-    private void setIsRunning(boolean n){
-        isRunning = n;
-    }
-    private boolean getIsRunning(){
-        return isRunning;
-    }
     
-    public int getTimerRuns(){
-        return timerRuns;
-    }
-    
-    public void setTimerRuns(int n){
-        timerRuns = n;
-    }
-    
-    public void setFacing(int i){
-        facing = i;
-    }
-    
-    public int getFacing(){
-        return facing;
-    }
     
 }

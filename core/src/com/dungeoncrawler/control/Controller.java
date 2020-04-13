@@ -83,31 +83,6 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
         e = new Entity[5];
 
         Gdx.input.setInputProcessor(this);
-        tEntities = new Timer();
-        
-        tEntities.scheduleTask(new Timer.Task() {
-                    @Override
-                    public void run() {
-                        for(int i = 0; i< e.length; i++){
-                            if(e[i] == null){}
-                            else{
-                                if(Math.random() < 0.05){   //Attacks with a chance of 5% every move
-                                    for(int n = 0; n < arrows.length; n++){
-                                        if(arrows[n] == null){
-                                            //arrows[n] = new Arrow(e[i].getxPos(), e[i].getyPos(), e[i].getLvl(), e[i].direction());
-                                            //m.newEntity(n,arrows[n],e[i].getxPos(),e[i].getyPos());
-                                        }
-                                    }
-                                }
-                                e[i].rdmMove();
-                                m.setPlayerSpriteX(d.getPlayer().getxPos());
-                                m.setPlayerSpriteY(d.getPlayer().getyPos());
-                                m.setEntitySpriteX(i, d.getPlayer().getxPos());
-                                m.setEntitySpriteY(i, d.getPlayer().getxPos());
-                            }
-                        }
-                     }
-                },0,0.4f);
         
         
     }
