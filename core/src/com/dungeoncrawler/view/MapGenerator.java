@@ -7,7 +7,9 @@ package com.dungeoncrawler.view;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapLayers;
+import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
@@ -113,7 +115,8 @@ public class MapGenerator {
         // dynamicLayer: Beinhaltet alle Sprites, die ihre Postition ändern können (Entities, Items)
         // staticLayer: Beinhaltet alle Tiles und alles statische, was sich im Raum nicht ändern kann
         MapLayers layers = tempRoom.getLayers();
-        TiledMapTileLayer collisionLayer = new TiledMapTileLayer(mapDimensionX, mapDimensionY, 48, 48);
+        
+        MapLayer collisionLayer = new MapLayer();
         TiledMapTileLayer dynamicLayer = new TiledMapTileLayer(mapDimensionX, mapDimensionY, 48, 48);
         TiledMapTileLayer staticLayer = new TiledMapTileLayer(mapDimensionX, mapDimensionY, 48, 48);
         
@@ -134,6 +137,20 @@ public class MapGenerator {
                 staticLayer.setCell(x, y, cell);
             }
         }
+        
+        RectangleMapObject bottom = new RectangleMapObject(0, 0, mapDimensionX*48, 48);
+        collisionLayer.getObjects().add(bottom);
+        
+        RectangleMapObject left = new RectangleMapObject(0, 0, 48, mapDimensionY*48);
+        collisionLayer.getObjects().add(left);
+        
+        RectangleMapObject top = new RectangleMapObject(0, mapDimensionY*48 - 48, mapDimensionX*48, 48);
+        collisionLayer.getObjects().add(top);
+        
+        RectangleMapObject right = new RectangleMapObject(mapDimensionX*48 - 48, 0, 48, mapDimensionY*48);
+        collisionLayer.getObjects().add(right);
+        
+        collisionLayer.setVisible(false);
         
         layers.add(collisionLayer);
         layers.add(dynamicLayer);

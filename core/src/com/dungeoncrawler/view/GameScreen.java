@@ -33,7 +33,7 @@ public class GameScreen {
         Sprite[] arrowSprites;
         
         //MAP
-        Map m;
+        private Map m;
         TiledMapRenderer tmr;
         TiledMap tm;
         OrthographicCamera camera;
@@ -41,6 +41,7 @@ public class GameScreen {
 	public GameScreen(Dungeon d) {
             
                 //PLAYER
+                
                 p = new Texture("player.png");
                 regions = TextureRegion.split(p, 48, 48);
                 player = new Sprite(regions[0][2]);
@@ -84,7 +85,7 @@ public class GameScreen {
                 int xPosRoom = posRoom[0];
                 int yPosRoom = posRoom[1];
                 
-                tm = m.getMaps()[level][xPosRoom][yPosRoom];
+                tm = getM().getMaps()[level][xPosRoom][yPosRoom];
                 
                 if(tm == null){
                     System.out.println("Dein scheiß geht net");
@@ -208,6 +209,9 @@ public class GameScreen {
         public float getPlayerSpriteY(){
             return player.getY();
         }
+        public Sprite getPlayer(){
+            return player;
+        }
         
         public float getEntitySpriteX(int i){
             return entitySprites[i].getX();
@@ -229,6 +233,13 @@ public class GameScreen {
         }
         public void setEntitySpriteY(int i,float y){
             entitySprites[i].setY(y);
+        }
+
+        /**
+         * @return the m
+         */
+        public Map getM() {
+            return m;
         }
        
 }

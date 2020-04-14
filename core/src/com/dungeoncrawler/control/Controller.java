@@ -10,6 +10,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.maps.MapLayers;
+import com.badlogic.gdx.maps.MapObjects;
+import com.badlogic.gdx.maps.objects.RectangleMapObject;
+import com.badlogic.gdx.math.Intersector;
+import com.badlogic.gdx.math.Rectangle;
 import com.dungeoncrawler.view.*;
 import com.dungeoncrawler.model.Dungeon;
 import com.dungeoncrawler.model.DungeonGenerator;
@@ -90,6 +95,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
     
     @Override
     public void render(){
+        
         //PASSIERT IN MAINMENU
         if(v != null){
             v.render(batch, d.getPlayer() , e);
@@ -97,17 +103,15 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
         
         //PASSIERT IN GAMESCREEN
         if(m != null){
-        //ENTITIES
-            //d.getPlayer().setxPos(m.getPlayerSpriteX());
-            //d.getPlayer().setyPos(m.getPlayerSpriteY());
-
+            
             if(v == null){
                 // Position des Players, etc. werden aktualisiert
-                updateObjects();
+                updateObjects(level, posRoom);
                 
                 // Raum, in dem sich der Player jetzt befindet, wird aktualisiert
                 updateRoom();
 
+                
                 // Render methode zum rendern der einzelnen Sprites wird aufgerufen
                 m.render(batch, d.getPlayer(), e, arrows,  tile, level, posRoom);
             }
@@ -120,8 +124,34 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
         batch.dispose();
     }
         
-    public void updateObjects(){
+    public void updateObjects(int level, int[] posRoom){
+        
+        MapLayers layers = m.getM().getMaps()[level][posRoom[0]][posRoom[1]].getLayers();
+        MapObjects objects = layers.get(0).getObjects();
+        System.out.println(objects.getCount());
+        
+        float x = d.getPlayer().getxPos();
+        float y = d.getPlayer().getyPos();
+        
         d.getPlayer().update();
+        
+        m.setPlayerSpriteX(d.getPlayer().getxPos());
+        m.setPlayerSpriteY(d.getPlayer().getyPos());
+        
+        System.out.println("Temp: " + x + " " + y);
+        System.out.println("Player: " + d.getPlayer().getxPos() + " " + d.getPlayer().getyPos());
+        
+        for(RectangleMapObject rectangleObject : objects.getByType(RectangleMapObject.class)){
+            Rectangle rectangle = rectangleObject.getRectangle();
+            
+            if(Intersector.overlaps(rectangle, m.getPlayer().getBoundingRectangle())){
+                
+                d.getPlayer().setxPos(x);
+                d.getPlayer().setyPos(y);
+
+                System.out.println("Es lädt, es laedt, ich will nicht, dass es laedt, wenn es laedt, muss man immer so lange warten!!!!!");
+            }
+        }
     }
     
     public void updateRoom(){

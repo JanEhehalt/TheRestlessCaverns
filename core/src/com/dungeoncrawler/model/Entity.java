@@ -41,6 +41,10 @@ public abstract class Entity {
         xPos += movementX;
         yPos += movementY;
     }
+    public void downgrade(){
+        xPos -= movementX;
+        yPos -= movementY;
+    }
     public void die(){
     
     }
