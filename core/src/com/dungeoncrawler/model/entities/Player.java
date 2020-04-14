@@ -14,7 +14,7 @@ import com.dungeoncrawler.model.Entity;
 public class Player extends Entity {
     
     public Player() {
-        super(0, 0, 1);
+        super(200, 200, 1);
         
         this.maxhp = 5*lvl;
         this.hp = this.maxhp;

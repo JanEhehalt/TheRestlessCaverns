@@ -106,6 +106,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
     
     @Override
     public void render(){
+        
         //PASSIERT IN MAINMENU
         if(v != null){
             v.render(batch, d.getPlayer() , e);
@@ -114,8 +115,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
         //PASSIERT IN GAMESCREEN (view)
         if(m != null){
         //ENTITIES
-            d.getPlayer().setxPos(m.getPlayerSpriteX());
-            d.getPlayer().setyPos(m.getPlayerSpriteY());
+            
 
             if(v == null){
                 // Position des Players, etc. werden aktualisiert
@@ -124,6 +124,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                 // Raum, in dem sich der Player jetzt befindet, wird aktualisiert
                 updateRoom();
 
+                
                 // Render methode zum rendern der einzelnen Sprites wird aufgerufen
                 m.render(batch, d.getPlayer(), e, tile, level, posRoom);
             }
@@ -142,10 +143,13 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
         MapObjects objects = layers.get(0).getObjects();
         System.out.println(objects.getCount());
         
-        float x = d.getPlayer().getxPos() - 3;
-        float y = d.getPlayer().getyPos() - 3;
+        float x = d.getPlayer().getxPos();
+        float y = d.getPlayer().getyPos();
         
         d.getPlayer().update();
+        
+        m.setPlayerSpriteX(d.getPlayer().getxPos());
+        m.setPlayerSpriteY(d.getPlayer().getyPos());
         
         System.out.println("Temp: " + x + " " + y);
         System.out.println("Player: " + d.getPlayer().getxPos() + " " + d.getPlayer().getyPos());
@@ -154,8 +158,10 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
             Rectangle rectangle = rectangleObject.getRectangle();
             
             if(Intersector.overlaps(rectangle, m.getPlayer().getBoundingRectangle())){
+                
                 d.getPlayer().setxPos(x);
                 d.getPlayer().setyPos(y);
+
                 System.out.println("Es lädt, es laedt, ich will nicht, dass es laedt, wenn es laedt, muss man immer so lange warten!!!!!");
             }
         }
