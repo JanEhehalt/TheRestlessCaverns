@@ -234,7 +234,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
     
     @Override
     public boolean keyDown(int keycode) {
-                if(keycode == Input.Keys.LEFT){
+                if(keycode == Input.Keys.A){
                     if(v != null){
                         v.moveCursor(3);
                     }
@@ -243,7 +243,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                     }
                 }
                 
-                if(keycode == Input.Keys.RIGHT){
+                if(keycode == Input.Keys.D){
                     if(v != null){
                         v.moveCursor(1);
                     }
@@ -252,7 +252,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                     }
                 }
                 
-                if(keycode == Input.Keys.DOWN){
+                if(keycode == Input.Keys.S){
                     if(v != null){
                     v.moveCursor(2);
                     }
@@ -261,7 +261,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                     }
                 } 
                 
-                if(keycode == Input.Keys.UP){
+                if(keycode == Input.Keys.W){
                     if(v != null){
                     v.moveCursor(0);
                     }
@@ -296,7 +296,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
 
     @Override
     public boolean keyUp(int keycode) {
-                if(keycode == Input.Keys.LEFT){
+                if(keycode == Input.Keys.A){
                     if(v != null){
                     v.stopCursor(3);
                     }
@@ -305,7 +305,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                     }
                 }
                 
-                if(keycode == Input.Keys.RIGHT){
+                if(keycode == Input.Keys.D){
                     if(v != null){
                     v.stopCursor(1);
                     }
@@ -314,7 +314,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                     }
                 }
                 
-                if(keycode == Input.Keys.DOWN){
+                if(keycode == Input.Keys.S){
                     if(v != null){
                     v.stopCursor(2);
                     }
@@ -323,7 +323,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                     }
                 } 
                 
-                if(keycode == Input.Keys.UP){
+                if(keycode == Input.Keys.W){
                     if(v != null){
                     v.stopCursor(0);
                     }
