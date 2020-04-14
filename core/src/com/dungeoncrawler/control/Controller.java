@@ -133,13 +133,9 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
         float x = d.getPlayer().getxPos();
         float y = d.getPlayer().getyPos();
         
-        d.getPlayer().update();
+        d.getPlayer().updateX();
         
         m.setPlayerSpriteX(d.getPlayer().getxPos());
-        m.setPlayerSpriteY(d.getPlayer().getyPos());
-        
-        System.out.println("Temp: " + x + " " + y);
-        System.out.println("Player: " + d.getPlayer().getxPos() + " " + d.getPlayer().getyPos());
         
         for(RectangleMapObject rectangleObject : objects.getByType(RectangleMapObject.class)){
             Rectangle rectangle = rectangleObject.getRectangle();
@@ -147,9 +143,23 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
             if(Intersector.overlaps(rectangle, m.getPlayer().getBoundingRectangle())){
                 
                 d.getPlayer().setxPos(x);
+
+                System.out.println("Es laedt, es laedt, ich will nicht, dass es laedt, wenn es laedt, muss man immer so lange warten!!!!!");
+            }
+        }
+        
+        d.getPlayer().updateY();
+        
+        m.setPlayerSpriteY(d.getPlayer().getyPos());
+        
+        for(RectangleMapObject rectangleObject : objects.getByType(RectangleMapObject.class)){
+            Rectangle rectangle = rectangleObject.getRectangle();
+            
+            if(Intersector.overlaps(rectangle, m.getPlayer().getBoundingRectangle())){
+                
                 d.getPlayer().setyPos(y);
 
-                System.out.println("Es lädt, es laedt, ich will nicht, dass es laedt, wenn es laedt, muss man immer so lange warten!!!!!");
+                System.out.println("Es laedt, es laedt, ich will nicht, dass es laedt, wenn es laedt, muss man immer so lange warten!!!!!");
             }
         }
     }
