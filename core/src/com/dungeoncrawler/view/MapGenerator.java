@@ -9,7 +9,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapLayers;
-import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -139,8 +138,17 @@ public class MapGenerator {
             }
         }
         
-        RectangleMapObject collision = new RectangleMapObject(48, 48, roomDimensionX*48, roomDimensionY*48);
-        collisionLayer.getObjects().add(collision);
+        RectangleMapObject bottom = new RectangleMapObject(0, 0, mapDimensionX*48, 48);
+        collisionLayer.getObjects().add(bottom);
+        
+        RectangleMapObject left = new RectangleMapObject(0, 0, 48, mapDimensionY*48);
+        collisionLayer.getObjects().add(left);
+        
+        RectangleMapObject top = new RectangleMapObject(0, mapDimensionY*48 - 48, mapDimensionX*48, 48);
+        collisionLayer.getObjects().add(top);
+        
+        RectangleMapObject right = new RectangleMapObject(mapDimensionX*48 - 48, 0, 48, mapDimensionY*48);
+        collisionLayer.getObjects().add(right);
         
         collisionLayer.setVisible(false);
         

@@ -142,17 +142,22 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
         MapObjects objects = layers.get(0).getObjects();
         System.out.println(objects.getCount());
         
-        RectangleMapObject rectangleObject = objects.getByType(RectangleMapObject.class).get(0);
-        
-        Rectangle rectangle = rectangleObject.getRectangle();
-        
         float x = d.getPlayer().getxPos();
         float y = d.getPlayer().getyPos();
         
         d.getPlayer().update();
-        if(!Intersector.overlaps(rectangle, m.getPlayer().getBoundingRectangle())){
-            d.getPlayer().setxPos(x);
-            d.getPlayer().setyPos(y);
+        
+        System.out.println("Temp: " + x + " " + y);
+        System.out.println("Player: " + d.getPlayer().getxPos() + " " + d.getPlayer().getyPos());
+        
+        for(RectangleMapObject rectangleObject : objects.getByType(RectangleMapObject.class)){
+            Rectangle rectangle = rectangleObject.getRectangle();
+            
+            if(Intersector.overlaps(rectangle, m.getPlayer().getBoundingRectangle())){
+                d.getPlayer().setxPos(x);
+                d.getPlayer().setyPos(y);
+                System.out.println("Es lädt, es laedt, ich will nicht, dass es laedt, wenn es laedt, muss man immer so lange warten!!!!!");
+            }
         }
     }
     

@@ -36,7 +36,7 @@ public class GameScreen {
             
                 //PLAYER
                 p = new Texture("Player.png");
-                regions = TextureRegion.split(p, 64, 64);
+                regions = TextureRegion.split(p, 48, 48);
                 player = new Sprite(regions[0][2]);
                 player.setX(200);
                 player.setY(200);
