@@ -98,8 +98,8 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
         //PASSIERT IN GAMESCREEN
         if(m != null){
         //ENTITIES
-            d.getPlayer().setxPos(m.getPlayerSpriteX());
-            d.getPlayer().setyPos(m.getPlayerSpriteY());
+            //d.getPlayer().setxPos(m.getPlayerSpriteX());
+            //d.getPlayer().setyPos(m.getPlayerSpriteY());
 
             if(v == null){
                 // Position des Players, etc. werden aktualisiert
@@ -179,13 +179,15 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                 switch(ent.getId()){
                     case 0:
                         e[i] = new Archer(x,y,lvl);
+                        e[i].startT();
                         m.newEntity(i,ent,x,y);
-                        i = 10;
+                        i = 11;
                         break;
                     case 1:
                         e[i] = new Swordsman(x,y,lvl);
+                        e[i].startT();
                         m.newEntity(i,ent,x,y);
-                        i = 10;
+                        i = 11;
                         break;
                 }
             }
@@ -237,17 +239,11 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                     else if(v.click() == 0){
                         v = null;
                         m = new GameScreen(d);
-                        Archer a = new Archer(0,0,0);
-                        newEntity(a,96,96,0);
-                        Archer w = new Archer(0,0,0);
-                        newEntity(w,96,144,0);
-                        Swordsman s = new Swordsman(0,0,0);
-                        newEntity(s,288,96,0);
-                        Swordsman p = new Swordsman(0,0,0);
-                        newEntity(p,288,144,0);
-                        Swordsman q = new Swordsman(0,0,0);
-                        newEntity(q,48,144,0);
-                        System.out.println("NICE");
+                        newEntity(new Archer(0,0,0),96,96,0);
+                        newEntity(new Archer(0,0,0),96,144,0);
+                        newEntity(new Swordsman(0,0,0),288,96,0);
+                        newEntity(new Swordsman(0,0,0),288,144,0);
+                        newEntity(new Swordsman(0,0,0),48,144,0);
                     }
                     }
                 }

@@ -2,6 +2,7 @@ package com.dungeoncrawler.view;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -40,6 +41,10 @@ public class MainMenu{
                 title.setY(h - 200);
                 button.setX(wc - (button.getWidth()/2));
                 button.setY(400);
+                
+                Pixmap pm = new Pixmap(Gdx.files.internal("cursor.png"));
+                Gdx.graphics.setCursor(Gdx.graphics.newCursor(pm, 0, 0));
+                pm.dispose();
                 
                 //ENTITIES
                 

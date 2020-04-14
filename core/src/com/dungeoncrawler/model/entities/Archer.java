@@ -74,7 +74,7 @@ public class Archer extends Entity{
                             }
                         }
                         else{
-                            facing = 2;
+                            //facing = 2;
                         }
                     }
         },0,1f);
@@ -140,7 +140,7 @@ public class Archer extends Entity{
                     }
         },0,0.02f);
         tleft.stop();
-        t.start();
+        
     }
     
     private void setIsRunning(boolean n){
@@ -157,7 +157,10 @@ public class Archer extends Entity{
     public void setTimerRuns(int n){
         timerRuns = n;
     }
-    
+    @Override
+    public void startT(){
+        t.start();
+    }
     
     
 }

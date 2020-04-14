@@ -147,6 +147,8 @@ public abstract class Entity {
     public void setFacing(int facing){
         this.facing = facing;
     }
+    public void startT(){
+    }
     
     
     

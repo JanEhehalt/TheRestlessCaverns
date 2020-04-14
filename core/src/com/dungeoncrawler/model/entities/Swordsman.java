@@ -137,7 +137,6 @@ public class Swordsman extends Entity {
                     }
         },0,0.03f);
         tleft.stop();
-        t.start();
     }
     
     private void setIsRunning(boolean n){
@@ -154,6 +153,9 @@ public class Swordsman extends Entity {
     public void setTimerRuns(int n){
         timerRuns = n;
     }
-    
+    @Override
+    public void startT(){
+        t.start();
+    }
     
 }
