@@ -187,8 +187,8 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
             System.out.println("oben");
 
             posRoom[1] += 1;
-            d.getPlayer().setxPos(100);
-            d.getPlayer().setyPos(100);
+            d.getPlayer().setxPos((roomX / 2)* 48);
+            d.getPlayer().setyPos(48);
         }
 
         // rechts
@@ -196,8 +196,8 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
             System.out.println("rechts");
 
             posRoom[0] += 1;
-            d.getPlayer().setxPos(100);
-            d.getPlayer().setyPos(100);
+            d.getPlayer().setxPos(48);
+            d.getPlayer().setyPos((roomY / 2)*48);
         }
 
         // unten
@@ -205,8 +205,8 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
             System.out.println("unten");
 
             posRoom[1] -= 1;
-            d.getPlayer().setxPos(100);
-            d.getPlayer().setyPos(100);
+            d.getPlayer().setxPos((roomX / 2)*48);
+            d.getPlayer().setyPos(roomY*48 - 48);
         }
 
         // links
@@ -214,8 +214,8 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
             System.out.println("links");
 
             posRoom[0] -= 1;
-            d.getPlayer().setxPos(100);
-            d.getPlayer().setyPos(100);
+            d.getPlayer().setxPos((roomX*48) - 48);
+            d.getPlayer().setyPos((roomY / 2)*48);
         }
     }
         
