@@ -239,8 +239,14 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                         m = new GameScreen(d);
                         Archer a = new Archer(0,0,0);
                         newEntity(a,96,96,0);
+                        Archer w = new Archer(0,0,0);
+                        newEntity(w,96,144,0);
                         Swordsman s = new Swordsman(0,0,0);
                         newEntity(s,288,96,0);
+                        Swordsman p = new Swordsman(0,0,0);
+                        newEntity(p,288,144,0);
+                        Swordsman q = new Swordsman(0,0,0);
+                        newEntity(q,48,144,0);
                         System.out.println("NICE");
                     }
                     }

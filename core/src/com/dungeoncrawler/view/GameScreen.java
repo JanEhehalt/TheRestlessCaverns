@@ -41,8 +41,8 @@ public class GameScreen {
 	public GameScreen(Dungeon d) {
             
                 //PLAYER
-                p = new Texture("Player.png");
-                regions = TextureRegion.split(p, 64, 64);
+                p = new Texture("player.png");
+                regions = TextureRegion.split(p, 48, 48);
                 player = new Sprite(regions[0][2]);
                 player.setX(200);
                 player.setY(200);
@@ -126,20 +126,40 @@ public class GameScreen {
                     if(entitySprites[i] != null){
                         entitySprites[i].setX(e[i].getxPos());
                         entitySprites[i].setY(e[i].getyPos());
-                        switch(e[i].direction()){
+                        switch(e[i].getFacing()){
                             case -1:
                                 break;
                             case 0:
-                                entitySprites[i].setRegion(archerRegions[0][0]);
+                                if(e[i].getId() == 0){
+                                    entitySprites[i].setRegion(archerRegions[0][0]);
+                                }
+                                else if(e[i].getId() == 1){
+                                    entitySprites[i].setRegion(swordsmanRegions[0][0]);
+                                }
                                 break;
                             case 1:
-                                entitySprites[i].setRegion(archerRegions[0][1]);
+                                if(e[i].getId() == 0){
+                                    entitySprites[i].setRegion(archerRegions[0][1]);
+                                }
+                                else if(e[i].getId() == 1){
+                                    entitySprites[i].setRegion(swordsmanRegions[0][1]);
+                                }
                                 break;
                             case 2:
-                                entitySprites[i].setRegion(archerRegions[0][2]);
+                                if(e[i].getId() == 0){
+                                    entitySprites[i].setRegion(archerRegions[0][2]);
+                                }
+                                else if(e[i].getId() == 1){
+                                    entitySprites[i].setRegion(swordsmanRegions[0][2]);
+                                }
                                 break;
                             case 3:
-                                entitySprites[i].setRegion(archerRegions[0][3]);
+                                if(e[i].getId() == 0){
+                                    entitySprites[i].setRegion(archerRegions[0][3]);
+                                }
+                                else if(e[i].getId() == 1){
+                                    entitySprites[i].setRegion(swordsmanRegions[0][3]);
+                                }
                                 break;
                     
                         }
@@ -158,22 +178,21 @@ public class GameScreen {
         
         
         public void newEntity(int i,Entity e, float x, float y){
-                    if(e.getId() == 0){ //nimmt entity ID -> 0 = Archer || 1 = Swordsman
+                    if(e.getId() == 0){ //nimmt entity ID -> 0 = Archer || 1 = Swordsman || 2 = Arrow
                         entityTextures[i] = new Texture("archer.png");
-                        archerRegions = TextureRegion.split(entityTextures[i], 64, 64);
+                        archerRegions = TextureRegion.split(entityTextures[i], 48, 48);
                         entitySprites[i] = new Sprite(archerRegions[0][2]);
                         entitySprites[i].setX(x);
                         entitySprites[i].setY(y);
                     }
-                    else if(e.getId() == 1){
-                        entityTextures[i] = new Texture("Swordsman.png");
-                        swordsmanRegions = TextureRegion.split(entityTextures[i], 64, 64);
+                    if(e.getId() == 1){
+                        entityTextures[i] = new Texture("swordsman.png");
+                        swordsmanRegions = TextureRegion.split(entityTextures[i], 48, 48);
                         entitySprites[i] = new Sprite(swordsmanRegions[0][2]);
-                        entitySprites[i] = new Sprite(entityTextures[i]);
                         entitySprites[i].setX(x);
                         entitySprites[i].setY(y);
                     }
-                    else if(e.getId() == 2){
+                    if(e.getId() == 2){
                         arrowTextures[i] = new Texture("key.png");
                         arrowSprites[i] = new Sprite(arrowTextures[i]);
                         arrowSprites[i].setX(x);

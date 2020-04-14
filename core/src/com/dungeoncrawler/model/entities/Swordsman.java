@@ -11,14 +11,13 @@ public class Swordsman extends Entity {
     Timer tleft;
     int timerRuns;
     boolean isRunning;
-    int facing;
     
     public Swordsman(float xPos, float yPos, int lvl) {
         super(xPos, yPos, lvl);
         
         this.maxhp = 5*lvl;
         this.hp = this.maxhp;
-        
+        this.facing = 2;
         this.dmg = 3*lvl;
         this.id = 1;
         // TODO: Sinnvolle Werte finden
@@ -38,17 +37,25 @@ public class Swordsman extends Entity {
         
                         if(i <= 0.2){
                             if(isRunning == false){
-                                tup.start();
+                                if(getyPos() == 240){
+                                }
+                                else{
+                                    tup.start();
+                                }
                             }
                         }
                         else if(i > 0.2 && i <= 0.4){
                             if(isRunning == false){
-                                tright.start();
+                                if(getxPos() == 336){
+                                }
+                                else{
+                                    tright.start();
+                                }
                             }
                         }
                         else if(i > 0.4 && i <= 0.6){
                             if(isRunning == false){
-                                if(getyPos() == 0){
+                                if(getyPos() == 48){
                                 }
                                 else{
                                     tdown.start();
@@ -57,7 +64,7 @@ public class Swordsman extends Entity {
                         }
                         else if(i > 0.6 && i <= 0.8){
                             if(isRunning == false){
-                                if(getxPos() == 0){
+                                if(getxPos() == 48){
                                 }
                                 else{
                                     tleft.start();
@@ -65,7 +72,6 @@ public class Swordsman extends Entity {
                             }
                         }
                         else{
-                            facing = 2;
                         }
                     }
         },0,1f);
@@ -149,11 +155,5 @@ public class Swordsman extends Entity {
         timerRuns = n;
     }
     
-    public void setFacing(int i){
-        facing = i;
-    }
     
-    public int getFacing(){
-        return facing;
-    }
 }

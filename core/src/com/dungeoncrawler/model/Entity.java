@@ -14,6 +14,7 @@ public abstract class Entity {
     protected float movementX;
     protected float movementY;
     protected int id;
+    protected int facing;
     
     
 
@@ -23,6 +24,7 @@ public abstract class Entity {
         this.lvl = lvl;
         this.movementX = 0;
         this.movementY = 0;
+        this.facing = 2;
         
         
         
@@ -137,6 +139,13 @@ public abstract class Entity {
     
     public int getId(){
         return this.id;
+    }
+    
+    public int getFacing(){
+        return facing;
+    }
+    public void setFacing(int facing){
+        this.facing = facing;
     }
     
     
