@@ -59,38 +59,54 @@ public class MapGenerator {
                     int tempX = 7;
                     int tempY = 5;
                     
+                    int mapDimensionX = tempX + 2;
+                    int mapDimensionY = tempY + 2;
+                    
                     // Raum wird generiertf
                     TiledMap tempRoom = generateRoom(room, tempX, tempY);
                     
                     // Wenn es Fehler gibt, dann wohl hier: Viel Spaß beim Suchen!        Danke!
-                    TiledMapTileLayer temp = (TiledMapTileLayer) tempRoom.getLayers().get(2);
+                    MapLayer collisionLayer = tempRoom.getLayers().get(0);
+                    TiledMapTileLayer staticLayer = (TiledMapTileLayer) tempRoom.getLayers().get(2);
+                    
+                    RectangleMapObject bottom = (RectangleMapObject) collisionLayer.getObjects().get(0);
+                    RectangleMapObject left = (RectangleMapObject) collisionLayer.getObjects().get(1);
+                    RectangleMapObject top = (RectangleMapObject) collisionLayer.getObjects().get(2);
+                    RectangleMapObject right = (RectangleMapObject) collisionLayer.getObjects().get(3);
                     
                     // Ausgang oben
                     if(y < l.getRooms()[0].length - 1 && l.getRooms()[x][y + 1] != null){
                         
                         // X: Exakte Mitte der Gesamtlänge, Y: Gesamtlänge
-                        temp.getCell((tempX / 2) + 1, tempY + 1).setTile(new StaticTiledMapTile(splitTiles[0][3])); //oben
+                        staticLayer.getCell((tempX / 2) + 1, tempY + 1).setTile(new StaticTiledMapTile(splitTiles[0][3])); //oben
+                        collisionLayer.getObjects().remove(top);
+                        
+                        RectangleMapObject tempLeft = new RectangleMapObject(0, mapDimensionY*48 - 48, (tempX / 2) * 48, 48);
+                        RectangleMapObject tempRight = new RectangleMapObject((tempX / 2) + 2, mapDimensionY*48 - 48, mapDimensionX*48, 48);
+                        
+                        collisionLayer.getObjects().add(tempLeft);
+                        collisionLayer.getObjects().add(tempRight);
                     }
                     
                     // Ausgang rechts    
                     if(x < l.getRooms().length - 1 && l.getRooms()[x + 1][y] != null){
                         
                         // X: Gesamtlänge, Y: Exakte Mitte der Gesamtlänge
-                        temp.getCell(tempX + 1, (tempY / 2) + 1).setTile(new StaticTiledMapTile(splitTiles[0][3])); //rechts
+                        staticLayer.getCell(tempX + 1, (tempY / 2) + 1).setTile(new StaticTiledMapTile(splitTiles[0][3])); //rechts
                     }
                     
                     // Ausgang unten
                     if(y > 0 && l.getRooms()[x][y - 1] != null){
                         
                         // X: Exakte Mitte der Gesamtlänge, Y: 0
-                        temp.getCell((tempX / 2) + 1, 0).setTile(new StaticTiledMapTile(splitTiles[0][3])); //unten
+                        staticLayer.getCell((tempX / 2) + 1, 0).setTile(new StaticTiledMapTile(splitTiles[0][3])); //unten
                     }
                     
                     // Ausgang links
                     if(x > 0 && l.getRooms()[x - 1][y] != null){
                         
                         // X: 0, Y: Exakte Mitte der Gesamtlänge
-                        temp.getCell(0, (tempY / 2) + 1).setTile(new StaticTiledMapTile(splitTiles[0][3])); //links
+                        staticLayer.getCell(0, (tempY / 2) + 1).setTile(new StaticTiledMapTile(splitTiles[0][3])); //links
                     }
                     
                     tempLevel[x][y] = tempRoom;
@@ -120,6 +136,20 @@ public class MapGenerator {
         TiledMapTileLayer dynamicLayer = new TiledMapTileLayer(mapDimensionX, mapDimensionY, 48, 48);
         TiledMapTileLayer staticLayer = new TiledMapTileLayer(mapDimensionX, mapDimensionY, 48, 48);
         
+        RectangleMapObject bottom = new RectangleMapObject(0, 0, mapDimensionX*48, 48);
+        collisionLayer.getObjects().add(bottom);
+        
+        RectangleMapObject left = new RectangleMapObject(0, 0, 48, mapDimensionY*48);
+        collisionLayer.getObjects().add(left);
+        
+        RectangleMapObject top = new RectangleMapObject(0, mapDimensionY*48 - 48, mapDimensionX*48, 48);
+        collisionLayer.getObjects().add(top);
+        
+        RectangleMapObject right = new RectangleMapObject(mapDimensionX*48 - 48, 0, 48, mapDimensionY*48);
+        collisionLayer.getObjects().add(right);
+        
+        collisionLayer.setVisible(false);
+        
         // Schleife läuft über jedes Teil des Raumes und generiert ein Tile aus dem tileset
         for(int x = 0; x < mapDimensionX + 1; x++){
             for(int y = 0; y < mapDimensionY + 1; y++){
@@ -137,20 +167,6 @@ public class MapGenerator {
                 staticLayer.setCell(x, y, cell);
             }
         }
-        
-        RectangleMapObject bottom = new RectangleMapObject(0, 0, mapDimensionX*48, 48);
-        collisionLayer.getObjects().add(bottom);
-        
-        RectangleMapObject left = new RectangleMapObject(0, 0, 48, mapDimensionY*48);
-        collisionLayer.getObjects().add(left);
-        
-        RectangleMapObject top = new RectangleMapObject(0, mapDimensionY*48 - 48, mapDimensionX*48, 48);
-        collisionLayer.getObjects().add(top);
-        
-        RectangleMapObject right = new RectangleMapObject(mapDimensionX*48 - 48, 0, 48, mapDimensionY*48);
-        collisionLayer.getObjects().add(right);
-        
-        collisionLayer.setVisible(false);
         
         layers.add(collisionLayer);
         layers.add(dynamicLayer);
