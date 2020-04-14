@@ -93,6 +93,14 @@ public class MapGenerator {
                         
                         // X: Gesamtlänge, Y: Exakte Mitte der Gesamtlänge
                         staticLayer.getCell(tempX + 1, (tempY / 2) + 1).setTile(new StaticTiledMapTile(splitTiles[0][3])); //rechts
+                        
+                        collisionLayer.getObjects().remove(right);
+                        
+                        RectangleMapObject tempTop = new RectangleMapObject(mapDimensionX*48 - 48, ((mapDimensionY / 2) + 2) * 48, 48, (mapDimensionY / 2) * 48);
+                        RectangleMapObject tempBottom = new RectangleMapObject(mapDimensionX*48 - 48, 0, 48, (mapDimensionY / 2) * 48);
+                        
+                        collisionLayer.getObjects().add(tempTop);
+                        collisionLayer.getObjects().add(tempBottom);
                     }
                     
                     // Ausgang unten
@@ -100,6 +108,14 @@ public class MapGenerator {
                         
                         // X: Exakte Mitte der Gesamtlänge, Y: 0
                         staticLayer.getCell((tempX / 2) + 1, 0).setTile(new StaticTiledMapTile(splitTiles[0][3])); //unten
+                        
+                        collisionLayer.getObjects().remove(bottom);
+                        
+                        RectangleMapObject tempLeft = new RectangleMapObject(0, 0, (mapDimensionX / 2) * 48, 48);
+                        RectangleMapObject tempRight = new RectangleMapObject(((mapDimensionX / 2) + 2) * 48, 0, mapDimensionX*48, 48);
+                        
+                        collisionLayer.getObjects().add(tempLeft);
+                        collisionLayer.getObjects().add(tempRight);
                     }
                     
                     // Ausgang links
@@ -107,6 +123,14 @@ public class MapGenerator {
                         
                         // X: 0, Y: Exakte Mitte der Gesamtlänge
                         staticLayer.getCell(0, (tempY / 2) + 1).setTile(new StaticTiledMapTile(splitTiles[0][3])); //links
+                        
+                        collisionLayer.getObjects().remove(left);
+                        
+                        RectangleMapObject tempTop = new RectangleMapObject(0, ((mapDimensionY / 2) + 2) * 48, 48, (mapDimensionY / 2) * 48);
+                        RectangleMapObject tempBottom = new RectangleMapObject(0, 0, 48, (mapDimensionY / 2) * 48);
+                        
+                        collisionLayer.getObjects().add(tempTop);
+                        collisionLayer.getObjects().add(tempBottom);
                     }
                     
                     tempLevel[x][y] = tempRoom;
