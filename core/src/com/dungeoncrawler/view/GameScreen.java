@@ -21,6 +21,11 @@ public class GameScreen {
         Sprite player;
         TextureRegion[][] regions;
         
+        Texture verticalAttack;
+        Texture horizontalAttack;
+        Sprite verticalAttackSprite;
+        Sprite horizontalAttackSprite;
+        
         //ENTITIES
         Texture[] entityTextures;
         Sprite[] entitySprites;
@@ -47,6 +52,10 @@ public class GameScreen {
                 player = new Sprite(regions[0][2]);
                 player.setX(200);
                 player.setY(200);
+                
+                verticalAttack = new Texture("AttackHori.png");
+                horizontalAttack = new Texture("AttackVert.png");
+                verticalAttackSprite = new Sprite(verticalAttack);
                 
                 //ENTITIES
                 entityTextures = new Texture[5];
