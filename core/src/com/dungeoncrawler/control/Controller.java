@@ -284,6 +284,13 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                     }
                     }
                 }
+                
+                if(keycode == Input.Keys.E){
+                    if(v != null){}
+                    if(m != null){
+                        m.PlayerAttack(e, d.getPlayer());
+                    }
+                }
                 return true;
     }
 

@@ -10,21 +10,23 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.Intersector;
+import com.badlogic.gdx.math.Rectangle;
 import com.dungeoncrawler.model.Dungeon;
 import com.dungeoncrawler.model.Entity;
 import com.dungeoncrawler.model.entities.*;
 import com.badlogic.gdx.utils.Timer;
 
 public class GameScreen {
+        //CONTROLS
+        Texture ctr;
+        Sprite controls;
+    
         //PLAYER
         Texture p;
         Sprite player;
         TextureRegion[][] regions;
         
-        Texture verticalAttack;
-        Texture horizontalAttack;
-        Sprite verticalAttackSprite;
-        Sprite horizontalAttackSprite;
         
         //ENTITIES
         Texture[] entityTextures;
@@ -44,6 +46,12 @@ public class GameScreen {
         OrthographicCamera camera;
         
 	public GameScreen(Dungeon d) {
+                //CONTROLS
+                    ctr = new Texture("controls.png");
+                    controls = new Sprite(ctr);
+                    controls.setX(-400f);
+                    controls.setY(0);
+            
             
                 //PLAYER
                 
@@ -53,9 +61,8 @@ public class GameScreen {
                 player.setX(200);
                 player.setY(200);
                 
-                verticalAttack = new Texture("AttackHori.png");
-                horizontalAttack = new Texture("AttackVert.png");
-                verticalAttackSprite = new Sprite(verticalAttack);
+                
+                
                 
                 //ENTITIES
                 entityTextures = new Texture[5];
@@ -103,6 +110,7 @@ public class GameScreen {
                     tmr = new OrthogonalTiledMapRenderer(tm);
                 }
                 
+                
                 // dreht SpielerSprite je nach Bewegungsrichtung 
                 if(p.getMovementX() == 3){ //RECHTS
                     player.setRegion(regions[0][1]);
@@ -131,6 +139,7 @@ public class GameScreen {
             //BATCH
             batch.begin();
                 player.draw(batch);
+                controls.draw(batch);
                     //DRAW'T JEDES ENTITY - prueft vorher ob vorhanden
                 for(int i = 0; i < e.length; i++){
                     if(entitySprites[i] != null){
@@ -208,6 +217,69 @@ public class GameScreen {
                         arrowSprites[i].setX(x);
                         arrowSprites[i].setY(y);
                     }
+        }
+        
+        public void PlayerAttack(Entity e[], Player p){
+            if(p.direction() == 0){
+                Texture verticalAttack = new Texture("AttackHori.png");
+                Sprite verticalAttackSprite = new Sprite(verticalAttack);
+                verticalAttackSprite.setX(p.getxPos());
+                verticalAttackSprite.setY(p.getyPos());
+                for(int i = 0; i<entitySprites.length ; i++){
+                    if(entitySprites[i] != null){
+                        if(Intersector.overlaps(entitySprites[i].getBoundingRectangle(), verticalAttackSprite.getBoundingRectangle())){
+                            e[i] = null;
+                            entitySprites[i] = null;
+                            entityTextures[i] = null;
+                        }
+                    }
+                }
+            }
+            else if(p.direction() == 1){
+                Texture horizontalAttack = new Texture("AttackVert.png");
+                Sprite horizontalAttackSprite = new Sprite(horizontalAttack);
+                horizontalAttackSprite.setX(p.getxPos());
+                horizontalAttackSprite.setY(p.getyPos());
+                for(int i = 0; i<entitySprites.length ; i++){
+                    if(entitySprites[i] != null){
+                        if(Intersector.overlaps(entitySprites[i].getBoundingRectangle(), horizontalAttackSprite.getBoundingRectangle())){
+                            e[i] = null;
+                            entitySprites[i] = null;
+                            entityTextures[i] = null;
+                        }
+                    }
+                }
+            }
+            else if(p.direction() == 2){
+                Texture verticalAttack = new Texture("AttackHori.png");
+                Sprite verticalAttackSprite = new Sprite(verticalAttack);
+                verticalAttackSprite.setX(p.getxPos());
+                verticalAttackSprite.setY(p.getyPos() - 24f);
+                for(int i = 0; i<entitySprites.length ; i++){
+                    if(entitySprites[i] != null){
+                        if(Intersector.overlaps(entitySprites[i].getBoundingRectangle(), verticalAttackSprite.getBoundingRectangle())){
+                            e[i] = null;
+                            entitySprites[i] = null;
+                            entityTextures[i] = null;
+                        }
+                    }
+                }
+            }
+            else if(p.direction() == 3){
+                Texture horizontalAttack = new Texture("AttackVert.png");
+                Sprite horizontalAttackSprite = new Sprite(horizontalAttack);
+                horizontalAttackSprite.setX(p.getxPos() - 24f);
+                horizontalAttackSprite.setY(p.getyPos());
+                for(int i = 0; i<entitySprites.length ; i++){
+                    if(entitySprites[i] != null){
+                        if(Intersector.overlaps(entitySprites[i].getBoundingRectangle(), horizontalAttackSprite.getBoundingRectangle())){
+                            e[i] = null;
+                            entitySprites[i] = null;
+                            entityTextures[i] = null;
+                        }
+                    }
+                }
+            }
         }
         
         
