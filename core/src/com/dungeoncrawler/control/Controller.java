@@ -131,8 +131,6 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
         System.out.println(objects.getCount());
         
         float x = d.getPlayer().getxPos();
-        float y = d.getPlayer().getyPos();
-        
         d.getPlayer().updateX();
         
         m.setPlayerSpriteX(d.getPlayer().getxPos());
@@ -148,8 +146,9 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
             }
         }
         
+        float y = d.getPlayer().getyPos();
         d.getPlayer().updateY();
-        
+        m.setPlayerSpriteX(d.getPlayer().getxPos());
         m.setPlayerSpriteY(d.getPlayer().getyPos());
         
         for(RectangleMapObject rectangleObject : objects.getByType(RectangleMapObject.class)){
