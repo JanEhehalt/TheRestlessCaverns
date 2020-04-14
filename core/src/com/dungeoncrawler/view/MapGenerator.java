@@ -81,8 +81,8 @@ public class MapGenerator {
                         staticLayer.getCell((tempX / 2) + 1, tempY + 1).setTile(new StaticTiledMapTile(splitTiles[0][3])); //oben
                         collisionLayer.getObjects().remove(top);
                         
-                        RectangleMapObject tempLeft = new RectangleMapObject(0, mapDimensionY*48 - 48, (tempX / 2) * 48, 48);
-                        RectangleMapObject tempRight = new RectangleMapObject((tempX / 2) + 2, mapDimensionY*48 - 48, mapDimensionX*48, 48);
+                        RectangleMapObject tempLeft = new RectangleMapObject(0, mapDimensionY*48 - 48, (mapDimensionX / 2) * 48, 48);
+                        RectangleMapObject tempRight = new RectangleMapObject(((mapDimensionX / 2) + 2) * 48, mapDimensionY*48 - 48, mapDimensionX*48, 48);
                         
                         collisionLayer.getObjects().add(tempLeft);
                         collisionLayer.getObjects().add(tempRight);
