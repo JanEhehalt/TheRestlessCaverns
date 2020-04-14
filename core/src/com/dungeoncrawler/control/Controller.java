@@ -142,8 +142,8 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
         MapObjects objects = layers.get(0).getObjects();
         System.out.println(objects.getCount());
         
-        float x = d.getPlayer().getxPos();
-        float y = d.getPlayer().getyPos();
+        float x = d.getPlayer().getxPos() - 3;
+        float y = d.getPlayer().getyPos() - 3;
         
         d.getPlayer().update();
         
