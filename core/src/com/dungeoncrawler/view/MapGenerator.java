@@ -82,7 +82,7 @@ public class MapGenerator {
                         collisionLayer.getObjects().remove(top);
                         
                         RectangleMapObject tempLeft = new RectangleMapObject(0, mapDimensionY*48 - 48, (mapDimensionX / 2) * 48, 48);
-                        RectangleMapObject tempRight = new RectangleMapObject(((mapDimensionX / 2) + 2) * 48, mapDimensionY*48 - 48, mapDimensionX*48, 48);
+                        RectangleMapObject tempRight = new RectangleMapObject(((mapDimensionX / 2) + 1) * 48, mapDimensionY*48 - 48, (mapDimensionX / 2) * 48, 48);
                         
                         collisionLayer.getObjects().add(tempLeft);
                         collisionLayer.getObjects().add(tempRight);
@@ -96,7 +96,7 @@ public class MapGenerator {
                         
                         collisionLayer.getObjects().remove(right);
                         
-                        RectangleMapObject tempTop = new RectangleMapObject(mapDimensionX*48 - 48, ((mapDimensionY / 2) + 2) * 48, 48, (mapDimensionY / 2) * 48);
+                        RectangleMapObject tempTop = new RectangleMapObject(mapDimensionX*48 - 48, ((mapDimensionY / 2) + 1) * 48, 48, (mapDimensionY / 2) * 48);
                         RectangleMapObject tempBottom = new RectangleMapObject(mapDimensionX*48 - 48, 0, 48, (mapDimensionY / 2) * 48);
                         
                         collisionLayer.getObjects().add(tempTop);
@@ -112,7 +112,7 @@ public class MapGenerator {
                         collisionLayer.getObjects().remove(bottom);
                         
                         RectangleMapObject tempLeft = new RectangleMapObject(0, 0, (mapDimensionX / 2) * 48, 48);
-                        RectangleMapObject tempRight = new RectangleMapObject(((mapDimensionX / 2) + 2) * 48, 0, mapDimensionX*48, 48);
+                        RectangleMapObject tempRight = new RectangleMapObject(((mapDimensionX / 2) + 1) * 48, 0, (mapDimensionX / 2) * 48, 48);
                         
                         collisionLayer.getObjects().add(tempLeft);
                         collisionLayer.getObjects().add(tempRight);
@@ -126,7 +126,7 @@ public class MapGenerator {
                         
                         collisionLayer.getObjects().remove(left);
                         
-                        RectangleMapObject tempTop = new RectangleMapObject(0, ((mapDimensionY / 2) + 2) * 48, 48, (mapDimensionY / 2) * 48);
+                        RectangleMapObject tempTop = new RectangleMapObject(0, ((mapDimensionY / 2) + 1) * 48, 48, (mapDimensionY / 2) * 48);
                         RectangleMapObject tempBottom = new RectangleMapObject(0, 0, 48, (mapDimensionY / 2) * 48);
                         
                         collisionLayer.getObjects().add(tempTop);
