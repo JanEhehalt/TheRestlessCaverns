@@ -2,6 +2,7 @@ package com.dungeoncrawler.view;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -13,14 +14,14 @@ import com.dungeoncrawler.model.Entity;
 
 public class MainMenu{
         //MENU-SCREEN
-	Texture b;
-        Texture t;
-        Sprite button;
-        Sprite title;
+	Texture startButtonTexture;
+        Texture quitButtonTexture;
+        Texture backgroundTexture;
+        Sprite startButtonSprite;
+        Sprite quitButtonSprite;
+        Sprite backgroundSprite;
         
         //ENTITIES
-        Texture[] entityTextures;
-        Sprite[] entitySprites;
         
         //CURSOR
         Texture c;
@@ -28,19 +29,38 @@ public class MainMenu{
         float CursorMoveX;
         float CursorMoveY;
         
+        //CAMERA
+        float w = Gdx.graphics.getWidth();
+        float h = Gdx.graphics.getHeight();
+        OrthographicCamera camera;
+        
 	public MainMenu() {
                 //MENU-SCREEN
                 float w = Gdx.graphics.getWidth();
                 float h = Gdx.graphics.getHeight();
                 float wc = w/2;
-                b = new Texture("Button.png");
-                t = new Texture("Title.png");
-                button = new Sprite(b);
-                title = new Sprite(t);
-                title.setX(wc - (title.getWidth()/2));
-                title.setY(h - 200);
-                button.setX(wc - (button.getWidth()/2));
-                button.setY(400);
+                
+                
+                
+                startButtonTexture = new Texture("startButton.png");
+                quitButtonTexture = new Texture("quitButton.png");
+                backgroundTexture = new Texture("MAINSCREEN.png");
+                
+                startButtonSprite = new Sprite(startButtonTexture);
+                quitButtonSprite = new Sprite(quitButtonTexture);
+                backgroundSprite = new Sprite(backgroundTexture);
+                
+                startButtonSprite.setX(100f);
+                startButtonSprite.setY(350f);
+                quitButtonSprite.setX(50f);
+                quitButtonSprite.setY(50f);
+                backgroundSprite.setX(0f);
+                backgroundSprite.setY(0f);
+                
+                camera = new OrthographicCamera(1, h/w);
+                camera.zoom = 1200f;
+                camera.translate(backgroundSprite.getWidth()/2, backgroundSprite.getHeight()/2);
+                camera.update();
                 
                 Pixmap pm = new Pixmap(Gdx.files.internal("cursor.png"));
                 Gdx.graphics.setCursor(Gdx.graphics.newCursor(pm, 0, 0));
@@ -67,8 +87,10 @@ public class MainMenu{
                 cursor.setY(cursor.getY()+ CursorMoveY);
                 
                 batch.begin();
-                title.draw(batch);
-                button.draw(batch);
+                batch.setProjectionMatrix(camera.combined);
+                backgroundSprite.draw(batch);
+                startButtonSprite.draw(batch);
+                quitButtonSprite.draw(batch);
                 cursor.draw(batch);
                 batch.end();
 	}
@@ -103,10 +125,13 @@ public class MainMenu{
         }
         public int click(){     // prueft ob cursor mit button (START) ueberlappt
             Rectangle rectangleCursor = cursor.getBoundingRectangle();
-            Rectangle rectangleButton = button.getBoundingRectangle();
-            boolean overlapsPlay = rectangleCursor.overlaps(rectangleButton);
+            boolean overlapsPlay = rectangleCursor.overlaps(startButtonSprite.getBoundingRectangle());
+            boolean overlapsQuit = rectangleCursor.overlaps(quitButtonSprite.getBoundingRectangle());
             if(overlapsPlay == true){
-                return 0;           // ints weil fuer mehr buttons eine ID festgelegt werden kann. 0 = START - -1 = kein button
+                return 0;           // ints weil fuer mehr buttons eine ID festgelegt werden kann. 0 = START || 1 = QUIT ||| -1 = kein button
+            }
+            else if(overlapsQuit == true){
+                return 1;
             }
             else{return -1;}
         }
