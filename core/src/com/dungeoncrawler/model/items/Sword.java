@@ -13,8 +13,9 @@ import com.dungeoncrawler.model.Item;
  */
 public class Sword extends Item {
     
-    public Sword(int amount) {
-        super(amount);
+    public Sword(int lvl) {
+        super(lvl);
+        this.dmg = lvl * 4;
     }
     
 }

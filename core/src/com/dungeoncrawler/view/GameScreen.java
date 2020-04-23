@@ -219,7 +219,7 @@ public class GameScreen {
                     }
         }
         
-        public void PlayerAttack(Entity e[], Player p){
+        public void playerAttack(Entity e[], Player p){
             if(p.direction() == 0){
                 Texture verticalAttack = new Texture("AttackHori.png");
                 Sprite verticalAttackSprite = new Sprite(verticalAttack);

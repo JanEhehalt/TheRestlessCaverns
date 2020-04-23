@@ -4,10 +4,11 @@ package com.dungeoncrawler.model;
 public class Inventory {
     
     Item items[][];
-    Item equip;
+    Item equipped[];
     
     Inventory(int width, int height){
         items = new Item[width][height];
+        equipped = new Item[2];
     }
     
     public void addItem(Item i)
@@ -25,9 +26,12 @@ public class Inventory {
     }
     
     public void equipItem(int x, int y){
-        if(equip == null){
-            equip = items[x][y];
-            dropItem(x,y);
+        if(items[x][y] == null || items[x][y].getId() == 0){}
+        else{
+            int slot = items[x][y].getId() - 1;
+            Item temp = equipped[slot];
+            equipped[slot] = items[x][y];
+            items[x][y] = temp;
         }
     }
     

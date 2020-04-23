@@ -13,8 +13,9 @@ import com.dungeoncrawler.model.Item;
  */
 public class Key extends Item {
     
-    public Key(int amount) {
-        super(amount);
+    public Key(int lvl) {
+        super(lvl);
+        this.id = 0;
     }
     
 }

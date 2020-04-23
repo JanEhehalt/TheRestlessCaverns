@@ -5,7 +5,6 @@ import com.badlogic.gdx.utils.Timer;
 
 public class Archer extends Entity{
     
-    Timer t;
     Timer tup;
     Timer tright;
     Timer tdown;
@@ -31,59 +30,10 @@ public class Archer extends Entity{
         timerRuns = 0;
         facing = 2;
         
-        t = new Timer();
-        t.scheduleTask(new Timer.Task() {
-                    @Override
-                    public void run() {
-                        double i = Math.random();
-        
-                        if(i <= 0.2){
-                            if(isRunning == false){
-                                if(getyPos() == 240){
-                                }
-                                else{
-                                    tup.start();
-                                }
-                            }
-                        }
-                        else if(i > 0.2 && i <= 0.4){
-                            if(isRunning == false){
-                                if(getxPos() == 336){
-                                }
-                                else{
-                                    tright.start();
-                                }
-                            }
-                        }
-                        else if(i > 0.4 && i <= 0.6){
-                            if(isRunning == false){
-                                if(getyPos() == 48){
-                                }
-                                else{
-                                    tdown.start();
-                                }
-                            }
-                        }
-                        else if(i > 0.6 && i <= 0.8){
-                            if(isRunning == false){
-                                if(getxPos() == 48){
-                                }
-                                else{
-                                    tleft.start();
-                                }
-                            }
-                        }
-                        else{
-                            //facing = 2;
-                        }
-                    }
-        },0,1f);
-        t.stop();
         tup.scheduleTask(new Timer.Task() {
                     @Override
                     public void run() {
                         setFacing(0);
-                        setIsRunning(true);
                         setyPos(getyPos() + 1f);
                         setTimerRuns(getTimerRuns() + 1);
                         if(getTimerRuns() >= 48){
@@ -92,13 +42,12 @@ public class Archer extends Entity{
                             tup.stop();
                         }
                     }
-        },0,0.02f);
+        },0,0.015f);
         tup.stop();
         tright.scheduleTask(new Timer.Task() {
                     @Override
                     public void run() {
                         setFacing(1);
-                        setIsRunning(true);
                         setxPos(getxPos() + 1f);
                         setTimerRuns(getTimerRuns() + 1);
                         if(getTimerRuns() >= 48){
@@ -107,13 +56,12 @@ public class Archer extends Entity{
                             tright.stop();
                         }
                     }
-        },0,0.02f);
+        },0,0.015f);
         tright.stop();
         tdown.scheduleTask(new Timer.Task() {
                     @Override
                     public void run() {
                         setFacing(2);
-                        setIsRunning(true);
                         setyPos(getyPos() - 1f);
                         setTimerRuns(getTimerRuns() + 1);
                         if(getTimerRuns() >= 48){
@@ -122,13 +70,12 @@ public class Archer extends Entity{
                             tdown.stop();
                         }
                     }
-        },0,0.02f);
+        },0,0.015f);
         tdown.stop();
         tleft.scheduleTask(new Timer.Task() {
                     @Override
                     public void run() {
                         setFacing(3);
-                        setIsRunning(true);
                         setxPos(getxPos() - 1f);
                         setTimerRuns(getTimerRuns() + 1);
                         
@@ -138,10 +85,58 @@ public class Archer extends Entity{
                             tleft.stop();
                         }
                     }
-        },0,0.02f);
+        },0,0.015f);
         tleft.stop();
         
     }
+    
+    @Override
+    public void randomMove(int x, int y) {
+            double i = Math.random();
+            if(i <= 0.2){
+                if(isRunning == false){
+                    if(getyPos() >= (x-1) * 48f){
+                    }
+                    else{
+                        setIsRunning(true);
+                        tup.start();
+                    }
+                }
+            }
+            else if(i > 0.2 && i <= 0.4){
+                if(isRunning == false){
+                    if(getxPos() >= (y-1) * 48f){
+                    }
+                    else{
+                        setIsRunning(true);
+                        tright.start();
+                    }
+                }
+            }
+            else if(i > 0.4 && i <= 0.6){
+                if(isRunning == false){
+                    if(getyPos() <= 48f){
+                    }
+                    else{
+                        setIsRunning(true);
+                        tdown.start();
+                    }
+                }
+            }
+            else if(i > 0.6 && i <= 0.8){
+                if(isRunning == false){
+                    if(getxPos() <= 48f){
+                    }
+                    else{
+                        setIsRunning(true);
+                        tleft.start();
+                    }
+                }
+            }
+            else{
+            }
+    }
+        
     
     private void setIsRunning(boolean n){
         isRunning = n;
@@ -157,10 +152,7 @@ public class Archer extends Entity{
     public void setTimerRuns(int n){
         timerRuns = n;
     }
-    @Override
-    public void startT(){
-        t.start();
-    }
+    
     
     
 }

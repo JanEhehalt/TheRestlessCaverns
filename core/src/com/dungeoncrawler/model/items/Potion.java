@@ -13,8 +13,10 @@ import com.dungeoncrawler.model.Item;
  */
 public class Potion extends Item {
     
-    public Potion(int amount) {
-        super(amount);
+    public Potion(int lvl) {
+        super(lvl);
+        this.heal = lvl * 3;
+        this.id = 1;
     }
     
 }

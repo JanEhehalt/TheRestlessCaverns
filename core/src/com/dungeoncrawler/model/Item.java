@@ -10,25 +10,23 @@ package com.dungeoncrawler.model;
  * @author jonathan
  */
 public abstract class Item {
-    private int amount;
+    protected int dmg;
+    protected int heal;
+    protected int lvl;
+    protected int id;
     
-    public Item(int amount){
-        this.amount = amount;
+    public Item(int lvl){
+        this.lvl = lvl;
     }
 
+    
+    public int getId(){
+        return this.id;
+    }
     /**
      * @return the amount
      */
-    public int getAmount() {
-        return amount;
-    }
-
-    /**
-     * @param amount the amount to set
-     */
-    public void setAmount(int amount) {
-        this.amount = amount;
-    }
+    
     
     
 }

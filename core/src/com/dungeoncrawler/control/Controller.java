@@ -45,7 +45,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
     Sprite verticalAttackSprite;
     Sprite horizontalAttackSprite;
     
-    
+    Timer entityMovement;
     
     @Override
     public void create(){
@@ -96,7 +96,18 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
 
         Gdx.input.setInputProcessor(this);
         
+        entityMovement = new Timer();
         
+        entityMovement.scheduleTask(new Timer.Task() {
+                    @Override
+                    public void run() {
+                        for(int i = 0; i <= 4; i++){
+                            if(e[i] != null){
+                                e[i].randomMove(roomX, roomY);
+                            }
+                        }
+                    }
+        },0,1f);
     }
     
     
@@ -225,13 +236,11 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                 switch(ent.getId()){
                     case 0:
                         e[i] = new Archer(x,y,lvl);
-                        e[i].startT();
                         m.newEntity(i,ent,x,y);
                         i = 11;
                         break;
                     case 1:
                         e[i] = new Swordsman(x,y,lvl);
-                        e[i].startT();
                         m.newEntity(i,ent,x,y);
                         i = 11;
                         break;
@@ -297,7 +306,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                 if(keycode == Input.Keys.E){
                     if(v != null){}
                     if(m != null){
-                        m.PlayerAttack(e, d.getPlayer());
+                        m.playerAttack(e, d.getPlayer());
                     }
                 }
                 return true;
@@ -381,6 +390,10 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
     @Override
     public boolean scrolled(int i) {
         return false;
+    }
+    
+    public Entity[] getEntities(){
+        return e;
     }
     
     
