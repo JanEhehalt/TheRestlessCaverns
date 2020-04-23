@@ -58,7 +58,7 @@ public class Room {
         this.enemies = enemies;
     }
     
-    
-    
-    
+    public void setEnemies(Entity enemy, int i){
+        this.enemies[i] = enemy;
+    }
 }

@@ -60,7 +60,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
         dg = new DungeonGenerator();
         
         
-        d = dg.generateDungeon(0, 0, 0, new Player());
+        d = dg.generateDungeon(roomX - 1, roomY - 1, 48, new Player());
         dg.ichWillSpielen(d);
         
         tile = new int[2];
@@ -120,7 +120,9 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
 
                 
                 // Render methode zum rendern der einzelnen Sprites wird aufgerufen
-                m.render(batch, d.getPlayer(), e, arrows,  tile, level, posRoom);
+                Entity[] lol = d.getLevel()[level].getRooms()[posRoom[0]][posRoom[1]].getEnemies();
+                
+                m.render(batch, d.getPlayer(), lol, arrows,  tile, level, posRoom);
             }
         }
     }
