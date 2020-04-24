@@ -252,7 +252,6 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
     public boolean keyDown(int keycode) {
                 if(keycode == Input.Keys.A){
                     if(v != null){
-                        v.moveCursor(3);
                     }
                     if(m != null){
                             d.getPlayer().setMovementX(-3f);
@@ -261,7 +260,6 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                 
                 if(keycode == Input.Keys.D){
                     if(v != null){
-                        v.moveCursor(1);
                     }
                     if(m != null){
                             d.getPlayer().setMovementX(+3f);
@@ -270,7 +268,6 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                 
                 if(keycode == Input.Keys.S){
                     if(v != null){
-                    v.moveCursor(2);
                     }
                     if(m != null){
                             d.getPlayer().setMovementY(-3f);
@@ -279,28 +276,11 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                 
                 if(keycode == Input.Keys.W){
                     if(v != null){
-                    v.moveCursor(0);
                     }
                     if(m != null){
                             d.getPlayer().setMovementY(3f);
                     }
                 } 
-                
-                if(keycode == Input.Keys.ENTER){
-                    if(v != null){
-                    if(v.click() == -1){}
-                    else if(v.click() == 0){
-                        v.cleanUp();
-                        v = null;
-                        m = new GameScreen(d);
-                        newEntity(new Archer(0,0,0),96,96,0);
-                        newEntity(new Archer(0,0,0),96,144,0);
-                        newEntity(new Swordsman(0,0,0),288,96,0);
-                        newEntity(new Swordsman(0,0,0),288,144,0);
-                        newEntity(new Swordsman(0,0,0),48,144,0);
-                    }
-                    }
-                }
                 
                 if(keycode == Input.Keys.E){
                     if(v != null){}
@@ -315,7 +295,6 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
     public boolean keyUp(int keycode) {
                 if(keycode == Input.Keys.A){
                     if(v != null){
-                    v.stopCursor(3);
                     }
                     if(m != null){
                     d.getPlayer().setMovementX(0);
@@ -324,7 +303,6 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                 
                 if(keycode == Input.Keys.D){
                     if(v != null){
-                    v.stopCursor(1);
                     }
                     if(m != null){
                     d.getPlayer().setMovementX(0);
@@ -333,7 +311,6 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                 
                 if(keycode == Input.Keys.S){
                     if(v != null){
-                    v.stopCursor(2);
                     }
                     if(m != null){
                     d.getPlayer().setMovementY(0);
@@ -342,20 +319,12 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                 
                 if(keycode == Input.Keys.W){
                     if(v != null){
-                    v.stopCursor(0);
                     }
                     if(m != null){
                     d.getPlayer().setMovementY(0);
                     }
                 } 
                 
-                if(keycode == Input.Keys.ENTER){
-                    if(v != null){
-                    }
-                    if(m != null){
-                        
-                    }
-                }
                 return true;
     }
 
@@ -367,8 +336,30 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
     @Override
   public boolean touchDown(int screenX, int screenY, int pointer, int button)
   {
-      
-      return false;
+    if(button == Input.Buttons.LEFT){
+      if(v != null){
+          switch(v.click(screenX, screenY)){
+              case -1:
+                  
+                  return true;
+              case 0:
+                  v.cleanUp();
+                  v = null;
+                  m = new GameScreen(d);
+                  return true;
+              case 1:
+                  
+                  return true;
+          }
+          
+        return true;
+      }
+      if(m != null){
+          
+        return true;
+      }
+    }
+      return true;
   }
 
     @Override

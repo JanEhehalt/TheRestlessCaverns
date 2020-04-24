@@ -8,9 +8,6 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.math.Rectangle;
-import com.dungeoncrawler.model.entities.*;
-import com.dungeoncrawler.model.Entity;
 
 
 public class MainMenu{
@@ -22,14 +19,7 @@ public class MainMenu{
         Sprite quitButtonSprite;
         Sprite backgroundSprite;
         
-        //ENTITIES
-        
-        //CURSOR
-        Texture c;
-        Sprite cursor;
-        float CursorMoveX;
-        float CursorMoveY;
-        
+       
         //CAMERA
         float w = Gdx.graphics.getWidth();
         float h = Gdx.graphics.getHeight();
@@ -54,12 +44,11 @@ public class MainMenu{
                 quitButtonSprite = new Sprite(quitButtonTexture);
                 backgroundSprite = new Sprite(backgroundTexture);
                 
-                startButtonSprite.setX(100f);
-                startButtonSprite.setY(350f);
-                quitButtonSprite.setX(50f);
-                quitButtonSprite.setY(50f);
+                startButtonSprite.setBounds(100f, 350f, startButtonTexture.getWidth(), startButtonTexture.getHeight());
+                quitButtonSprite.setBounds(50f, 50f, quitButtonTexture.getWidth(), quitButtonTexture.getHeight());
                 backgroundSprite.setX(0f);
                 backgroundSprite.setY(0f);
+                
                 
                 camera = new OrthographicCamera(1, h/w);
                 camera.zoom = 1200f;
@@ -72,14 +61,6 @@ public class MainMenu{
                 
                 //ENTITIES
                 
-                //CURSOR
-                c = new Texture("cursor.png");
-                cursor = new Sprite(c);
-                cursor.setX((float) w/2);
-                cursor.setY((float) h/2);
-                CursorMoveX = 0f;
-                CursorMoveY = 0f;
-                
                 //PLAYER
                 
                 // Sound
@@ -91,57 +72,25 @@ public class MainMenu{
 	public void render (SpriteBatch batch) {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-                cursor.setX(cursor.getX()+ CursorMoveX);
-                cursor.setY(cursor.getY()+ CursorMoveY);
                 
                 batch.begin();
                 batch.setProjectionMatrix(camera.combined);
                 backgroundSprite.draw(batch);
                 startButtonSprite.draw(batch);
                 quitButtonSprite.draw(batch);
-                cursor.draw(batch);
                 batch.end();
 	}
 
         
-            
-        
-        
-        public void moveCursor(int direction){
-            switch(direction){                  //starts the directional movement of the cursor in one direction depending on the pressed key
-                case 0:
-                CursorMoveY = 10f; break;
-                case 1:
-                CursorMoveX = 10f; break;
-                case 2:
-                CursorMoveY = -10f; break;
-                case 3:
-                CursorMoveX = -10f; break;
+        public int click(int x, int y){     // prueft ob cursor mit button (START) ueberlappt
+            if(x >= (int) startButtonSprite.getX() && x <= (int) startButtonSprite.getX()+ (int) startButtonSprite.getWidth() && y>= (int) startButtonSprite.getY() && y <= (int) startButtonSprite.getY() + (int) startButtonSprite.getHeight()){
+                return 0;
             }
-        }
-        public void stopCursor(int direction){  //stops the directional movement of the cursor in one direction depending on the released key
-            switch(direction){
-                case 0:
-                CursorMoveY = 0f; break;
-                case 1:
-                CursorMoveX = 0f; break;
-                case 2:
-                CursorMoveY = 0f; break;
-                case 3:
-                CursorMoveX = 0f; break;
-            }
-        }
-        public int click(){     // prueft ob cursor mit button (START) ueberlappt
-            Rectangle rectangleCursor = cursor.getBoundingRectangle();
-            boolean overlapsPlay = rectangleCursor.overlaps(startButtonSprite.getBoundingRectangle());
-            boolean overlapsQuit = rectangleCursor.overlaps(quitButtonSprite.getBoundingRectangle());
-            if(overlapsPlay == true){
-                return 0;           // ints weil fuer mehr buttons eine ID festgelegt werden kann. 0 = START || 1 = QUIT ||| -1 = kein button
-            }
-            else if(overlapsQuit == true){
+            if(x >= (int) quitButtonSprite.getX() && x <= (int) quitButtonSprite.getX()+ (int) quitButtonSprite.getWidth() && y>= (int) quitButtonSprite.getY() && y <= (int) quitButtonSprite.getY() + (int) quitButtonSprite.getHeight()){
                 return 1;
             }
-            else{return -1;}
+            
+            return -1;
         }
         
         public void cleanUp(){
