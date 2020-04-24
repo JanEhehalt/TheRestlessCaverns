@@ -282,6 +282,10 @@ public class GameScreen {
             return e;
         }
         
+        public void cleanUp(){
+            music.dispose();
+        }
+        
         
         //GETTER
         public float getPlayerSpriteX(){
