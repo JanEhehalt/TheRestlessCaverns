@@ -304,7 +304,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                 if(keycode == Input.Keys.E){
                     if(v != null){}
                     if(m != null){
-                        m.playerAttack(e, d.getPlayer());
+                        d.getLevel()[level].getRooms()[posRoom[0]][posRoom[1]].setEnemies(m.playerAttack(e, d.getPlayer()));
                     }
                 }
                 return true;
