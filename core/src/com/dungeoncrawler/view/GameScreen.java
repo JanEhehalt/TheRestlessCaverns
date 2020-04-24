@@ -159,7 +159,7 @@ public class GameScreen {
                 controls.draw(batch);
                     //DRAW'T JEDES ENTITY - prueft vorher ob vorhanden
                 for(int i = 0; i < e.length; i++){
-                    if(entitySprites[i] != null){
+                    if(e[i] != null){
                         entitySprites[i].setX(e[i].getxPos());
                         entitySprites[i].setY(e[i].getyPos());
                         switch(e[i].getFacing()){
