@@ -149,12 +149,6 @@ public class GameScreen {
                             entitySprites[i].setX(e[i].getxPos());
                             entitySprites[i].setY(e[i].getyPos());
                         }
-                        if(e[i].getId() == 2){
-                            arrowTextures[i] = new Texture("key.png");
-                            arrowSprites[i] = new Sprite(arrowTextures[i]);
-                            arrowSprites[i].setX(e[i].getxPos());
-                            arrowSprites[i].setY(e[i].getyPos());
-                        }
                     }
                 }  
                 
@@ -165,7 +159,7 @@ public class GameScreen {
                 controls.draw(batch);
                     //DRAW'T JEDES ENTITY - prueft vorher ob vorhanden
                 for(int i = 0; i < e.length; i++){
-                    if(entitySprites[i] != null){
+                    if(e[i] != null){
                         entitySprites[i].setX(e[i].getxPos());
                         entitySprites[i].setY(e[i].getyPos());
                         switch(e[i].getFacing()){
