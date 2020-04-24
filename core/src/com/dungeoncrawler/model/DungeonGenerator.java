@@ -178,7 +178,7 @@ public class DungeonGenerator {
     }
     
     private int generateTile(int size){
-        int tile = (int) (Math.random() * size);
+        int tile = ((int) (Math.random() * size) + 1);
         return tile;
     }
     

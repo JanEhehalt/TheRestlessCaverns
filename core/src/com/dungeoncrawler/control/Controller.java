@@ -112,6 +112,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
         if(m != null){
             
             if(v == null){
+                e = d.getLevel()[level].getRooms()[posRoom[0]][posRoom[1]].getEnemies();
                 // Position des Players, etc. werden aktualisiert
                 updateObjects(level, posRoom);
                 
@@ -120,9 +121,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
 
                 
                 // Render methode zum rendern der einzelnen Sprites wird aufgerufen
-                Entity[] lol = d.getLevel()[level].getRooms()[posRoom[0]][posRoom[1]].getEnemies();
-                
-                m.render(batch, d.getPlayer(), lol, arrows,  tile, level, posRoom);
+                m.render(batch, d.getPlayer(), e, arrows,  tile, level, posRoom);
             }
         }
     }
