@@ -60,7 +60,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
         dg = new DungeonGenerator();
         
         
-        d = dg.generateDungeon(0, 0, 0, new Player());
+        d = dg.generateDungeon(roomX - 1, roomY - 1, 48, new Player());
         dg.ichWillSpielen(d);
         
         tile = new int[2];
@@ -123,6 +123,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
         if(m != null){
             
             if(v == null){
+                e = d.getLevel()[level].getRooms()[posRoom[0]][posRoom[1]].getEnemies();
                 // Position des Players, etc. werden aktualisiert
                 updateObjects(level, posRoom);
                 
