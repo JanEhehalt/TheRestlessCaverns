@@ -16,6 +16,7 @@ public class Sword extends Item {
     public Sword(int lvl) {
         super(lvl);
         this.dmg = lvl * 4;
+        this.id = 2;
     }
     
 }
