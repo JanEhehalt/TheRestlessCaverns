@@ -80,7 +80,7 @@ public class MainMenu{
 	}
 
         
-	public void render (SpriteBatch batch, Player p, Entity[] a) {
+	public void render (SpriteBatch batch) {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
                 cursor.setX(cursor.getX()+ CursorMoveX);

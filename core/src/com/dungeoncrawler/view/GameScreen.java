@@ -133,7 +133,28 @@ public class GameScreen {
                 camera.update();
                 batch.setProjectionMatrix(camera.combined);
 
-                
+                for(int i = 0; i < e.length; i++){
+                    if(e[i].getId() == 0){ //nimmt entity ID -> 0 = Archer || 1 = Swordsman || 2 = Arrow
+                        entityTextures[i] = new Texture("archer.png");
+                        archerRegions = TextureRegion.split(entityTextures[i], 48, 48);
+                        entitySprites[i] = new Sprite(archerRegions[0][2]);
+                        entitySprites[i].setX(e[i].getxPos());
+                        entitySprites[i].setY(e[i].getyPos());
+                    }
+                    if(e[i].getId() == 1){
+                        entityTextures[i] = new Texture("swordsman.png");
+                        swordsmanRegions = TextureRegion.split(entityTextures[i], 48, 48);
+                        entitySprites[i] = new Sprite(swordsmanRegions[0][2]);
+                        entitySprites[i].setX(e[i].getxPos());
+                        entitySprites[i].setY(e[i].getyPos());
+                    }
+                    if(e[i].getId() == 2){
+                        arrowTextures[i] = new Texture("key.png");
+                        arrowSprites[i] = new Sprite(arrowTextures[i]);
+                        arrowSprites[i].setX(e[i].getxPos());
+                        arrowSprites[i].setY(e[i].getyPos());
+                    }  
+                }  
                 
 
             //BATCH
@@ -196,41 +217,19 @@ public class GameScreen {
 	}
         
         
-        public void newEntity(int i,Entity e, float x, float y){
-                    if(e.getId() == 0){ //nimmt entity ID -> 0 = Archer || 1 = Swordsman || 2 = Arrow
-                        entityTextures[i] = new Texture("archer.png");
-                        archerRegions = TextureRegion.split(entityTextures[i], 48, 48);
-                        entitySprites[i] = new Sprite(archerRegions[0][2]);
-                        entitySprites[i].setX(x);
-                        entitySprites[i].setY(y);
-                    }
-                    if(e.getId() == 1){
-                        entityTextures[i] = new Texture("swordsman.png");
-                        swordsmanRegions = TextureRegion.split(entityTextures[i], 48, 48);
-                        entitySprites[i] = new Sprite(swordsmanRegions[0][2]);
-                        entitySprites[i].setX(x);
-                        entitySprites[i].setY(y);
-                    }
-                    if(e.getId() == 2){
-                        arrowTextures[i] = new Texture("key.png");
-                        arrowSprites[i] = new Sprite(arrowTextures[i]);
-                        arrowSprites[i].setX(x);
-                        arrowSprites[i].setY(y);
-                    }
-        }
         
-        public void playerAttack(Entity e[], Player p){
+        
+        public Entity[] playerAttack(Entity e[], Player p){
             if(p.direction() == 0){
                 Texture verticalAttack = new Texture("AttackHori.png");
                 Sprite verticalAttackSprite = new Sprite(verticalAttack);
                 verticalAttackSprite.setX(p.getxPos());
                 verticalAttackSprite.setY(p.getyPos());
-                for(int i = 0; i<entitySprites.length ; i++){
-                    if(entitySprites[i] != null){
+                for(int i = 0; i< e.length ; i++){
+                    if(e[i] != null){
                         if(Intersector.overlaps(entitySprites[i].getBoundingRectangle(), verticalAttackSprite.getBoundingRectangle())){
                             e[i] = null;
-                            entitySprites[i] = null;
-                            entityTextures[i] = null;
+                            return e;
                         }
                     }
                 }
@@ -240,12 +239,11 @@ public class GameScreen {
                 Sprite horizontalAttackSprite = new Sprite(horizontalAttack);
                 horizontalAttackSprite.setX(p.getxPos());
                 horizontalAttackSprite.setY(p.getyPos());
-                for(int i = 0; i<entitySprites.length ; i++){
+                for(int i = 0; i< e.length ; i++){
                     if(entitySprites[i] != null){
                         if(Intersector.overlaps(entitySprites[i].getBoundingRectangle(), horizontalAttackSprite.getBoundingRectangle())){
                             e[i] = null;
-                            entitySprites[i] = null;
-                            entityTextures[i] = null;
+                            return e;
                         }
                     }
                 }
@@ -259,8 +257,7 @@ public class GameScreen {
                     if(entitySprites[i] != null){
                         if(Intersector.overlaps(entitySprites[i].getBoundingRectangle(), verticalAttackSprite.getBoundingRectangle())){
                             e[i] = null;
-                            entitySprites[i] = null;
-                            entityTextures[i] = null;
+                            return e;
                         }
                     }
                 }
@@ -274,12 +271,12 @@ public class GameScreen {
                     if(entitySprites[i] != null){
                         if(Intersector.overlaps(entitySprites[i].getBoundingRectangle(), horizontalAttackSprite.getBoundingRectangle())){
                             e[i] = null;
-                            entitySprites[i] = null;
-                            entityTextures[i] = null;
+                            return e;
                         }
                     }
                 }
             }
+            return e;
         }
         
         

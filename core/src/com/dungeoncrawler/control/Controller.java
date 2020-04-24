@@ -54,7 +54,6 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
         roomX = 8;
         roomY = 6;
         
-        e = new Entity[5];
         batch = new SpriteBatch();
         v = new MainMenu();
         dg = new DungeonGenerator();
@@ -101,7 +100,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
         entityMovement.scheduleTask(new Timer.Task() {
                     @Override
                     public void run() {
-                        for(int i = 0; i <= 4; i++){
+                        for(int i = 0; i < e.length; i++){
                             if(e[i] != null){
                                 e[i].randomMove(roomX, roomY);
                             }
@@ -116,7 +115,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
         
         //PASSIERT IN MAINMENU
         if(v != null){
-            v.render(batch, d.getPlayer() , e);
+            v.render(batch);
         }
         
         //PASSIERT IN GAMESCREEN
@@ -237,12 +236,10 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                 switch(ent.getId()){
                     case 0:
                         e[i] = new Archer(x,y,lvl);
-                        m.newEntity(i,ent,x,y);
                         i = 11;
                         break;
                     case 1:
                         e[i] = new Swordsman(x,y,lvl);
-                        m.newEntity(i,ent,x,y);
                         i = 11;
                         break;
                 }
