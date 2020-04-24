@@ -1,6 +1,7 @@
 package com.dungeoncrawler.view;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -45,6 +46,9 @@ public class GameScreen {
         TiledMap tm;
         OrthographicCamera camera;
         
+        // Sound
+        Music music;
+        
 	public GameScreen(Dungeon d) {
                 //CONTROLS
                     ctr = new Texture("controls.png");
@@ -86,6 +90,9 @@ public class GameScreen {
                 
                 tm = new TiledMap();
                 tmr = new OrthogonalTiledMapRenderer(tm);
+                
+                music = Gdx.audio.newMusic(Gdx.files.internal("gamemusic.mp3"));
+                music.play();
 
 	}
 

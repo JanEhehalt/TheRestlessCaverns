@@ -290,6 +290,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                     if(v != null){
                     if(v.click() == -1){}
                     else if(v.click() == 0){
+                        v.cleanUp();
                         v = null;
                         m = new GameScreen(d);
                         newEntity(new Archer(0,0,0),96,96,0);

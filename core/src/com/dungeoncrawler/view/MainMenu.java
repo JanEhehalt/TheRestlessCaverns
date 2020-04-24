@@ -1,6 +1,7 @@
 package com.dungeoncrawler.view;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap;
@@ -33,6 +34,9 @@ public class MainMenu{
         float w = Gdx.graphics.getWidth();
         float h = Gdx.graphics.getHeight();
         OrthographicCamera camera;
+        
+        // Sound
+        Music music;
         
 	public MainMenu() {
                 //MENU-SCREEN
@@ -77,6 +81,10 @@ public class MainMenu{
                 CursorMoveY = 0f;
                 
                 //PLAYER
+                
+                // Sound
+                music = Gdx.audio.newMusic(Gdx.files.internal("mainmenu.mp3"));
+                music.play();
 	}
 
         
@@ -134,6 +142,10 @@ public class MainMenu{
                 return 1;
             }
             else{return -1;}
+        }
+        
+        public void cleanUp(){
+            music.dispose();
         }
         
         
