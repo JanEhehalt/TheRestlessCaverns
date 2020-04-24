@@ -12,7 +12,7 @@ public class DesktopLauncher {
                 config.width = 1600;
                 config.height = 900;
                 config.title = "The Restless Caverns";
-                //config.addIcon("logo.png", Files.FileType.Internale);
+                //weconfig.addIcon("logo.png", Files.FileType.Internale);
                 
                 new LwjglApplication(new Controller(), config);
         }
