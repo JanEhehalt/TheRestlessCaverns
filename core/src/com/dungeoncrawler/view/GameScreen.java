@@ -83,7 +83,7 @@ public class GameScreen {
                 m = new Map();
                 camera = new OrthographicCamera(1, h/w);
                 
-                MapGenerator mg = new MapGenerator(new Texture(Gdx.files.internal("tiles.gif")));
+                MapGenerator mg = new MapGenerator(new Texture(Gdx.files.internal("tiles.png")));
                 
                 TiledMap[][][] maps = mg.generateMap(d);
                 m.setMaps(maps);
@@ -169,20 +169,6 @@ public class GameScreen {
                     //DRAW'T JEDES ENTITY - prueft vorher ob vorhanden
                 for(int i = 0; i < e.length; i++){
                     if(e[i] != null){
-                        entitySprites[i].setX(e[i].getxPos());
-                        entitySprites[i].setY(e[i].getyPos());
-                        if(e[i].getHp() < e[i].getMaxhp() && e[i].getHp() > 0){
-                            healthBar = new Texture("halfHealthEntity.png");
-                            Sprite healthBarSprite = new Sprite(healthBar);
-                            healthBarSprite.setPosition(e[i].getxPos(), e[i].getyPos());
-                            healthBarSprite.draw(batch);
-                        }
-                        else if(e[i].getHp() == e[i].getMaxhp()){
-                            healthBar = new Texture("fullHealthEntity.png");
-                            Sprite healthBarSprite = new Sprite(healthBar);
-                            healthBarSprite.setPosition(e[i].getxPos(), e[i].getyPos());
-                            healthBarSprite.draw(batch);
-                        }
                         switch(e[i].getFacing()){
                             case -1:
                                 break;
@@ -221,6 +207,20 @@ public class GameScreen {
                     
                         }
                         entitySprites[i].draw(batch);
+                        entitySprites[i].setX(e[i].getxPos());
+                        entitySprites[i].setY(e[i].getyPos());
+                        if(e[i].getHp() < e[i].getMaxhp() && e[i].getHp() > 0){
+                            healthBar = new Texture("halfHealthEntity.png");
+                            Sprite healthBarSprite = new Sprite(healthBar);
+                            healthBarSprite.setPosition(e[i].getxPos(), e[i].getyPos());
+                            healthBarSprite.draw(batch);
+                        }
+                        else if(e[i].getHp() == e[i].getMaxhp()){
+                            healthBar = new Texture("fullHealthEntity.png");
+                            Sprite healthBarSprite = new Sprite(healthBar);
+                            healthBarSprite.setPosition(e[i].getxPos(), e[i].getyPos());
+                            healthBarSprite.draw(batch);
+                        }
                     }
                 }
                 for(int i = 0; i < arrowSprites.length; i++){
