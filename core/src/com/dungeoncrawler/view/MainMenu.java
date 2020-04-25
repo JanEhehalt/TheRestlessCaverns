@@ -26,7 +26,7 @@ public class MainMenu{
         OrthographicCamera camera;
         
         // Sound
-        Music music;
+        public Music music;
         
 	public MainMenu(float volume) {
                 //MENU-SCREEN

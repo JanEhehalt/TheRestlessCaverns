@@ -305,6 +305,28 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                         d.getLevel()[level].getRooms()[posRoom[0]][posRoom[1]].setEnemies(m.playerAttack(e, d.getPlayer()));
                     }
                 }
+                
+                if(keycode == Input.Keys.UP){
+                    volume += 0.1f;
+                    
+                    if(v != null){
+                        v.music.setVolume(volume);
+                    }
+                    if(m != null){
+                        m.music.setVolume(volume);
+                    }
+                }
+                
+                if(keycode == Input.Keys.DOWN){
+                    volume -= 0.1f;
+                    
+                    if(v != null){
+                        v.music.setVolume(volume);
+                    }
+                    if(m != null){
+                        m.music.setVolume(volume);
+                    }
+                }
                 return true;
     }
 

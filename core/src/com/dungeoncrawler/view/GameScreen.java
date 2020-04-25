@@ -48,7 +48,7 @@ public class GameScreen {
         OrthographicCamera camera;
         
         // Sound
-        Music music;
+        public Music music;
         
 	public GameScreen(Dungeon d, float volume) {
                 //CONTROLS
