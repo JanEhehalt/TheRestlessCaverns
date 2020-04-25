@@ -133,7 +133,7 @@ public class GameScreen {
                 tmr.setView(camera);
                 tmr.render();
 
-                camera.zoom = 1500f;
+                camera.zoom = 1700f;
                 camera.update();
                 batch.setProjectionMatrix(camera.combined);
 

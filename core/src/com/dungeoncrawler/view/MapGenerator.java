@@ -79,7 +79,9 @@ public class MapGenerator {
                     if(y < l.getRooms()[0].length - 1 && l.getRooms()[x][y + 1] != null){
                         
                         // X: Exakte Mitte der Gesamtlänge, Y: Gesamtlänge
-                        staticLayer.getCell((tempX / 2) + 1, tempY + 1).setTile(new StaticTiledMapTile(splitTiles[1][1])); //oben
+                        staticLayer.getCell((tempX / 2) + 1, tempY).setTile(new StaticTiledMapTile(splitTiles[0][3])); //oben1
+                        staticLayer.getCell((tempX / 2) + 1, tempY + 1).setTile(new StaticTiledMapTile(splitTiles[1][1])); //oben2
+                        staticLayer.getCell((tempX / 2) + 1, tempY + 2).setTile(new StaticTiledMapTile(splitTiles[0][1])); //oben3
                         collisionLayer.getObjects().remove(top);
                         
                         RectangleMapObject tempLeft = new RectangleMapObject(0, mapDimensionY*48 - 48, (mapDimensionX / 2) * 48, 48);
@@ -93,7 +95,7 @@ public class MapGenerator {
                     if(x < l.getRooms().length - 1 && l.getRooms()[x + 1][y] != null){
                         
                         // X: Gesamtlänge, Y: Exakte Mitte der Gesamtlänge
-                        staticLayer.getCell(tempX + 1, (tempY / 2) + 1).setTile(new StaticTiledMapTile(splitTiles[1][1])); //rechts
+                        staticLayer.getCell(tempX, (tempY / 2) + 1).setTile(new StaticTiledMapTile(splitTiles[1][3])); //rechts
                         
                         collisionLayer.getObjects().remove(right);
                         
@@ -108,7 +110,7 @@ public class MapGenerator {
                     if(y > 0 && l.getRooms()[x][y - 1] != null){
                         
                         // X: Exakte Mitte der Gesamtlänge, Y: 0
-                        staticLayer.getCell((tempX / 2) + 1, 0).setTile(new StaticTiledMapTile(splitTiles[1][1])); //unten
+                        staticLayer.getCell((tempX / 2) + 1, 1).setTile(new StaticTiledMapTile(splitTiles[2][3])); //unten
                         
                         collisionLayer.getObjects().remove(bottom);
                         
@@ -123,7 +125,7 @@ public class MapGenerator {
                     if(x > 0 && l.getRooms()[x - 1][y] != null){
                         
                         // X: 0, Y: Exakte Mitte der Gesamtlänge
-                        staticLayer.getCell(0, (tempY / 2) + 1).setTile(new StaticTiledMapTile(splitTiles[1][1])); //links
+                        staticLayer.getCell(1, (tempY / 2) + 1).setTile(new StaticTiledMapTile(splitTiles[3][3])); //links
                         
                         collisionLayer.getObjects().remove(left);
                         
@@ -171,8 +173,8 @@ public class MapGenerator {
         MapLayers layers = tempRoom.getLayers();
         
         MapLayer collisionLayer = new MapLayer();
-        TiledMapTileLayer dynamicLayer = new TiledMapTileLayer(mapDimensionX, mapDimensionY, 48, 48);
-        TiledMapTileLayer staticLayer = new TiledMapTileLayer(mapDimensionX, mapDimensionY, 48, 48);
+        TiledMapTileLayer dynamicLayer = new TiledMapTileLayer(mapDimensionX, mapDimensionY + 2, 48, 48);
+        TiledMapTileLayer staticLayer = new TiledMapTileLayer(mapDimensionX, mapDimensionY + 2, 48, 48);
         
         RectangleMapObject bottom = new RectangleMapObject(0, 0, mapDimensionX*48, 48);
         collisionLayer.getObjects().add(bottom);
@@ -189,16 +191,10 @@ public class MapGenerator {
         collisionLayer.setVisible(false);
         
         // Schleife läuft über jedes Teil des Raumes und generiert ein Tile aus dem tileset
-        for(int x = 0; x < mapDimensionX + 1; x++){
-            for(int y = 0; y < mapDimensionY + 1; y++){
+        for(int x = 0; x < mapDimensionX + 2; x++){
+            for(int y = 0; y < mapDimensionY + 2; y++){
                 
                 TiledMapTileLayer.Cell cell = new TiledMapTileLayer.Cell();
-                
-                // Test, ob Tile eine Wand sein muss
-                /*if(x == 0 || x == mapDimensionX - 1 || y == 0 || y == mapDimensionY - 1){
-                    cell.setTile(new StaticTiledMapTile(splitTiles[0][5]));
-                }
-                */
                 
                 // links
                 if(x == 0){
@@ -212,9 +208,17 @@ public class MapGenerator {
                 else if(x == mapDimensionX - 1){
                     cell.setTile(new StaticTiledMapTile(splitTiles[4][2]));
                 }
-                // oben
+                // oben1
                 else if(y == mapDimensionY - 1){
                     cell.setTile(new StaticTiledMapTile(splitTiles[3][1]));
+                }
+                // oben2
+                else if(y == mapDimensionY){
+                    cell.setTile(new StaticTiledMapTile(splitTiles[2][1]));
+                }
+                // oben3
+                else if(y == mapDimensionY + 1){
+                    cell.setTile(new StaticTiledMapTile(splitTiles[2][5]));
                 }
                 else{
                     cell.setTile(new StaticTiledMapTile(splitTiles[bodenX][bodenY]));
@@ -227,11 +231,11 @@ public class MapGenerator {
                     cell.setTile(new StaticTiledMapTile(splitTiles[2][2]));
                 }
                 // oben links
-                else if(x == 0 && y == mapDimensionY - 1){
+                else if(x == 0 && y == mapDimensionY + 1){
                     cell.setTile(new StaticTiledMapTile(splitTiles[3][2]));
                 }
                 // oben rechts
-                else if(x == mapDimensionX -1 && y == mapDimensionY - 1){
+                else if(x == mapDimensionX - 1 && y == mapDimensionY + 1){
                     cell.setTile(new StaticTiledMapTile(splitTiles[0][2]));
                 }
                 // unten rechts
