@@ -228,6 +228,20 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
             d.getPlayer().setxPos((roomX*48) - 48);
             d.getPlayer().setyPos((roomY / 2)*48);
         }
+        
+        if(posRoom[0] == d.getLevel()[level].getExit()[0] && posRoom[1] == d.getLevel()[level].getExit()[1]){
+            if(level < 6){
+                System.out.println("Nächstes Level, here we go");
+                level++;
+                
+                tile[0] = roomX / 2;
+                tile[1] = roomY / 2;
+                
+                int roomAmount = d.getLevel()[level].getRooms().length;
+                posRoom[0] = roomAmount / 2;
+                posRoom[1] = roomAmount / 2;
+            }
+        }
     }
         
     public void newEntity(Entity ent, float x, float y, int lvl){
