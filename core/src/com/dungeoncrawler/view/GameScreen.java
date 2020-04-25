@@ -18,8 +18,8 @@ import com.dungeoncrawler.model.entities.*;
 
 public class GameScreen {
         //CONTROLS
-        Texture ctr;
-        Sprite controls;
+        //Texture ctr;
+        //Sprite controls;
     
         //PLAYER
         Texture p;
@@ -50,11 +50,12 @@ public class GameScreen {
         
 	public GameScreen(Dungeon d, float volume) {
                 //CONTROLS
+                /*
                 ctr = new Texture("controls.png");
                 controls = new Sprite(ctr);
                 controls.setX(-400f);
                 controls.setY(0);
-            
+                */
             
                 //PLAYER
                 
@@ -80,6 +81,7 @@ public class GameScreen {
                 
                 m = new Map();
                 camera = new OrthographicCamera(1, h/w);
+                camera.translate(300f, 200f);
                 
                 MapGenerator mg = new MapGenerator(new Texture(Gdx.files.internal("tileset_floor_1.png")));
                 
@@ -133,7 +135,8 @@ public class GameScreen {
                 tmr.setView(camera);
                 tmr.render();
 
-                camera.zoom = 1700f;
+                camera.zoom = 700f;
+                
                 camera.update();
                 batch.setProjectionMatrix(camera.combined);
 
@@ -160,7 +163,7 @@ public class GameScreen {
             //BATCH
             batch.begin();
                 player.draw(batch);
-                controls.draw(batch);
+                //controls.draw(batch);
                     //DRAW'T JEDES ENTITY - prueft vorher ob vorhanden
                 for(int i = 0; i < e.length; i++){
                     if(e[i] != null){

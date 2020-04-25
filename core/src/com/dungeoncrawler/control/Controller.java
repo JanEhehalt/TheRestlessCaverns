@@ -61,7 +61,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
         volume = 0.01f;
         
         arrows = new Entity[10];
-        roomX = 8;
+        roomX = 10;
         roomY = 6;
         
         batch = new SpriteBatch();
