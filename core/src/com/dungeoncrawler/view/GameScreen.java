@@ -12,11 +12,9 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Intersector;
-import com.badlogic.gdx.math.Rectangle;
 import com.dungeoncrawler.model.Dungeon;
 import com.dungeoncrawler.model.Entity;
 import com.dungeoncrawler.model.entities.*;
-import com.badlogic.gdx.utils.Timer;
 
 public class GameScreen {
         //CONTROLS
@@ -52,10 +50,10 @@ public class GameScreen {
         
 	public GameScreen(Dungeon d, float volume) {
                 //CONTROLS
-                    ctr = new Texture("controls.png");
-                    controls = new Sprite(ctr);
-                    controls.setX(-400f);
-                    controls.setY(0);
+                ctr = new Texture("controls.png");
+                controls = new Sprite(ctr);
+                controls.setX(-400f);
+                controls.setY(0);
             
             
                 //PLAYER
@@ -98,7 +96,7 @@ public class GameScreen {
 
 	}
 
-	public void render (SpriteBatch batch, Player p, Entity[] e, Entity[] arrows, int[] tile, int level, int[] posRoom) {
+	public void render (SpriteBatch batch, Player p, Entity[] e, Entity[] arrows, int tileX, int tileY, int level, int roomPosX, int roomPosY) {
             
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -107,10 +105,7 @@ public class GameScreen {
                 player.setX(p.getxPos());
                 player.setY(p.getyPos());
                 
-                int xPosRoom = posRoom[0];
-                int yPosRoom = posRoom[1];
-                
-                tm = getM().getMaps()[level][xPosRoom][yPosRoom];
+                tm = getM().getMaps()[level][roomPosX][roomPosY];
                 
                 if(tm == null){
                     System.out.println("Dein scheiß geht net");

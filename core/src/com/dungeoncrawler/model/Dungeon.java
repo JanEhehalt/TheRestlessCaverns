@@ -14,14 +14,14 @@ import com.dungeoncrawler.model.entities.Player;
 public class Dungeon {
     private Level level[];
     private Player player;
-    private int playerRoom;
-    private int playerLevel;
+    
+    private Level currentLevel;
+    private Room currentRoom;
+    private Entity[] currentEntities;
     
     public Dungeon(Player player){
         this.level = new Level[7];
         this.player = player;
-        this.playerRoom = 0;
-        this.playerLevel = 0;
     }
     
     public void update(){
@@ -61,34 +61,47 @@ public class Dungeon {
     public void setPlayer(Player player) {
         this.player = player;
     }
-    
+
     /**
-     * @return the playerRoom
+     * @return the currentLevel
      */
-    public int getPlayerRoom() {
-        return playerRoom;
+    public Level getCurrentLevel() {
+        return currentLevel;
     }
 
     /**
-     * @param playerRoom the playerRoom to set
+     * @param currentLevel the currentLevel to set
      */
-    public void setPlayerRoom(int playerRoom) {
-        this.playerRoom = playerRoom;
+    public void setCurrentLevel(Level currentLevel) {
+        this.currentLevel = currentLevel;
     }
 
     /**
-     * @return the playerLevel
+     * @return the currentRoom
      */
-    public int getPlayerLevel() {
-        return playerLevel;
+    public Room getCurrentRoom() {
+        return currentRoom;
     }
 
     /**
-     * @param playerLevel the playerLevel to set
+     * @param currentRoom the currentRoom to set
      */
-    public void setPlayerLevel(int playerLevel) {
-        this.playerLevel = playerLevel;
+    public void setCurrentRoom(Room currentRoom) {
+        this.currentRoom = currentRoom;
     }
-    
+
+    /**
+     * @return the currentEntities
+     */
+    public Entity[] getCurrentEntities() {
+        return currentEntities;
+    }
+
+    /**
+     * @param currentEntities the currentEntities to set
+     */
+    public void setCurrentEntities(Entity[] currentEntities) {
+        this.currentEntities = currentEntities;
+    }
     
 }

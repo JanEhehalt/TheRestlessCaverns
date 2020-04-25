@@ -29,14 +29,21 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
     Dungeon d;
     DungeonGenerator dg;
     MainMenu v;
-    Entity[] e;
     Timer tEntities;
     GameScreen m;
-    int[] tile;
-    int[] posRoom;
-    int level;
+    
+    int tileX;
+    int tileY;
+    
+    int roomPosX;
+    int roomPosY;
+    
     int roomX;
     int roomY;
+    
+    int level;
+
+    int roomAmount;
     float volume;
     
     Entity[] arrows;
@@ -65,26 +72,24 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
         d = dg.generateDungeon(roomX - 1, roomY - 1, 48, new Player());
         dg.ichWillSpielen(d);
         
-        tile = new int[2];
-        posRoom = new int[2];
+        tileX = roomX / 2;
+        tileY = roomY / 2;
         
-        int roomLengthX = d.getLevel()[0].getRooms().length;
-        int roomLengthY = d.getLevel()[0].getRooms()[0].length;
-        int roomAmount = d.getLevel()[0].getRooms().length;
+        roomAmount = d.getLevel()[0].getRooms().length;
         
         int startRoom = (int) (Math.random() * roomAmount);
             
         level = 0;
 
         int k = 0;
-        for(int i = 0; i < roomLengthX; i++){
-            for(int j = 0; j < roomLengthY; j++){
+        for(int i = 0; i < roomAmount; i++){
+            for(int j = 0; j < roomAmount; j++){
                 if(d.getLevel()[level].getRooms()[i][j] != null){
 
                     if(k == startRoom){
                         // Startraum wurde ausgewählt
-                        posRoom[0] = i;
-                        posRoom[1] = j;
+                        roomPosX = i;
+                        roomPosY = j;
 
                     }
 
@@ -94,7 +99,9 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
             }
         }
         
-        e = new Entity[5];
+        d.setCurrentLevel(d.getLevel()[level]);
+        d.setCurrentRoom(d.getCurrentLevel().getRooms()[roomPosX][roomPosY]);
+        d.setCurrentEntities(d.getCurrentRoom().getEnemies());
 
         Gdx.input.setInputProcessor(this);
         
@@ -103,9 +110,9 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
         entityMovement.scheduleTask(new Timer.Task() {
                     @Override
                     public void run() {
-                        for(int i = 0; i < e.length; i++){
-                            if(e[i] != null){
-                                e[i].randomMove(roomX, roomY);
+                        for(int i = 0; i < d.getCurrentEntities().length; i++){
+                            if(d.getCurrentEntities()[i] != null){
+                                d.getCurrentEntities()[i].randomMove(roomX, roomY);
                             }
                         }
                     }
@@ -125,16 +132,21 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
         if(m != null){
             
             if(v == null){
-                e = d.getLevel()[level].getRooms()[posRoom[0]][posRoom[1]].getEnemies();
                 // Position des Players, etc. werden aktualisiert
-                updateObjects(level, posRoom);
+                updateObjects(level, roomPosX, roomPosY);
                 
-                // Raum, in dem sich der Player jetzt befindet, wird aktualisiert
-                updateRoom();
+                
+                // tile[] beinhaltet die x und y Nummer des tiles, in dem sich der Player befindet
+                tileX = (int) d.getPlayer().getxPos() / 48;
+                tileY = (int) d.getPlayer().getyPos() / 48;
+                
+                if(tileX == 0 || tileX == roomX || tileY == 0 || tileY == roomY){
+                    updateRoom();
+                }
 
                 
                 // Render methode zum rendern der einzelnen Sprites wird aufgerufen
-                m.render(batch, d.getPlayer(), e, arrows,  tile, level, posRoom);
+                m.render(batch, d.getPlayer(), d.getCurrentEntities(), arrows,  tileX, tileY, level, roomPosX, roomPosY);
             }
         }
     }
@@ -145,11 +157,16 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
         batch.dispose();
     }
         
-    public void updateObjects(int level, int[] posRoom){
+    public void updateObjects(int level, int roomPosX, int roomPosY){
         
-        MapLayers layers = m.getM().getMaps()[level][posRoom[0]][posRoom[1]].getLayers();
+        MapLayers layers = m.getM().getMaps()[level][roomPosX][roomPosY].getLayers();
         MapObjects objects = layers.get(0).getObjects();
-        System.out.println(objects.getCount());
+        //System.out.println(objects.getCount());
+        
+        updatePlayer(objects);
+    }
+    
+    public void updatePlayer(MapObjects objects){
         
         float x = d.getPlayer().getxPos();
         d.getPlayer().updateX();
@@ -185,86 +202,76 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
     }
     
     public void updateRoom(){
-        // tile[] beinhaltet die x und y Nummer des tiles, in dem sich der Player befindet
-        tile[0] = (int) d.getPlayer().getxPos() / 48;
-        tile[1] = (int) d.getPlayer().getyPos() / 48;
         
-        System.out.println(roomX + " " + roomY);
-
-        System.out.println("pos Player tiles: " + tile[0] + " " + tile[1]);
-
-        int xPos = tile[0];
-        int yPos = tile[1];
-
+        //System.out.println(roomX + " " + roomY);
+        //System.out.println("pos Player tiles: " + tileX + " " + tileY);
+        
+        // Temp variablen werden wieder auf ihre Plätze geschrieben
+        
+        // Entities
+        d.getCurrentRoom().setEnemies(d.getCurrentEntities());
+        
+        // Room
+        d.getCurrentLevel().setRoom(d.getCurrentRoom(), roomPosX, roomPosY);
+        
+        // Level
+        d.setLevel(d.getCurrentLevel(), level);
+        
         // oben
-        if(xPos == (roomX / 2) && yPos == roomY){
+        if(tileX == (roomX / 2) && tileY == roomY){
             System.out.println("oben");
 
-            posRoom[1] += 1;
+            roomPosY += 1;
             d.getPlayer().setxPos((roomX / 2)* 48);
             d.getPlayer().setyPos(48);
         }
 
         // rechts
-        if(xPos == roomX && yPos == (roomY / 2)){
+        if(tileX == roomX && tileY == (roomY / 2)){
             System.out.println("rechts");
 
-            posRoom[0] += 1;
+            roomPosX += 1;
             d.getPlayer().setxPos(48);
             d.getPlayer().setyPos((roomY / 2)*48);
         }
 
         // unten
-        if(xPos == (roomX / 2) && yPos == 0){
+        if(tileX == (roomX / 2) && tileY == 0){
             System.out.println("unten");
 
-            posRoom[1] -= 1;
+            roomPosY -= 1;
             d.getPlayer().setxPos((roomX / 2)*48);
             d.getPlayer().setyPos(roomY*48 - 48);
         }
 
         // links
-        if(xPos == 0 && yPos == (roomY / 2)){
+        if(tileX == 0 && tileY == (roomY / 2)){
             System.out.println("links");
 
-            posRoom[0] -= 1;
+            roomPosX -= 1;
             d.getPlayer().setxPos((roomX*48) - 48);
             d.getPlayer().setyPos((roomY / 2)*48);
         }
         
-        if(posRoom[0] == d.getLevel()[level].getExit()[0] && posRoom[1] == d.getLevel()[level].getExit()[1]){
+        if(roomPosX == d.getCurrentLevel().getExit()[0] && roomPosY == d.getCurrentLevel().getExit()[1]){
             if(level < 6){
                 System.out.println("Nächstes Level, here we go");
                 level++;
                 
-                tile[0] = roomX / 2;
-                tile[1] = roomY / 2;
+                tileX = roomX / 2;
+                tileY = roomY / 2;
                 
                 int roomAmount = d.getLevel()[level].getRooms().length;
-                posRoom[0] = roomAmount / 2;
-                posRoom[1] = roomAmount / 2;
+                roomPosX = roomAmount / 2;
+                roomPosY = roomAmount / 2;
             }
         }
+        
+        d.setCurrentLevel(d.getLevel()[level]);
+        d.setCurrentRoom(d.getCurrentLevel().getRooms()[roomPosX][roomPosY]);
+        d.setCurrentEntities(d.getCurrentRoom().getEnemies());
     }
         
-    public void newEntity(Entity ent, float x, float y, int lvl){
-        for(int i = 0; i < e.length ; i++){
-            if(e[i] == null){
-                switch(ent.getId()){
-                    case 0:
-                        e[i] = new Archer(x,y,lvl);
-                        i = 11;
-                        break;
-                    case 1:
-                        e[i] = new Swordsman(x,y,lvl);
-                        i = 11;
-                        break;
-                }
-            }
-        }
-    }
-
-    
     @Override
     public boolean keyDown(int keycode) {
                 if(keycode == Input.Keys.A){
@@ -302,7 +309,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                 if(keycode == Input.Keys.E){
                     if(v != null){}
                     if(m != null){
-                        d.getLevel()[level].getRooms()[posRoom[0]][posRoom[1]].setEnemies(m.playerAttack(e, d.getPlayer()));
+                        d.setCurrentEntities(m.playerAttack(d.getCurrentEntities(), d.getPlayer()));
                     }
                 }
                 
@@ -422,12 +429,5 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
     public boolean scrolled(int i) {
         return false;
     }
-    
-    public Entity[] getEntities(){
-        return e;
-    }
-    
-    
-    
     
 }
