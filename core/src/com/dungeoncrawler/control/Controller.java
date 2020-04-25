@@ -51,7 +51,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
     @Override
     public void create(){
         
-        volume = 10f;
+        volume = 0.01f;
         
         arrows = new Entity[10];
         roomX = 8;
