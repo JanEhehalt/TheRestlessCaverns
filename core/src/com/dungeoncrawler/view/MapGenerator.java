@@ -79,7 +79,7 @@ public class MapGenerator {
                     if(y < l.getRooms()[0].length - 1 && l.getRooms()[x][y + 1] != null){
                         
                         // X: Exakte Mitte der Gesamtlänge, Y: Gesamtlänge
-                        staticLayer.getCell((tempX / 2) + 1, tempY + 1).setTile(new StaticTiledMapTile(splitTiles[0][3])); //oben
+                        staticLayer.getCell((tempX / 2) + 1, tempY + 1).setTile(new StaticTiledMapTile(splitTiles[1][1])); //oben
                         collisionLayer.getObjects().remove(top);
                         
                         RectangleMapObject tempLeft = new RectangleMapObject(0, mapDimensionY*48 - 48, (mapDimensionX / 2) * 48, 48);
@@ -93,7 +93,7 @@ public class MapGenerator {
                     if(x < l.getRooms().length - 1 && l.getRooms()[x + 1][y] != null){
                         
                         // X: Gesamtlänge, Y: Exakte Mitte der Gesamtlänge
-                        staticLayer.getCell(tempX + 1, (tempY / 2) + 1).setTile(new StaticTiledMapTile(splitTiles[0][3])); //rechts
+                        staticLayer.getCell(tempX + 1, (tempY / 2) + 1).setTile(new StaticTiledMapTile(splitTiles[1][1])); //rechts
                         
                         collisionLayer.getObjects().remove(right);
                         
@@ -108,7 +108,7 @@ public class MapGenerator {
                     if(y > 0 && l.getRooms()[x][y - 1] != null){
                         
                         // X: Exakte Mitte der Gesamtlänge, Y: 0
-                        staticLayer.getCell((tempX / 2) + 1, 0).setTile(new StaticTiledMapTile(splitTiles[0][3])); //unten
+                        staticLayer.getCell((tempX / 2) + 1, 0).setTile(new StaticTiledMapTile(splitTiles[1][1])); //unten
                         
                         collisionLayer.getObjects().remove(bottom);
                         
@@ -123,7 +123,7 @@ public class MapGenerator {
                     if(x > 0 && l.getRooms()[x - 1][y] != null){
                         
                         // X: 0, Y: Exakte Mitte der Gesamtlänge
-                        staticLayer.getCell(0, (tempY / 2) + 1).setTile(new StaticTiledMapTile(splitTiles[0][3])); //links
+                        staticLayer.getCell(0, (tempY / 2) + 1).setTile(new StaticTiledMapTile(splitTiles[1][1])); //links
                         
                         collisionLayer.getObjects().remove(left);
                         
@@ -195,11 +195,48 @@ public class MapGenerator {
                 TiledMapTileLayer.Cell cell = new TiledMapTileLayer.Cell();
                 
                 // Test, ob Tile eine Wand sein muss
-                if(x == 0 || x == mapDimensionX - 1 || y == 0 || y == mapDimensionY - 1){
+                /*if(x == 0 || x == mapDimensionX - 1 || y == 0 || y == mapDimensionY - 1){
                     cell.setTile(new StaticTiledMapTile(splitTiles[0][5]));
+                }
+                */
+                
+                // links
+                if(x == 0){
+                    cell.setTile(new StaticTiledMapTile(splitTiles[4][0]));
+                }
+                // unten
+                else if(y == 0){
+                    cell.setTile(new StaticTiledMapTile(splitTiles[4][1]));
+                }
+                // rechts
+                else if(x == mapDimensionX - 1){
+                    cell.setTile(new StaticTiledMapTile(splitTiles[4][2]));
+                }
+                // oben
+                else if(y == mapDimensionY - 1){
+                    cell.setTile(new StaticTiledMapTile(splitTiles[3][1]));
                 }
                 else{
                     cell.setTile(new StaticTiledMapTile(splitTiles[bodenX][bodenY]));
+                }
+                
+                // Ecken
+                
+                // unten links
+                if(x == 0 && y == 0){
+                    cell.setTile(new StaticTiledMapTile(splitTiles[2][2]));
+                }
+                // oben links
+                else if(x == 0 && y == mapDimensionY - 1){
+                    cell.setTile(new StaticTiledMapTile(splitTiles[3][2]));
+                }
+                // oben rechts
+                else if(x == mapDimensionX -1 && y == mapDimensionY - 1){
+                    cell.setTile(new StaticTiledMapTile(splitTiles[0][2]));
+                }
+                // unten rechts
+                else if(x == mapDimensionX -1 && y == 0){
+                    cell.setTile(new StaticTiledMapTile(splitTiles[1][2]));
                 }
                 
                 staticLayer.setCell(x, y, cell);
