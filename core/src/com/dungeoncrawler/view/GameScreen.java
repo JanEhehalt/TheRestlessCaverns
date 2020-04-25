@@ -281,7 +281,7 @@ public class GameScreen {
                 Sprite verticalAttackSprite = new Sprite(verticalAttack);
                 verticalAttackSprite.setX(p.getxPos()-2f);
                 verticalAttackSprite.setY(p.getyPos() - 24f-2f);
-                for(int i = 0; i<entitySprites.length ; i++){
+                for(int i = 0; i<e.length ; i++){
                     if(entitySprites[i] != null){
                         if(Intersector.overlaps(entitySprites[i].getBoundingRectangle(), verticalAttackSprite.getBoundingRectangle())){
                             if(e[i] != null){
@@ -301,7 +301,7 @@ public class GameScreen {
                 Sprite horizontalAttackSprite = new Sprite(horizontalAttack);
                 horizontalAttackSprite.setX(p.getxPos() - 24f-2f);
                 horizontalAttackSprite.setY(p.getyPos() -2f);
-                for(int i = 0; i<entitySprites.length ; i++){
+                for(int i = 0; i < e.length ; i++){
                     if(entitySprites[i] != null){
                         if(Intersector.overlaps(entitySprites[i].getBoundingRectangle(), horizontalAttackSprite.getBoundingRectangle())){
                             if(e[i] != null){
