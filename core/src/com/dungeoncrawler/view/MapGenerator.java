@@ -46,6 +46,7 @@ public class MapGenerator {
     }
     
     private TiledMap[][] generateLevel(int i, Level l){
+        
         int sizeX = l.getRooms().length;
         int sizeY = l.getRooms()[0].length;
         
@@ -63,7 +64,7 @@ public class MapGenerator {
                     int mapDimensionY = tempY + 2;
                     
                     // Raum wird generiertf
-                    TiledMap tempRoom = generateRoom(room, tempX, tempY);
+                    TiledMap tempRoom = generateRoom(room, tempX, tempY, i);
                     
                     // Wenn es Fehler gibt, dann wohl hier: Viel Spaß beim Suchen!        Danke!
                     MapLayer collisionLayer = tempRoom.getLayers().get(0);
@@ -142,7 +143,20 @@ public class MapGenerator {
         return tempLevel;
     }
     
-    private TiledMap generateRoom(Room r, int roomDimensionX, int roomDimensionY){
+    private TiledMap generateRoom(Room r, int roomDimensionX, int roomDimensionY, int lvl){
+        
+        int bodenX;
+        int bodenY;
+        
+        if(lvl < 5){
+            bodenX = lvl;
+            bodenY = 0;
+        }
+        else{
+            bodenX = 0;
+            bodenY = lvl - 4;
+        }
+        
         TiledMap tempRoom = new TiledMap();
         
         // roomDimension bezieht sich auf die Größe des Raumes, da aber noch die Wände fehlen,
@@ -185,7 +199,7 @@ public class MapGenerator {
                     cell.setTile(new StaticTiledMapTile(splitTiles[0][5]));
                 }
                 else{
-                    cell.setTile(new StaticTiledMapTile(splitTiles[0][0]));
+                    cell.setTile(new StaticTiledMapTile(splitTiles[bodenX][bodenY]));
                 }
                 
                 staticLayer.setCell(x, y, cell);

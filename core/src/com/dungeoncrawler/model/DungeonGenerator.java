@@ -80,10 +80,54 @@ public class DungeonGenerator {
             if(tempLevel.getRooms()[xPos][yPos] == null){
                 tempLevel.setRoom(generateRoom(sizeX, sizeY, tileSize, lvl), xPos, yPos);
                 
-                // i darf nur erhöht werden, wenn auche in Raum generiert wurde
+                // i darf nur erhöht werden, wenn auch ein Raum generiert wurde
                 i++;
             }
         }
+            
+        // Exit wird generiert
+        boolean istFertig = false;
+        do{
+            // Zufallszahl für die Richtung wird generiert, Oben: 0, Rechts: 1, Unten: 2, Links: 3
+            int direction = (int) (Math.random() * 4);
+
+            switch (direction) {
+            // Oben
+                case 0:
+                    if(yPos != roomAmount - 1){
+                        yPos += 1;
+                    }
+                    break;
+            // Rechts
+                case 1:
+                    if(xPos != roomAmount - 1){
+                        xPos += 1;
+                    }
+                    break;
+            // Unten
+                case 2:
+                    if(yPos != 0){
+                        yPos -= 1;
+                    }
+                    break;
+            // Links
+                case 3:
+                    if(xPos != 0){
+                        xPos -= 1;
+                    }
+                    break;
+            }
+
+            // An der neuen Stelle vom Cursor gibt es noch keinen Raum
+            if(tempLevel.getRooms()[xPos][yPos] == null){
+                tempLevel.setRoom(generateRoom(sizeX, sizeY, tileSize, lvl), xPos, yPos);
+                
+                tempLevel.setExit(xPos, 0);
+                tempLevel.setExit(yPos, 1);
+                
+                istFertig = true;
+            }
+        } while(!istFertig);
         
         return tempLevel;
     }
