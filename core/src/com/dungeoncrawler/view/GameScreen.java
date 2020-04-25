@@ -36,6 +36,7 @@ public class GameScreen {
         Texture archerTexture;
         TextureRegion[][] swordsmanRegions;
         Texture swordsmanTexture;
+        Texture healthBar;
         
         Texture[] arrowTextures;
         Sprite[] arrowSprites;
@@ -60,7 +61,7 @@ public class GameScreen {
                 //PLAYER
                 
                 p = new Texture("player2.png");
-                regions = TextureRegion.split(p, 16, 16);
+                regions = TextureRegion.split(p, 32, 32);
                 player = new Sprite(regions[0][2]);
                 player.setX(200);
                 player.setY(200);
@@ -169,6 +170,18 @@ public class GameScreen {
                     if(e[i] != null){
                         entitySprites[i].setX(e[i].getxPos());
                         entitySprites[i].setY(e[i].getyPos());
+                        if(e[i].getHp() < e[i].getMaxhp() && e[i].getHp() > 0){
+                            healthBar = new Texture("halfHealthEntity.png");
+                            Sprite healthBarSprite = new Sprite(healthBar);
+                            healthBarSprite.setPosition(e[i].getxPos(), e[i].getyPos());
+                            healthBarSprite.draw(batch);
+                        }
+                        else if(e[i].getHp() == e[i].getMaxhp()){
+                            healthBar = new Texture("fullHealthEntity.png");
+                            Sprite healthBarSprite = new Sprite(healthBar);
+                            healthBarSprite.setPosition(e[i].getxPos(), e[i].getyPos());
+                            healthBarSprite.draw(batch);
+                        }
                         switch(e[i].getFacing()){
                             case -1:
                                 break;
@@ -224,57 +237,81 @@ public class GameScreen {
         
         public Entity[] playerAttack(Entity e[], Player p){
             if(p.direction() == 0){
-                Texture verticalAttack = new Texture("AttackHori.png");
+                Texture verticalAttack = new Texture("AttackVert.png");
                 Sprite verticalAttackSprite = new Sprite(verticalAttack);
-                verticalAttackSprite.setX(p.getxPos());
-                verticalAttackSprite.setY(p.getyPos());
+                verticalAttackSprite.setX(p.getxPos()-2f);
+                verticalAttackSprite.setY(p.getyPos()-2f);
                 for(int i = 0; i< e.length ; i++){
                     if(e[i] != null){
                         if(Intersector.overlaps(entitySprites[i].getBoundingRectangle(), verticalAttackSprite.getBoundingRectangle())){
-                            e[i] = null;
-                            return e;
+                            if(e[i] != null){
+                                if(e[i].getHp() - p.getDmg() <= 0){
+                                    e[i] = null;
+                                }
+                                else{
+                                    e[i].setHp(e[i].getHp() - p.getDmg());
+                                }
+                            }
                         }
                     }
                 }
             }
             else if(p.direction() == 1){
-                Texture horizontalAttack = new Texture("AttackVert.png");
+                Texture horizontalAttack = new Texture("AttackHori.png");
                 Sprite horizontalAttackSprite = new Sprite(horizontalAttack);
-                horizontalAttackSprite.setX(p.getxPos());
-                horizontalAttackSprite.setY(p.getyPos());
+                horizontalAttackSprite.setX(p.getxPos()-2f);
+                horizontalAttackSprite.setY(p.getyPos()-2f);
                 for(int i = 0; i< e.length ; i++){
                     if(entitySprites[i] != null){
                         if(Intersector.overlaps(entitySprites[i].getBoundingRectangle(), horizontalAttackSprite.getBoundingRectangle())){
-                            e[i] = null;
-                            return e;
+                            if(e[i] != null){
+                                if(e[i].getHp() - p.getDmg() <= 0){
+                                    e[i] = null;
+                                }
+                                else{
+                                    e[i].setHp(e[i].getHp() - p.getDmg());
+                                }
+                            }
                         }
                     }
                 }
             }
             else if(p.direction() == 2){
-                Texture verticalAttack = new Texture("AttackHori.png");
+                Texture verticalAttack = new Texture("AttackVert.png");
                 Sprite verticalAttackSprite = new Sprite(verticalAttack);
-                verticalAttackSprite.setX(p.getxPos());
-                verticalAttackSprite.setY(p.getyPos() - 24f);
+                verticalAttackSprite.setX(p.getxPos()-2f);
+                verticalAttackSprite.setY(p.getyPos() - 24f-2f);
                 for(int i = 0; i<entitySprites.length ; i++){
                     if(entitySprites[i] != null){
                         if(Intersector.overlaps(entitySprites[i].getBoundingRectangle(), verticalAttackSprite.getBoundingRectangle())){
-                            e[i] = null;
-                            return e;
+                            if(e[i] != null){
+                                if(e[i].getHp() - p.getDmg() <= 0){
+                                    e[i] = null;
+                                }
+                                else{
+                                    e[i].setHp(e[i].getHp() - p.getDmg());
+                                }
+                            }
                         }
                     }
                 }
             }
             else if(p.direction() == 3){
-                Texture horizontalAttack = new Texture("AttackVert.png");
+                Texture horizontalAttack = new Texture("AttackHori.png");
                 Sprite horizontalAttackSprite = new Sprite(horizontalAttack);
-                horizontalAttackSprite.setX(p.getxPos() - 24f);
-                horizontalAttackSprite.setY(p.getyPos());
+                horizontalAttackSprite.setX(p.getxPos() - 24f-2f);
+                horizontalAttackSprite.setY(p.getyPos() -2f);
                 for(int i = 0; i<entitySprites.length ; i++){
                     if(entitySprites[i] != null){
                         if(Intersector.overlaps(entitySprites[i].getBoundingRectangle(), horizontalAttackSprite.getBoundingRectangle())){
-                            e[i] = null;
-                            return e;
+                            if(e[i] != null){
+                                if(e[i].getHp() - p.getDmg() <= 0){
+                                    e[i] = null;
+                                }
+                                else{
+                                    e[i].setHp(e[i].getHp() - p.getDmg());
+                                }
+                            }
                         }
                     }
                 }
