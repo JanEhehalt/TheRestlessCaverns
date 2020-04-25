@@ -81,7 +81,7 @@ public class GameScreen {
                 m = new Map();
                 camera = new OrthographicCamera(1, h/w);
                 
-                MapGenerator mg = new MapGenerator(new Texture(Gdx.files.internal("tiles.png")));
+                MapGenerator mg = new MapGenerator(new Texture(Gdx.files.internal("tileset_floor_1.png")));
                 
                 TiledMap[][][] maps = mg.generateMap(d);
                 m.setMaps(maps);

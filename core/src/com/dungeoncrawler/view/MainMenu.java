@@ -8,6 +8,8 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.Intersector;
+import com.badlogic.gdx.math.Rectangle;
 
 
 public class MainMenu{
@@ -30,8 +32,8 @@ public class MainMenu{
         
 	public MainMenu(float volume) {
                 //MENU-SCREEN
-                float w = Gdx.graphics.getWidth();
-                float h = Gdx.graphics.getHeight();
+                w = Gdx.graphics.getWidth();
+                h = Gdx.graphics.getHeight();
                 float wc = w/2;
                 
                 
@@ -44,17 +46,19 @@ public class MainMenu{
                 quitButtonSprite = new Sprite(quitButtonTexture);
                 backgroundSprite = new Sprite(backgroundTexture);
                 
-                startButtonSprite.setBounds(100f, 350f, startButtonTexture.getWidth(), startButtonTexture.getHeight());
-                quitButtonSprite.setBounds(50f, 50f, quitButtonTexture.getWidth(), quitButtonTexture.getHeight());
-                backgroundSprite.setX(0f);
-                backgroundSprite.setY(0f);
+                startButtonSprite.setX(100);
+                startButtonSprite.setY(350);
+                quitButtonSprite.setX(50);
+                quitButtonSprite.setY(50);
+                backgroundSprite.setX(0);
+                backgroundSprite.setY(0);
                 
-                
+                /*
                 camera = new OrthographicCamera(1, h/w);
-                camera.zoom = 1200f;
                 camera.translate(backgroundSprite.getWidth()/2, backgroundSprite.getHeight()/2);
+                camera.zoom = 1150f;
                 camera.update();
-                
+                */
                 Pixmap pm = new Pixmap(Gdx.files.internal("cursor.png"));
                 Gdx.graphics.setCursor(Gdx.graphics.newCursor(pm, 0, 0));
                 pm.dispose();
@@ -67,6 +71,9 @@ public class MainMenu{
                 music = Gdx.audio.newMusic(Gdx.files.internal("mainmenu.mp3"));
                 music.setVolume(volume);
                 music.play();
+                
+                System.out.println(startButtonSprite.getWidth());
+                System.out.println(startButtonSprite.getHeight());
 	}
 
         
@@ -75,7 +82,7 @@ public class MainMenu{
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
                 
                 batch.begin();
-                batch.setProjectionMatrix(camera.combined);
+                //batch.setProjectionMatrix(camera.combined);
                 backgroundSprite.draw(batch);
                 startButtonSprite.draw(batch);
                 quitButtonSprite.draw(batch);
@@ -84,13 +91,14 @@ public class MainMenu{
 
         
         public int click(int x, int y){     // prueft ob cursor mit button (START) ueberlappt
-            if(x >= (int) startButtonSprite.getX() && x <= (int) startButtonSprite.getX()+ (int) startButtonSprite.getWidth() && y>= (int) startButtonSprite.getY() && y <= (int) startButtonSprite.getY() + (int) startButtonSprite.getHeight()){
+            Rectangle r = new Rectangle();
+            r.set(x, h-y, 1, 1);
+            if(Intersector.overlaps(r, startButtonSprite.getBoundingRectangle())){
                 return 0;
             }
-            if(x >= (int) quitButtonSprite.getX() && x <= (int) quitButtonSprite.getX()+ (int) quitButtonSprite.getWidth() && y>= (int) quitButtonSprite.getY() && y <= (int) quitButtonSprite.getY() + (int) quitButtonSprite.getHeight()){
+            if(Intersector.overlaps(r, quitButtonSprite.getBoundingRectangle())){
                 return 1;
             }
-            
             return -1;
         }
         

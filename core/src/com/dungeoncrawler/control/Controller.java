@@ -396,7 +396,9 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                   m = new GameScreen(d, volume);
                   return true;
               case 1:
-                  
+                  v.cleanUp();
+                  v = null;
+                  m = new GameScreen(d, volume);
                   return true;
           }
           
