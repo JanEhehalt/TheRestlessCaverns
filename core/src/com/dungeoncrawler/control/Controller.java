@@ -318,7 +318,9 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                 }
                 
                 if(keycode == Input.Keys.DOWN){
-                    volume -= 0.1f;
+                    if(volume >= 0.1f){
+                        volume -= 0.1f;
+                    }
                     
                     if(v != null){
                         v.music.setVolume(volume);
