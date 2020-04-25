@@ -50,7 +50,7 @@ public class GameScreen {
         // Sound
         Music music;
         
-	public GameScreen(Dungeon d) {
+	public GameScreen(Dungeon d, float volume) {
                 //CONTROLS
                     ctr = new Texture("controls.png");
                     controls = new Sprite(ctr);
@@ -93,6 +93,7 @@ public class GameScreen {
                 tmr = new OrthogonalTiledMapRenderer(tm);
                 
                 music = Gdx.audio.newMusic(Gdx.files.internal("gamemusic.mp3"));
+                music.setVolume(volume);
                 music.play();
 
 	}

@@ -37,6 +37,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
     int level;
     int roomX;
     int roomY;
+    float volume;
     
     Entity[] arrows;
     
@@ -50,12 +51,14 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
     @Override
     public void create(){
         
+        volume = 10f;
+        
         arrows = new Entity[10];
         roomX = 8;
         roomY = 6;
         
         batch = new SpriteBatch();
-        v = new MainMenu();
+        v = new MainMenu(volume);
         dg = new DungeonGenerator();
         
         
@@ -359,7 +362,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
               case 0:
                   v.cleanUp();
                   v = null;
-                  m = new GameScreen(d);
+                  m = new GameScreen(d, volume);
                   return true;
               case 1:
                   

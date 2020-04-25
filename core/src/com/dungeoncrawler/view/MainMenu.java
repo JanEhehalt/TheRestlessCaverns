@@ -28,7 +28,7 @@ public class MainMenu{
         // Sound
         Music music;
         
-	public MainMenu() {
+	public MainMenu(float volume) {
                 //MENU-SCREEN
                 float w = Gdx.graphics.getWidth();
                 float h = Gdx.graphics.getHeight();
@@ -65,6 +65,7 @@ public class MainMenu{
                 
                 // Sound
                 music = Gdx.audio.newMusic(Gdx.files.internal("mainmenu.mp3"));
+                music.setVolume(volume);
                 music.play();
 	}
 
