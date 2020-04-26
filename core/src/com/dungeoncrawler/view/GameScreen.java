@@ -59,7 +59,7 @@ public class GameScreen {
             
                 //PLAYER
                 
-                p = new Texture("player2.png");
+                p = new Texture("sprites/player.png");
                 regions = TextureRegion.split(p, 32, 32);
                 player = new Sprite(regions[0][2]);
                 player.setX(200);
@@ -83,7 +83,7 @@ public class GameScreen {
                 camera = new OrthographicCamera(1, h/w);
                 camera.translate(300f, 200f);
                 
-                MapGenerator mg = new MapGenerator(new Texture(Gdx.files.internal("tileset_floor_1.png")));
+                MapGenerator mg = new MapGenerator(new Texture(Gdx.files.internal("tilesets/tileset_floor_1.png")));
                 
                 TiledMap[][][] maps = mg.generateMap(d);
                 m.setMaps(maps);
@@ -92,7 +92,7 @@ public class GameScreen {
                 tm = new TiledMap();
                 tmr = new OrthogonalTiledMapRenderer(tm);
                 
-                music = Gdx.audio.newMusic(Gdx.files.internal("gamemusic.mp3"));
+                music = Gdx.audio.newMusic(Gdx.files.internal("music/gamemusic.mp3"));
                 music.setVolume(volume);
                 music.play();
 
@@ -143,14 +143,14 @@ public class GameScreen {
                 for(int i = 0; i < e.length; i++){
                     if(e[i] != null){
                         if(e[i].getId() == 0){ //nimmt entity ID -> 0 = Archer || 1 = Swordsman || 2 = Arrow
-                            entityTextures[i] = new Texture("archer.png");
+                            entityTextures[i] = new Texture("sprites/archer.png");
                             archerRegions = TextureRegion.split(entityTextures[i], 48, 48);
                             entitySprites[i] = new Sprite(archerRegions[0][2]);
                             entitySprites[i].setX(e[i].getxPos());
                             entitySprites[i].setY(e[i].getyPos());
                         }
                         if(e[i].getId() == 1){
-                            entityTextures[i] = new Texture("swordsman.png");
+                            entityTextures[i] = new Texture("sprites/swordsman.png");
                             swordsmanRegions = TextureRegion.split(entityTextures[i], 48, 48);
                             entitySprites[i] = new Sprite(swordsmanRegions[0][2]);
                             entitySprites[i].setX(e[i].getxPos());
@@ -208,13 +208,13 @@ public class GameScreen {
                         entitySprites[i].setX(e[i].getxPos());
                         entitySprites[i].setY(e[i].getyPos());
                         if(e[i].getHp() < e[i].getMaxhp() && e[i].getHp() > 0){
-                            healthBar = new Texture("halfHealthEntity.png");
+                            healthBar = new Texture("sprites/halfHealthEntity.png");
                             Sprite healthBarSprite = new Sprite(healthBar);
                             healthBarSprite.setPosition(e[i].getxPos(), e[i].getyPos());
                             healthBarSprite.draw(batch);
                         }
                         else if(e[i].getHp() == e[i].getMaxhp()){
-                            healthBar = new Texture("fullHealthEntity.png");
+                            healthBar = new Texture("sprites/fullHealthEntity.png");
                             Sprite healthBarSprite = new Sprite(healthBar);
                             healthBarSprite.setPosition(e[i].getxPos(), e[i].getyPos());
                             healthBarSprite.draw(batch);
@@ -236,7 +236,7 @@ public class GameScreen {
         
         public Entity[] playerAttack(Entity e[], Player p){
             if(p.direction() == 0){
-                Texture verticalAttack = new Texture("AttackVert.png");
+                Texture verticalAttack = new Texture("sprites/AttackVert.png");
                 Sprite verticalAttackSprite = new Sprite(verticalAttack);
                 verticalAttackSprite.setX(p.getxPos()-2f);
                 verticalAttackSprite.setY(p.getyPos()-2f);
@@ -256,7 +256,7 @@ public class GameScreen {
                 }
             }
             else if(p.direction() == 1){
-                Texture horizontalAttack = new Texture("AttackHori.png");
+                Texture horizontalAttack = new Texture("sprites/AttackHori.png");
                 Sprite horizontalAttackSprite = new Sprite(horizontalAttack);
                 horizontalAttackSprite.setX(p.getxPos()-2f);
                 horizontalAttackSprite.setY(p.getyPos()-2f);
@@ -276,7 +276,7 @@ public class GameScreen {
                 }
             }
             else if(p.direction() == 2){
-                Texture verticalAttack = new Texture("AttackVert.png");
+                Texture verticalAttack = new Texture("sprites/AttackVert.png");
                 Sprite verticalAttackSprite = new Sprite(verticalAttack);
                 verticalAttackSprite.setX(p.getxPos()-2f);
                 verticalAttackSprite.setY(p.getyPos() - 24f-2f);
@@ -296,7 +296,7 @@ public class GameScreen {
                 }
             }
             else if(p.direction() == 3){
-                Texture horizontalAttack = new Texture("AttackHori.png");
+                Texture horizontalAttack = new Texture("sprites/AttackHori.png");
                 Sprite horizontalAttackSprite = new Sprite(horizontalAttack);
                 horizontalAttackSprite.setX(p.getxPos() - 24f-2f);
                 horizontalAttackSprite.setY(p.getyPos() -2f);

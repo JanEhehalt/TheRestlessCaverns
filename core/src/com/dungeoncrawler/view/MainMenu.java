@@ -38,9 +38,9 @@ public class MainMenu{
                 
                 
                 
-                startButtonTexture = new Texture("startButton.png");
-                quitButtonTexture = new Texture("quitButton.png");
-                backgroundTexture = new Texture("MAINSCREEN.png");
+                startButtonTexture = new Texture("sprites/startButton.png");
+                quitButtonTexture = new Texture("sprites/quitButton.png");
+                backgroundTexture = new Texture("sprites/MAINSCREEN.png");
                 
                 startButtonSprite = new Sprite(startButtonTexture);
                 quitButtonSprite = new Sprite(quitButtonTexture);
@@ -59,7 +59,7 @@ public class MainMenu{
                 camera.zoom = 1150f;
                 camera.update();
                 */
-                Pixmap pm = new Pixmap(Gdx.files.internal("cursor.png"));
+                Pixmap pm = new Pixmap(Gdx.files.internal("sprites/cursor.png"));
                 Gdx.graphics.setCursor(Gdx.graphics.newCursor(pm, 0, 0));
                 pm.dispose();
                 
@@ -68,7 +68,7 @@ public class MainMenu{
                 //PLAYER
                 
                 // Sound
-                music = Gdx.audio.newMusic(Gdx.files.internal("mainmenu.mp3"));
+                music = Gdx.audio.newMusic(Gdx.files.internal("music/mainmenu.mp3"));
                 music.setVolume(volume);
                 music.play();
                 
