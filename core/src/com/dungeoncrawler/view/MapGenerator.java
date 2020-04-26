@@ -78,12 +78,24 @@ public class MapGenerator {
                     // Ausgang oben
                     if(y < l.getRooms()[0].length - 1 && l.getRooms()[x][y + 1] != null){
                         
-                        // X: Exakte Mitte der Gesamtlänge, Y: Gesamtlänge
-                        staticLayer.getCell((tempX / 2) + 1, tempY).setTile(new StaticTiledMapTile(splitTiles[0][3])); //oben1
-                        staticLayer.getCell((tempX / 2) + 1, tempY + 1).setTile(new StaticTiledMapTile(splitTiles[1][1])); //oben2
-                        staticLayer.getCell((tempX / 2) + 1, tempY + 2).setTile(new StaticTiledMapTile(splitTiles[0][1])); //oben3
-                        collisionLayer.getObjects().remove(top);
+                        if(x == l.getExit()[0] && y+1 == l.getExit()[1]){
+                            staticLayer.getCell((tempX / 2) + 1, tempY + 1).setTile(new StaticTiledMapTile(splitTiles[1][5])); //oben1
+                            staticLayer.getCell((tempX / 2) + 1, tempY + 2).setTile(new StaticTiledMapTile(splitTiles[0][5])); //oben2
+                            staticLayer.getCell((tempX / 2) + 1, tempY + 3).setTile(new StaticTiledMapTile(splitTiles[4][3])); //oben3
+                            staticLayer.getCell((tempX / 2) + 0, tempY + 3).setTile(new StaticTiledMapTile(splitTiles[3][5])); //oben3-1
+                            staticLayer.getCell((tempX / 2) + 2, tempY + 3).setTile(new StaticTiledMapTile(splitTiles[2][5])); //oben3+1
+                        }
+                        else{
+                            // X: Exakte Mitte der Gesamtlänge, Y: Gesamtlänge
+                            staticLayer.getCell((tempX / 2) + 1, tempY + 1).setTile(new StaticTiledMapTile(splitTiles[0][0])); //oben1
+                            staticLayer.getCell((tempX / 2) + 1, tempY + 2).setTile(new StaticTiledMapTile(splitTiles[0][0])); //oben2
+                            staticLayer.getCell((tempX / 2) + 1, tempY + 3).setTile(new StaticTiledMapTile(splitTiles[0][0])); //oben3
+                            staticLayer.getCell((tempX / 2) + 0, tempY + 3).setTile(new StaticTiledMapTile(splitTiles[3][5])); //oben3-1
+                            staticLayer.getCell((tempX / 2) + 2, tempY + 3).setTile(new StaticTiledMapTile(splitTiles[2][5])); //oben3+1
+                        }
                         
+                        collisionLayer.getObjects().remove(top);
+             
                         RectangleMapObject tempLeft = new RectangleMapObject(0, mapDimensionY*48 - 48, (mapDimensionX / 2) * 48, 48);
                         RectangleMapObject tempRight = new RectangleMapObject(((mapDimensionX / 2) + 1) * 48, mapDimensionY*48 - 48, (mapDimensionX / 2) * 48, 48);
                         
@@ -94,8 +106,17 @@ public class MapGenerator {
                     // Ausgang rechts    
                     if(x < l.getRooms().length - 1 && l.getRooms()[x + 1][y] != null){
                         
-                        // X: Gesamtlänge, Y: Exakte Mitte der Gesamtlänge
-                        staticLayer.getCell(tempX, (tempY / 2) + 1).setTile(new StaticTiledMapTile(splitTiles[1][3])); //rechts
+                        if(x+1 == l.getExit()[0] && y == l.getExit()[1]){
+                            staticLayer.getCell(tempX + 1, (tempY / 2) + 1).setTile(new StaticTiledMapTile(splitTiles[0][6])); //rechts
+                        }
+                        else{
+                            // X: Gesamtlänge, Y: Exakte Mitte der Gesamtlänge
+                            staticLayer.getCell(tempX + 1, (tempY / 2) + 0).setTile(new StaticTiledMapTile(splitTiles[4][4])); //rechts-1
+                            staticLayer.getCell(tempX + 1, (tempY / 2) + 1).setTile(new StaticTiledMapTile(splitTiles[0][0])); //rechts1
+                            staticLayer.getCell(tempX + 1, (tempY / 2) + 2).setTile(new StaticTiledMapTile(splitTiles[3][1])); //rechts2
+                            staticLayer.getCell(tempX + 1, (tempY / 2) + 3).setTile(new StaticTiledMapTile(splitTiles[2][1])); //rechts3
+                            staticLayer.getCell(tempX + 1, (tempY / 2) + 4).setTile(new StaticTiledMapTile(splitTiles[2][5])); //rechts4
+                        }
                         
                         collisionLayer.getObjects().remove(right);
                         
@@ -109,8 +130,15 @@ public class MapGenerator {
                     // Ausgang unten
                     if(y > 0 && l.getRooms()[x][y - 1] != null){
                         
-                        // X: Exakte Mitte der Gesamtlänge, Y: 0
-                        staticLayer.getCell((tempX / 2) + 1, 1).setTile(new StaticTiledMapTile(splitTiles[2][3])); //unten
+                        if(x == l.getExit()[0] && y-1 == l.getExit()[1]){
+                            staticLayer.getCell((tempX / 2) + 1, 0).setTile(new StaticTiledMapTile(splitTiles[1][6])); //unten
+                        }
+                        else{
+                            // X: Exakte Mitte der Gesamtlänge, Y: 0
+                            staticLayer.getCell((tempX / 2) + 0, 0).setTile(new StaticTiledMapTile(splitTiles[4][5])); //unten-1
+                            staticLayer.getCell((tempX / 2) + 1, 0).setTile(new StaticTiledMapTile(splitTiles[0][0])); //unten1
+                            staticLayer.getCell((tempX / 2) + 2, 0).setTile(new StaticTiledMapTile(splitTiles[4][4])); //unten2
+                        }
                         
                         collisionLayer.getObjects().remove(bottom);
                         
@@ -124,8 +152,17 @@ public class MapGenerator {
                     // Ausgang links
                     if(x > 0 && l.getRooms()[x - 1][y] != null){
                         
-                        // X: 0, Y: Exakte Mitte der Gesamtlänge
-                        staticLayer.getCell(1, (tempY / 2) + 1).setTile(new StaticTiledMapTile(splitTiles[3][3])); //links
+                        if(x-1 == l.getExit()[0] && y == l.getExit()[1]){
+                            staticLayer.getCell(0, (tempY / 2) + 1).setTile(new StaticTiledMapTile(splitTiles[2][6])); //links
+                        }
+                        else{
+                            // X: 0, Y: Exakte Mitte der Gesamtlänge
+                            staticLayer.getCell(0, (tempY / 2) + 0).setTile(new StaticTiledMapTile(splitTiles[4][5])); //links-1
+                            staticLayer.getCell(0, (tempY / 2) + 1).setTile(new StaticTiledMapTile(splitTiles[0][0])); //links1
+                            staticLayer.getCell(0, (tempY / 2) + 2).setTile(new StaticTiledMapTile(splitTiles[3][1])); //links2
+                            staticLayer.getCell(0, (tempY / 2) + 3).setTile(new StaticTiledMapTile(splitTiles[2][1])); //links3
+                            staticLayer.getCell(0, (tempY / 2) + 4).setTile(new StaticTiledMapTile(splitTiles[3][5])); //links4
+                        }
                         
                         collisionLayer.getObjects().remove(left);
                         
@@ -198,7 +235,7 @@ public class MapGenerator {
                 
                 // links
                 if(x == 0){
-                    cell.setTile(new StaticTiledMapTile(splitTiles[4][0]));
+                    cell.setTile(new StaticTiledMapTile(splitTiles[4][2]));
                 }
                 // unten
                 else if(y == 0){
@@ -206,19 +243,29 @@ public class MapGenerator {
                 }
                 // rechts
                 else if(x == mapDimensionX - 1){
-                    cell.setTile(new StaticTiledMapTile(splitTiles[4][2]));
+                    cell.setTile(new StaticTiledMapTile(splitTiles[4][0]));
                 }
                 // oben1
                 else if(y == mapDimensionY - 1){
-                    cell.setTile(new StaticTiledMapTile(splitTiles[3][1]));
+                    if(x == roomDimensionX / 2 - 1 || x == roomDimensionX / 2 + 3){
+                        cell.setTile(new StaticTiledMapTile(splitTiles[3][1]));
+                    }
+                    else{
+                        cell.setTile(new StaticTiledMapTile(splitTiles[1][1]));
+                    }
                 }
                 // oben2
                 else if(y == mapDimensionY){
-                    cell.setTile(new StaticTiledMapTile(splitTiles[2][1]));
+                    if(x == roomDimensionX / 2 - 1 || x == roomDimensionX / 2 + 3){
+                        cell.setTile(new StaticTiledMapTile(splitTiles[2][1]));
+                    }
+                    else{
+                        cell.setTile(new StaticTiledMapTile(splitTiles[0][1]));
+                    }
                 }
                 // oben3
                 else if(y == mapDimensionY + 1){
-                    cell.setTile(new StaticTiledMapTile(splitTiles[2][5]));
+                    cell.setTile(new StaticTiledMapTile(splitTiles[4][3]));
                 }
                 else{
                     cell.setTile(new StaticTiledMapTile(splitTiles[bodenX][bodenY]));
