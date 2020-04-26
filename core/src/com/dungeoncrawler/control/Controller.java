@@ -309,7 +309,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                 if(keycode == Input.Keys.E){
                     if(v != null){}
                     if(m != null){
-                        d.setCurrentEntities(m.playerAttack(d.getCurrentEntities(), d.getPlayer()));
+                        d.setCurrentEntities(m.playerAttack(d.getCurrentEntities(), d.getPlayer(), batch));
                     }
                 }
                 
