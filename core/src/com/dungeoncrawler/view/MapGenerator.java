@@ -25,32 +25,39 @@ public class MapGenerator {
     
     Texture tiles;
     TextureRegion[][] splitTiles;
+    Texture torchT;
+    TextureRegion[][] torch;
     
     public MapGenerator(Texture tiles){
         this.tiles = tiles;
         splitTiles = TextureRegion.split(this.tiles, 48, 48);
+        torchT = new Texture("sprites/torch.png");
+        torch = TextureRegion.split(torchT, 48, 48);
     }
     
-    public TiledMap[][][] generateMap(Dungeon d){
+    public Map generateMap(Dungeon d){
+        Map temp = new Map();
+        
         int levelAmount = d.getLevel().length;
      
-        TiledMap[][][] tempMap = new TiledMap[levelAmount][][];
+        MapContainer[][][] tempMap = new MapContainer[levelAmount][][];
         
         // Jedes Level wird generiert
         for(int i = 0; i < levelAmount; i++){
-            TiledMap[][] tempLevel = generateLevel(i, d.getLevel()[i]);
+            MapContainer[][] tempLevel = generateLevel(i, d.getLevel()[i]);
             tempMap[i] = tempLevel;
         }
         
-        return tempMap;
+        temp.setMaps(tempMap);
+        return temp;
     }
     
-    private TiledMap[][] generateLevel(int i, Level l){
+    private MapContainer[][] generateLevel(int i, Level l){
         
         int sizeX = l.getRooms().length;
         int sizeY = l.getRooms()[0].length;
         
-        TiledMap[][] tempLevel = new TiledMap[sizeX][sizeY];
+        MapContainer[][] tempLevel = new MapContainer[sizeX][sizeY];
         
         for(int x = 0; x < sizeX; x++){
             for(int y = 0; y < sizeY; y++){
@@ -63,8 +70,9 @@ public class MapGenerator {
                     int mapDimensionX = tempX + 2;
                     int mapDimensionY = tempY + 2;
                     
-                    // Raum wird generiertf
-                    TiledMap tempRoom = generateRoom(room, tempX, tempY, i);
+                    // Raum wird generiert
+                    MapContainer temp = generateRoom(room, tempX, tempY, i);
+                    TiledMap tempRoom = temp.getMap();
                     
                     // Wenn es Fehler gibt, dann wohl hier: Viel Spaß beim Suchen!        Danke!
                     MapLayer collisionLayer = tempRoom.getLayers().get(0);
@@ -173,7 +181,8 @@ public class MapGenerator {
                         collisionLayer.getObjects().add(tempBottom);
                     }
                     
-                    tempLevel[x][y] = tempRoom;
+                    temp.setMap(tempRoom);
+                    tempLevel[x][y] = temp;
                 }
                 
             }
@@ -182,7 +191,7 @@ public class MapGenerator {
         return tempLevel;
     }
     
-    private TiledMap generateRoom(Room r, int roomDimensionX, int roomDimensionY, int lvl){
+    private MapContainer generateRoom(Room r, int roomDimensionX, int roomDimensionY, int lvl){
         
         int bodenX;
         int bodenY;
@@ -196,6 +205,7 @@ public class MapGenerator {
             bodenY = lvl - 4;
         }
         
+        MapContainer temp;
         TiledMap tempRoom = new TiledMap();
         
         // roomDimension bezieht sich auf die Größe des Raumes, da aber noch die Wände fehlen,
@@ -298,13 +308,14 @@ public class MapGenerator {
         layers.add(dynamicLayer);
         layers.add(staticLayer);
         
-        return tempRoom;
+        temp = new MapContainer(tempRoom, 0);
+        return temp;
     }
     
-    public void ichWillSpielen(TiledMap[][][] map){
+    public void ichWillSpielen(MapContainer[][][] map){
 
         for(int i=0;i<map.length;i++){
-            TiledMap[][] temp = map[i];
+            MapContainer[][] temp = map[i];
 
             System.out.println("MapLevel " + i);
 

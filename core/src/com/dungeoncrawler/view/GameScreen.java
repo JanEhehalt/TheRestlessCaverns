@@ -85,8 +85,7 @@ public class GameScreen {
                 
                 MapGenerator mg = new MapGenerator(new Texture(Gdx.files.internal("tilesets/tileset_floor_1.png")));
                 
-                TiledMap[][][] maps = mg.generateMap(d);
-                m.setMaps(maps);
+                m = mg.generateMap(d);
                 mg.ichWillSpielen(m.getMaps());
                 
                 tm = new TiledMap();
@@ -107,7 +106,7 @@ public class GameScreen {
                 player.setX(p.getxPos());
                 player.setY(p.getyPos());
                 
-                tm = getM().getMaps()[level][roomPosX][roomPosY];
+                tm = getM().getMaps()[level][roomPosX][roomPosY].getMap();
                 
                 if(tm == null){
                     System.out.println("Dein scheiß geht net");

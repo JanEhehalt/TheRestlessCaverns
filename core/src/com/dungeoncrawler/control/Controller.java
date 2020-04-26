@@ -159,7 +159,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
         
     public void updateObjects(int level, int roomPosX, int roomPosY){
         
-        MapLayers layers = m.getM().getMaps()[level][roomPosX][roomPosY].getLayers();
+        MapLayers layers = m.getM().getMaps()[level][roomPosX][roomPosY].getMap().getLayers();
         MapObjects objects = layers.get(0).getObjects();
         //System.out.println(objects.getCount());
         
