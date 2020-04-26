@@ -66,19 +66,19 @@ public abstract class Entity {
     }
     
     public int direction(){     // returns direction the entity is facing depending on its movement 
-        if(movementX < 0f){     // TIS IS SHIT - NEED REWORK
-            return 3;
+        if(movementX == -3f){     // TIS IS SHIT - NEED REWORK
+            facing = 3;
         }
-        else if(movementX < 3f){
-            return 1;
+        else if(movementX == 3f){
+            facing = 1;
         }
-        else if(movementY > 3f){
-            return 0;
+        else if(movementY == 3f){
+            facing = 0;
         }
-        else if(movementY < -3f){
-            return 2;
+        else if(movementY == -3f){
+            facing = 2;
         }
-        return -1;
+        return facing;
     }
     
     

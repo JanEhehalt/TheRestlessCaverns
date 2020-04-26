@@ -234,15 +234,16 @@ public class GameScreen {
         
         
         
-        public Entity[] playerAttack(Entity e[], Player p){
+        public Entity[] playerAttack(Entity e[], Player p, SpriteBatch batch){
             if(p.direction() == 0){
-                Texture verticalAttack = new Texture("sprites/AttackVert.png");
-                Sprite verticalAttackSprite = new Sprite(verticalAttack);
-                verticalAttackSprite.setX(p.getxPos()-2f);
-                verticalAttackSprite.setY(p.getyPos()-2f);
+                Texture attackTexture = new Texture("sprites/AttackHori.png");
+                Sprite attackSprite = new Sprite(attackTexture);
+                attackSprite.setX(p.getxPos() - 8f);
+                attackSprite.setY(p.getyPos() + 32f);
+                
                 for(int i = 0; i< e.length ; i++){
                     if(e[i] != null){
-                        if(Intersector.overlaps(entitySprites[i].getBoundingRectangle(), verticalAttackSprite.getBoundingRectangle())){
+                        if(Intersector.overlaps(entitySprites[i].getBoundingRectangle(), attackSprite.getBoundingRectangle())){
                             if(e[i] != null){
                                 if(e[i].getHp() - p.getDmg() <= 0){
                                     e[i] = null;
@@ -256,13 +257,13 @@ public class GameScreen {
                 }
             }
             else if(p.direction() == 1){
-                Texture horizontalAttack = new Texture("sprites/AttackHori.png");
-                Sprite horizontalAttackSprite = new Sprite(horizontalAttack);
-                horizontalAttackSprite.setX(p.getxPos()-2f);
-                horizontalAttackSprite.setY(p.getyPos()-2f);
+                Texture attackTexture = new Texture("sprites/AttackVert.png");
+                Sprite attackSprite = new Sprite(attackTexture);
+                attackSprite.setX(p.getxPos()+ 32f);
+                attackSprite.setY(p.getyPos()- 2f);
                 for(int i = 0; i< e.length ; i++){
                     if(entitySprites[i] != null){
-                        if(Intersector.overlaps(entitySprites[i].getBoundingRectangle(), horizontalAttackSprite.getBoundingRectangle())){
+                        if(Intersector.overlaps(entitySprites[i].getBoundingRectangle(), attackSprite.getBoundingRectangle())){
                             if(e[i] != null){
                                 if(e[i].getHp() - p.getDmg() <= 0){
                                     e[i] = null;
@@ -276,13 +277,13 @@ public class GameScreen {
                 }
             }
             else if(p.direction() == 2){
-                Texture verticalAttack = new Texture("sprites/AttackVert.png");
-                Sprite verticalAttackSprite = new Sprite(verticalAttack);
-                verticalAttackSprite.setX(p.getxPos()-2f);
-                verticalAttackSprite.setY(p.getyPos() - 24f-2f);
+                Texture attackTexture = new Texture("sprites/AttackHori.png");
+                Sprite attackSprite = new Sprite(attackTexture);
+                attackSprite.setX(p.getxPos() - 8f);
+                attackSprite.setY(p.getyPos());
                 for(int i = 0; i<e.length ; i++){
                     if(entitySprites[i] != null){
-                        if(Intersector.overlaps(entitySprites[i].getBoundingRectangle(), verticalAttackSprite.getBoundingRectangle())){
+                        if(Intersector.overlaps(entitySprites[i].getBoundingRectangle(), attackSprite.getBoundingRectangle())){
                             if(e[i] != null){
                                 if(e[i].getHp() - p.getDmg() <= 0){
                                     e[i] = null;
@@ -296,13 +297,13 @@ public class GameScreen {
                 }
             }
             else if(p.direction() == 3){
-                Texture horizontalAttack = new Texture("sprites/AttackHori.png");
-                Sprite horizontalAttackSprite = new Sprite(horizontalAttack);
-                horizontalAttackSprite.setX(p.getxPos() - 24f-2f);
-                horizontalAttackSprite.setY(p.getyPos() -2f);
+                Texture attackTexture = new Texture("sprites/AttackVert.png");
+                Sprite attackSprite = new Sprite(attackTexture);
+                attackSprite.setX(p.getxPos() - 32f);
+                attackSprite.setY(p.getyPos() - 8f);
                 for(int i = 0; i < e.length ; i++){
                     if(entitySprites[i] != null){
-                        if(Intersector.overlaps(entitySprites[i].getBoundingRectangle(), horizontalAttackSprite.getBoundingRectangle())){
+                        if(Intersector.overlaps(entitySprites[i].getBoundingRectangle(), attackSprite.getBoundingRectangle())){
                             if(e[i] != null){
                                 if(e[i].getHp() - p.getDmg() <= 0){
                                     e[i] = null;
