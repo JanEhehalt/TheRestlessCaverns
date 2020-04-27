@@ -8,11 +8,21 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
-
+import com.badlogic.gdx.utils.Timer;
 
 public class MainMenu{
+        
+        Texture torchTop;
+        Texture torchBottom;
+        Sprite torchTopSprite;
+        Sprite torchBottomSprite;
+        Timer torch;
+        TextureRegion[][] torchRegions;
+        int torchSpalte;
+    
         //MENU-SCREEN
 	Texture startButtonTexture;
         Texture quitButtonTexture;
@@ -74,6 +84,25 @@ public class MainMenu{
                 
                 System.out.println(startButtonSprite.getWidth());
                 System.out.println(startButtonSprite.getHeight());
+                
+                
+                torchTop = new Texture("sprites/torch.png");
+                torchSpalte = 0;
+                torchRegions = TextureRegion.split(torchTop, 48, 48);
+                torchTopSprite = new Sprite(torchRegions[0][0]);
+                torchTopSprite.setY(48);
+                torch = new Timer();
+                torch.scheduleTask(new Timer.Task() {
+                    @Override
+                    public void run() {
+                        if(torchSpalte >= 6){
+                            torchSpalte = 1;
+                        }
+                        else{
+                            torchSpalte++;
+                        }
+                    }
+                },0,0.1f);
 	}
 
         
@@ -86,6 +115,8 @@ public class MainMenu{
                 backgroundSprite.draw(batch);
                 startButtonSprite.draw(batch);
                 quitButtonSprite.draw(batch);
+                torchTopSprite = new Sprite(torchRegions[0][torchSpalte]);
+                torchTopSprite.draw(batch);
                 batch.end();
 	}
 

@@ -12,8 +12,10 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Intersector;
+import com.badlogic.gdx.math.Rectangle;
 import com.dungeoncrawler.model.Dungeon;
 import com.dungeoncrawler.model.Entity;
+import com.dungeoncrawler.model.ItemContainer;
 import com.dungeoncrawler.model.entities.*;
 
 public class GameScreen {
@@ -221,13 +223,6 @@ public class GameScreen {
                         }
                     }
                 }
-                for(int i = 0; i < arrowSprites.length; i++){
-                    if(arrowSprites[i] != null){
-                        arrowSprites[i].setX(arrows[i].getxPos());
-                        arrowSprites[i].setY(arrows[i].getyPos());
-                        arrowSprites[i].draw(batch);
-                    }
-                }
             batch.end();
 	}
         
@@ -318,7 +313,19 @@ public class GameScreen {
             }
             return e;
         }
-        
+        /*
+        public ItemContainer playerPickUp(ItemContainer[] items, Player p){
+            for(int i = 0; i < items.length; i++){
+                if(Intersector.overlaps(player.getBoundingRectangle(), itemSprite[i].getBoundingRectangle())){
+                    player.pickUp(items[i].getItem());
+                    items[i] = null;
+                }
+                    
+            }
+            return items;
+            
+        }
+        */
         public void cleanUp(){
             music.dispose();
         }

@@ -312,7 +312,14 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                         d.setCurrentEntities(m.playerAttack(d.getCurrentEntities(), d.getPlayer(), batch));
                     }
                 }
-                
+                /*
+                if(keycode == Input.Keys.F){
+                    if(v != null){}
+                    if(m != null){
+                        d.setCurrentItemContainer(m.playerPickUp(d.getCurrentItemContainer(), d.getPlayer()));
+                    }
+                }
+                */
                 if(keycode == Input.Keys.UP){
                     volume += 0.1f;
                     

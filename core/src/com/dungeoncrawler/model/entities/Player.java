@@ -7,6 +7,7 @@ package com.dungeoncrawler.model.entities;
 
 
 import com.dungeoncrawler.model.Entity;
+import com.dungeoncrawler.model.ItemContainer;
 /**
  *
  * @author Jan
@@ -22,6 +23,10 @@ public class Player extends Entity {
         this.dmg = 3*lvl;
         id = -1;
         // TODO: Sinnvolle Werte finden
+    }
+    
+    public void pickUp(ItemContainer items){
+        
     }
     
 }
