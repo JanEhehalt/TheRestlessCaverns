@@ -6,16 +6,12 @@
 
 package com.dungeoncrawler.view;
 
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.maps.tiled.TiledMap;
-
 /**
  *
  * @author jonathan
  */
 public class Map {
-    private TiledMap[][][] maps;
-    private Sprite[] animatedObjects;
+    private MapContainer[][][] maps;
     
     public Map(){
         
@@ -24,33 +20,15 @@ public class Map {
     /**
      * @return the maps
      */
-    public TiledMap[][][] getMaps() {
+    public MapContainer[][][] getMaps() {
         return maps;
     }
 
     /**
      * @param maps the maps to set
      */
-    public void setMaps(TiledMap[][][] maps) {
+    public void setMaps(MapContainer[][][] maps) {
         this.maps = maps;
-    }
-
-    /**
-     * @return the animatedObjects
-     */
-    public Sprite[] getAnimatedObjects() {
-        return animatedObjects;
-    }
-
-    /**
-     * @param animatedObjects the animatedObjects to set
-     */
-    public void setAnimatedObjects(Sprite[] animatedObjects) {
-        this.animatedObjects = animatedObjects;
-    }
-    
-    public void setAnimatedObjects(Sprite animatedObjects, int i) {
-        this.animatedObjects[i] = animatedObjects;
     }
     
 }
