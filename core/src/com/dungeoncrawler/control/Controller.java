@@ -143,6 +143,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                 if(tileX == 0 || tileX == roomX || tileY == 0 || tileY == roomY){
                     updateRoom();
                 }
+                
 
                 
                 // Render methode zum rendern der einzelnen Sprites wird aufgerufen

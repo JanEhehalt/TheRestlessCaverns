@@ -5,9 +5,8 @@
  */
 package com.dungeoncrawler.view;
 
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import java.util.ArrayList;
 
 /**
  *
@@ -15,13 +14,11 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
  */
 public class MapContainer {
     private TiledMap map;
-    private Sprite[] animatedObjects;
-    private TextureRegion[][][] textures;
+    private ArrayList<AnimatedObject> objects;
     
-    public MapContainer(TiledMap map, int objectAmount){
+    public MapContainer(TiledMap map){
         this.map = map;
-        this.animatedObjects = new Sprite[objectAmount];
-        this.textures = new TextureRegion[objectAmount][][];
+        this.objects = new ArrayList<>();
     }
 
     /**
@@ -39,40 +36,17 @@ public class MapContainer {
     }
 
     /**
-     * @return the animatedObjects
+     * @return the objects
      */
-    public Sprite[] getAnimatedObjects() {
-        return animatedObjects;
+    public ArrayList<AnimatedObject> getObjects() {
+        return objects;
     }
 
     /**
-     * @param animatedObjects the animatedObjects to set
+     * @param objects the objects to set
      */
-    public void setAnimatedObjects(Sprite[] animatedObjects) {
-        this.animatedObjects = animatedObjects;
+    public void setObjects(ArrayList<AnimatedObject> objects) {
+        this.objects = objects;
     }
-    
-    public void setAnimatedObjects(Sprite animatedObject, int i) {
-        this.animatedObjects[i] = animatedObject;
-    }
-
-    /**
-     * @return the textures
-     */
-    public TextureRegion[][][] getTextures() {
-        return textures;
-    }
-
-    /**
-     * @param textures the textures to set
-     */
-    public void setTextures(TextureRegion[][][] textures) {
-        this.textures = textures;
-    }
-    
-    public void setTextures(TextureRegion[][] textures, int i) {
-        this.textures[i] = textures;
-    }
-    
     
 }

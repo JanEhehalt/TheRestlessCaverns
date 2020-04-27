@@ -26,13 +26,12 @@ public class MapGenerator {
     Texture tiles;
     TextureRegion[][] splitTiles;
     Texture torchT;
-    TextureRegion[][] torch;
     
     public MapGenerator(Texture tiles){
         this.tiles = tiles;
         splitTiles = TextureRegion.split(this.tiles, 48, 48);
         torchT = new Texture("sprites/torch.png");
-        torch = TextureRegion.split(torchT, 48, 48);
+        //torch = TextureRegion.split(torchT, 48, 48);
     }
     
     public Map generateMap(Dungeon d){
@@ -121,9 +120,13 @@ public class MapGenerator {
                             // X: Gesamtlänge, Y: Exakte Mitte der Gesamtlänge
                             staticLayer.getCell(tempX + 1, (tempY / 2) + 0).setTile(new StaticTiledMapTile(splitTiles[4][4])); //rechts-1
                             staticLayer.getCell(tempX + 1, (tempY / 2) + 1).setTile(new StaticTiledMapTile(splitTiles[0][0])); //rechts1
-                            staticLayer.getCell(tempX + 1, (tempY / 2) + 2).setTile(new StaticTiledMapTile(splitTiles[3][1])); //rechts2
-                            staticLayer.getCell(tempX + 1, (tempY / 2) + 3).setTile(new StaticTiledMapTile(splitTiles[2][1])); //rechts3
+                            staticLayer.getCell(tempX + 1, (tempY / 2) + 2).setTile(new StaticTiledMapTile(splitTiles[1][1])); //rechts2
+                            staticLayer.getCell(tempX + 1, (tempY / 2) + 3).setTile(new StaticTiledMapTile(splitTiles[0][1])); //rechts3
                             staticLayer.getCell(tempX + 1, (tempY / 2) + 4).setTile(new StaticTiledMapTile(splitTiles[2][5])); //rechts4
+                            
+                            AnimatedObject tempObject = new AnimatedObject(torchT, 48, 48);
+                            tempObject.getSprite().setPosition((tempX + 1) * 48, ((tempY / 2) + 2) * 48);
+                            temp.getObjects().add(tempObject);
                         }
                         
                         collisionLayer.getObjects().remove(right);
@@ -167,9 +170,13 @@ public class MapGenerator {
                             // X: 0, Y: Exakte Mitte der Gesamtlänge
                             staticLayer.getCell(0, (tempY / 2) + 0).setTile(new StaticTiledMapTile(splitTiles[4][5])); //links-1
                             staticLayer.getCell(0, (tempY / 2) + 1).setTile(new StaticTiledMapTile(splitTiles[0][0])); //links1
-                            staticLayer.getCell(0, (tempY / 2) + 2).setTile(new StaticTiledMapTile(splitTiles[3][1])); //links2
-                            staticLayer.getCell(0, (tempY / 2) + 3).setTile(new StaticTiledMapTile(splitTiles[2][1])); //links3
+                            staticLayer.getCell(0, (tempY / 2) + 2).setTile(new StaticTiledMapTile(splitTiles[1][1])); //links2
+                            staticLayer.getCell(0, (tempY / 2) + 3).setTile(new StaticTiledMapTile(splitTiles[0][1])); //links3
                             staticLayer.getCell(0, (tempY / 2) + 4).setTile(new StaticTiledMapTile(splitTiles[3][5])); //links4
+                            
+                            AnimatedObject tempObject = new AnimatedObject(torchT, 48, 48);
+                            tempObject.getSprite().setPosition(0, ((tempY / 2) + 2) * 48);
+                            temp.getObjects().add(tempObject);
                         }
                         
                         collisionLayer.getObjects().remove(left);
@@ -192,6 +199,8 @@ public class MapGenerator {
     }
     
     private MapContainer generateRoom(Room r, int roomDimensionX, int roomDimensionY, int lvl){
+        TiledMap tempRoom = new TiledMap();
+        MapContainer temp = new MapContainer(tempRoom);
         
         int bodenX;
         int bodenY;
@@ -204,9 +213,6 @@ public class MapGenerator {
             bodenX = 0;
             bodenY = lvl - 4;
         }
-        
-        MapContainer temp;
-        TiledMap tempRoom = new TiledMap();
         
         // roomDimension bezieht sich auf die Größe des Raumes, da aber noch die Wände fehlen,
         // muss auf die Größe jeweils 2 addiert werden.
@@ -258,20 +264,17 @@ public class MapGenerator {
                 // oben1
                 else if(y == mapDimensionY - 1){
                     if(x == roomDimensionX / 2 - 1 || x == roomDimensionX / 2 + 3){
-                        cell.setTile(new StaticTiledMapTile(splitTiles[3][1]));
+                        
+                        AnimatedObject tempObject = new AnimatedObject(torchT, 48, 48);
+                        tempObject.getSprite().setPosition(x * 48, y * 48);
+                        temp.getObjects().add(tempObject);
                     }
-                    else{
-                        cell.setTile(new StaticTiledMapTile(splitTiles[1][1]));
-                    }
+                    
+                    cell.setTile(new StaticTiledMapTile(splitTiles[1][1]));
                 }
                 // oben2
                 else if(y == mapDimensionY){
-                    if(x == roomDimensionX / 2 - 1 || x == roomDimensionX / 2 + 3){
-                        cell.setTile(new StaticTiledMapTile(splitTiles[2][1]));
-                    }
-                    else{
-                        cell.setTile(new StaticTiledMapTile(splitTiles[0][1]));
-                    }
+                    cell.setTile(new StaticTiledMapTile(splitTiles[0][1]));
                 }
                 // oben3
                 else if(y == mapDimensionY + 1){
@@ -308,7 +311,6 @@ public class MapGenerator {
         layers.add(dynamicLayer);
         layers.add(staticLayer);
         
-        temp = new MapContainer(tempRoom, 0);
         return temp;
     }
     

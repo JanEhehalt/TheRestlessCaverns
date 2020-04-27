@@ -12,9 +12,11 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Intersector;
+import com.badlogic.gdx.utils.Timer;
 import com.dungeoncrawler.model.Dungeon;
 import com.dungeoncrawler.model.Entity;
 import com.dungeoncrawler.model.entities.*;
+import java.util.ArrayList;
 
 public class GameScreen {
         //CONTROLS
@@ -44,6 +46,9 @@ public class GameScreen {
         TiledMapRenderer tmr;
         TiledMap tm;
         OrthographicCamera camera;
+        ArrayList<AnimatedObject> objects;
+        
+        Timer animations;
         
         // Sound
         public Music music;
@@ -94,6 +99,18 @@ public class GameScreen {
                 music = Gdx.audio.newMusic(Gdx.files.internal("music/gamemusic.mp3"));
                 music.setVolume(volume);
                 music.play();
+                
+                animations = new Timer();
+                animations.scheduleTask(new Timer.Task() {
+                    @Override
+                    public void run() {
+                        if(objects != null){
+                            for(AnimatedObject object : objects){
+                                object.updateTexture();
+                            }
+                        }
+                    }
+                },0, 0.1f);
 
 	}
 
@@ -107,6 +124,7 @@ public class GameScreen {
                 player.setY(p.getyPos());
                 
                 tm = getM().getMaps()[level][roomPosX][roomPosY].getMap();
+                objects = getM().getMaps()[level][roomPosX][roomPosY].getObjects();
                 
                 if(tm == null){
                     System.out.println("Dein scheiß geht net");
@@ -161,6 +179,10 @@ public class GameScreen {
 
             //BATCH
             batch.begin();
+                for(AnimatedObject object : objects){
+                    object.getSprite().draw(batch);
+                }
+                
                 player.draw(batch);
                 //controls.draw(batch);
                     //DRAW'T JEDES ENTITY - prueft vorher ob vorhanden
@@ -227,6 +249,7 @@ public class GameScreen {
                         arrowSprites[i].draw(batch);
                     }
                 }
+                
             batch.end();
 	}
         
