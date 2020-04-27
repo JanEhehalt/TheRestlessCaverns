@@ -6,6 +6,7 @@
 package com.dungeoncrawler.model;
 
 import com.dungeoncrawler.model.entities.*;
+import com.dungeoncrawler.model.items.Sword;
 
 /**
  *
@@ -145,9 +146,92 @@ public class DungeonGenerator {
         Room tempRoom = new Room(new ItemContainer[itemAmount], new Entity[enemyAmount]);
         
         // Items werden generiert
+        int[][] belegt = new int[itemAmount][2];
+        for(int j = 0; j < belegt.length; j++){
+            belegt[j][0] = -1;
+            belegt[j][1] = -1;
+        }
+        
+        for(int i = 0; i < itemAmount; i++){
+            
+            int xTile;
+            int yTile;
+            
+            boolean istFertig = false;
+            do {
+                System.out.println("läuft");
+                
+                // Tiles des Entities werden generiert
+
+                xTile = generateTile(sizeX);
+                yTile = generateTile(sizeY);
+
+                
+                // Test, ob Tiles bereits belegt
+                boolean hatGeklappt = true;
+                for(int j = 0; j < belegt.length; j++){
+                    if(j != i){
+                        if(xTile == belegt[j][0] && yTile == belegt[j][1]){
+                            hatGeklappt = false;
+                            break;
+                        }
+                    }
+                }
+                
+                if(hatGeklappt == true){
+                    // Tiles zum Array hinzufügen
+                    for(int j = 0; j < belegt.length; j++){
+                        if(belegt[j][0] == -1){
+                            belegt[j][0] = xTile;
+                            belegt[j][1] = yTile;
+                        }
+                    }
+                    
+                    istFertig = true;
+                }
+                
+            } while(!istFertig);
+            
+            
+            // Berechnung der Positionen
+            
+            int xPos = xTile * tileSize;
+            int yPos = yTile * tileSize;
+            
+            // Typ des Entities wird generiert
+            
+            Item tempItem;
+            
+            int id = (int) (Math.random() * 2);
+            switch(id){
+                case 0:
+                    tempItem = new Sword(lvl);
+                    break;
+                    
+                /*case 1:
+                    temp = new Swordsman(xPos, yPos, lvl);
+                    break;
+                */    
+                default:
+                    tempItem = null;
+            }
+            
+            if(tempItem == null){
+                System.out.println("Es gibt Probleme, schau mal beim Raumgenerator nach. Es sind sogar sehr problematische Probleme mit den Items");
+            }
+            ItemContainer tempContainer;
+            if(tempItem != null){
+                tempContainer = new ItemContainer(xPos, yPos, tempItem);
+            }
+            else{
+                tempContainer = null;
+            }
+            
+            tempRoom.setItem(tempContainer, i);
+        }
         
         // Entities werden generiert
-        int[][] belegt = new int[enemyAmount][2];
+        belegt = new int[enemyAmount][2];
         for(int j = 0; j < belegt.length; j++){
             belegt[j][0] = -1;
             belegt[j][1] = -1;

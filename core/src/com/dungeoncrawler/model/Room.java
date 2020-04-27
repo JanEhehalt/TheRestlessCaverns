@@ -43,6 +43,10 @@ public class Room {
     public void setItem(ItemContainer[] item) {
         this.item = item;
     }
+    
+    public void setItem(ItemContainer item, int i) {
+        this.item[i] = item;
+    }
 
     /**
      * @return the enemies

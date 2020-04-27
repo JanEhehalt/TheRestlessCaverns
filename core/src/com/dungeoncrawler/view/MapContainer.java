@@ -15,10 +15,12 @@ import java.util.ArrayList;
 public class MapContainer {
     private TiledMap map;
     private ArrayList<AnimatedObject> objects;
+    private ArrayList<AnimatedObject> mapItems;
     
     public MapContainer(TiledMap map){
         this.map = map;
         this.objects = new ArrayList<>();
+        this.mapItems = new ArrayList<>();
     }
 
     /**
@@ -47,6 +49,20 @@ public class MapContainer {
      */
     public void setObjects(ArrayList<AnimatedObject> objects) {
         this.objects = objects;
+    }
+
+    /**
+     * @return the mapItems
+     */
+    public ArrayList<AnimatedObject> getMapItems() {
+        return mapItems;
+    }
+
+    /**
+     * @param mapItems the mapItems to set
+     */
+    public void setMapItems(ArrayList<AnimatedObject> mapItems) {
+        this.mapItems = mapItems;
     }
     
 }
