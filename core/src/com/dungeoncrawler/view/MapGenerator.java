@@ -124,7 +124,7 @@ public class MapGenerator {
                             staticLayer.getCell(tempX + 1, (tempY / 2) + 3).setTile(new StaticTiledMapTile(splitTiles[0][1])); //rechts3
                             staticLayer.getCell(tempX + 1, (tempY / 2) + 4).setTile(new StaticTiledMapTile(splitTiles[2][5])); //rechts4
                             
-                            AnimatedObject tempObject = new AnimatedObject(torchT, 48, 48);
+                            AnimatedObject tempObject = new AnimatedObject(torchT, 48, 96);
                             tempObject.getSprite().setPosition((tempX + 1) * 48, ((tempY / 2) + 2) * 48);
                             temp.getObjects().add(tempObject);
                         }
@@ -174,7 +174,7 @@ public class MapGenerator {
                             staticLayer.getCell(0, (tempY / 2) + 3).setTile(new StaticTiledMapTile(splitTiles[0][1])); //links3
                             staticLayer.getCell(0, (tempY / 2) + 4).setTile(new StaticTiledMapTile(splitTiles[3][5])); //links4
                             
-                            AnimatedObject tempObject = new AnimatedObject(torchT, 48, 48);
+                            AnimatedObject tempObject = new AnimatedObject(torchT, 48, 96);
                             tempObject.getSprite().setPosition(0, ((tempY / 2) + 2) * 48);
                             temp.getObjects().add(tempObject);
                         }
@@ -265,7 +265,7 @@ public class MapGenerator {
                 else if(y == mapDimensionY - 1){
                     if(x == roomDimensionX / 2 - 1 || x == roomDimensionX / 2 + 3){
                         
-                        AnimatedObject tempObject = new AnimatedObject(torchT, 48, 48);
+                        AnimatedObject tempObject = new AnimatedObject(torchT, 48, 96);
                         tempObject.getSprite().setPosition(x * 48, y * 48);
                         temp.getObjects().add(tempObject);
                     }
