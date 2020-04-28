@@ -15,6 +15,7 @@ public abstract class Entity {
     protected float movementY;
     protected int id;
     protected int facing;
+    protected Inventory inv;
     
     
 

@@ -63,7 +63,7 @@ public class MapGenerator {
                 Room room = l.getRooms()[x][y];
                 
                 if(room != null){
-                    int tempX = 9;
+                    int tempX = 12;
                     int tempY = 5;
                     
                     int mapDimensionX = tempX + 2;

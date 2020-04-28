@@ -61,7 +61,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
         volume = 0.01f;
         
         arrows = new Entity[10];
-        roomX = 10;
+        roomX = 13;
         roomY = 6;
         
         batch = new SpriteBatch();
@@ -313,14 +313,12 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                         d.setCurrentEntities(m.playerAttack(d.getCurrentEntities(), d.getPlayer(), batch));
                     }
                 }
-                /*
-                if(keycode == Input.Keys.F){
+                /*if(keycode == Input.Keys.F){
                     if(v != null){}
                     if(m != null){
                         d.setCurrentItemContainer(m.playerPickUp(d.getCurrentItemContainer(), d.getPlayer()));
                     }
-                }
-                */
+                }*/
                 if(keycode == Input.Keys.UP){
                     volume += 0.1f;
                     
@@ -414,6 +412,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
       }
       if(m != null){
           
+        
         return true;
       }
     }

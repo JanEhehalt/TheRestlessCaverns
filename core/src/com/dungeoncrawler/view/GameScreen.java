@@ -90,7 +90,7 @@ public class GameScreen {
                 camera = new OrthographicCamera(1, h/w);
                 camera.translate(300f, 200f);
                 
-                MapGenerator mg = new MapGenerator(new Texture(Gdx.files.internal("tilesets/tileset_floor_1.png")));
+                MapGenerator mg = new MapGenerator(new Texture(Gdx.files.internal("tilesets/haha.png")));
                 
                 m = mg.generateMap(d);
                 mg.ichWillSpielen(m.getMaps());
@@ -346,11 +346,13 @@ public class GameScreen {
         /*
         public ItemContainer playerPickUp(ItemContainer[] items, Player p){
             for(int i = 0; i < items.length; i++){
-                if(Intersector.overlaps(player.getBoundingRectangle(), itemSprite[i].getBoundingRectangle())){
-                    player.pickUp(items[i].getItem());
-                    items[i] = null;
+                if(items[i] != null){
+                    if(Intersector.overlaps(player.getBoundingRectangle(), itemSprite[i].getBoundingRectangle())){
+                        player.pickUp(items[i].getItem());
+                        items[i] = null;
+                    }
                 }
-                    
+                
             }
             return items;
             

@@ -7,6 +7,8 @@ package com.dungeoncrawler.model.entities;
 
 
 import com.dungeoncrawler.model.Entity;
+import com.dungeoncrawler.model.Inventory;
+import com.dungeoncrawler.model.Item;
 import com.dungeoncrawler.model.ItemContainer;
 /**
  *
@@ -22,11 +24,12 @@ public class Player extends Entity {
         
         this.dmg = 3*lvl;
         id = -1;
+        inv = new Inventory(3,2);
         // TODO: Sinnvolle Werte finden
     }
     
-    public void pickUp(ItemContainer items){
-        
+    public void pickUp(Item item){
+        inv.addItem(item);
     }
     
 }
