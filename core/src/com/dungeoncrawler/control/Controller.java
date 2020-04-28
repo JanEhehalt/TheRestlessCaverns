@@ -23,6 +23,10 @@ import com.dungeoncrawler.model.DungeonGenerator;
 import com.dungeoncrawler.model.entities.*;
 import com.dungeoncrawler.model.Entity;
 import com.badlogic.gdx.utils.Timer;
+import com.dungeoncrawler.model.Item;
+import com.dungeoncrawler.model.items.Key;
+import com.dungeoncrawler.model.items.Potion;
+import com.dungeoncrawler.model.items.Sword;
 
 public class Controller extends ApplicationAdapter implements InputProcessor{
     SpriteBatch batch;
@@ -117,6 +121,8 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                         }
                     }
         },0,1f);
+        
+        
     }
     
     
@@ -313,12 +319,60 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                         d.setCurrentEntities(m.playerAttack(d.getCurrentEntities(), d.getPlayer(), batch));
                     }
                 }
-                /*if(keycode == Input.Keys.F){
+                if(keycode == Input.Keys.F){
                     if(v != null){}
                     if(m != null){
-                        d.setCurrentItemContainer(m.playerPickUp(d.getCurrentItemContainer(), d.getPlayer()));
+                        Item k = new Sword(1);
+                        m.addItem(k);
+                        //d.setCurrentItemContainer(m.playerPickUp(d.getCurrentItemContainer(), d.getPlayer()));
                     }
-                }*/
+                }
+                
+                
+                if(keycode == Input.Keys.G){
+                    if(v != null){}
+                    if(m != null){
+                        Item k = new Potion(1);
+                        m.addItem(k);
+                        //d.setCurrentItemContainer(m.playerPickUp(d.getCurrentItemContainer(), d.getPlayer()));
+                    }
+                }
+                if(keycode == Input.Keys.H){
+                    if(v != null){}
+                    if(m != null){
+                        Item k = new Key(1);
+                        m.addItem(k);
+                        //d.setCurrentItemContainer(m.playerPickUp(d.getCurrentItemContainer(), d.getPlayer()));
+                    }
+                }
+                
+                if(keycode == Input.Keys.NUM_1){
+                    m.moveItem(0);
+                }
+                if(keycode == Input.Keys.NUM_2){
+                    m.moveItem(1);
+                }
+                if(keycode == Input.Keys.NUM_3){
+                    m.moveItem(2);
+                }
+                if(keycode == Input.Keys.NUM_4){
+                    m.moveItem(3);
+                }
+                if(keycode == Input.Keys.NUM_5){
+                    m.moveItem(4);
+                }
+                if(keycode == Input.Keys.NUM_6){
+                    m.moveItem(5);
+                }
+                if(keycode == Input.Keys.NUM_7){
+                    m.moveItem(6);
+                }
+                if(keycode == Input.Keys.NUM_8){
+                    m.moveItem(7);
+                }
+                
+                
+                
                 if(keycode == Input.Keys.UP){
                     volume += 0.1f;
                     
@@ -400,6 +454,8 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                   v.cleanUp();
                   v = null;
                   m = new GameScreen(d, volume);
+                  
+                  
                   return true;
               case 1:
                   v.cleanUp();
@@ -411,7 +467,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
         return true;
       }
       if(m != null){
-          
+        
         
         return true;
       }

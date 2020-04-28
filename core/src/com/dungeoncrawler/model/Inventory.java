@@ -5,8 +5,12 @@ public class Inventory {
     
     Item items[][];
     Item equipped[];
+    int width;
+    int height;
     
     public Inventory(int width, int height){
+        this.width = width;
+        this.height = height;
         items = new Item[width][height];
         equipped = new Item[2];
     }
@@ -44,5 +48,11 @@ public class Inventory {
         return items[x][y];
     }
     
+    public int getWidth(){
+        return width;
+    }
+    public int getHeight(){
+        return height;
+    }
     
 }

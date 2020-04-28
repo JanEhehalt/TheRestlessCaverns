@@ -16,6 +16,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Timer;
 import com.dungeoncrawler.model.Dungeon;
 import com.dungeoncrawler.model.Entity;
+import com.dungeoncrawler.model.Item;
 import com.dungeoncrawler.model.ItemContainer;
 import com.dungeoncrawler.model.entities.*;
 import java.util.ArrayList;
@@ -56,6 +57,15 @@ public class GameScreen {
         // Sound
         public Music music;
         
+        //Inventory TEST
+        Texture HudTexture;
+        Sprite HudSprite;
+        Texture[] InventoryItemTextures;
+        Sprite[] InventoryItemSprites;
+        float[] invXPos;
+        float[] invYPos;
+        
+        
 	public GameScreen(Dungeon d, float volume) {
                 //CONTROLS
                 /*
@@ -89,7 +99,7 @@ public class GameScreen {
                 
                 m = new Map();
                 camera = new OrthographicCamera(1, h/w);
-                camera.translate(300f, 200f);
+                camera.translate(175f, 215f);
                 
                 MapGenerator mg = new MapGenerator(new Texture(Gdx.files.internal("tilesets/haha.png")));
                 
@@ -114,11 +124,42 @@ public class GameScreen {
                         }
                     }
                 },0, 0.1f);
-
+                
+                //Inventory TEST
+                HudTexture = new Texture("sprites/HUD.png");
+                HudSprite = new Sprite(HudTexture);
+                HudSprite.setX(-HudSprite.getWidth());
+                HudSprite.setY(20f);
+                InventoryItemTextures = new Texture[8];
+                InventoryItemSprites = new Sprite[8];
+                invXPos = new float[8];
+                invYPos = new float[8];
+                //Equipped 1
+                invXPos[0] = HudSprite.getX() + 37f;
+                invYPos[0] = HudSprite.getY() + 112f;
+                //Equipped 2
+                invXPos[1] = HudSprite.getX() + 85f;
+                invYPos[1] = HudSprite.getY() + 112f;
+                
+                invXPos[2] = HudSprite.getX() + 10f;
+                invYPos[2] = HudSprite.getY() + 61f;
+                invXPos[3] = HudSprite.getX() + 61f;
+                invYPos[3] = HudSprite.getY() + 61f;
+                invXPos[4] = HudSprite.getX() + 112f;
+                invYPos[4] = HudSprite.getY() + 61f;
+                
+                invXPos[5] = HudSprite.getX() + 10f;
+                invYPos[5] = HudSprite.getY() + 10f;
+                invXPos[6] = HudSprite.getX() + 61f;
+                invYPos[6] = HudSprite.getY() + 10f;
+                invXPos[7] = HudSprite.getX() + 112f;
+                invYPos[7] = HudSprite.getY() + 10f;
+                
 	}
 
 	public void render (SpriteBatch batch, Player p, Entity[] e, Entity[] arrows, int tileX, int tileY, int level, int roomPosX, int roomPosY) {
             
+                
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
                 
@@ -183,6 +224,15 @@ public class GameScreen {
 
             //BATCH
             batch.begin();
+                HudSprite.draw(batch);
+                
+                //DRAWING INVENTORY
+                for(int i = 0; i < InventoryItemSprites.length ;i++){
+                    if(InventoryItemSprites[i] != null){
+                        InventoryItemSprites[i].draw(batch);
+                    }
+                }
+                
                 for(AnimatedObject object : objects){
                     object.getSprite().draw(batch);
                 }
@@ -349,6 +399,61 @@ public class GameScreen {
             }
             return e;
         }
+        
+        public void moveItem(int i){
+            if(i == 0){
+                if(InventoryItemSprites[i] != null){
+                    for(int n = 2; n < InventoryItemSprites.length ; n++){
+                        if(InventoryItemSprites[n] == null){
+                            InventoryItemTextures[n] = InventoryItemTextures[i];
+                            InventoryItemSprites[n] = InventoryItemSprites[i];
+                        }
+                    }
+                }
+            }
+        }
+        
+        
+        public void addItem(Item item){
+            switch(item.getId()){
+                case 0:
+                    for(int i = 2; i < InventoryItemSprites.length; i++){
+                        if(InventoryItemSprites[i] == null){
+                            //InventoryItemTextures[i] = new Texture("sprites/itemTest.png");
+                            InventoryItemTextures[i] = new Texture("sprites/key.png");
+                            InventoryItemSprites[i] = new Sprite(InventoryItemTextures[i]);
+                            InventoryItemSprites[i].setX(invXPos[i]);
+                            InventoryItemSprites[i].setY(invYPos[i]);
+                            break;
+                        }
+                    }
+                    break;
+                case 1:
+                    for(int i = 2; i < InventoryItemSprites.length; i++){
+                        if(InventoryItemSprites[i] == null){
+                            //InventoryItemTextures[i] = new Texture("sprites/itemTest.png");
+                            InventoryItemTextures[i] = new Texture("sprites/healingPotion.png");
+                            InventoryItemSprites[i] = new Sprite(InventoryItemTextures[i]);
+                            InventoryItemSprites[i].setX(invXPos[i]);
+                            InventoryItemSprites[i].setY(invYPos[i]);
+                            break;
+                        }
+                    }
+                    break;
+                case 2:
+                    for(int i = 2; i < InventoryItemSprites.length; i++){
+                        if(InventoryItemSprites[i] == null){
+                            //InventoryItemTextures[i] = new Texture("sprites/itemTest.png");
+                            InventoryItemTextures[i] = new Texture("sprites/sword.png");
+                            InventoryItemSprites[i] = new Sprite(InventoryItemTextures[i]);
+                            InventoryItemSprites[i].setX(invXPos[i]);
+                            InventoryItemSprites[i].setY(invYPos[i]);
+                            break;
+                        }
+                    }
+                    break;
+            }
+        }
         /*
         public ItemContainer playerPickUp(ItemContainer[] items, Player p){
             for(int i = 0; i < items.length; i++){
@@ -361,9 +466,9 @@ public class GameScreen {
                 
             }
             return items;
-            
         }
-        */
+       */
+        
         public void cleanUp(){
             music.dispose();
         }

@@ -31,5 +31,8 @@ public class Player extends Entity {
     public void pickUp(Item item){
         inv.addItem(item);
     }
+    public Inventory getInv(){
+        return inv;
+    }
     
 }
