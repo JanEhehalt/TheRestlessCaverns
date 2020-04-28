@@ -17,8 +17,8 @@ public class Inventory {
     
     public void addItem(Item i)
     {
-        for(int n = 0; n <= items.length; n++){
-            for(int m = 0; m <= items[0].length; m++){
+        for(int n = 0; n < items.length; n++){
+            for(int m = 0; m < items[0].length; m++){
                 if(items[n][m] == null){
                     items[n][m] = i;
                     n = items.length + 1;
@@ -46,6 +46,10 @@ public class Inventory {
     
     public Item getItem(int x, int y){
         return items[x][y];
+    }
+    
+    public Item[][] getItem(){
+        return items;
     }
     
     public int getWidth(){

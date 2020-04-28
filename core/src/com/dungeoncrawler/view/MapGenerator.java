@@ -314,9 +314,9 @@ public class MapGenerator {
         layers.add(dynamicLayer);
         layers.add(staticLayer);
         
-        for(int i = 0; i < r.getItem().length; i++){
-            if(r.getItem()[i] != null){
-                ItemContainer container = r.getItem()[i];
+        for(int i = 0; i < r.getItems().size(); i++){
+            if(r.getItems().get(i) != null){
+                ItemContainer container = r.getItems().get(i);
                 Item item = container.getItem();
                 
                 if(item.getId() == 2){

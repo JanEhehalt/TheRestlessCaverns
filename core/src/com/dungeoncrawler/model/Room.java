@@ -5,17 +5,19 @@
  */
 package com.dungeoncrawler.model;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author jonathan
  */
 public class Room {
-    private ItemContainer[] item;
+    private ArrayList<ItemContainer> items;
     private Entity[] enemies;
     int lvl;
     
-    public Room(ItemContainer[] item, Entity[] enemies){
-        this.item = item;
+    public Room(ArrayList<ItemContainer> items, Entity[] enemies){
+        this.items = items;
         this.enemies = enemies;
         
     }
@@ -28,24 +30,6 @@ public class Room {
     
     public void spawnItem(int xPos, int yPos){
         // TODO: Zu Implementieren
-    }
-
-    /**
-     * @return the item
-     */
-    public ItemContainer[] getItem() {
-        return item;
-    }
-
-    /**
-     * @param item the item to set
-     */
-    public void setItem(ItemContainer[] item) {
-        this.item = item;
-    }
-    
-    public void setItem(ItemContainer item, int i) {
-        this.item[i] = item;
     }
 
     /**
@@ -64,5 +48,19 @@ public class Room {
     
     public void setEnemies(Entity enemy, int i){
         this.enemies[i] = enemy;
+    }
+
+    /**
+     * @return the items
+     */
+    public ArrayList<ItemContainer> getItems() {
+        return items;
+    }
+
+    /**
+     * @param items the items to set
+     */
+    public void setItems(ArrayList<ItemContainer> items) {
+        this.items = items;
     }
 }

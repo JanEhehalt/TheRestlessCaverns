@@ -7,6 +7,7 @@ package com.dungeoncrawler.model;
 
 import com.dungeoncrawler.model.entities.*;
 import com.dungeoncrawler.model.items.Sword;
+import java.util.ArrayList;
 
 /**
  *
@@ -143,7 +144,7 @@ public class DungeonGenerator {
         int itemAmount = (int) (Math.random() * 2);
         int enemyAmount = (int) (Math.random() * 6);
         
-        Room tempRoom = new Room(new ItemContainer[itemAmount], new Entity[enemyAmount]);
+        Room tempRoom = new Room(new ArrayList<ItemContainer>(itemAmount), new Entity[enemyAmount]);
         
         // Items werden generiert
         int[][] belegt = new int[itemAmount][2];
@@ -227,7 +228,7 @@ public class DungeonGenerator {
                 tempContainer = null;
             }
             
-            tempRoom.setItem(tempContainer, i);
+            tempRoom.getItems().add(tempContainer);
         }
         
         // Entities werden generiert

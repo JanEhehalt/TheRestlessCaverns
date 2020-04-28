@@ -24,9 +24,11 @@ import com.dungeoncrawler.model.entities.*;
 import com.dungeoncrawler.model.Entity;
 import com.badlogic.gdx.utils.Timer;
 import com.dungeoncrawler.model.Item;
+import com.dungeoncrawler.model.ItemContainer;
 import com.dungeoncrawler.model.items.Key;
 import com.dungeoncrawler.model.items.Potion;
 import com.dungeoncrawler.model.items.Sword;
+import java.util.ArrayList;
 
 public class Controller extends ApplicationAdapter implements InputProcessor{
     SpriteBatch batch;
@@ -278,6 +280,27 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
         d.setCurrentRoom(d.getCurrentLevel().getRooms()[roomPosX][roomPosY]);
         d.setCurrentEntities(d.getCurrentRoom().getEnemies());
     }
+    
+    public ArrayList<ItemContainer> playerPickUp(){
+        
+        ArrayList<ItemContainer> tempItems = d.getCurrentRoom().getItems();
+        ArrayList<AnimatedObject> tempSprites = m.getM().getMaps()[level][roomPosX][roomPosY].getMapItems();
+        ArrayList<ItemContainer> garbageCollector = new ArrayList<>();
+        
+        for(int i = 0; i < tempItems.size(); i++){
+            if(Intersector.overlaps(m.getPlayer().getBoundingRectangle(), tempSprites.get(i).getSprite().getBoundingRectangle())){
+                garbageCollector.add(tempItems.get(i));
+                
+                tempItems.remove(i);
+                tempSprites.remove(i);
+            }
+        }
+        
+        d.getCurrentRoom().setItems(tempItems);
+        
+        return garbageCollector;
+        
+    }
         
     @Override
     public boolean keyDown(int keycode) {
@@ -322,9 +345,14 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                 if(keycode == Input.Keys.F){
                     if(v != null){}
                     if(m != null){
-                        Item k = new Sword(1);
-                        m.addItem(k);
+                        //Item k = new Sword(1);
+                        //m.addItem(k);
                         //d.setCurrentItemContainer(m.playerPickUp(d.getCurrentItemContainer(), d.getPlayer()));
+                        ArrayList<ItemContainer> garbage = playerPickUp();
+                        
+                        for(ItemContainer item : garbage){
+                            d.getPlayer().getInv().addItem(item.getItem());
+                        }
                     }
                 }
                 
@@ -333,7 +361,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                     if(v != null){}
                     if(m != null){
                         Item k = new Potion(1);
-                        m.addItem(k);
+                        //m.addItem(k);
                         //d.setCurrentItemContainer(m.playerPickUp(d.getCurrentItemContainer(), d.getPlayer()));
                     }
                 }
@@ -341,11 +369,11 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                     if(v != null){}
                     if(m != null){
                         Item k = new Key(1);
-                        m.addItem(k);
+                        //m.addItem(k);
                         //d.setCurrentItemContainer(m.playerPickUp(d.getCurrentItemContainer(), d.getPlayer()));
                     }
                 }
-                
+                /*
                 if(keycode == Input.Keys.NUM_1){
                     m.moveItem(0);
                 }
@@ -370,6 +398,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                 if(keycode == Input.Keys.NUM_8){
                     m.moveItem(7);
                 }
+                */
                 
                 
                 

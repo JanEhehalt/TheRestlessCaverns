@@ -126,7 +126,7 @@ public class GameScreen {
                 },0, 0.1f);
                 
                 //Inventory TEST
-                HudTexture = new Texture("sprites/HUD.png");
+                HudTexture = new Texture("sprites/hud.png");
                 HudSprite = new Sprite(HudTexture);
                 HudSprite.setX(-HudSprite.getWidth());
                 HudSprite.setY(20f);
@@ -219,7 +219,19 @@ public class GameScreen {
                             entitySprites[i].setY(e[i].getyPos());
                         }
                     }
-                }  
+                } 
+                
+            InventoryItemSprites = new Sprite[8];
+                
+            Item[][] items = p.getInv().getItem();
+            
+            for(int x = 0; x < items.length; x++){
+                for(int y = 0; y < items[0].length; y++){
+                    if(items[x][y] != null){
+                        addItem(items[x][y]);
+                    }
+                }
+            }
                 
 
             //BATCH
@@ -301,6 +313,7 @@ public class GameScreen {
                     }
                 }
                 
+                /*
                 for(int i = 0; i < arrowSprites.length; i++){
                     if(arrowSprites[i] != null){
                         arrowSprites[i].setX(arrows[i].getxPos());
@@ -308,6 +321,7 @@ public class GameScreen {
                         arrowSprites[i].draw(batch);
                     }
                 }
+                */
                 
             batch.end();
 	}
@@ -400,6 +414,7 @@ public class GameScreen {
             return e;
         }
         
+        /*
         public void moveItem(int i){
             if(i == 0){
                 if(InventoryItemSprites[i] != null){
@@ -413,6 +428,7 @@ public class GameScreen {
             }
         }
         
+        */
         
         public void addItem(Item item){
             switch(item.getId()){
