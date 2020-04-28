@@ -49,6 +49,7 @@ public class GameScreen {
         TiledMap tm;
         OrthographicCamera camera;
         ArrayList<AnimatedObject> objects;
+        ArrayList<AnimatedObject> mapItems;
         
         Timer animations;
         
@@ -127,6 +128,7 @@ public class GameScreen {
                 
                 tm = getM().getMaps()[level][roomPosX][roomPosY].getMap();
                 objects = getM().getMaps()[level][roomPosX][roomPosY].getObjects();
+                mapItems = getM().getMaps()[level][roomPosX][roomPosY].getMapItems();
                 
                 if(tm == null){
                     System.out.println("Dein scheiß geht net");
@@ -183,6 +185,10 @@ public class GameScreen {
             batch.begin();
                 for(AnimatedObject object : objects){
                     object.getSprite().draw(batch);
+                }
+                
+                for(AnimatedObject mapItem : mapItems){
+                    mapItem.getSprite().draw(batch);
                 }
                 
                 player.draw(batch);

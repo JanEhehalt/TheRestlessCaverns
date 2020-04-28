@@ -14,6 +14,8 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 import com.dungeoncrawler.model.Dungeon;
+import com.dungeoncrawler.model.Item;
+import com.dungeoncrawler.model.ItemContainer;
 import com.dungeoncrawler.model.Level;
 import com.dungeoncrawler.model.Room;
 
@@ -26,12 +28,13 @@ public class MapGenerator {
     Texture tiles;
     TextureRegion[][] splitTiles;
     Texture torchT;
+    Texture sword;
     
     public MapGenerator(Texture tiles){
         this.tiles = tiles;
         splitTiles = TextureRegion.split(this.tiles, 48, 48);
         torchT = new Texture("sprites/torch.png");
-        //torch = TextureRegion.split(torchT, 48, 48);
+        sword = new Texture("sprites/sword.png");
     }
     
     public Map generateMap(Dungeon d){
@@ -310,6 +313,19 @@ public class MapGenerator {
         layers.add(collisionLayer);
         layers.add(dynamicLayer);
         layers.add(staticLayer);
+        
+        for(int i = 0; i < r.getItem().length; i++){
+            if(r.getItem()[i] != null){
+                ItemContainer container = r.getItem()[i];
+                Item item = container.getItem();
+                
+                if(item.getId() == 2){
+                    AnimatedObject swordSprite = new AnimatedObject(sword, 24, 24);
+                    swordSprite.getSprite().setPosition(container.getxPos(), container.getyPos());
+                    temp.getMapItems().add(swordSprite);
+                }
+            }
+        }
         
         return temp;
     }
