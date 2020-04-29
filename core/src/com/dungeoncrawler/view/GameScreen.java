@@ -12,24 +12,18 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Intersector;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Timer;
 import com.dungeoncrawler.model.Dungeon;
 import com.dungeoncrawler.model.Entity;
 import com.dungeoncrawler.model.Item;
-import com.dungeoncrawler.model.ItemContainer;
 import com.dungeoncrawler.model.entities.*;
 import java.util.ArrayList;
 
 public class GameScreen {
-        //CONTROLS
-        //Texture ctr;
-        //Sprite controls;
     
         //PLAYER
         Texture p;
-        Sprite player;
-        TextureRegion[][] regions;
+        PlayerSprite player;
         
         
         //ENTITIES
@@ -76,15 +70,15 @@ public class GameScreen {
                 */
             
                 //PLAYER
+                Texture[] playerTexture = new Texture[4];
+                playerTexture[0] = new Texture(Gdx.files.internal("sprites/legs.png"));
+                playerTexture[1] = new Texture(Gdx.files.internal("sprites/body.png"));
+                playerTexture[2] = new Texture(Gdx.files.internal("sprites/head.png"));
+                playerTexture[3] = new Texture(Gdx.files.internal("sprites/hair.png"));
                 
-                p = new Texture("sprites/player.png");
-                regions = TextureRegion.split(p, 32, 32);
-                player = new Sprite(regions[0][2]);
-                player.setX(200);
-                player.setY(200);
+                player = new PlayerSprite(playerTexture);
                 
-                
-                
+                player.update(200, 200);
                 
                 //ENTITIES
                 entityTextures = new Texture[5];
@@ -164,8 +158,7 @@ public class GameScreen {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
                 
                 //setzt player Sprite auf richtige Position
-                player.setX(p.getxPos());
-                player.setY(p.getyPos());
+                player.update((int) p.getxPos(), (int) p.getyPos());
                 
                 tm = getM().getMaps()[level][roomPosX][roomPosY].getMap();
                 objects = getM().getMaps()[level][roomPosX][roomPosY].getObjects();
@@ -180,6 +173,7 @@ public class GameScreen {
                 
                 
                 // dreht SpielerSprite je nach Bewegungsrichtung 
+                /*
                 if(p.getMovementX() == 3){ //RECHTS
                     player.setRegion(regions[0][1]);
                 }
@@ -192,6 +186,7 @@ public class GameScreen {
                 if(p.getMovementY() == -3){ //UNTEN
                     player.setRegion(regions[0][2]);
                 }
+                */
                 
                 //MAP
                 tmr.setView(camera);
@@ -253,7 +248,11 @@ public class GameScreen {
                     mapItem.getSprite().draw(batch);
                 }
                 
-                player.draw(batch);
+                // Player wird gedrawt
+                for(Sprite sprite : player.getSprites()){
+                    sprite.draw(batch);
+                }
+                
                 //controls.draw(batch);
                     //DRAW'T JEDES ENTITY - prueft vorher ob vorhanden
                 for(int i = 0; i < e.length; i++){
@@ -491,13 +490,7 @@ public class GameScreen {
         
         
         //GETTER
-        public float getPlayerSpriteX(){
-            return player.getX();
-        }
-        public float getPlayerSpriteY(){
-            return player.getY();
-        }
-        public Sprite getPlayer(){
+        public PlayerSprite getPlayer(){
             return player;
         }
         
@@ -506,14 +499,6 @@ public class GameScreen {
         }
         public float getEntitySpriteY(int i){
             return entitySprites[i].getY();
-        }
-        
-        //SETTER
-        public void setPlayerSpriteX(float x){
-            player.setX(x);
-        }
-        public void setPlayerSpriteY(float y){
-            player.setY(y);
         }
         
         public void setEntitySpriteX(int i,float x){

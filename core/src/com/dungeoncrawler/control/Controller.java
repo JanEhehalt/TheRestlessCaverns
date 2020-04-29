@@ -82,28 +82,11 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
         tileY = roomY / 2;
         
         roomAmount = d.getLevel()[0].getRooms().length;
-        
-        int startRoom = (int) (Math.random() * roomAmount);
             
         level = 0;
 
-        int k = 0;
-        for(int i = 0; i < roomAmount; i++){
-            for(int j = 0; j < roomAmount; j++){
-                if(d.getLevel()[level].getRooms()[i][j] != null){
-
-                    if(k == startRoom){
-                        // Startraum wurde ausgewählt
-                        roomPosX = i;
-                        roomPosY = j;
-
-                    }
-
-                    k++;
-                }
-
-            }
-        }
+        roomPosX = roomAmount / 2;
+        roomPosY = roomAmount / 2;
         
         d.setCurrentLevel(d.getLevel()[level]);
         d.setCurrentRoom(d.getCurrentLevel().getRooms()[roomPosX][roomPosY]);
@@ -180,12 +163,12 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
         float x = d.getPlayer().getxPos();
         d.getPlayer().updateX();
         
-        m.setPlayerSpriteX(d.getPlayer().getxPos());
+        m.getPlayer().getCollisionSprite().setX(d.getPlayer().getxPos());
         
         for(RectangleMapObject rectangleObject : objects.getByType(RectangleMapObject.class)){
             Rectangle rectangle = rectangleObject.getRectangle();
             
-            if(Intersector.overlaps(rectangle, m.getPlayer().getBoundingRectangle())){
+            if(Intersector.overlaps(rectangle, m.getPlayer().getCollisionSprite())){
                 
                 d.getPlayer().setxPos(x);
 
@@ -195,13 +178,13 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
         
         float y = d.getPlayer().getyPos();
         d.getPlayer().updateY();
-        m.setPlayerSpriteX(d.getPlayer().getxPos());
-        m.setPlayerSpriteY(d.getPlayer().getyPos());
+        m.getPlayer().getCollisionSprite().setX(d.getPlayer().getxPos());
+        m.getPlayer().getCollisionSprite().setY(d.getPlayer().getyPos());
         
         for(RectangleMapObject rectangleObject : objects.getByType(RectangleMapObject.class)){
             Rectangle rectangle = rectangleObject.getRectangle();
             
-            if(Intersector.overlaps(rectangle, m.getPlayer().getBoundingRectangle())){
+            if(Intersector.overlaps(rectangle, m.getPlayer().getCollisionSprite())){
                 
                 d.getPlayer().setyPos(y);
 
@@ -288,7 +271,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
         ArrayList<ItemContainer> garbageCollector = new ArrayList<>();
         
         for(int i = 0; i < tempItems.size(); i++){
-            if(Intersector.overlaps(m.getPlayer().getBoundingRectangle(), tempSprites.get(i).getSprite().getBoundingRectangle())){
+            if(Intersector.overlaps(m.getPlayer().getCollisionSprite(), tempSprites.get(i).getSprite().getBoundingRectangle())){
                 garbageCollector.add(tempItems.get(i));
                 
                 tempItems.remove(i);
