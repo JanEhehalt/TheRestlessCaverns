@@ -479,6 +479,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                   v.cleanUp();
                   v = null;
                   m = new GameScreen(d, volume);
+                  hc = new HudContainer();
                   m.startLoadingScreen();
                   return true;
                   
