@@ -61,6 +61,8 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
     
     Timer entityMovement;
     
+    HudContainer hc;
+    
     @Override
     public void create(){
         
@@ -93,6 +95,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
         d.setCurrentEntities(d.getCurrentRoom().getEnemies());
 
         Gdx.input.setInputProcessor(this);
+        
         
         entityMovement = new Timer();
         
@@ -139,6 +142,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                 
                 // Render methode zum rendern der einzelnen Sprites wird aufgerufen
                 m.render(batch, d.getPlayer(), d.getCurrentEntities(), arrows,  tileX, tileY, level, roomPosX, roomPosY);
+                hc.updateInventory(batch, d.getPlayer());
             }
         }
     }
@@ -482,7 +486,6 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                   v.cleanUp();
                   v = null;
                   m = new GameScreen(d, volume);
-                  m.startLoadingScreen();
                   return true;
           }
           

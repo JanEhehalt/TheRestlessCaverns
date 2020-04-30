@@ -5,6 +5,7 @@ public class Inventory {
     
     Item items[][];
     Item equipped[];
+    int selected;
     int width;
     int height;
     
