@@ -47,6 +47,7 @@ public class GameScreen {
         ArrayList<AnimatedObject> mapItems;
         
         Timer animations;
+        Timer animatePlayer;
         
         Timer roomChangeTimer;
         int roomChangeAnimationState;
@@ -55,6 +56,8 @@ public class GameScreen {
         Sprite roomChangeSprite;
         TextureRegion[][] roomChangeTextureRegion;
         int roomChangeRow;
+        
+        boolean playerMoving;
         
         HudContainer hc;
         
@@ -76,7 +79,7 @@ public class GameScreen {
             
                 //PLAYER
                 Texture[] playerTexture = new Texture[4];
-                playerTexture[0] = new Texture(Gdx.files.internal("sprites/legs.png"));
+                playerTexture[0] = new Texture(Gdx.files.internal("sprites/player.png"));
                 playerTexture[1] = new Texture(Gdx.files.internal("sprites/body.png"));
                 playerTexture[2] = new Texture(Gdx.files.internal("sprites/head.png"));
                 playerTexture[3] = new Texture(Gdx.files.internal("sprites/hair.png"));
@@ -118,11 +121,24 @@ public class GameScreen {
                     public void run() {
                         if(objects != null){
                             for(AnimatedObject object : objects){
-                                object.updateTexture();
+                                object.updateTexture();        
                             }
                         }
                     }
                 },0, 0.1f);
+                
+                animatePlayer = new Timer();
+                animatePlayer.scheduleTask(new Timer.Task() {
+                    @Override
+                    public void run() {
+                        if(!playerMoving){
+                            player.updateIdle();
+                        }
+                        else{
+                            player.updateWalking();
+                        }
+                    }
+                }, 0, 0.1f);
                 
                 //Inventory TEST
                 
@@ -152,18 +168,25 @@ public class GameScreen {
                     }
                 },0, 0.02f);
                 
-                
 	}
 
 	public void render (SpriteBatch batch, Player p, Entity[] e, Entity[] arrows, int tileX, int tileY, int level, int roomPosX, int roomPosY) {
             
-                
-            
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
                 
+                playerMoving = (p.getMovementX() != 0 || p.getMovementY() != 0);
+                
                 //setzt player Sprite auf richtige Position
                 player.update((int) p.getxPos(), (int) p.getyPos());
+                if(p.getMovementX() > 1){
+                    player.setDirection(1);
+                    player.updateFlip();
+                }
+                else if(p.getMovementX() < -1){
+                    player.setDirection(0);
+                    player.updateFlip();
+                }
                 
                 tm = getM().getMaps()[level][roomPosX][roomPosY].getMap();
                 objects = getM().getMaps()[level][roomPosX][roomPosY].getObjects();

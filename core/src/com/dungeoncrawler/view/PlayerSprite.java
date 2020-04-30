@@ -22,22 +22,64 @@ public class PlayerSprite {
     private TextureRegion[][][] regions;
     private  int[] frames;
     
+    // 0: links, 1: rechts
+    private int direction;
+    
     public PlayerSprite(Texture[] textures){
-        sprites = new Sprite[4];
-        regions = new TextureRegion[4][][];
-        frames = new int[4];
+        sprites = new Sprite[1];
+        regions = new TextureRegion[1][][];
+        frames = new int[2];
+        direction = 0;
         
         for(int i = 0; i < regions.length; i++){
-            regions[i] = TextureRegion.split(textures[i], 48, 96);
-            sprites[i] = new Sprite(textures[i]);
+            regions[i] = TextureRegion.split(textures[i], 64, 64);
+            sprites[i] = new Sprite(regions[i][0][0]);
         }
         
-        collisionSprite = new Rectangle(0, 0, 48, 16);
+        collisionSprite = new Rectangle(0, 0, 32, 16);
+    }
+    
+    public void updateIdle(){
+        frames[1] = 0;
+        
+        if(frames[0] >= 9){
+            frames[0] = 0;
+        }
+        else{
+            frames[0]++;
+        }
+        
+        sprites[0].setRegion(regions[0][0][frames[0]]);
+        updateFlip();
+    }
+    
+    public void updateWalking(){
+        frames[0] = 0;
+        
+        if(frames[1] >= 9){
+            frames[1] = 0;
+        }
+        else{
+            frames[1]++;
+        }
+        
+        sprites[0].setRegion(regions[0][2][frames[1]]);
+        updateFlip();
+    }
+    
+    public void updateFlip(){
+        
+        if(direction == 0 && !sprites[0].isFlipX()){
+            sprites[0].flip(true, false);
+        }
+        else if(direction == 1 && sprites[0].isFlipX()){
+            sprites[0].flip(false, false);
+        }
     }
     
     public void update(int xPos, int yPos){
         for(int i = 0; i < sprites.length; i++){
-            sprites[i].setPosition(xPos, yPos);
+            sprites[i].setPosition(xPos - 16, yPos);
         }
         
         updateCollision(xPos, yPos);
@@ -108,5 +150,19 @@ public class PlayerSprite {
      */
     public void setFrames(int[] frames) {
         this.frames = frames;
+    }
+
+    /**
+     * @return the direction
+     */
+    public int getDirection() {
+        return direction;
+    }
+
+    /**
+     * @param direction the direction to set
+     */
+    public void setDirection(int direction) {
+        this.direction = direction;
     }
 }
