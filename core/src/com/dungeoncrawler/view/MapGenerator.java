@@ -24,15 +24,17 @@ import com.dungeoncrawler.model.Room;
  * @author jonathan
  */
 public class MapGenerator {
-    
-    Texture tiles;
+    TextureRegion[][][] allTiles;
     TextureRegion[][] splitTiles;
     Texture torchT;
     Texture sword;
     
-    public MapGenerator(Texture tiles){
-        this.tiles = tiles;
-        splitTiles = TextureRegion.split(this.tiles, 48, 48);
+    public MapGenerator(Texture[] tiles){
+        allTiles = new TextureRegion[7][][];
+        
+        for(int i = 0; i < tiles.length; i++){
+            allTiles[i] = TextureRegion.split(tiles[i], 48, 48);
+        }
         torchT = new Texture("sprites/torch.png");
         sword = new Texture("sprites/sword.png");
     }
@@ -55,6 +57,8 @@ public class MapGenerator {
     }
     
     private MapContainer[][] generateLevel(int i, Level l){
+        
+        splitTiles = allTiles[i];
         
         int sizeX = l.getRooms().length;
         int sizeY = l.getRooms()[0].length;
@@ -205,18 +209,6 @@ public class MapGenerator {
         TiledMap tempRoom = new TiledMap();
         MapContainer temp = new MapContainer(tempRoom);
         
-        int bodenX;
-        int bodenY;
-        
-        if(lvl < 5){
-            bodenX = lvl;
-            bodenY = 0;
-        }
-        else{
-            bodenX = 0;
-            bodenY = lvl - 4;
-        }
-        
         // roomDimension bezieht sich auf die Größe des Raumes, da aber noch die Wände fehlen,
         // muss auf die Größe jeweils 2 addiert werden.
         int mapDimensionX = roomDimensionX + 2;
@@ -284,7 +276,7 @@ public class MapGenerator {
                     cell.setTile(new StaticTiledMapTile(splitTiles[4][3]));
                 }
                 else{
-                    cell.setTile(new StaticTiledMapTile(splitTiles[bodenX][bodenY]));
+                    cell.setTile(new StaticTiledMapTile(splitTiles[0][0]));
                 }
                 
                 // Ecken

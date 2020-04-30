@@ -66,7 +66,7 @@ public class GameScreen {
         
         //Inventory TEST
         
-        
+        float animationSpeed = 0.1f;
         
 	public GameScreen(Dungeon d, float volume) {
                 //CONTROLS
@@ -103,7 +103,13 @@ public class GameScreen {
                 camera = new OrthographicCamera(1, h/w);
                 camera.translate(175f, 215f);
                 
-                MapGenerator mg = new MapGenerator(new Texture(Gdx.files.internal("tilesets/tileset_floor_1.png")));
+                
+                Texture[] tempTextures = new Texture[d.getLevel().length];
+                for(int i = 0; i < tempTextures.length; i++){
+                    int j = i+1;
+                    tempTextures[i] = new Texture(Gdx.files.internal("tilesets/tileset_floor_" + j + ".png"));
+                }
+                MapGenerator mg = new MapGenerator(tempTextures);
                 
                 m = mg.generateMap(d);
                 mg.ichWillSpielen(m.getMaps());
@@ -138,7 +144,7 @@ public class GameScreen {
                             player.updateWalking();
                         }
                     }
-                }, 0, 0.1f);
+                }, 0, animationSpeed);
                 
                 //Inventory TEST
                 
