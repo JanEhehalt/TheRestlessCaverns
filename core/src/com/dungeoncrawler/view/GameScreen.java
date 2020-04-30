@@ -48,6 +48,14 @@ public class GameScreen {
         
         Timer animations;
         
+        Timer roomChangeTimer;
+        int roomChangeAnimationState;
+        boolean roomLoading;
+        Texture roomChangeTexture;
+        Sprite roomChangeSprite;
+        TextureRegion[][] roomChangeTextureRegion;
+        int roomChangeRow;
+        
         // Sound
         public Music music;
         
@@ -149,11 +157,37 @@ public class GameScreen {
                 invXPos[7] = HudSprite.getX() + 112f;
                 invYPos[7] = HudSprite.getY() + 10f;
                 
+                
+                
+                roomChangeTimer = new Timer();
+                roomLoading = false;
+                roomChangeTexture = new Texture("sprites/RoomChange.png");
+                roomChangeSprite = new Sprite(roomChangeTexture);
+                roomChangeTextureRegion = roomChangeSprite.split(roomChangeTexture, 528, 432);
+                roomChangeRow = 0;
+                roomChangeSprite.setPosition(0f, 0f);
+                
+                roomChangeTimer.scheduleTask(new Timer.Task() {
+                    @Override
+                    public void run() {
+                       if(roomChangeRow >= 9){
+                           roomLoading = false;
+                           roomChangeRow = 0;
+                           roomChangeTimer.stop();
+                       }
+                       else{
+                           roomChangeRow++;
+                       }
+                    }
+                },0, 0.02f);
+                
+                
 	}
 
 	public void render (SpriteBatch batch, Player p, Entity[] e, Entity[] arrows, int tileX, int tileY, int level, int roomPosX, int roomPosY) {
             
                 
+            
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
                 
@@ -232,6 +266,8 @@ public class GameScreen {
             //BATCH
             batch.begin();
                 HudSprite.draw(batch);
+                //DRAWING LOADING SCREEN IF LOADING
+                
                 
                 //DRAWING INVENTORY
                 for(int i = 0; i < InventoryItemSprites.length ;i++){
@@ -321,7 +357,10 @@ public class GameScreen {
                     }
                 }
                 */
-                
+                roomChangeSprite.setRegion(roomChangeTextureRegion[0][roomChangeRow]);
+                if(roomLoading == true){
+                    roomChangeSprite.draw(batch);
+                }
             batch.end();
 	}
         
@@ -488,6 +527,10 @@ public class GameScreen {
             music.dispose();
         }
         
+        public void startLoadingScreen(){
+            roomLoading = true;
+            roomChangeTimer.start();
+        }
         
         //GETTER
         public PlayerSprite getPlayer(){
@@ -506,6 +549,9 @@ public class GameScreen {
         }
         public void setEntitySpriteY(int i,float y){
             entitySprites[i].setY(y);
+        }
+        public boolean getIsLoading(){
+            return roomLoading;
         }
 
         /**

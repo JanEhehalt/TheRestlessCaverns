@@ -163,7 +163,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
         float x = d.getPlayer().getxPos();
         d.getPlayer().updateX();
         
-        m.getPlayer().getCollisionSprite().setX(d.getPlayer().getxPos());
+        m.getPlayer().updateCollisionX((int) d.getPlayer().getxPos());
         
         for(RectangleMapObject rectangleObject : objects.getByType(RectangleMapObject.class)){
             Rectangle rectangle = rectangleObject.getRectangle();
@@ -178,8 +178,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
         
         float y = d.getPlayer().getyPos();
         d.getPlayer().updateY();
-        m.getPlayer().getCollisionSprite().setX(d.getPlayer().getxPos());
-        m.getPlayer().getCollisionSprite().setY(d.getPlayer().getyPos());
+        m.getPlayer().updateCollision((int) d.getPlayer().getxPos(),(int) d.getPlayer().getyPos());
         
         for(RectangleMapObject rectangleObject : objects.getByType(RectangleMapObject.class)){
             Rectangle rectangle = rectangleObject.getRectangle();
@@ -216,6 +215,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
             roomPosY += 1;
             d.getPlayer().setxPos((roomX / 2)* 48);
             d.getPlayer().setyPos(48);
+            m.startLoadingScreen();
         }
 
         // rechts
@@ -225,6 +225,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
             roomPosX += 1;
             d.getPlayer().setxPos(48);
             d.getPlayer().setyPos((roomY / 2)*48);
+            m.startLoadingScreen();
         }
 
         // unten
@@ -234,6 +235,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
             roomPosY -= 1;
             d.getPlayer().setxPos((roomX / 2)*48);
             d.getPlayer().setyPos(roomY*48 - 48);
+            m.startLoadingScreen();
         }
 
         // links
@@ -243,11 +245,17 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
             roomPosX -= 1;
             d.getPlayer().setxPos((roomX*48) - 48);
             d.getPlayer().setyPos((roomY / 2)*48);
+            m.startLoadingScreen();
         }
         
         if(roomPosX == d.getCurrentLevel().getExit()[0] && roomPosY == d.getCurrentLevel().getExit()[1]){
             if(level < 6){
                 System.out.println("Nächstes Level, here we go");
+                
+                d.getPlayer().setMovementY(0f);
+                d.getPlayer().setMovementX(0f);
+                m.startLoadingScreen();
+                
                 level++;
                 
                 tileX = roomX / 2;
@@ -287,6 +295,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
         
     @Override
     public boolean keyDown(int keycode) {
+            
                 if(keycode == Input.Keys.A){
                     if(v != null){
                     }
@@ -321,13 +330,13 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                 
                 if(keycode == Input.Keys.E){
                     if(v != null){}
-                    if(m != null){
+                    if(m != null && m.getIsLoading() == false){
                         d.setCurrentEntities(m.playerAttack(d.getCurrentEntities(), d.getPlayer(), batch));
                     }
                 }
                 if(keycode == Input.Keys.F){
                     if(v != null){}
-                    if(m != null){
+                    if(m != null && m.getIsLoading() == false){
                         //Item k = new Sword(1);
                         //m.addItem(k);
                         //d.setCurrentItemContainer(m.playerPickUp(d.getCurrentItemContainer(), d.getPlayer()));
@@ -342,7 +351,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                 
                 if(keycode == Input.Keys.G){
                     if(v != null){}
-                    if(m != null){
+                    if(m != null && m.getIsLoading() == false){
                         Item k = new Potion(1);
                         //m.addItem(k);
                         //d.setCurrentItemContainer(m.playerPickUp(d.getCurrentItemContainer(), d.getPlayer()));
@@ -350,7 +359,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                 }
                 if(keycode == Input.Keys.H){
                     if(v != null){}
-                    if(m != null){
+                    if(m != null && m.getIsLoading() == false){
                         Item k = new Key(1);
                         //m.addItem(k);
                         //d.setCurrentItemContainer(m.playerPickUp(d.getCurrentItemContainer(), d.getPlayer()));
@@ -466,19 +475,20 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                   v.cleanUp();
                   v = null;
                   m = new GameScreen(d, volume);
-                  
-                  
+                  m.startLoadingScreen();
                   return true;
+                  
               case 1:
                   v.cleanUp();
                   v = null;
                   m = new GameScreen(d, volume);
+                  m.startLoadingScreen();
                   return true;
           }
           
         return true;
       }
-      if(m != null){
+      if(m != null && m.getIsLoading() == false){
         
         
         return true;

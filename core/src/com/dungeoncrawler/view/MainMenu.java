@@ -15,9 +15,7 @@ import com.badlogic.gdx.utils.Timer;
 
 public class MainMenu{
         
-        Timer torch;
-        TextureRegion[][] torchRegions;
-        int torchSpalte;
+        
     
         //MENU-SCREEN
 	Texture startButtonTexture;

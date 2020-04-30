@@ -28,11 +28,11 @@ public class PlayerSprite {
         frames = new int[4];
         
         for(int i = 0; i < regions.length; i++){
-            regions[i] = TextureRegion.split(textures[i], 32, 64);
+            regions[i] = TextureRegion.split(textures[i], 48, 96);
             sprites[i] = new Sprite(textures[i]);
         }
         
-        collisionSprite = new Rectangle(0, 0, 32, 16);
+        collisionSprite = new Rectangle(0, 0, 48, 16);
     }
     
     public void update(int xPos, int yPos){
@@ -40,7 +40,18 @@ public class PlayerSprite {
             sprites[i].setPosition(xPos, yPos);
         }
         
+        updateCollision(xPos, yPos);
+        
+    }
+    
+    public void updateCollision(int xPos, int yPos){
         collisionSprite.setPosition(xPos, yPos);
+    }
+    public void updateCollisionX(int xPos){
+        collisionSprite.setX(xPos);
+    }
+    public void updateCollisionY(int yPos){
+        collisionSprite.setY(yPos);
     }
 
     /**
