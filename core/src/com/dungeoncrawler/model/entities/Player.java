@@ -22,10 +22,10 @@ public class Player extends Entity {
         
         this.maxhp = 5 * (lvl + 1);
         this.hp = this.maxhp;
-        standartMaxHp = this.maxhp;
+        this.standartMaxHp = 5 * (lvl + 1);
         
         this.dmg = 3*lvl;
-        standartDmg = this.dmg;
+        this.standartDmg = dmg = 3*lvl;
         id = -1;
         inv = new Inventory(3,2);
         // TODO: Sinnvolle Werte finden
@@ -41,12 +41,12 @@ public class Player extends Entity {
 
     public void updateItems(){
         if(inv.getItem(1) != null){
-            dmg = standartDmg + inv.getItem(1).getDmg();
-            maxhp = standartMaxHp + inv.getItem(1).getHeal();
+            this.dmg = this.standartDmg + inv.getItem(1).getDmg();
+            //this.maxhp = this.standartMaxHp + inv.getItem(1).getHeal();
         }
         else{
-            dmg = standartDmg;
-            maxhp = standartMaxHp;
+            this.dmg = this.standartDmg;
+            //this.maxhp = this.standartMaxHp;
         }
     }
 
