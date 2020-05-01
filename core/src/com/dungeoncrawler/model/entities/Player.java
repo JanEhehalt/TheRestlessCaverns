@@ -5,11 +5,9 @@
  */
 package com.dungeoncrawler.model.entities;
 
-
 import com.dungeoncrawler.model.Entity;
 import com.dungeoncrawler.model.Inventory;
 import com.dungeoncrawler.model.Item;
-import com.dungeoncrawler.model.ItemContainer;
 /**
  *
  * @author Jan
@@ -40,6 +38,7 @@ public class Player extends Entity {
     public Inventory getInv(){
         return inv;
     }
+
     public void updateItems(){
         if(inv.getItem(1) != null){
             dmg = standartDmg + inv.getItem(1).getDmg();
@@ -49,6 +48,7 @@ public class Player extends Entity {
             dmg = standartDmg;
             maxhp = standartMaxHp;
         }
-    }
+
+    
     
 }

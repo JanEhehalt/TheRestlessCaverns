@@ -1,7 +1,8 @@
 package com.dungeoncrawler.model;
 
-import com.badlogic.gdx.utils.Timer;
-
+import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.MapObjects;
+import com.badlogic.gdx.math.Rectangle;
 
 public abstract class Entity {
     
@@ -14,7 +15,7 @@ public abstract class Entity {
     protected float movementX;
     protected float movementY;
     protected int id;
-    protected int facing;
+    protected int direction;
     protected Inventory inv;
     
     
@@ -25,16 +26,9 @@ public abstract class Entity {
         this.lvl = lvl;
         this.movementX = 0;
         this.movementY = 0;
-        this.facing = 2;
-        
-        
-        
-        
-        
+        this.direction = 2;
     }
     
-    
-
     public void attack(){
         
     }
@@ -62,26 +56,16 @@ public abstract class Entity {
             movementY = 0;
     }
     
-    public void rdmMove(){
-        
+    public void updateDirection(){
+        if(movementX > 1){
+            direction = 1;
+        }
+        else if(movementX < -1){
+            direction = 0;
+        }
     }
     
-    public int direction(){     // returns direction the entity is facing depending on its movement 
-        if(movementX == -3f){     // TIS IS SHIT - NEED REWORK
-            facing = 3;
-        }
-        else if(movementX == 3f){
-            facing = 1;
-        }
-        else if(movementY == 3f){
-            facing = 0;
-        }
-        else if(movementY == -3f){
-            facing = 2;
-        }
-        return facing;
-    }
-    
+    abstract public void move(int xPosPlayer, int yPosPlayer);
     
     // GETTER + SETTER
     public float getxPos() {
@@ -152,15 +136,12 @@ public abstract class Entity {
         return this.id;
     }
     
-    public int getFacing(){
-        return facing;
-    }
-    public void setFacing(int facing){
-        this.facing = facing;
-    }
-    public void randomMove(int x, int y){
+    public int getDirection(){
+        return direction;
     }
     
-    
+    public void setDirection(int direction){
+        this.direction = direction;
+    }
     
 }
