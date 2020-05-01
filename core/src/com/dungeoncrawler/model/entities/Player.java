@@ -5,11 +5,9 @@
  */
 package com.dungeoncrawler.model.entities;
 
-
 import com.dungeoncrawler.model.Entity;
 import com.dungeoncrawler.model.Inventory;
 import com.dungeoncrawler.model.Item;
-import com.dungeoncrawler.model.ItemContainer;
 /**
  *
  * @author Jan
@@ -33,6 +31,11 @@ public class Player extends Entity {
     }
     public Inventory getInv(){
         return inv;
+    }
+
+    @Override
+    public void move(int xPosPlayer, int yPosPlayer) {
+        // Nothing
     }
     
 }

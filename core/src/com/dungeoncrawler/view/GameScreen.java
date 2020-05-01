@@ -28,7 +28,7 @@ public class GameScreen {
         
         //ENTITIES
         Texture[] entityTextures;
-        Sprite[] entitySprites;
+        public Sprite[] entitySprites;
         TextureRegion[][] archerRegions;
         Texture archerTexture;
         TextureRegion[][] swordsmanRegions;
@@ -43,8 +43,8 @@ public class GameScreen {
         TiledMapRenderer tmr;
         TiledMap tm;
         OrthographicCamera camera;
-        ArrayList<AnimatedObject> objects;
-        ArrayList<AnimatedObject> mapItems;
+        public ArrayList<AnimatedObject> objects;
+        public ArrayList<AnimatedObject> mapItems;
         
         Timer animations;
         Timer animatePlayer;
@@ -279,7 +279,7 @@ public class GameScreen {
                     //DRAW'T JEDES ENTITY - prueft vorher ob vorhanden
                 for(int i = 0; i < e.length; i++){
                     if(e[i] != null){
-                        switch(e[i].getFacing()){
+                        switch(e[i].getDirection()){
                             case -1:
                                 break;
                             case 0:
@@ -355,7 +355,7 @@ public class GameScreen {
         
         
         public Entity[] playerAttack(Entity e[], Player p, SpriteBatch batch){
-            if(p.direction() == 0){
+            if(p.getDirection() == 0){
                 Texture attackTexture = new Texture("sprites/AttackHori.png");
                 Sprite attackSprite = new Sprite(attackTexture);
                 attackSprite.setX(p.getxPos() - 8f);
@@ -376,7 +376,7 @@ public class GameScreen {
                     }
                 }
             }
-            else if(p.direction() == 1){
+            else if(p.getDirection()== 1){
                 Texture attackTexture = new Texture("sprites/AttackVert.png");
                 Sprite attackSprite = new Sprite(attackTexture);
                 attackSprite.setX(p.getxPos()+ 32f);
@@ -396,7 +396,7 @@ public class GameScreen {
                     }
                 }
             }
-            else if(p.direction() == 2){
+            else if(p.getDirection()== 2){
                 Texture attackTexture = new Texture("sprites/AttackHori.png");
                 Sprite attackSprite = new Sprite(attackTexture);
                 attackSprite.setX(p.getxPos() - 8f);
@@ -416,7 +416,7 @@ public class GameScreen {
                     }
                 }
             }
-            else if(p.direction() == 3){
+            else if(p.getDirection()== 3){
                 Texture attackTexture = new Texture("sprites/AttackVert.png");
                 Sprite attackSprite = new Sprite(attackTexture);
                 attackSprite.setX(p.getxPos() - 32f);

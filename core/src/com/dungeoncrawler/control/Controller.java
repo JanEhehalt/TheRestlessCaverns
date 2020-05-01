@@ -13,6 +13,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.MapLayers;
+import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.math.Intersector;
@@ -104,11 +105,44 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                     public void run() {
                         for(int i = 0; i < d.getCurrentEntities().length; i++){
                             if(d.getCurrentEntities()[i] != null){
-                                d.getCurrentEntities()[i].randomMove(roomX, roomY);
-                            }
+                                if(m != null){
+                                    // Gets the collisions relevant sprites
+                                    MapObjects mapObjects = m.getM().getMaps()[level][roomPosX][roomPosY].getMap().getLayers().get(0).getObjects();
+                                    Rectangle playerSprite = m.getPlayer().getCollisionSprite();
+
+                                    Entity temp = d.getCurrentEntities()[i];
+
+                                    int x = (int) temp.getxPos();
+                                    int y = (int) temp.getyPos();
+
+                                    d.getCurrentEntities()[i].move((int) d.getPlayer().getxPos(), (int) d.getPlayer().getyPos());
+                                    Sprite tempObject = m.entitySprites[i];
+
+
+                                    boolean overlaps = false;
+                                    if(Intersector.overlaps(tempObject.getBoundingRectangle(), playerSprite)){
+                                        overlaps = true;
+                                    }
+                                    else{
+                                        for(RectangleMapObject rectangleObject : mapObjects.getByType(RectangleMapObject.class)){
+                                            Rectangle rectangle = rectangleObject.getRectangle();
+
+                                            if(Intersector.overlaps(tempObject.getBoundingRectangle(), rectangle)){
+                                                overlaps = true;
+                                                break;
+                                            }
+                                        }
+                                    }
+
+                                    if(overlaps){
+                                        d.getCurrentEntities()[i].setxPos(x);
+                                        d.getCurrentEntities()[i].setyPos(y);
+                                    }
+                                }
+                            } 
                         }
                     }
-        },0,1f);
+        },0, 0.03f);
         
         
     }
