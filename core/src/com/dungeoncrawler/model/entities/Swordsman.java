@@ -16,7 +16,7 @@ public class Swordsman extends Entity {
         
         this.maxhp = 5*lvl;
         this.hp = this.maxhp;
-        this.facing = 2;
+        this.direction = 2;
         this.dmg = 3*lvl;
         this.id = 1;
         // TODO: Sinnvolle Werte finden
@@ -26,13 +26,13 @@ public class Swordsman extends Entity {
         tleft = new Timer();
         isRunning = false;
         timerRuns = 0;
-        facing = 2;
+        direction = 2;
         
         
         tup.scheduleTask(new Timer.Task() {
                     @Override
                     public void run() {
-                        setFacing(0);
+                        setDirection(0);
                         setyPos(getyPos() + 1f);
                         setTimerRuns(getTimerRuns() + 1);
                         if(getTimerRuns() >= 48){
@@ -46,7 +46,7 @@ public class Swordsman extends Entity {
         tright.scheduleTask(new Timer.Task() {
                     @Override
                     public void run() {
-                        setFacing(1);
+                        setDirection(1);
                         setxPos(getxPos() + 1f);
                         setTimerRuns(getTimerRuns() + 1);
                         if(getTimerRuns() >= 48){
@@ -60,7 +60,7 @@ public class Swordsman extends Entity {
         tdown.scheduleTask(new Timer.Task() {
                     @Override
                     public void run() {
-                        setFacing(2);
+                        setDirection(2);
                         setyPos(getyPos() - 1f);
                         setTimerRuns(getTimerRuns() + 1);
                         if(getTimerRuns() >= 48){
@@ -74,7 +74,7 @@ public class Swordsman extends Entity {
         tleft.scheduleTask(new Timer.Task() {
                     @Override
                     public void run() {
-                        setFacing(3);
+                        setDirection(3);
                         setxPos(getxPos() - 1f);
                         setTimerRuns(getTimerRuns() + 1);
                         
@@ -146,6 +146,49 @@ public class Swordsman extends Entity {
     
     public void setTimerRuns(int n){
         timerRuns = n;
+    }
+    
+    @Override
+    public void move(int xPosPlayer, int yPosPlayer){
+        int deltaX = xPosPlayer - (int) xPos;
+        int deltaY = yPosPlayer - (int) yPos;
+        
+        double alpha;
+        if(deltaX == 0 && deltaY >= 0){
+            alpha = Math.PI / 2;
+        }
+        else if(deltaX == 0 && deltaY < 0){
+            alpha = Math.PI / -2;
+        }
+        else{
+            alpha = Math.abs(Math.atan(deltaY / deltaX));
+            
+            if(deltaX < 0 && deltaY < 0){
+                alpha = Math.PI + alpha;
+            }
+            else if(deltaX < 0 && deltaY > 0){
+                alpha = Math.PI - alpha;
+            }
+            else if(deltaX > 0 && deltaY < 0){
+                alpha = 2*Math.PI - alpha;
+            }
+        }
+        
+        movementX = (int) (3 * Math.cos(alpha));
+        movementY = (int) (3 * Math.sin(alpha));
+        
+        /*
+        if(deltaX < 0 || deltaY < 0){
+            movementX *= -1;
+            movementY *= -1;
+        }
+        else if(deltaY < 0){
+            movementX *= -1;
+        }
+        */
+        
+        xPos += movementX;
+        yPos += movementY;
     }
     
     

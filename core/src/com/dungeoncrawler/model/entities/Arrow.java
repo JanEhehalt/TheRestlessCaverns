@@ -84,4 +84,9 @@ public class Arrow extends Entity{
     public float getyStart(){
         return yStart;
     }
+
+    @Override
+    public void move(int xPosPlayer, int yPosPlayer) {
+        // Nothing
+    }
 }

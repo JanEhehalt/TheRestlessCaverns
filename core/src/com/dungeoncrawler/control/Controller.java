@@ -104,11 +104,12 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                     public void run() {
                         for(int i = 0; i < d.getCurrentEntities().length; i++){
                             if(d.getCurrentEntities()[i] != null){
-                                d.getCurrentEntities()[i].randomMove(roomX, roomY);
+                                //d.getCurrentEntities()[i].randomMove(roomX, roomY);
+                                d.getCurrentEntities()[i].move((int) d.getPlayer().getxPos(), (int) d.getPlayer().getyPos());
                             }
                         }
                     }
-        },0,1f);
+        },0, 0.03f);
         
         
     }

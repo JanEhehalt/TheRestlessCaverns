@@ -17,7 +17,7 @@ public class Archer extends Entity{
         
         this.maxhp = 5*lvl;
         this.hp = this.maxhp;
-        this.facing = 2;
+        this.direction = 2;
         this.dmg = 3*lvl;
         this.id = 0;
         // TODO: Sinnvolle Werte finden
@@ -28,12 +28,12 @@ public class Archer extends Entity{
         tleft = new Timer();
         isRunning = false;
         timerRuns = 0;
-        facing = 2;
+        direction = 2;
         
         tup.scheduleTask(new Timer.Task() {
                     @Override
                     public void run() {
-                        setFacing(0);
+                        setDirection(0);
                         setyPos(getyPos() + 1f);
                         setTimerRuns(getTimerRuns() + 1);
                         if(getTimerRuns() >= 48){
@@ -47,7 +47,7 @@ public class Archer extends Entity{
         tright.scheduleTask(new Timer.Task() {
                     @Override
                     public void run() {
-                        setFacing(1);
+                        setDirection(1);
                         setxPos(getxPos() + 1f);
                         setTimerRuns(getTimerRuns() + 1);
                         if(getTimerRuns() >= 48){
@@ -61,7 +61,7 @@ public class Archer extends Entity{
         tdown.scheduleTask(new Timer.Task() {
                     @Override
                     public void run() {
-                        setFacing(2);
+                        setDirection(2);
                         setyPos(getyPos() - 1f);
                         setTimerRuns(getTimerRuns() + 1);
                         if(getTimerRuns() >= 48){
@@ -75,7 +75,7 @@ public class Archer extends Entity{
         tleft.scheduleTask(new Timer.Task() {
                     @Override
                     public void run() {
-                        setFacing(3);
+                        setDirection(3);
                         setxPos(getxPos() - 1f);
                         setTimerRuns(getTimerRuns() + 1);
                         
@@ -151,6 +151,11 @@ public class Archer extends Entity{
     
     public void setTimerRuns(int n){
         timerRuns = n;
+    }
+
+    @Override
+    public void move(int xPosPlayer, int yPosPlayer) {
+        // Nothing
     }
     
     

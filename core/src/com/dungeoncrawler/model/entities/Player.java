@@ -34,5 +34,10 @@ public class Player extends Entity {
     public Inventory getInv(){
         return inv;
     }
+
+    @Override
+    public void move(int xPosPlayer, int yPosPlayer) {
+        // Nothing
+    }
     
 }

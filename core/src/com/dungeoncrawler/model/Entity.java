@@ -1,8 +1,5 @@
 package com.dungeoncrawler.model;
 
-import com.badlogic.gdx.utils.Timer;
-
-
 public abstract class Entity {
     
     protected float xPos;
@@ -14,7 +11,7 @@ public abstract class Entity {
     protected float movementX;
     protected float movementY;
     protected int id;
-    protected int facing;
+    protected int direction;
     protected Inventory inv;
     
     
@@ -25,16 +22,9 @@ public abstract class Entity {
         this.lvl = lvl;
         this.movementX = 0;
         this.movementY = 0;
-        this.facing = 2;
-        
-        
-        
-        
-        
+        this.direction = 2;
     }
     
-    
-
     public void attack(){
         
     }
@@ -62,24 +52,13 @@ public abstract class Entity {
             movementY = 0;
     }
     
-    public void rdmMove(){
-        
-    }
-    
-    public int direction(){     // returns direction the entity is facing depending on its movement 
-        if(movementX == -3f){     // TIS IS SHIT - NEED REWORK
-            facing = 3;
+    public void updateDirection(){
+        if(movementX > 1){
+            direction = 1;
         }
-        else if(movementX == 3f){
-            facing = 1;
+        else if(movementX < -1){
+            direction = 0;
         }
-        else if(movementY == 3f){
-            facing = 0;
-        }
-        else if(movementY == -3f){
-            facing = 2;
-        }
-        return facing;
     }
     
     
@@ -152,15 +131,18 @@ public abstract class Entity {
         return this.id;
     }
     
-    public int getFacing(){
-        return facing;
+    public int getDirection(){
+        return direction;
     }
-    public void setFacing(int facing){
-        this.facing = facing;
+    
+    public void setDirection(int direction){
+        this.direction = direction;
     }
+    
     public void randomMove(int x, int y){
+        
     }
     
-    
+    abstract public void move(int xPosPlayer, int yPosPlayer);
     
 }
