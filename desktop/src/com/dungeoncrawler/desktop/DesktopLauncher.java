@@ -15,6 +15,6 @@ public class DesktopLauncher {
                 config.resizable = true;
 
                 //config.addIcon("logo.png", Files.FileType.Internale);
-                new LwjglApplication(new Controller(), config);
+                new LwjglApplication(new Controller(), config); 
         }
 }
