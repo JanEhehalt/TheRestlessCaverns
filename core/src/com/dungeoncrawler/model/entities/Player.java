@@ -5,11 +5,9 @@
  */
 package com.dungeoncrawler.model.entities;
 
-
 import com.dungeoncrawler.model.Entity;
 import com.dungeoncrawler.model.Inventory;
 import com.dungeoncrawler.model.Item;
-import com.dungeoncrawler.model.ItemContainer;
 /**
  *
  * @author Jan

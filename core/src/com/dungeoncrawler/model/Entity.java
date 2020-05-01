@@ -1,5 +1,9 @@
 package com.dungeoncrawler.model;
 
+import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.MapObjects;
+import com.badlogic.gdx.math.Rectangle;
+
 public abstract class Entity {
     
     protected float xPos;
@@ -61,6 +65,7 @@ public abstract class Entity {
         }
     }
     
+    abstract public void move(int xPosPlayer, int yPosPlayer);
     
     // GETTER + SETTER
     public float getxPos() {
@@ -138,11 +143,5 @@ public abstract class Entity {
     public void setDirection(int direction){
         this.direction = direction;
     }
-    
-    public void randomMove(int x, int y){
-        
-    }
-    
-    abstract public void move(int xPosPlayer, int yPosPlayer);
     
 }

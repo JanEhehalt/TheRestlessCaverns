@@ -28,7 +28,7 @@ public class GameScreen {
         
         //ENTITIES
         Texture[] entityTextures;
-        Sprite[] entitySprites;
+        public Sprite[] entitySprites;
         TextureRegion[][] archerRegions;
         Texture archerTexture;
         TextureRegion[][] swordsmanRegions;
@@ -43,8 +43,8 @@ public class GameScreen {
         TiledMapRenderer tmr;
         TiledMap tm;
         OrthographicCamera camera;
-        ArrayList<AnimatedObject> objects;
-        ArrayList<AnimatedObject> mapItems;
+        public ArrayList<AnimatedObject> objects;
+        public ArrayList<AnimatedObject> mapItems;
         
         Timer animations;
         Timer animatePlayer;
