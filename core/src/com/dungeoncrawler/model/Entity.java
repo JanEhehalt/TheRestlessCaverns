@@ -65,7 +65,7 @@ public abstract class Entity {
         }
     }
     
-    abstract public void move(int xPosPlayer, int yPosPlayer);
+    abstract public Entity move(int xPosPlayer, int yPosPlayer);
     
     // GETTER + SETTER
     public float getxPos() {

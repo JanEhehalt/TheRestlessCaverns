@@ -100,47 +100,60 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
         entityMovement = new Timer();
         
         entityMovement.scheduleTask(new Timer.Task() {
-                    @Override
-                    public void run() {
-                        for(int i = 0; i < d.getCurrentEntities().length; i++){
-                            if(d.getCurrentEntities()[i] != null){
-                                if(m != null){
-                                    // Gets the collisions relevant sprites
-                                    MapObjects mapObjects = m.getM().getMaps()[level][roomPosX][roomPosY].getMap().getLayers().get(0).getObjects();
-                                    Rectangle playerSprite = m.getPlayer().getCollisionSprite();
+            @Override
+            public void run() {
+                for(int i = 0; i < d.getCurrentEntities().size(); i++){
+                    if(d.getCurrentEntities().get(i) != null){
+                        if(m != null){
+                            // Gets the collisions relevant sprites
+                            MapObjects mapObjects = m.getM().getMaps()[level][roomPosX][roomPosY].getMap().getLayers().get(0).getObjects();
+                            Rectangle playerSprite = m.getPlayer().getCollisionSprite();
 
-                                    Entity temp = d.getCurrentEntities()[i];
+                            Entity temp = d.getCurrentEntities().get(i);
 
-                                    int x = (int) temp.getxPos();
-                                    int y = (int) temp.getyPos();
+                            int x = (int) temp.getxPos();
+                            int y = (int) temp.getyPos();
 
-                                    d.getCurrentEntities()[i].move((int) d.getPlayer().getxPos(), (int) d.getPlayer().getyPos());
-                                    Sprite tempObject = m.entitySprites[i];
+                            temp.move((int) d.getPlayer().getxPos(), (int) d.getPlayer().getyPos());
+                            Sprite tempObject = m.entitySprites.get(i);
+                            tempObject.setPosition(temp.getxPos(), temp.getyPos());
 
+                            boolean overlaps = false;
+                            if(Intersector.overlaps(tempObject.getBoundingRectangle(), playerSprite)){
+                                overlaps = true;
+                            }
+                            else{
+                                for(RectangleMapObject rectangleObject : mapObjects.getByType(RectangleMapObject.class)){
+                                    Rectangle rectangle = rectangleObject.getRectangle();
 
-                                    boolean overlaps = false;
-                                    if(Intersector.overlaps(tempObject.getBoundingRectangle(), playerSprite)){
+                                    if(Intersector.overlaps(tempObject.getBoundingRectangle(), rectangle)){
                                         overlaps = true;
-                                    }
-                                    else{
-                                        for(RectangleMapObject rectangleObject : mapObjects.getByType(RectangleMapObject.class)){
-                                            Rectangle rectangle = rectangleObject.getRectangle();
-
-                                            if(Intersector.overlaps(tempObject.getBoundingRectangle(), rectangle)){
-                                                overlaps = true;
-                                                break;
-                                            }
-                                        }
-                                    }
-
-                                    if(overlaps){
-                                        d.getCurrentEntities()[i].setxPos(x);
-                                        d.getCurrentEntities()[i].setyPos(y);
+                                        break;
                                     }
                                 }
-                            } 
+                                
+                                for(int j = 0; j < m.entitySprites.size(); j++){
+                                    if(i != j){
+                                        if(m.entitySprites.get(j) != null){
+                                            if(Intersector.overlaps(tempObject.getBoundingRectangle(), m.entitySprites.get(j).getBoundingRectangle())){
+                                                overlaps = true;
+                                                break;
+                                            }   
+                                        }
+                                    }
+                                }
+                            }
+
+                            if(overlaps){
+                                d.getCurrentEntities().get(i).setxPos(x);
+                                d.getCurrentEntities().get(i).setyPos(y);
+                                
+                                m.entitySprites.get(i).setPosition(x, y);
+                            }
                         }
-                    }
+                    } 
+                }
+            }
         },0, 0.03f);
         
         

@@ -13,10 +13,10 @@ import java.util.ArrayList;
  */
 public class Room {
     private ArrayList<ItemContainer> items;
-    private Entity[] enemies;
+    private ArrayList<Entity> enemies;
     int lvl;
     
-    public Room(ArrayList<ItemContainer> items, Entity[] enemies){
+    public Room(ArrayList<ItemContainer> items, ArrayList<Entity> enemies){
         this.items = items;
         this.enemies = enemies;
         
@@ -35,19 +35,15 @@ public class Room {
     /**
      * @return the enemies
      */
-    public Entity[] getEnemies() {
+    public ArrayList<Entity> getEnemies() {
         return enemies;
     }
 
     /**
      * @param enemies the enemies to set
      */
-    public void setEnemies(Entity[] enemies) {
+    public void setEnemies(ArrayList<Entity> enemies) {
         this.enemies = enemies;
-    }
-    
-    public void setEnemies(Entity enemy, int i){
-        this.enemies[i] = enemy;
     }
 
     /**

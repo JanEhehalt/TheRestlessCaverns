@@ -6,6 +6,7 @@
 package com.dungeoncrawler.model;
 
 import com.dungeoncrawler.model.entities.Player;
+import java.util.ArrayList;
 
 /**
  *
@@ -17,7 +18,7 @@ public class Dungeon {
     
     private Level currentLevel;
     private Room currentRoom;
-    private Entity[] currentEntities;
+    private ArrayList<Entity> currentEntities;
     
     public Dungeon(Player player){
         this.level = new Level[7];
@@ -93,14 +94,14 @@ public class Dungeon {
     /**
      * @return the currentEntities
      */
-    public Entity[] getCurrentEntities() {
+    public ArrayList<Entity> getCurrentEntities() {
         return currentEntities;
     }
 
     /**
      * @param currentEntities the currentEntities to set
      */
-    public void setCurrentEntities(Entity[] currentEntities) {
+    public void setCurrentEntities(ArrayList<Entity> currentEntities) {
         this.currentEntities = currentEntities;
     }
     

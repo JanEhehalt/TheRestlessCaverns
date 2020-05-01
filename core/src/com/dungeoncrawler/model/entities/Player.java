@@ -50,8 +50,9 @@ public class Player extends Entity {
         }
     }
 
-    public void move(int x, int y){
-    
+    @Override
+    public Entity move(int x, int y){
+        return null;
     }
     
     

@@ -31,7 +31,10 @@ public class Arrow extends Entity{
     }
 
     @Override
-    public void move(int xPosPlayer, int yPosPlayer) {
-        // Nothing
+    public Entity move(int xPosPlayer, int yPosPlayer) {
+        xPos += movementX;
+        yPos += movementY;
+        
+        return null;
     }
 }

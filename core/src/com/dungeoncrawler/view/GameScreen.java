@@ -28,7 +28,7 @@ public class GameScreen {
         
         //ENTITIES
         Texture[] entityTextures;
-        public Sprite[] entitySprites;
+        public ArrayList<Sprite> entitySprites;
         TextureRegion[][] archerRegions;
         Texture archerTexture;
         TextureRegion[][] swordsmanRegions;
@@ -90,7 +90,7 @@ public class GameScreen {
                 
                 //ENTITIES
                 entityTextures = new Texture[5];
-                entitySprites = new Sprite[5];
+                entitySprites = new ArrayList<>();
                 
                 arrowTextures = new Texture[10];
                 arrowSprites = new Sprite[10];
@@ -176,7 +176,7 @@ public class GameScreen {
                 
 	}
 
-	public void render (SpriteBatch batch, Player p, Entity[] e, Entity[] arrows, int tileX, int tileY, int level, int roomPosX, int roomPosY) {
+	public void render (SpriteBatch batch, Player p, ArrayList<Entity> e, Entity[] arrows, int tileX, int tileY, int level, int roomPosX, int roomPosY) {
             
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -231,22 +231,27 @@ public class GameScreen {
                 camera.update();
                 batch.setProjectionMatrix(camera.combined);
 
-                for(int i = 0; i < e.length; i++){
-                    if(e[i] != null){
-                        if(e[i].getId() == 0){ //nimmt entity ID -> 0 = Archer || 1 = Swordsman || 2 = Arrow
-                            entityTextures[i] = new Texture("sprites/archer.png");
-                            archerRegions = TextureRegion.split(entityTextures[i], 48, 48);
-                            entitySprites[i] = new Sprite(archerRegions[0][2]);
-                            entitySprites[i].setX(e[i].getxPos());
-                            entitySprites[i].setY(e[i].getyPos());
-                        }
-                        if(e[i].getId() == 1){
-                            entityTextures[i] = new Texture("sprites/swordsman.png");
-                            swordsmanRegions = TextureRegion.split(entityTextures[i], 48, 48);
-                            entitySprites[i] = new Sprite(swordsmanRegions[0][2]);
-                            entitySprites[i].setX(e[i].getxPos());
-                            entitySprites[i].setY(e[i].getyPos());
-                        }
+                for(int i = 0; i < e.size(); i++){
+                    if(e.get(i).getId() == 0){ //nimmt entity ID -> 0 = Archer || 1 = Swordsman || 2 = Arrow
+                        Texture tx = new Texture("sprites/archer.png");
+                        archerRegions = TextureRegion.split(tx, 48, 48);
+                        entitySprites.add(new Sprite(archerRegions[0][2]));
+                        entitySprites.get(i).setX(e.get(i).getxPos());
+                        entitySprites.get(i).setY(e.get(i).getyPos());
+                    }
+                    else if(e.get(i).getId() == 1){
+                        Texture tx = new Texture("sprites/swordsman.png");
+                        swordsmanRegions = TextureRegion.split(tx, 48, 48);
+                        entitySprites.add(new Sprite(swordsmanRegions[0][2]));
+                        entitySprites.get(i).setX(e.get(i).getxPos());
+                        entitySprites.get(i).setY(e.get(i).getyPos());
+                    }
+                    else if(e.get(i).getId() == 2){
+                        Texture tx = new Texture("sprites/sword.png");
+                        TextureRegion[][] test = TextureRegion.split(tx, 48, 48);
+                        entitySprites.add(new Sprite(test[0][2]));
+                        entitySprites.get(i).setX(e.get(i).getxPos());
+                        entitySprites.get(i).setY(e.get(i).getyPos());
                     }
                 } 
                 
@@ -277,58 +282,31 @@ public class GameScreen {
                 
                 //controls.draw(batch);
                     //DRAW'T JEDES ENTITY - prueft vorher ob vorhanden
-                for(int i = 0; i < e.length; i++){
-                    if(e[i] != null){
-                        switch(e[i].getDirection()){
+                for(int i = 0; i < e.size(); i++){
+                    if(e.get(i) != null){
+                        switch(e.get(i).getId()){
                             case -1:
                                 break;
                             case 0:
-                                if(e[i].getId() == 0){
-                                    entitySprites[i].setRegion(archerRegions[0][0]);
-                                }
-                                else if(e[i].getId() == 1){
-                                    entitySprites[i].setRegion(swordsmanRegions[0][0]);
-                                }
+                                entitySprites.get(i).setRegion(archerRegions[0][0]);
                                 break;
                             case 1:
-                                if(e[i].getId() == 0){
-                                    entitySprites[i].setRegion(archerRegions[0][1]);
-                                }
-                                else if(e[i].getId() == 1){
-                                    entitySprites[i].setRegion(swordsmanRegions[0][1]);
-                                }
+                                entitySprites.get(i).setRegion(swordsmanRegions[0][0]);
                                 break;
-                            case 2:
-                                if(e[i].getId() == 0){
-                                    entitySprites[i].setRegion(archerRegions[0][2]);
-                                }
-                                else if(e[i].getId() == 1){
-                                    entitySprites[i].setRegion(swordsmanRegions[0][2]);
-                                }
-                                break;
-                            case 3:
-                                if(e[i].getId() == 0){
-                                    entitySprites[i].setRegion(archerRegions[0][3]);
-                                }
-                                else if(e[i].getId() == 1){
-                                    entitySprites[i].setRegion(swordsmanRegions[0][3]);
-                                }
-                                break;
-                    
                         }
-                        entitySprites[i].draw(batch);
-                        entitySprites[i].setX(e[i].getxPos());
-                        entitySprites[i].setY(e[i].getyPos());
-                        if(e[i].getHp() < e[i].getMaxhp() && e[i].getHp() > 0){
+                        entitySprites.get(i).draw(batch);
+                        entitySprites.get(i).setX(e.get(i).getxPos());
+                        entitySprites.get(i).setY(e.get(i).getyPos());
+                        if(e.get(i).getHp() < e.get(i).getMaxhp() && e.get(i).getHp() > 0){
                             healthBar = new Texture("sprites/halfHealthEntity.png");
                             Sprite healthBarSprite = new Sprite(healthBar);
-                            healthBarSprite.setPosition(e[i].getxPos(), e[i].getyPos());
+                            healthBarSprite.setPosition(e.get(i).getxPos(), e.get(i).getyPos());
                             healthBarSprite.draw(batch);
                         }
-                        else if(e[i].getHp() == e[i].getMaxhp()){
+                        else if(e.get(i).getHp() == e.get(i).getMaxhp()){
                             healthBar = new Texture("sprites/fullHealthEntity.png");
                             Sprite healthBarSprite = new Sprite(healthBar);
-                            healthBarSprite.setPosition(e[i].getxPos(), e[i].getyPos());
+                            healthBarSprite.setPosition(e.get(i).getxPos(), e.get(i).getyPos());
                             healthBarSprite.draw(batch);
                         }
                     }
@@ -354,88 +332,48 @@ public class GameScreen {
         
         
         
-        public Entity[] playerAttack(Entity e[], Player p, SpriteBatch batch){
+        public ArrayList<Entity> playerAttack(ArrayList<Entity> e, Player p, SpriteBatch batch){
+            Sprite attackSprite = null;
             if(p.getDirection() == 0){
                 Texture attackTexture = new Texture("sprites/AttackHori.png");
-                Sprite attackSprite = new Sprite(attackTexture);
+                attackSprite = new Sprite(attackTexture);
                 attackSprite.setX(p.getxPos() - 8f);
                 attackSprite.setY(p.getyPos() + 32f);
-                
-                for(int i = 0; i< e.length ; i++){
-                    if(e[i] != null){
-                        if(Intersector.overlaps(entitySprites[i].getBoundingRectangle(), attackSprite.getBoundingRectangle())){
-                            if(e[i] != null){
-                                if(e[i].getHp() - p.getDmg() <= 0){
-                                    e[i] = null;
-                                }
-                                else{
-                                    e[i].setHp(e[i].getHp() - p.getDmg());
-                                }
-                            }
-                        }
-                    }
-                }
             }
             else if(p.getDirection()== 1){
                 Texture attackTexture = new Texture("sprites/AttackVert.png");
-                Sprite attackSprite = new Sprite(attackTexture);
+                attackSprite = new Sprite(attackTexture);
                 attackSprite.setX(p.getxPos()+ 32f);
                 attackSprite.setY(p.getyPos()- 2f);
-                for(int i = 0; i< e.length ; i++){
-                    if(entitySprites[i] != null){
-                        if(Intersector.overlaps(entitySprites[i].getBoundingRectangle(), attackSprite.getBoundingRectangle())){
-                            if(e[i] != null){
-                                if(e[i].getHp() - p.getDmg() <= 0){
-                                    e[i] = null;
-                                }
-                                else{
-                                    e[i].setHp(e[i].getHp() - p.getDmg());
-                                }
-                            }
-                        }
-                    }
-                }
             }
             else if(p.getDirection()== 2){
                 Texture attackTexture = new Texture("sprites/AttackHori.png");
-                Sprite attackSprite = new Sprite(attackTexture);
+                attackSprite = new Sprite(attackTexture);
                 attackSprite.setX(p.getxPos() - 8f);
                 attackSprite.setY(p.getyPos());
-                for(int i = 0; i<e.length ; i++){
-                    if(entitySprites[i] != null){
-                        if(Intersector.overlaps(entitySprites[i].getBoundingRectangle(), attackSprite.getBoundingRectangle())){
-                            if(e[i] != null){
-                                if(e[i].getHp() - p.getDmg() <= 0){
-                                    e[i] = null;
-                                }
-                                else{
-                                    e[i].setHp(e[i].getHp() - p.getDmg());
-                                }
-                            }
-                        }
-                    }
-                }
             }
             else if(p.getDirection()== 3){
                 Texture attackTexture = new Texture("sprites/AttackVert.png");
-                Sprite attackSprite = new Sprite(attackTexture);
+                attackSprite = new Sprite(attackTexture);
                 attackSprite.setX(p.getxPos() - 32f);
                 attackSprite.setY(p.getyPos() - 8f);
-                for(int i = 0; i < e.length ; i++){
-                    if(entitySprites[i] != null){
-                        if(Intersector.overlaps(entitySprites[i].getBoundingRectangle(), attackSprite.getBoundingRectangle())){
-                            if(e[i] != null){
-                                if(e[i].getHp() - p.getDmg() <= 0){
-                                    e[i] = null;
-                                }
-                                else{
-                                    e[i].setHp(e[i].getHp() - p.getDmg());
-                                }
+            }
+            
+            for(int i = e.size() -1 ; i >= 0; i--){
+                if(e.get(i) != null){
+                    if(Intersector.overlaps(entitySprites.get(i).getBoundingRectangle(), attackSprite.getBoundingRectangle())){
+                        if(e.get(i) != null){
+                            if(e.get(i).getHp() - p.getDmg() <= 0){
+                                e.remove(i);
+                            }
+                            else{
+                                e.get(i).setHp(e.get(i).getHp() - p.getDmg());
                             }
                         }
                     }
                 }
             }
+            
             return e;
         }
         
@@ -486,17 +424,17 @@ public class GameScreen {
         }
         
         public float getEntitySpriteX(int i){
-            return entitySprites[i].getX();
+            return entitySprites.get(i).getX();
         }
         public float getEntitySpriteY(int i){
-            return entitySprites[i].getY();
+            return entitySprites.get(i).getY();
         }
         
         public void setEntitySpriteX(int i,float x){
-            entitySprites[i].setX(x);
+            entitySprites.get(i).setX(x);
         }
         public void setEntitySpriteY(int i,float y){
-            entitySprites[i].setY(y);
+            entitySprites.get(i).setY(y);
         }
         public boolean getIsLoading(){
             return roomLoading;

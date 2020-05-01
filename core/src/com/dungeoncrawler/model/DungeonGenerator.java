@@ -144,7 +144,7 @@ public class DungeonGenerator {
         int itemAmount = (int) (Math.random() * 2);
         int enemyAmount = (int) (Math.random() * 6);
         
-        Room tempRoom = new Room(new ArrayList<ItemContainer>(itemAmount), new Entity[enemyAmount]);
+        Room tempRoom = new Room(new ArrayList<ItemContainer>(itemAmount), new ArrayList<Entity>(enemyAmount));
         
         // Items werden generiert
         int[][] belegt = new int[itemAmount][2];
@@ -306,7 +306,7 @@ public class DungeonGenerator {
                 System.out.println("Es gibt Probleme, schau mal beim Raumgenerator nach. Es sind sogar sehr problematische Probleme");
             }
             
-            tempRoom.setEnemies(temp, i);
+            tempRoom.getEnemies().add(temp);
         }
         
         return tempRoom;
