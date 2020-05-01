@@ -131,6 +131,17 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                                                 break;
                                             }
                                         }
+                                        
+                                        for(int j = 0; j < m.entitySprites.length; j++){
+                                          if(i != j){
+                                              if(m.entitySprites[j] != null /*&& d.getCurrentEntities().get(j).getId() != 2*/){
+                                                  if(Intersector.overlaps(tempObject.getBoundingRectangle(), m.entitySprites[j].getBoundingRectangle())){
+                                                      overlaps = true;
+                                                      break;
+                                                  }   
+                                              }
+                                          }
+                                      }  
                                     }
 
                                     if(overlaps){

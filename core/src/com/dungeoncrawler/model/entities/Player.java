@@ -50,8 +50,8 @@ public class Player extends Entity {
         }
     }
 
-    public void move(int x, int y){
-    
+    public Entity move(int x, int y){
+        return null;
     }
     
     
