@@ -102,19 +102,20 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
         entityMovement.scheduleTask(new Timer.Task() {
             @Override
             public void run() {
-                for(int i = 0; i < d.getCurrentEntities().size(); i++){
-                    if(d.getCurrentEntities().get(i) != null){
-                        if(m != null){
-                            // Gets the collisions relevant sprites
-                            MapObjects mapObjects = m.getM().getMaps()[level][roomPosX][roomPosY].getMap().getLayers().get(0).getObjects();
-                            Rectangle playerSprite = m.getPlayer().getCollisionSprite();
-
+                if(m != null){
+                    // Gets the collisions relevant sprites
+                    MapObjects mapObjects = m.getM().getMaps()[level][roomPosX][roomPosY].getMap().getLayers().get(0).getObjects();
+                    Rectangle playerSprite = m.getPlayer().getCollisionSprite();
+                
+                
+                    for(int i = 0; i < d.getCurrentEntities().size(); i++){
+                        if(d.getCurrentEntities().get(i) != null){
                             Entity temp = d.getCurrentEntities().get(i);
 
                             int x = (int) temp.getxPos();
                             int y = (int) temp.getyPos();
 
-                            temp.move((int) d.getPlayer().getxPos(), (int) d.getPlayer().getyPos());
+                            Entity test = temp.move((int) d.getPlayer().getxPos(), (int) d.getPlayer().getyPos());
                             Sprite tempObject = m.entitySprites.get(i);
                             tempObject.setPosition(temp.getxPos(), temp.getyPos());
 
@@ -131,14 +132,16 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                                         break;
                                     }
                                 }
-                                
-                                for(int j = 0; j < m.entitySprites.size(); j++){
-                                    if(i != j){
-                                        if(m.entitySprites.get(j) != null){
-                                            if(Intersector.overlaps(tempObject.getBoundingRectangle(), m.entitySprites.get(j).getBoundingRectangle())){
-                                                overlaps = true;
-                                                break;
-                                            }   
+
+                                if(temp.getId() != 2){
+                                    for(int j = 0; j < m.entitySprites.size(); j++){
+                                        if(i != j){
+                                            if(m.entitySprites.get(j) != null /*&& d.getCurrentEntities().get(j).getId() != 2*/){
+                                                if(Intersector.overlaps(tempObject.getBoundingRectangle(), m.entitySprites.get(j).getBoundingRectangle())){
+                                                    overlaps = true;
+                                                    break;
+                                                }   
+                                            }
                                         }
                                     }
                                 }
@@ -147,11 +150,15 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                             if(overlaps){
                                 d.getCurrentEntities().get(i).setxPos(x);
                                 d.getCurrentEntities().get(i).setyPos(y);
-                                
+
                                 m.entitySprites.get(i).setPosition(x, y);
                             }
-                        }
-                    } 
+
+                            if(test != null){
+                                d.getCurrentEntities().add(test);
+                            }
+                        }    
+                    }
                 }
             }
         },0, 0.03f);

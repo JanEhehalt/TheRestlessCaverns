@@ -249,7 +249,7 @@ public class GameScreen {
                     else if(e.get(i).getId() == 2){
                         Texture tx = new Texture("sprites/sword.png");
                         TextureRegion[][] test = TextureRegion.split(tx, 48, 48);
-                        entitySprites.add(new Sprite(test[0][2]));
+                        entitySprites.add(new Sprite(tx));
                         entitySprites.get(i).setX(e.get(i).getxPos());
                         entitySprites.get(i).setY(e.get(i).getyPos());
                     }

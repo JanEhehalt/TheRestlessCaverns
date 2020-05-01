@@ -48,7 +48,7 @@ public class Archer extends Entity{
             }
         }
         
-        int distance = (int) (deltaY / Math.sin(alpha));
+        int distance = (int) Math.abs((deltaY / Math.sin(alpha)));
         
         Arrow a = null;
         if(distance >= 124 && distance <= 164 && counter % 10 == 0){
