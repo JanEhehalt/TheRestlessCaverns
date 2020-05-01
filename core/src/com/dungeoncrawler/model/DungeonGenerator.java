@@ -6,7 +6,7 @@
 package com.dungeoncrawler.model;
 
 import com.dungeoncrawler.model.entities.*;
-import com.dungeoncrawler.model.items.Sword;
+import com.dungeoncrawler.model.items.Amulet;
 import java.util.ArrayList;
 
 /**
@@ -206,7 +206,7 @@ public class DungeonGenerator {
             int id = (int) (Math.random() * 2);
             switch(id){
                 case 0:
-                    tempItem = new Sword(lvl);
+                    tempItem = new Amulet(lvl);
                     break;
                     
                 /*case 1:

@@ -11,11 +11,12 @@ import com.dungeoncrawler.model.Item;
  *
  * @author jonathan
  */
-public class Sword extends Item {
+public class Amulet extends Item {
     
-    public Sword(int lvl) {
+    public Amulet(int lvl) {
         super(lvl);
         this.dmg = lvl * 4;
+        this.heal = lvl * 4;
         this.id = 2;
     }
     

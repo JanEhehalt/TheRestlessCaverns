@@ -58,8 +58,8 @@ public class Inventory {
         selected += i;
     }
     
-    public void dropItem(int x){
-        items[x] = null;
+    public void dropItem(){
+        items[selected] = null;
     }
     
     

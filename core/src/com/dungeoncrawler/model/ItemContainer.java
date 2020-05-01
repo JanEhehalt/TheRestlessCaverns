@@ -28,6 +28,7 @@ public class ItemContainer {
 
     /**
      * @param xPos the xPos to set
+     * 
      */
     public void setxPos(int xPos) {
         this.xPos = xPos;

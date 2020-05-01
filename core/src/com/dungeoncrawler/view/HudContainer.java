@@ -8,6 +8,7 @@ package com.dungeoncrawler.view;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.dungeoncrawler.model.Item;
 import com.dungeoncrawler.model.entities.Player;
 
@@ -26,7 +27,12 @@ public class HudContainer {
     Texture selectedTexture;
     Sprite selectedSprite;
     
+    Texture playerHealthTexture;
+    Sprite playerHealthSprite;
+    
     public HudContainer(){
+        playerHealthTexture = new Texture("sprites/playerHealthBar.png");
+        playerHealthSprite = new Sprite();
         selectedTexture = new Texture("sprites/selected.png");
         selectedSprite = new Sprite(selectedTexture);
         HudTexture = new Texture("sprites/hud.png");
@@ -62,10 +68,9 @@ public class HudContainer {
         selected = 2;
         selectedSprite.setX(invXPos[selected] - 2f);
         selectedSprite.setY(invYPos[selected] - 2f);
-    
     }
     
-    public void updateInventory(SpriteBatch batch, Player p){
+    public void updateHud(SpriteBatch batch, Player p){
         InventoryItemSprites = new Sprite[8];
                 
             Item[] items = p.getInv().getItem();
@@ -77,6 +82,15 @@ public class HudContainer {
             }
             selectedSprite.setX(invXPos[selected] - 2f);
             selectedSprite.setY(invYPos[selected] - 2f);
+            
+            p.setHp(3);
+            float n = p.getHp() / p.getMaxhp();
+            int newWidth = (int) (n * 122);
+            TextureRegion[][] playerHealthRegion = TextureRegion.split(playerHealthTexture,newWidth, playerHealthTexture.getHeight());
+            
+            playerHealthSprite = new Sprite(playerHealthRegion[0][0]);
+            playerHealthSprite.setPosition(200f, 200f);
+            
             batch.begin();
             HudSprite.draw(batch);
             for(int i = 0; i < InventoryItemSprites.length ;i++){
@@ -85,7 +99,9 @@ public class HudContainer {
                     }
                 }
             selectedSprite.draw(batch);
+            playerHealthSprite.draw(batch);
             batch.end();
+            
             
     }
     

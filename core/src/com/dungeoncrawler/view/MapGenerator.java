@@ -312,7 +312,7 @@ public class MapGenerator {
                 Item item = container.getItem();
                 
                 if(item.getId() == 2){
-                    AnimatedObject swordSprite = new AnimatedObject(sword, 24, 24);
+                    AnimatedObject swordSprite = new AnimatedObject(sword, 48, 48);
                     swordSprite.getSprite().setPosition(container.getxPos(), container.getyPos());
                     temp.getMapItems().add(swordSprite);
                 }

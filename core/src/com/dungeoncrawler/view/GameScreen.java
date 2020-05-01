@@ -172,7 +172,7 @@ public class GameScreen {
                            roomChangeRow++;
                        }
                     }
-                },0, 0.02f);
+                },0, 0.01f);
                 
 	}
 
@@ -226,7 +226,7 @@ public class GameScreen {
                 tmr.setView(camera);
                 tmr.render();
 
-                camera.zoom = 700f;
+                camera.zoom = 700f; // Standart 700f
                 
                 camera.update();
                 batch.setProjectionMatrix(camera.combined);

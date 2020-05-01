@@ -58,10 +58,10 @@ public class MainMenu{
                 backgroundSprite.setY(0);
                 
                 
-                camera = new OrthographicCamera(1, h/w);
-                camera.translate(backgroundSprite.getWidth()/2, backgroundSprite.getHeight()/2);
-                camera.zoom = 1150f;
-                camera.update();
+                //camera = new OrthographicCamera(1, h/w);
+                //camera.translate(backgroundSprite.getWidth()/2, backgroundSprite.getHeight()/2);
+                //camera.zoom = 1150f;
+                //camera.update();
                 
                 Pixmap pm = new Pixmap(Gdx.files.internal("sprites/cursor.png"));
                 Gdx.graphics.setCursor(Gdx.graphics.newCursor(pm, 0, 0));
@@ -86,7 +86,7 @@ public class MainMenu{
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
                 
                 batch.begin();
-                batch.setProjectionMatrix(camera.combined);
+                //batch.setProjectionMatrix(camera.combined);
                 backgroundSprite.draw(batch);
                 startButtonSprite.draw(batch);
                 quitButtonSprite.draw(batch);

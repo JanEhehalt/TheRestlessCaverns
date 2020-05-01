@@ -27,7 +27,7 @@ import com.dungeoncrawler.model.Item;
 import com.dungeoncrawler.model.ItemContainer;
 import com.dungeoncrawler.model.items.Key;
 import com.dungeoncrawler.model.items.Potion;
-import com.dungeoncrawler.model.items.Sword;
+import com.dungeoncrawler.model.items.Amulet;
 import java.util.ArrayList;
 
 public class Controller extends ApplicationAdapter implements InputProcessor{
@@ -65,7 +65,6 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
     
     @Override
     public void create(){
-        
         volume = 0.01f;
         
         arrows = new Entity[10];
@@ -142,7 +141,8 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                 
                 // Render methode zum rendern der einzelnen Sprites wird aufgerufen
                 m.render(batch, d.getPlayer(), d.getCurrentEntities(), arrows,  tileX, tileY, level, roomPosX, roomPosY);
-                hc.updateInventory(batch, d.getPlayer());
+                hc.updateHud(batch, d.getPlayer());
+                d.getPlayer().updateItems();
             }
         }
     }
@@ -380,6 +380,12 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                     }
                     if(m != null){
                         m.music.setVolume(volume);
+                    }
+                }
+                
+                if(keycode == Input.Keys.Q){
+                    if(m != null && m.getIsLoading() == false){
+                        d.getPlayer().getInv().dropItem();
                     }
                 }
                 return true;

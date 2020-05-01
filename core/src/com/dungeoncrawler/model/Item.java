@@ -23,6 +23,12 @@ public abstract class Item {
     public int getId(){
         return this.id;
     }
+    public int getDmg(){
+        return dmg;
+    }
+    public int getHeal(){
+        return heal;
+    }
     /**
      * @return the amount
      */

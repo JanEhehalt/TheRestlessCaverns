@@ -16,16 +16,22 @@ import com.dungeoncrawler.model.ItemContainer;
  */
 public class Player extends Entity {
     
+    int standartDmg;
+    int standartMaxHp;
+    
     public Player() {
         super(200, 200, 1);
         
-        this.maxhp = 5*lvl;
+        this.maxhp = 5 * lvl;
         this.hp = this.maxhp;
+        standartMaxHp = this.maxhp;
         
         this.dmg = 3*lvl;
+        standartDmg = this.dmg;
         id = -1;
         inv = new Inventory(3,2);
         // TODO: Sinnvolle Werte finden
+        
     }
     
     public void pickUp(Item item){
@@ -33,6 +39,16 @@ public class Player extends Entity {
     }
     public Inventory getInv(){
         return inv;
+    }
+    public void updateItems(){
+        if(inv.getItem(1) != null){
+            dmg = standartDmg + inv.getItem(1).getDmg();
+            maxhp = standartMaxHp + inv.getItem(1).getHeal();
+        }
+        else{
+            dmg = standartDmg;
+            maxhp = standartMaxHp;
+        }
     }
     
 }
