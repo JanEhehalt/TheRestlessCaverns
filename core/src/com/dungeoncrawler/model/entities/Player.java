@@ -48,7 +48,11 @@ public class Player extends Entity {
             dmg = standartDmg;
             maxhp = standartMaxHp;
         }
+    }
 
+    public void move(int x, int y){
+    
+    }
     
     
 }
