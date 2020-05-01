@@ -22,9 +22,13 @@ public class HudContainer {
     Sprite[] InventoryItemSprites;
     float[] invXPos;
     float[] invYPos;
+    int selected;
+    Texture selectedTexture;
+    Sprite selectedSprite;
     
     public HudContainer(){
-    
+        selectedTexture = new Texture("sprites/selected.png");
+        selectedSprite = new Sprite(selectedTexture);
         HudTexture = new Texture("sprites/hud.png");
         HudSprite = new Sprite(HudTexture);
         HudSprite.setX(-HudSprite.getWidth());
@@ -40,6 +44,7 @@ public class HudContainer {
         invXPos[1] = HudSprite.getX() + 85f;
         invYPos[1] = HudSprite.getY() + 112f;
 
+        
         invXPos[2] = HudSprite.getX() + 10f;
         invYPos[2] = HudSprite.getY() + 61f;
         invXPos[3] = HudSprite.getX() + 61f;
@@ -53,21 +58,25 @@ public class HudContainer {
         invYPos[6] = HudSprite.getY() + 10f;
         invXPos[7] = HudSprite.getX() + 112f;
         invYPos[7] = HudSprite.getY() + 10f;
+        
+        selected = 2;
+        selectedSprite.setX(invXPos[selected] - 2f);
+        selectedSprite.setY(invYPos[selected] - 2f);
     
     }
     
     public void updateInventory(SpriteBatch batch, Player p){
         InventoryItemSprites = new Sprite[8];
                 
-            Item[][] items = p.getInv().getItem();
+            Item[] items = p.getInv().getItem();
             
             for(int x = 0; x < items.length; x++){
-                for(int y = 0; y < items[0].length; y++){
-                    if(items[x][y] != null){
-                        addItem(items[x][y]);
+                    if(items[x] != null){
+                        addItem(items[x], x);
                     }
-                }
             }
+            selectedSprite.setX(invXPos[selected] - 2f);
+            selectedSprite.setY(invYPos[selected] - 2f);
             batch.begin();
             HudSprite.draw(batch);
             for(int i = 0; i < InventoryItemSprites.length ;i++){
@@ -75,48 +84,47 @@ public class HudContainer {
                         InventoryItemSprites[i].draw(batch);
                     }
                 }
+            selectedSprite.draw(batch);
             batch.end();
             
     }
     
-    public void addItem(Item item){
+    public void addItem(Item item, int x){
             switch(item.getId()){
                 case 0:
-                    for(int i = 2; i < InventoryItemSprites.length; i++){
-                        if(InventoryItemSprites[i] == null){
-                            //InventoryItemTextures[i] = new Texture("sprites/itemTest.png");
-                            InventoryItemTextures[i] = new Texture("sprites/key.png");
-                            InventoryItemSprites[i] = new Sprite(InventoryItemTextures[i]);
-                            InventoryItemSprites[i].setX(invXPos[i]);
-                            InventoryItemSprites[i].setY(invYPos[i]);
-                            break;
-                        }
+                    if(InventoryItemSprites[x] == null){
+                        //InventoryItemTextures[i] = new Texture("sprites/itemTest.png");
+                        InventoryItemTextures[x] = new Texture("sprites/key.png");
+                        InventoryItemSprites[x] = new Sprite(InventoryItemTextures[x]);
+                        InventoryItemSprites[x].setX(invXPos[x]);
+                        InventoryItemSprites[x].setY(invYPos[x]);
+                        break;
                     }
                     break;
                 case 1:
-                    for(int i = 2; i < InventoryItemSprites.length; i++){
-                        if(InventoryItemSprites[i] == null){
-                            //InventoryItemTextures[i] = new Texture("sprites/itemTest.png");
-                            InventoryItemTextures[i] = new Texture("sprites/healingPotion.png");
-                            InventoryItemSprites[i] = new Sprite(InventoryItemTextures[i]);
-                            InventoryItemSprites[i].setX(invXPos[i]);
-                            InventoryItemSprites[i].setY(invYPos[i]);
-                            break;
-                        }
+                    if(InventoryItemSprites[x] == null){
+                        //InventoryItemTextures[i] = new Texture("sprites/itemTest.png");
+                        InventoryItemTextures[x] = new Texture("sprites/healingPotion.png");
+                        InventoryItemSprites[x] = new Sprite(InventoryItemTextures[x]);
+                        InventoryItemSprites[x].setX(invXPos[x]);
+                        InventoryItemSprites[x].setY(invYPos[x]);
+                        break;
                     }
                     break;
                 case 2:
-                    for(int i = 2; i < InventoryItemSprites.length; i++){
-                        if(InventoryItemSprites[i] == null){
+                        if(InventoryItemSprites[x] == null){
                             //InventoryItemTextures[i] = new Texture("sprites/itemTest.png");
-                            InventoryItemTextures[i] = new Texture("sprites/sword.png");
-                            InventoryItemSprites[i] = new Sprite(InventoryItemTextures[i]);
-                            InventoryItemSprites[i].setX(invXPos[i]);
-                            InventoryItemSprites[i].setY(invYPos[i]);
+                            InventoryItemTextures[x]= new Texture("sprites/sword.png");
+                            InventoryItemSprites[x] = new Sprite(InventoryItemTextures[x]);
+                            InventoryItemSprites[x].setX(invXPos[x]);
+                            InventoryItemSprites[x].setY(invYPos[x]);
                             break;
                         }
-                    }
                     break;
             }
         }
+    
+    public void setSelected(int i){
+            selected = i;
+    }
 }

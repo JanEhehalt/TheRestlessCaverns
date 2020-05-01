@@ -3,8 +3,7 @@ package com.dungeoncrawler.model;
 
 public class Inventory {
     
-    Item items[][];
-    Item equipped[];
+    Item items[];
     int selected;
     int width;
     int height;
@@ -12,44 +11,63 @@ public class Inventory {
     public Inventory(int width, int height){
         this.width = width;
         this.height = height;
-        items = new Item[width][height];
-        equipped = new Item[2];
+        items = new Item[8];
+        selected = 2;
     }
     
     public void addItem(Item i)
     {
-        for(int n = 0; n < items.length; n++){
-            for(int m = 0; m < items[0].length; m++){
-                if(items[n][m] == null){
-                    items[n][m] = i;
+        for(int n = 2; n < items.length; n++){
+                if(items[n] == null){
+                    items[n] = i;
                     n = items.length + 1;
                     break;
                 } 
+        }
+    }
+    
+    public void equipItem(){
+        if(selected == 0 || selected == 1){
+            Item temp0 = items[selected];
+            items[selected] = null;
+                addItem(temp0);
+        }
+        else{
+            if(items[selected] == null || items[selected].getId() == 0){}
+            else{
+                switch(items[selected].getId()){
+                    case 0:
+                        break;
+                    case 1:
+                        Item temp1 = items[0];
+                        items[0] = items[selected];
+                        items[selected] = temp1;
+                        break;
+                    case 2:
+                        Item temp2 = items[1];
+                        items[1] = items[selected];
+                        items[selected] = temp2;
+                        break;
+                }
             }
         }
     }
     
-    public void equipItem(int x, int y){
-        if(items[x][y] == null || items[x][y].getId() == 0){}
-        else{
-            int slot = items[x][y].getId() - 1;
-            Item temp = equipped[slot];
-            equipped[slot] = items[x][y];
-            items[x][y] = temp;
-        }
+    
+    public void scroll(int i){
+        selected += i;
+    }
+    
+    public void dropItem(int x){
+        items[x] = null;
     }
     
     
-    public void dropItem(int x, int y){
-        items[x][y] = null;
+    public Item getItem(int x){
+        return items[x];
     }
     
-    
-    public Item getItem(int x, int y){
-        return items[x][y];
-    }
-    
-    public Item[][] getItem(){
+    public Item[] getItem(){
         return items;
     }
     
@@ -58,6 +76,9 @@ public class Inventory {
     }
     public int getHeight(){
         return height;
+    }
+    public int getSelected(){
+        return selected;
     }
     
 }

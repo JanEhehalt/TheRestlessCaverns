@@ -352,51 +352,12 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                     }
                 }
                 
-                
-                if(keycode == Input.Keys.G){
+                if(keycode == Input.Keys.R){
                     if(v != null){}
                     if(m != null && m.getIsLoading() == false){
-                        Item k = new Potion(1);
-                        //m.addItem(k);
-                        //d.setCurrentItemContainer(m.playerPickUp(d.getCurrentItemContainer(), d.getPlayer()));
+                        d.getPlayer().getInv().equipItem();
                     }
                 }
-                if(keycode == Input.Keys.H){
-                    if(v != null){}
-                    if(m != null && m.getIsLoading() == false){
-                        Item k = new Key(1);
-                        //m.addItem(k);
-                        //d.setCurrentItemContainer(m.playerPickUp(d.getCurrentItemContainer(), d.getPlayer()));
-                    }
-                }
-                /*
-                if(keycode == Input.Keys.NUM_1){
-                    m.moveItem(0);
-                }
-                if(keycode == Input.Keys.NUM_2){
-                    m.moveItem(1);
-                }
-                if(keycode == Input.Keys.NUM_3){
-                    m.moveItem(2);
-                }
-                if(keycode == Input.Keys.NUM_4){
-                    m.moveItem(3);
-                }
-                if(keycode == Input.Keys.NUM_5){
-                    m.moveItem(4);
-                }
-                if(keycode == Input.Keys.NUM_6){
-                    m.moveItem(5);
-                }
-                if(keycode == Input.Keys.NUM_7){
-                    m.moveItem(6);
-                }
-                if(keycode == Input.Keys.NUM_8){
-                    m.moveItem(7);
-                }
-                */
-                
-                
                 
                 if(keycode == Input.Keys.UP){
                     volume += 0.1f;
@@ -519,7 +480,16 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
 
     @Override
     public boolean scrolled(int i) {
-        return false;
+        if(m != null){
+        if(i == -1 && d.getPlayer().getInv().getSelected() == 0){return true;}
+        else if(i == 1 && d.getPlayer().getInv().getSelected() == 7){return true;}
+        else{
+            d.getPlayer().getInv().scroll(i);
+            hc.setSelected(d.getPlayer().getInv().getSelected());
+            return true;
+            }
+        }
+        return true;
     }
     
 }
