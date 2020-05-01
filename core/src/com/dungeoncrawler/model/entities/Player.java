@@ -20,7 +20,7 @@ public class Player extends Entity {
     public Player() {
         super(200, 200, 1);
         
-        this.maxhp = 5 * lvl;
+        this.maxhp = 5 * (lvl + 1);
         this.hp = this.maxhp;
         standartMaxHp = this.maxhp;
         

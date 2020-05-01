@@ -29,10 +29,12 @@ public class HudContainer {
     
     Texture playerHealthTexture;
     Sprite playerHealthSprite;
+    float playerHealthX;
+    float playerHealthY;
     
     public HudContainer(){
-        playerHealthTexture = new Texture("sprites/playerHealthBar.png");
-        playerHealthSprite = new Sprite();
+        
+        
         selectedTexture = new Texture("sprites/selected.png");
         selectedSprite = new Sprite(selectedTexture);
         HudTexture = new Texture("sprites/hud.png");
@@ -43,6 +45,12 @@ public class HudContainer {
         InventoryItemSprites = new Sprite[8];
         invXPos = new float[8];
         invYPos = new float[8];
+        
+        playerHealthTexture = new Texture("sprites/playerHealthBar.png");
+        playerHealthSprite = new Sprite();
+        playerHealthX = HudSprite.getX()+36f;
+        playerHealthY = HudSprite.getY()+260f;
+        
         //Equipped 1
         invXPos[0] = HudSprite.getX() + 37f;
         invYPos[0] = HudSprite.getY() + 112f;
@@ -68,6 +76,9 @@ public class HudContainer {
         selected = 2;
         selectedSprite.setX(invXPos[selected] - 2f);
         selectedSprite.setY(invYPos[selected] - 2f);
+        
+        
+        
     }
     
     public void updateHud(SpriteBatch batch, Player p){
@@ -83,13 +94,11 @@ public class HudContainer {
             selectedSprite.setX(invXPos[selected] - 2f);
             selectedSprite.setY(invYPos[selected] - 2f);
             
-            p.setHp(3);
             float n = p.getHp() / p.getMaxhp();
             int newWidth = (int) (n * 122);
             TextureRegion[][] playerHealthRegion = TextureRegion.split(playerHealthTexture,newWidth, playerHealthTexture.getHeight());
-            
             playerHealthSprite = new Sprite(playerHealthRegion[0][0]);
-            playerHealthSprite.setPosition(200f, 200f);
+            playerHealthSprite.setPosition(playerHealthX, playerHealthY);
             
             batch.begin();
             HudSprite.draw(batch);
