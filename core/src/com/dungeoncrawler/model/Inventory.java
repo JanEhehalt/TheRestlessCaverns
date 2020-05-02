@@ -18,6 +18,13 @@ public class Inventory {
     public void addItem(Item i)
     {
         for(int n = 2; n < items.length; n++){
+            if(i.getId() == 2){
+                if(items[1] == null){
+                    items[1] = i;
+                    n = items.length + 1;
+                    break;
+                } 
+            }
                 if(items[n] == null){
                     items[n] = i;
                     n = items.length + 1;
