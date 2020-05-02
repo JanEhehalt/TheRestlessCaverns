@@ -302,17 +302,19 @@ public class GameScreen {
                         entitySprites[i].draw(batch);
                         entitySprites[i].setX(e[i].getxPos());
                         entitySprites[i].setY(e[i].getyPos());
-                        if(e[i].getHp() < e[i].getMaxhp() && e[i].getHp() > 0){
-                            healthBar = new Texture("sprites/halfHealthEntity.png");
-                            Sprite healthBarSprite = new Sprite(healthBar);
-                            healthBarSprite.setPosition(e[i].getxPos(), e[i].getyPos());
-                            healthBarSprite.draw(batch);
-                        }
-                        else if(e[i].getHp() == e[i].getMaxhp()){
-                            healthBar = new Texture("sprites/fullHealthEntity.png");
-                            Sprite healthBarSprite = new Sprite(healthBar);
-                            healthBarSprite.setPosition(e[i].getxPos(), e[i].getyPos());
-                            healthBarSprite.draw(batch);
+                        if(e[i].getId() != 2){
+                            if(e[i].getHp() < e[i].getMaxhp() && e[i].getHp() > 0){
+                                healthBar = new Texture("sprites/halfHealthEntity.png");
+                                Sprite healthBarSprite = new Sprite(healthBar);
+                                healthBarSprite.setPosition(e[i].getxPos(), e[i].getyPos());
+                                healthBarSprite.draw(batch);
+                            }
+                            else if(e[i].getHp() == e[i].getMaxhp()){
+                                healthBar = new Texture("sprites/fullHealthEntity.png");
+                                Sprite healthBarSprite = new Sprite(healthBar);
+                                healthBarSprite.setPosition(e[i].getxPos(), e[i].getyPos());
+                                healthBarSprite.draw(batch);
+                            }
                         }
                     }
                 }
@@ -352,7 +354,7 @@ public class GameScreen {
                             entitySprites[i].setY(e[i].getyPos());
                         }
                         if(e[i].getId() == 2){
-                            Texture tx = new Texture("sprites/sword.png");
+                            Texture tx = new Texture("sprites/arrow.png");
                             //swordsmanRegions = TextureRegion.split(entityTextures[i], 48, 48);
                             entitySprites[i] = new Sprite(tx);
                             entitySprites[i].setX(e[i].getxPos());
