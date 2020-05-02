@@ -6,6 +6,7 @@
 package com.dungeoncrawler.view;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -32,9 +33,15 @@ public class HudContainer {
     float playerHealthX;
     float playerHealthY;
     
+    BitmapFont font;
+    float HudPosX;
+    float HudPosY;
+    
     public HudContainer(){
         
         
+        font = new BitmapFont();
+        font.setColor(1, 1, 1, 1);
         selectedTexture = new Texture("sprites/selected.png");
         selectedSprite = new Sprite(selectedTexture);
         HudTexture = new Texture("sprites/hud.png");
@@ -46,32 +53,38 @@ public class HudContainer {
         invXPos = new float[8];
         invYPos = new float[8];
         
+        
+        
         playerHealthTexture = new Texture("sprites/playerHealthBar.png");
         playerHealthSprite = new Sprite();
-        playerHealthX = HudSprite.getX()+36f;
-        playerHealthY = HudSprite.getY()+260f;
+        
+        HudPosX = HudSprite.getX();
+        HudPosY = HudSprite.getY();
+        
+        playerHealthX = HudPosX+36f;
+        playerHealthY = HudPosY+260f;
         
         //Equipped 1
-        invXPos[0] = HudSprite.getX() + 37f;
-        invYPos[0] = HudSprite.getY() + 112f;
+        invXPos[0] = HudPosX + 37f;
+        invYPos[0] = HudPosY + 112f;
         //Equipped 2
-        invXPos[1] = HudSprite.getX() + 85f;
-        invYPos[1] = HudSprite.getY() + 112f;
+        invXPos[1] = HudPosX + 85f;
+        invYPos[1] = HudPosY + 112f;
 
         
-        invXPos[2] = HudSprite.getX() + 10f;
-        invYPos[2] = HudSprite.getY() + 61f;
-        invXPos[3] = HudSprite.getX() + 61f;
-        invYPos[3] = HudSprite.getY() + 61f;
-        invXPos[4] = HudSprite.getX() + 112f;
-        invYPos[4] = HudSprite.getY() + 61f;
+        invXPos[2] = HudPosX + 10f;
+        invYPos[2] = HudPosY + 61f;
+        invXPos[3] = HudPosX + 61f;
+        invYPos[3] = HudPosY + 61f;
+        invXPos[4] = HudPosX + 112f;
+        invYPos[4] = HudPosY + 61f;
 
-        invXPos[5] = HudSprite.getX() + 10f;
-        invYPos[5] = HudSprite.getY() + 10f;
-        invXPos[6] = HudSprite.getX() + 61f;
-        invYPos[6] = HudSprite.getY() + 10f;
-        invXPos[7] = HudSprite.getX() + 112f;
-        invYPos[7] = HudSprite.getY() + 10f;
+        invXPos[5] = HudPosX + 10f;
+        invYPos[5] = HudPosY + 10f;
+        invXPos[6] = HudPosX + 61f;
+        invYPos[6] = HudPosY + 10f;
+        invXPos[7] = HudPosX + 112f;
+        invYPos[7] = HudPosY + 10f;
         
         selected = 2;
         selectedSprite.setX(invXPos[selected] - 2f);
@@ -82,7 +95,7 @@ public class HudContainer {
     }
     
     public void updateHud(SpriteBatch batch, Player p){
-        InventoryItemSprites = new Sprite[8];
+            InventoryItemSprites = new Sprite[8];
                 
             Item[] items = p.getInv().getItem();
             
@@ -109,6 +122,34 @@ public class HudContainer {
                 }
             selectedSprite.draw(batch);
             playerHealthSprite.draw(batch);
+            
+            if(items[selected] != null){
+                
+                String selectedName = "";
+                int selectedPerkValue = 0;
+                String perk = "";
+                String lvl = "Lvl: "+ items[selected].getLvl();
+                
+                switch(items[selected].getId()){
+                    case 0:
+                        selectedName = "key  ";
+                        break;
+                    case 1:
+                        selectedName = "Potion  ";
+                        perk = "Heal: ";
+                        selectedPerkValue = items[selected].getHeal();
+                        break;
+                    case 2:
+                        selectedName = "Amulet  ";
+                        perk = "Damage: ";
+                        selectedPerkValue = items[selected].getDmg();
+                
+                }
+                font.draw(batch, selectedName + lvl, HudPosX + 40, HudPosY + 210);
+                font.draw(batch, perk + selectedPerkValue, HudPosX + 40, HudPosY + 190);
+            }
+            
+            
             batch.end();
             
             
@@ -129,7 +170,7 @@ public class HudContainer {
                 case 1:
                     if(InventoryItemSprites[x] == null){
                         //InventoryItemTextures[i] = new Texture("sprites/itemTest.png");
-                        InventoryItemTextures[x] = new Texture("sprites/healingPotion.png");
+                        InventoryItemTextures[x] = new Texture("sprites/potion.png");
                         InventoryItemSprites[x] = new Sprite(InventoryItemTextures[x]);
                         InventoryItemSprites[x].setX(invXPos[x]);
                         InventoryItemSprites[x].setY(invYPos[x]);
@@ -139,7 +180,7 @@ public class HudContainer {
                 case 2:
                         if(InventoryItemSprites[x] == null){
                             //InventoryItemTextures[i] = new Texture("sprites/itemTest.png");
-                            InventoryItemTextures[x]= new Texture("sprites/sword.png");
+                            InventoryItemTextures[x]= new Texture("sprites/amulet.png");
                             InventoryItemSprites[x] = new Sprite(InventoryItemTextures[x]);
                             InventoryItemSprites[x].setX(invXPos[x]);
                             InventoryItemSprites[x].setY(invYPos[x]);

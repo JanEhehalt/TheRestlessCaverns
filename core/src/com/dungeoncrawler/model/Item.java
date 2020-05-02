@@ -29,6 +29,9 @@ public abstract class Item {
     public int getHeal(){
         return heal;
     }
+    public int getLvl(){
+        return lvl;
+    }
     /**
      * @return the amount
      */

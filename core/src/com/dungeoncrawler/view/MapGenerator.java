@@ -36,7 +36,7 @@ public class MapGenerator {
             allTiles[i] = TextureRegion.split(tiles[i], 48, 48);
         }
         torchT = new Texture("sprites/torch.png");
-        sword = new Texture("sprites/sword.png");
+        sword = new Texture("sprites/amulet.png");
     }
     
     public Map generateMap(Dungeon d){
