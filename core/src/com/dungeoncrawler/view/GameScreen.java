@@ -90,7 +90,7 @@ public class GameScreen {
                 
                 //ENTITIES
                 entityTextures = new Texture[5];
-                entitySprites = new Sprite[5];
+                entitySprites = new Sprite[15];
                 
                 arrowTextures = new Texture[10];
                 arrowSprites = new Sprite[10];
@@ -231,26 +231,9 @@ public class GameScreen {
                 camera.update();
                 batch.setProjectionMatrix(camera.combined);
 
-                for(int i = 0; i < e.length; i++){
-                    if(e[i] != null){
-                        if(e[i].getId() == 0){ //nimmt entity ID -> 0 = Archer || 1 = Swordsman || 2 = Arrow
-                            entityTextures[i] = new Texture("sprites/archer.png");
-                            archerRegions = TextureRegion.split(entityTextures[i], 48, 48);
-                            entitySprites[i] = new Sprite(archerRegions[0][2]);
-                            entitySprites[i].setX(e[i].getxPos());
-                            entitySprites[i].setY(e[i].getyPos());
-                        }
-                        if(e[i].getId() == 1){
-                            entityTextures[i] = new Texture("sprites/swordsman.png");
-                            swordsmanRegions = TextureRegion.split(entityTextures[i], 48, 48);
-                            entitySprites[i] = new Sprite(swordsmanRegions[0][2]);
-                            entitySprites[i].setX(e[i].getxPos());
-                            entitySprites[i].setY(e[i].getyPos());
-                        }
-                    }
-                } 
                 
-            
+                
+                updateEntitySprite(e);
                 
 
             //BATCH
@@ -351,7 +334,33 @@ public class GameScreen {
             batch.end();
 	}
         
-        
+        public void updateEntitySprite(Entity[] e){
+            for(int i = 0; i < e.length; i++){
+                    if(e[i] != null){
+                        if(e[i].getId() == 0){ //nimmt entity ID -> 0 = Archer || 1 = Swordsman || 2 = Arrow
+                            entityTextures[i] = new Texture("sprites/archer.png");
+                            archerRegions = TextureRegion.split(entityTextures[i], 48, 48);
+                            entitySprites[i] = new Sprite(archerRegions[0][2]);
+                            entitySprites[i].setX(e[i].getxPos());
+                            entitySprites[i].setY(e[i].getyPos());
+                        }
+                        if(e[i].getId() == 1){
+                            entityTextures[i] = new Texture("sprites/swordsman.png");
+                            swordsmanRegions = TextureRegion.split(entityTextures[i], 48, 48);
+                            entitySprites[i] = new Sprite(swordsmanRegions[0][2]);
+                            entitySprites[i].setX(e[i].getxPos());
+                            entitySprites[i].setY(e[i].getyPos());
+                        }
+                        if(e[i].getId() == 2){
+                            Texture tx = new Texture("sprites/sword.png");
+                            //swordsmanRegions = TextureRegion.split(entityTextures[i], 48, 48);
+                            entitySprites[i] = new Sprite(tx);
+                            entitySprites[i].setX(e[i].getxPos());
+                            entitySprites[i].setY(e[i].getyPos());
+                        }
+                    }
+                } 
+        }
         
         
         public Entity[] playerAttack(Entity e[], Player p, SpriteBatch batch){

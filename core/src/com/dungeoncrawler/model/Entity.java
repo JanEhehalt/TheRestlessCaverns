@@ -8,9 +8,9 @@ public abstract class Entity {
     
     protected float xPos;
     protected float yPos;
-    protected int hp;
-    protected int maxhp;
-    protected int dmg;
+    protected float hp;
+    protected float maxhp;
+    protected float dmg;
     protected int lvl;
     protected float movementX;
     protected float movementY;
@@ -29,8 +29,13 @@ public abstract class Entity {
         this.direction = 2;
     }
     
-    public void attack(){
-        
+    public void attack(Entity e){
+        if(e.getHp() - this.dmg < 0){
+            e.setHp(1);
+        }
+        else{
+            e.setHp(e.getHp() - this.dmg);
+        }
     }
     public void update(){
         xPos += movementX;
@@ -65,7 +70,7 @@ public abstract class Entity {
         }
     }
     
-    abstract public void move(int xPosPlayer, int yPosPlayer);
+    abstract public Entity move(int xPosPlayer, int yPosPlayer);
     
     // GETTER + SETTER
     public float getxPos() {
@@ -84,27 +89,27 @@ public abstract class Entity {
         this.yPos = yPos;
     }
 
-    public int getHp() {
+    public float getHp() {
         return hp;
     }
 
-    public void setHp(int hp) {
+    public void setHp(float hp) {
         this.hp = hp;
     }
 
-    public int getMaxhp() {
+    public float getMaxhp() {
         return maxhp;
     }
 
-    public void setMaxhp(int maxhp) {
+    public void setMaxhp(float maxhp) {
         this.maxhp = maxhp;
     }
 
-    public int getDmg() {
+    public float getDmg() {
         return dmg;
     }
 
-    public void setDmg(int dmg) {
+    public void setDmg(float dmg) {
         this.dmg = dmg;
     }
 
