@@ -12,6 +12,7 @@ public class Arrow extends Entity{
     float xStart;
     float yStart;
     int direction;
+    int lifetime;
     
     public Arrow(float xPos, float yPos, int lvl, int direction){
         super(xPos, yPos, lvl);
@@ -20,7 +21,7 @@ public class Arrow extends Entity{
         this.direction = direction;
         this.dmg = 3*lvl;
         this.id = 2;
-        
+        this.lifetime = 0;
     }
     
     public float getxStart(){
@@ -32,8 +33,14 @@ public class Arrow extends Entity{
 
     @Override
     public Entity move(int xPosPlayer, int yPosPlayer) {
+        lifetime++;
+        
         xPos += movementX;
         yPos += movementY;
+        
+        if(this.lifetime > 50){
+            this.toDelete = true;
+        }
         
         return null;
     }

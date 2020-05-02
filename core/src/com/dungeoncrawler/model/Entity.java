@@ -17,6 +17,7 @@ public abstract class Entity {
     protected int id;
     protected int direction;
     protected Inventory inv;
+    protected boolean toDelete;
     
     
 
@@ -27,6 +28,7 @@ public abstract class Entity {
         this.movementX = 0;
         this.movementY = 0;
         this.direction = 2;
+        this.toDelete = false;
     }
     
     public void attack(Entity e){
@@ -147,6 +149,10 @@ public abstract class Entity {
     
     public void setDirection(int direction){
         this.direction = direction;
+    }
+    
+    public boolean getToDelete(){
+        return this.toDelete;
     }
     
 }

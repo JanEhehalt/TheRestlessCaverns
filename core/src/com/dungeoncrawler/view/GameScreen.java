@@ -253,11 +253,6 @@ public class GameScreen {
                     mapItem.getSprite().draw(batch);
                 }
                 
-                // Player wird gedrawt
-                for(Sprite sprite : player.getSprites()){
-                    sprite.draw(batch);
-                }
-                
                 //controls.draw(batch);
                     //DRAW'T JEDES ENTITY - prueft vorher ob vorhanden
                 for(int i = 0; i < e.length; i++){
@@ -315,6 +310,11 @@ public class GameScreen {
                             healthBarSprite.draw(batch);
                         }
                     }
+                }
+                
+                // Player wird gedrawt
+                for(Sprite sprite : player.getSprites()){
+                    sprite.draw(batch);
                 }
                 
                 /*
@@ -447,38 +447,6 @@ public class GameScreen {
             }
             return e;
         }
-        
-        /*
-        public void moveItem(int i){
-            if(i == 0){
-                if(InventoryItemSprites[i] != null){
-                    for(int n = 2; n < InventoryItemSprites.length ; n++){
-                        if(InventoryItemSprites[n] == null){
-                            InventoryItemTextures[n] = InventoryItemTextures[i];
-                            InventoryItemSprites[n] = InventoryItemSprites[i];
-                        }
-                    }
-                }
-            }
-        }
-        
-        */
-        
-        
-        /*
-        public ItemContainer playerPickUp(ItemContainer[] items, Player p){
-            for(int i = 0; i < items.length; i++){
-                if(items[i] != null){
-                    if(Intersector.overlaps(player.getBoundingRectangle(), itemSprite[i].getBoundingRectangle())){
-                        player.pickUp(items[i].getItem());
-                        items[i] = null;
-                    }
-                }
-                
-            }
-            return items;
-        }
-       */
         
         public void cleanUp(){
             music.dispose();

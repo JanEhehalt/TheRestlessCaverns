@@ -13,7 +13,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.MapLayers;
-import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.math.Intersector;
@@ -24,11 +23,7 @@ import com.dungeoncrawler.model.DungeonGenerator;
 import com.dungeoncrawler.model.entities.*;
 import com.dungeoncrawler.model.Entity;
 import com.badlogic.gdx.utils.Timer;
-import com.dungeoncrawler.model.Item;
 import com.dungeoncrawler.model.ItemContainer;
-import com.dungeoncrawler.model.items.Key;
-import com.dungeoncrawler.model.items.Potion;
-import com.dungeoncrawler.model.items.Amulet;
 import java.util.ArrayList;
 
 public class Controller extends ApplicationAdapter implements InputProcessor{
@@ -125,10 +120,15 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                                         boolean delete = false;
                                         if(Intersector.overlaps(tempObject.getBoundingRectangle(), playerSprite)){
                                             overlaps = true;
+                                            
                                             if(d.getCurrentEntities()[i].getId() == 2){
-                                                d.getCurrentEntities()[i].attack(d.getPlayer());
                                                 delete = true;
+                                                d.getCurrentEntities()[i].attack(d.getPlayer());
                                             }
+                                            else{
+                                                
+                                            }
+                                            
                                         }
                                         else{
                                             for(RectangleMapObject rectangleObject : mapObjects.getByType(RectangleMapObject.class)){
@@ -155,7 +155,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                                             }
                                                
                                         }
-
+                                        
                                         if(overlaps){
                                             d.getCurrentEntities()[i].setxPos(x);
                                             d.getCurrentEntities()[i].setyPos(y);
@@ -175,7 +175,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                                             }
                                         }
                                         
-                                        if(delete && d.getCurrentEntities()[i].getId() == 2){
+                                        if(delete && d.getCurrentEntities()[i].getId() == 2 || d.getCurrentEntities()[i].getToDelete()){
                                             d.getCurrentEntities()[i] = null;
                                             m.updateEntitySprite(d.getCurrentEntities());
                                             
@@ -351,6 +351,10 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
         d.setCurrentLevel(d.getLevel()[level]);
         d.setCurrentRoom(d.getCurrentLevel().getRooms()[roomPosX][roomPosY]);
         d.setCurrentEntities(d.getCurrentRoom().getEnemies());
+    }
+    
+    public void attack(Entity attacker, Entity[] e){
+        
     }
     
     public ArrayList<ItemContainer> playerPickUp(){
