@@ -50,7 +50,7 @@ public class Archer extends Entity{
         int distance = (int) Math.abs((deltaY / Math.sin(alpha)));
         
         Arrow a = null;
-        if(distance >= 124 && distance <= 164 && counter % 60 == 0){
+        if(distance >= 104 && distance <= 184 && counter % 40 == 0){
             a = new Arrow(this.xPos, this.yPos, this.lvl, 0);
             
             movementX = (int) (4 * Math.cos(alpha));
