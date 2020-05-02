@@ -23,8 +23,8 @@ public class Archer extends Entity{
 
     @Override
     public Entity move(int xPosPlayer, int yPosPlayer) {
-        int deltaX = xPosPlayer - (int) xPos;
-        int deltaY = yPosPlayer - (int) yPos;
+        float deltaX = xPosPlayer - (int) xPos;
+        float deltaY = yPosPlayer - (int) yPos;
         
         double alpha;
         if(deltaX == 0 && deltaY >= 0){
@@ -50,7 +50,7 @@ public class Archer extends Entity{
         int distance = (int) Math.abs((deltaY / Math.sin(alpha)));
         
         Arrow a = null;
-        if(distance >= 124 && distance <= 164 || counter % 30 == 0){
+        if(distance >= 124 && distance <= 164 && counter % 60 == 0){
             a = new Arrow(this.xPos, this.yPos, this.lvl, 0);
             
             movementX = (int) (4 * Math.cos(alpha));
@@ -68,12 +68,9 @@ public class Archer extends Entity{
                 movementX *= -1;
                 movementY *= -1;
             }
-            else if(distance >= 124/* && distance <= 164*/){
+            else if(distance >= 124 && distance <= 164){
                 movementX = 0;
                 movementY = 0;
-            }
-            else if(distance > 164){
-                
             }
             
             

@@ -14,18 +14,18 @@ import com.dungeoncrawler.model.Item;
  */
 public class Player extends Entity {
     
-    int standartDmg;
-    int standartMaxHp;
+    float standartDmg;
+    float standartMaxHp;
     
     public Player() {
         super(200, 200, 1);
         
-        this.maxhp = 5 * (lvl + 1);
+        this.maxhp = 20 * (lvl + 1);
         this.hp = this.maxhp;
         this.standartMaxHp = 5 * (lvl + 1);
         
         this.dmg = 3*lvl;
-        this.standartDmg = dmg = 3*lvl;
+        this.standartDmg = dmg;
         id = -1;
         inv = new Inventory(3,2);
         // TODO: Sinnvolle Werte finden
