@@ -213,12 +213,12 @@ public class GameScreen {
             //MAP
             tmr.setView(camera);
             tmr.render();
-
+            
             camera.zoom = 700f; // Standart 700f
 
             camera.update();
             batch.setProjectionMatrix(camera.combined);
-
+            
             updateEntitySprites(e);
             
             //BATCH
@@ -418,6 +418,17 @@ public class GameScreen {
          */
         public Map getM() {
             return m;
+        }
+        
+        public void stop(){
+            animations.stop();
+            animatePlayer.stop();
+            camera = null;
+        }
+        public void resume(){
+            animations.start();
+            animatePlayer.start();
+            
         }
        
 }

@@ -27,6 +27,8 @@ import com.dungeoncrawler.model.ItemContainer;
 import java.util.ArrayList;
 
 public class Controller extends ApplicationAdapter implements InputProcessor{
+    
+    
     SpriteBatch batch;
     Dungeon d;
     DungeonGenerator dg;
@@ -64,10 +66,15 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
     
     Timer entityMovement;
     
+    boolean isPaused;
+    
     
     
     @Override
     public void create(){
+        
+        isPaused = false;
+        
         volume = 0.05f;
         
         roomX = 10;
@@ -210,6 +217,8 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                             }
                     }
         },0, 0.03f);
+       
+        
         
         
     }
@@ -228,11 +237,13 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
         if(cs != null){
             cs.render(batch);
         }
+        if(ps != null){
+            ps.render(batch, volume);
+        }
         
         //PASSIERT IN GAMESCREEN
-        if(gs != null){
+        if(gs != null && mm == null && isPaused == false){
             
-            if(mm == null){
                 // Position des Players, etc. werden aktualisiert
                 updateObjects(level, roomPosX, roomPosY);
                 
@@ -251,7 +262,6 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                 gs.render(batch, d.getPlayer(), d.getCurrentEntities(), tileX, tileY, level, roomPosX, roomPosY);
                 hc.updateHud(batch, d.getPlayer());
                 d.getPlayer().updateItems();
-            }
         }
     }
     
@@ -480,6 +490,17 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                         d.getPlayer().getInv().dropItem();
                     }
                 }
+                if(keycode == Input.Keys.ESCAPE){
+                    if(gs != null && gs.getIsLoading() == false){
+                        stop();
+                    }
+                }
+                if(keycode == Input.Keys.TAB){
+                    if(gs != null && gs.getIsLoading() == false){
+                        resume();
+                    }
+                }
+                
                 return true;
     }
 
@@ -565,6 +586,10 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                 cs = null;
                 mm.appear();
                 return true;
+            
+            case 5:
+                resume();
+                return true;
                 
             case 9:
                 if(volume > 0f){
@@ -610,6 +635,9 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
         if(cs != null){
             return cs.click(x, y);
         }
+        if(gs != null && isPaused == true){
+        
+        }
         return -1;
     }
   
@@ -641,6 +669,21 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
             }
         }
         return true;
+    }
+    
+    public void stop(){
+        entityMovement.stop();
+        isPaused = true;
+        gs.stop();
+        
+        ps = new PauseScreen();
+    }
+    public void resume(){
+        isPaused = false;
+        entityMovement.start();
+        gs.resume();
+        
+        ps = null;
     }
     
 }
