@@ -18,7 +18,7 @@ public class Swordsman extends Entity {
     }
     
     @Override
-    public Entity move(int xPosPlayer, int yPosPlayer){
+    public boolean move(int xPosPlayer, int yPosPlayer){
         float deltaX = xPosPlayer - (int) xPos;
         float deltaY = yPosPlayer - (int) yPos;
         
@@ -49,8 +49,7 @@ public class Swordsman extends Entity {
         xPos += movementX;
         yPos += movementY;
         
-            System.out.println("Winkel: " + Math.toDegrees(alpha));
-        return null;
+        return false;
     }
     
     

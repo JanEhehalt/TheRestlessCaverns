@@ -117,8 +117,9 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                                         int x = (int) temp.getxPos();
                                         int y = (int) temp.getyPos();
 
-                                        Entity arrow = d.getCurrentEntities()[i].move((int) d.getPlayer().getxPos(), (int) d.getPlayer().getyPos());
-                                        if(arrow != null && gs.entitySprites[i].getAttackState() == 0){
+                                        boolean attacks = d.getCurrentEntities()[i].move((int) d.getPlayer().getxPos(), (int) d.getPlayer().getyPos());
+                                        
+                                        if(attacks && gs.entitySprites[i].getAttackState() == 0){
                                             gs.entitySprites[i].startAttack();
                                         }
 
@@ -188,9 +189,10 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
 
                                         gs.entitySprites[i] = tempObject;
 
-                                        if(arrow != null && gs.entitySprites[i].getAttackState() == 2){
+                                        if(d.getCurrentEntities()[i].getId() == 0 && gs.entitySprites[i].getAttackState() == 2){
                                             for(int k = 5; k < d.getCurrentEntities().length; k++){
                                                 if(d.getCurrentEntities()[k] == null){
+                                                    Entity arrow = d.getCurrentEntities()[i].shoot((int) d.getPlayer().getxPos(), (int) d.getPlayer().getyPos());
                                                     d.getCurrentEntities()[k] = arrow;
                                                     gs.generateNewEntitySprite(arrow, k);
                                                     gs.entitySprites[i].resetAttackState();

@@ -18,6 +18,7 @@ public abstract class Entity {
     protected int direction;
     protected Inventory inv;
     protected boolean toDelete;
+    private double angle;
     
     
 
@@ -39,6 +40,11 @@ public abstract class Entity {
             e.setHp(e.getHp() - this.dmg);
         }
     }
+    
+    public Entity shoot(int xPosPlayer, int yPosPlayer){
+        return null;
+    }
+    
     public void update(){
         xPos += movementX;
         yPos += movementY;
@@ -56,12 +62,7 @@ public abstract class Entity {
     public void die(){
     
     }
-    public void move(){
-            xPos = xPos + movementX;
-            yPos = yPos + movementY;
-            movementX = 0;
-            movementY = 0;
-    }
+    abstract public boolean move(int xPosPlayer, int yPosPlayer);
     
     public void updateDirection(){
         if(movementX > 1){
@@ -71,8 +72,6 @@ public abstract class Entity {
             direction = 0;
         }
     }
-    
-    abstract public Entity move(int xPosPlayer, int yPosPlayer);
     
     // GETTER + SETTER
     public float getxPos() {
@@ -153,6 +152,20 @@ public abstract class Entity {
     
     public boolean getToDelete(){
         return this.toDelete;
+    }
+
+    /**
+     * @return the angle
+     */
+    public double getAngle() {
+        return angle;
+    }
+
+    /**
+     * @param angle the angle to set
+     */
+    public void setAngle(double angle) {
+        this.angle = angle;
     }
     
 }

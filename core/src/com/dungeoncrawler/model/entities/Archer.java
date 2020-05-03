@@ -22,7 +22,7 @@ public class Archer extends Entity{
     }
 
     @Override
-    public Entity move(int xPosPlayer, int yPosPlayer) {
+    public boolean move(int xPosPlayer, int yPosPlayer) {
         float deltaX = xPosPlayer - (int) xPos;
         float deltaY = yPosPlayer - (int) yPos;
         
@@ -49,15 +49,8 @@ public class Archer extends Entity{
         
         int distance = (int) Math.abs((deltaY / Math.sin(alpha)));
         
-        Arrow a = null;
         if(distance >= 104 && distance <= 184 && counter % 40 == 0){
-            a = new Arrow(this.xPos, this.yPos, this.lvl, 0);
-            
-            movementX = (int) (4 * Math.cos(alpha));
-            movementY = (int) (4 * Math.sin(alpha));
-            
-            a.setMovementX(movementX);
-            a.setMovementY(movementY);
+            return true;
         }
         else{
             movementX = (int) (3 * Math.cos(alpha));
@@ -79,9 +72,45 @@ public class Archer extends Entity{
         }
         
         counter++;
-        return a;
+        
+        return false;
     }
     
-    
+    @Override
+    public Entity shoot(int xPosPlayer, int yPosPlayer){
+        
+        float deltaX = xPosPlayer - (int) xPos;
+        float deltaY = yPosPlayer - (int) yPos;
+        
+        double alpha;
+        if(deltaX == 0 && deltaY >= 0){
+            alpha = Math.PI / 2;
+        }
+        else if(deltaX == 0 && deltaY < 0){
+            alpha = Math.PI / -2;
+        }
+        else{
+            alpha = Math.abs(Math.atan(deltaY / deltaX));
+            
+            if(deltaX < 0 && deltaY < 0){
+                alpha = Math.PI + alpha;
+            }
+            else if(deltaX < 0 && deltaY > 0){
+                alpha = Math.PI - alpha;
+            }
+            else if(deltaX > 0 && deltaY < 0){
+                alpha = 2*Math.PI - alpha;
+            }
+        }
+        Arrow a = new Arrow(this.xPos, this.yPos, this.lvl, 0);
+        movementX = (int) (5 * Math.cos(alpha));
+        movementY = (int) (5 * Math.sin(alpha));
+
+        a.setMovementX(movementX);
+        a.setMovementY(movementY);
+        a.setAngle(alpha);
+        
+        return a;
+    }
     
 }

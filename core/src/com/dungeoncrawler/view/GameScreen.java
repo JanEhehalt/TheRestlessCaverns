@@ -83,7 +83,7 @@ public class GameScreen {
                 playerTexture[2] = new Texture(Gdx.files.internal("sprites/player.png"));
                 playerTexture[3] = new Texture(Gdx.files.internal("sprites/player.png"));
                 
-                player = new EntitySprite(playerTexture);
+                player = new EntitySprite(playerTexture, 64, 64);
                 
                 player.update(200, 200);
                 
@@ -279,16 +279,22 @@ public class GameScreen {
                 Texture[] tx = new Texture[1];
                 if(e.getId() == 0){ //nimmt entity ID -> 0 = Archer || 1 = Swordsman || 2 = Arrow
                     tx[0] = new Texture("sprites/archer.png");
+                    entitySprites[i] = new EntitySprite(tx, 64, 64);
                 }
                 if(e.getId() == 1){
                     tx[0] = new Texture("sprites/swordsman.png");
+                    entitySprites[i] = new EntitySprite(tx, 64, 64);
                 }
                 if(e.getId() == 2){
-                    tx[0] = new Texture("sprites/player.png");
+                    tx[0] = new Texture("sprites/arrow.png");
+                    entitySprites[i] = new EntitySprite(tx, 18, 9);
                 }
 
-                entitySprites[i] = new EntitySprite(tx);
                 entitySprites[i].update((int) e.getxPos(), (int) e.getyPos());
+                
+                if(e.getId() == 2){
+                    entitySprites[i].getSprites()[0].setRotation((float) Math.toDegrees(e.getAngle() + Math.PI));
+                }
             }
         }
         
