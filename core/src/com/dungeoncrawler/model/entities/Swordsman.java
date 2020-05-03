@@ -49,6 +49,8 @@ public class Swordsman extends Entity {
         xPos += movementX;
         yPos += movementY;
         
+        updateDirection();
+        
         return false;
     }
     
