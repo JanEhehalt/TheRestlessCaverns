@@ -118,13 +118,13 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                                         int y = (int) temp.getyPos();
 
                                         Entity arrow = d.getCurrentEntities()[i].move((int) d.getPlayer().getxPos(), (int) d.getPlayer().getyPos());
-                                        Sprite tempObject = gs.entitySprites[i];
-                                        tempObject.setPosition(temp.getxPos(), temp.getyPos());
 
+                                        EntitySprite tempObject = gs.entitySprites[i];
+                                        tempObject.update((int) temp.getxPos(), (int) temp.getyPos());
 
                                         boolean overlaps = false;
                                         boolean delete = false;
-                                        if(Intersector.overlaps(tempObject.getBoundingRectangle(), playerSprite)){
+                                        if(Intersector.overlaps(tempObject.getCollisionSprite(), playerSprite)){
                                             overlaps = true;
                                             
                                             if(d.getCurrentEntities()[i].getId() == 2){
@@ -132,7 +132,18 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                                                 d.getCurrentEntities()[i].attack(d.getPlayer());
                                             }
                                             else{
-                                                
+                                                switch(gs.entitySprites[i].getAttackState()){
+                                                    case 0:
+                                                        gs.entitySprites[i].startAttack();
+                                                        break;
+                                                    case 1:
+                                                        break;
+                                                    case 2:
+                                                        d.getCurrentEntities()[i].attack(d.getPlayer());
+                                                        gs.entitySprites[i].resetAttackState();
+                                                        break;
+                                                    default:
+                                                }
                                             }
                                             
                                         }
@@ -140,7 +151,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                                             for(RectangleMapObject rectangleObject : mapObjects.getByType(RectangleMapObject.class)){
                                                 Rectangle rectangle = rectangleObject.getRectangle();
 
-                                                if(Intersector.overlaps(tempObject.getBoundingRectangle(), rectangle)){
+                                                if(Intersector.overlaps(tempObject.getCollisionSprite(), rectangle)){
                                                     overlaps = true;
                                                     delete = true;
                                                     break;
@@ -151,7 +162,8 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                                                 for(int j = 0; j < gs.entitySprites.length; j++){
                                                     if(i != j){
                                                         if(d.getCurrentEntities()[j] != null && d.getCurrentEntities()[j].getId() != 2){
-                                                            if(Intersector.overlaps(tempObject.getBoundingRectangle(), gs.entitySprites[j].getBoundingRectangle())){
+                                                            if(Intersector.overlaps(tempObject.getCollisionSprite(), gs.entitySprites[j].getCollisionSprite())){
+
                                                                 overlaps = true;
                                                                 break;
                                                             }   
@@ -166,7 +178,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                                             d.getCurrentEntities()[i].setxPos(x);
                                             d.getCurrentEntities()[i].setyPos(y);
 
-                                            tempObject.setPosition(x, y);
+                                            tempObject.update(x, y);
                                         }
 
                                         gs.entitySprites[i] = tempObject;
@@ -175,7 +187,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                                             for(int k = 5; k < d.getCurrentEntities().length; k++){
                                                 if(d.getCurrentEntities()[k] == null){
                                                     d.getCurrentEntities()[k] = arrow;
-                                                    gs.updateEntitySprite(d.getCurrentEntities());
+                                                    gs.generateNewEntitySprite(arrow, k);
                                                     break;
                                                 }
                                             }
@@ -183,8 +195,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                                         
                                         if(delete && d.getCurrentEntities()[i].getId() == 2 || d.getCurrentEntities()[i].getToDelete()){
                                             d.getCurrentEntities()[i] = null;
-                                            gs.updateEntitySprite(d.getCurrentEntities());
-                                            
+                                            gs.deleteEntitySprite(i);      
                                         }
                                     }
                                 } 
@@ -363,6 +374,8 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
         d.setCurrentLevel(d.getLevel()[level]);
         d.setCurrentRoom(d.getCurrentLevel().getRooms()[roomPosX][roomPosY]);
         d.setCurrentEntities(d.getCurrentRoom().getEnemies());
+        
+        gs.generateEntitySprites(d.getCurrentEntities());
     }
     
     public void attack(Entity attacker, Entity[] e){
@@ -516,6 +529,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                 mm.cleanUp();
                 mm = null;
                 gs = new GameScreen(d, volume);
+                gs.generateEntitySprites(d.getCurrentEntities());
                 hc = new HudContainer();
                 gs.startLoadingScreen();
                 return true;
@@ -574,7 +588,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
         }
     }
       return true;
-  }
+    }
 
     public int click(int x, int y){
         if(mm != null && mm.getHidden() ==  false){

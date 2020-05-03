@@ -15,7 +15,6 @@ import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.utils.Timer;
 import com.dungeoncrawler.model.Dungeon;
 import com.dungeoncrawler.model.Entity;
-import com.dungeoncrawler.model.Item;
 import com.dungeoncrawler.model.entities.*;
 import java.util.ArrayList;
 
@@ -23,12 +22,12 @@ public class GameScreen {
     
         //PLAYER
         Texture p;
-        PlayerSprite player;
+        EntitySprite player;
         
         
         //ENTITIES
         Texture[] entityTextures;
-        public Sprite[] entitySprites;
+        public EntitySprite[] entitySprites;
         TextureRegion[][] archerRegions;
         Texture archerTexture;
         TextureRegion[][] swordsmanRegions;
@@ -84,13 +83,13 @@ public class GameScreen {
                 playerTexture[2] = new Texture(Gdx.files.internal("sprites/player.png"));
                 playerTexture[3] = new Texture(Gdx.files.internal("sprites/player.png"));
                 
-                player = new PlayerSprite(playerTexture);
+                player = new EntitySprite(playerTexture);
                 
                 player.update(200, 200);
                 
                 //ENTITIES
                 entityTextures = new Texture[5];
-                entitySprites = new Sprite[15];
+                entitySprites = new EntitySprite[15];
                 
                 arrowTextures = new Texture[10];
                 arrowSprites = new Sprite[10];
@@ -143,6 +142,12 @@ public class GameScreen {
                         else{
                             player.updateWalking();
                         }
+                        
+                        for(int i = 0; i < entitySprites.length; i++){
+                            if(entitySprites[i] != null){
+                                entitySprites[i].updateAnimation(true);
+                            }
+                        }
                     }
                 }, 0, animationSpeed);
                 
@@ -177,193 +182,127 @@ public class GameScreen {
 	}
 
 	public void render (SpriteBatch batch, Player p, Entity[] e, int tileX, int tileY, int level, int roomPosX, int roomPosY) {
+
+            Gdx.gl.glClearColor(0, 0, 0, 1);
+            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+            playerMoving = (p.getMovementX() != 0 || p.getMovementY() != 0);
+
+            //setzt player Sprite auf richtige Position
+            player.update((int) p.getxPos(), (int) p.getyPos());
+            if(p.getMovementX() > 1){
+                player.setDirection(1);
+                player.updateFlip();
+            }
+            else if(p.getMovementX() < -1){
+                player.setDirection(0);
+                player.updateFlip();
+            }
+
+            tm = getM().getMaps()[level][roomPosX][roomPosY].getMap();
+            objects = getM().getMaps()[level][roomPosX][roomPosY].getObjects();
+            mapItems = getM().getMaps()[level][roomPosX][roomPosY].getMapItems();
+
+            if(tm == null){
+                System.out.println("Dein scheiß geht net");
+            }
+            else{
+                tmr = new OrthogonalTiledMapRenderer(tm);
+            }
+
+            //MAP
+            tmr.setView(camera);
+            tmr.render();
+
+            camera.zoom = 700f; // Standart 700f
+
+            camera.update();
+            batch.setProjectionMatrix(camera.combined);
+
+            updateEntitySprites(e);
             
-		Gdx.gl.glClearColor(0, 0, 0, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-                
-                playerMoving = (p.getMovementX() != 0 || p.getMovementY() != 0);
-                
-                //setzt player Sprite auf richtige Position
-                player.update((int) p.getxPos(), (int) p.getyPos());
-                if(p.getMovementX() > 1){
-                    player.setDirection(1);
-                    player.updateFlip();
-                }
-                else if(p.getMovementX() < -1){
-                    player.setDirection(0);
-                    player.updateFlip();
-                }
-                
-                tm = getM().getMaps()[level][roomPosX][roomPosY].getMap();
-                objects = getM().getMaps()[level][roomPosX][roomPosY].getObjects();
-                mapItems = getM().getMaps()[level][roomPosX][roomPosY].getMapItems();
-                
-                if(tm == null){
-                    System.out.println("Dein scheiß geht net");
-                }
-                else{
-                    tmr = new OrthogonalTiledMapRenderer(tm);
-                }
-                
-                
-                // dreht SpielerSprite je nach Bewegungsrichtung 
-                /*
-                if(p.getMovementX() == 3){ //RECHTS
-                    player.setRegion(regions[0][1]);
-                }
-                if(p.getMovementX() == -3){ //LINKS
-                    player.setRegion(regions[0][3]);
-                }
-                if(p.getMovementY() == 3){ //OBEN
-                    player.setRegion(regions[0][0]);
-                }
-                if(p.getMovementY() == -3){ //UNTEN
-                    player.setRegion(regions[0][2]);
-                }
-                */
-                
-                //MAP
-                tmr.setView(camera);
-                tmr.render();
-
-                camera.zoom = 700f; // Standart 700f
-                
-                camera.update();
-                batch.setProjectionMatrix(camera.combined);
-
-                
-                
-                updateEntitySprite(e);
-                
-
             //BATCH
             batch.begin();
-                
-                //DRAWING LOADING SCREEN IF LOADING
-                
-                
-                //DRAWING INVENTORY
-                
-                
-                for(AnimatedObject object : objects){
-                    object.getSprite().draw(batch);
-                }
-                
-                for(AnimatedObject mapItem : mapItems){
-                    mapItem.getSprite().draw(batch);
-                }
-                
-                //controls.draw(batch);
-                    //DRAW'T JEDES ENTITY - prueft vorher ob vorhanden
-                for(int i = 0; i < e.length; i++){
-                    if(e[i] != null){
-                        switch(e[i].getDirection()){
-                            case -1:
-                                break;
-                            case 0:
-                                if(e[i].getId() == 0){
-                                    entitySprites[i].setRegion(archerRegions[0][0]);
-                                }
-                                else if(e[i].getId() == 1){
-                                    entitySprites[i].setRegion(swordsmanRegions[0][0]);
-                                }
-                                break;
-                            case 1:
-                                if(e[i].getId() == 0){
-                                    entitySprites[i].setRegion(archerRegions[0][1]);
-                                }
-                                else if(e[i].getId() == 1){
-                                    entitySprites[i].setRegion(swordsmanRegions[0][1]);
-                                }
-                                break;
-                            case 2:
-                                if(e[i].getId() == 0){
-                                    entitySprites[i].setRegion(archerRegions[0][2]);
-                                }
-                                else if(e[i].getId() == 1){
-                                    entitySprites[i].setRegion(swordsmanRegions[0][2]);
-                                }
-                                break;
-                            case 3:
-                                if(e[i].getId() == 0){
-                                    entitySprites[i].setRegion(archerRegions[0][3]);
-                                }
-                                else if(e[i].getId() == 1){
-                                    entitySprites[i].setRegion(swordsmanRegions[0][3]);
-                                }
-                                break;
-                    
+
+            for(AnimatedObject object : objects){
+                object.getSprite().draw(batch);
+            }
+
+            for(AnimatedObject mapItem : mapItems){
+                mapItem.getSprite().draw(batch);
+            }
+
+            //DRAW'T JEDES ENTITY - prueft vorher ob vorhanden
+            for(int i = 0; i < e.length; i++){
+                if(e[i] != null){
+
+                    entitySprites[i].getSprites()[0].draw(batch);
+
+                    if(e[i].getId() != 2){
+                        if(e[i].getHp() < e[i].getMaxhp() && e[i].getHp() > 0){
+                            healthBar = new Texture("sprites/halfHealthEntity.png");
+                            Sprite healthBarSprite = new Sprite(healthBar);
+                            healthBarSprite.setPosition(e[i].getxPos(), e[i].getyPos());
+                            healthBarSprite.draw(batch);
                         }
-                        entitySprites[i].draw(batch);
-                        entitySprites[i].setX(e[i].getxPos());
-                        entitySprites[i].setY(e[i].getyPos());
-                        if(e[i].getId() != 2){
-                            if(e[i].getHp() < e[i].getMaxhp() && e[i].getHp() > 0){
-                                healthBar = new Texture("sprites/halfHealthEntity.png");
-                                Sprite healthBarSprite = new Sprite(healthBar);
-                                healthBarSprite.setPosition(e[i].getxPos(), e[i].getyPos());
-                                healthBarSprite.draw(batch);
-                            }
-                            else if(e[i].getHp() == e[i].getMaxhp()){
-                                healthBar = new Texture("sprites/fullHealthEntity.png");
-                                Sprite healthBarSprite = new Sprite(healthBar);
-                                healthBarSprite.setPosition(e[i].getxPos(), e[i].getyPos());
-                                healthBarSprite.draw(batch);
-                            }
+                        else if(e[i].getHp() == e[i].getMaxhp()){
+                            healthBar = new Texture("sprites/fullHealthEntity.png");
+                            Sprite healthBarSprite = new Sprite(healthBar);
+                            healthBarSprite.setPosition(e[i].getxPos(), e[i].getyPos());
+                            healthBarSprite.draw(batch);
                         }
                     }
                 }
-                
-                // Player wird gedrawt
-                for(Sprite sprite : player.getSprites()){
-                    sprite.draw(batch);
-                }
-                
-                /*
-                for(int i = 0; i < arrowSprites.length; i++){
-                    if(arrowSprites[i] != null){
-                        arrowSprites[i].setX(arrows[i].getxPos());
-                        arrowSprites[i].setY(arrows[i].getyPos());
-                        arrowSprites[i].draw(batch);
-                    }
-                }
-                */
-                roomChangeSprite.setRegion(roomChangeTextureRegion[0][roomChangeRow]);
-                if(roomLoading == true){
-                    roomChangeSprite.draw(batch);
-                }
-                
+            }
+
+            // Player wird gedrawt
+            for(Sprite sprite : player.getSprites()){
+                sprite.draw(batch);
+            }
+            
+            roomChangeSprite.setRegion(roomChangeTextureRegion[0][roomChangeRow]);
+            if(roomLoading == true){
+                roomChangeSprite.draw(batch);
+            }
+            
             batch.end();
 	}
         
-        public void updateEntitySprite(Entity[] e){
+        public void generateEntitySprites(Entity[] e){
             for(int i = 0; i < e.length; i++){
-                    if(e[i] != null){
-                        if(e[i].getId() == 0){ //nimmt entity ID -> 0 = Archer || 1 = Swordsman || 2 = Arrow
-                            entityTextures[i] = new Texture("sprites/archer.png");
-                            archerRegions = TextureRegion.split(entityTextures[i], 48, 48);
-                            entitySprites[i] = new Sprite(archerRegions[0][2]);
-                            entitySprites[i].setX(e[i].getxPos());
-                            entitySprites[i].setY(e[i].getyPos());
-                        }
-                        if(e[i].getId() == 1){
-                            entityTextures[i] = new Texture("sprites/swordsman.png");
-                            swordsmanRegions = TextureRegion.split(entityTextures[i], 48, 48);
-                            entitySprites[i] = new Sprite(swordsmanRegions[0][2]);
-                            entitySprites[i].setX(e[i].getxPos());
-                            entitySprites[i].setY(e[i].getyPos());
-                        }
-                        if(e[i].getId() == 2){
-                            Texture tx = new Texture("sprites/arrow.png");
-                            //swordsmanRegions = TextureRegion.split(entityTextures[i], 48, 48);
-                            entitySprites[i] = new Sprite(tx);
-                            entitySprites[i].setX(e[i].getxPos());
-                            entitySprites[i].setY(e[i].getyPos());
-                        }
-                    }
-                } 
+                generateNewEntitySprite(e[i], i);
+            }
         }
         
+        public void generateNewEntitySprite(Entity e, int i){
+            if(e != null){
+                Texture[] tx = new Texture[1];
+                if(e.getId() == 0){ //nimmt entity ID -> 0 = Archer || 1 = Swordsman || 2 = Arrow
+                    tx[0] = new Texture("sprites/archer.png");
+                }
+                if(e.getId() == 1){
+                    tx[0] = new Texture("sprites/swordsman.png");
+                }
+                if(e.getId() == 2){
+                    tx[0] = new Texture("sprites/player.png");
+                }
+
+                entitySprites[i] = new EntitySprite(tx);
+                entitySprites[i].update((int) e.getxPos(), (int) e.getyPos());
+            }
+        }
+        
+        public void updateEntitySprites(Entity[] e){
+            for(int i = 0; i < e.length; i++){
+                if(e[i] != null){
+                    entitySprites[i].update((int) e[i].getxPos(), (int) e[i].getyPos());
+                }
+            }
+        }
+        
+        public void deleteEntitySprite(int i){
+            entitySprites[i] = null;
+        }
         
         public Entity[] playerAttack(Entity e[], Player p, SpriteBatch batch){
             if(p.getDirection() == 0){
@@ -374,7 +313,7 @@ public class GameScreen {
                 
                 for(int i = 0; i< e.length ; i++){
                     if(e[i] != null){
-                        if(Intersector.overlaps(entitySprites[i].getBoundingRectangle(), attackSprite.getBoundingRectangle())){
+                        if(Intersector.overlaps(entitySprites[i].getCollisionSprite(), attackSprite.getBoundingRectangle())){
                             if(e[i] != null){
                                 if(e[i].getHp() - p.getDmg() <= 0){
                                     e[i] = null;
@@ -394,7 +333,7 @@ public class GameScreen {
                 attackSprite.setY(p.getyPos()- 2f);
                 for(int i = 0; i< e.length ; i++){
                     if(entitySprites[i] != null){
-                        if(Intersector.overlaps(entitySprites[i].getBoundingRectangle(), attackSprite.getBoundingRectangle())){
+                        if(Intersector.overlaps(entitySprites[i].getCollisionSprite(), attackSprite.getBoundingRectangle())){
                             if(e[i] != null){
                                 if(e[i].getHp() - p.getDmg() <= 0){
                                     e[i] = null;
@@ -414,7 +353,7 @@ public class GameScreen {
                 attackSprite.setY(p.getyPos());
                 for(int i = 0; i<e.length ; i++){
                     if(entitySprites[i] != null){
-                        if(Intersector.overlaps(entitySprites[i].getBoundingRectangle(), attackSprite.getBoundingRectangle())){
+                        if(Intersector.overlaps(entitySprites[i].getCollisionSprite(), attackSprite.getBoundingRectangle())){
                             if(e[i] != null){
                                 if(e[i].getHp() - p.getDmg() <= 0){
                                     e[i] = null;
@@ -434,7 +373,7 @@ public class GameScreen {
                 attackSprite.setY(p.getyPos() - 8f);
                 for(int i = 0; i < e.length ; i++){
                     if(entitySprites[i] != null){
-                        if(Intersector.overlaps(entitySprites[i].getBoundingRectangle(), attackSprite.getBoundingRectangle())){
+                        if(Intersector.overlaps(entitySprites[i].getCollisionSprite(), attackSprite.getBoundingRectangle())){
                             if(e[i] != null){
                                 if(e[i].getHp() - p.getDmg() <= 0){
                                     e[i] = null;
@@ -460,23 +399,10 @@ public class GameScreen {
         }
         
         //GETTER
-        public PlayerSprite getPlayer(){
+        public EntitySprite getPlayer(){
             return player;
         }
         
-        public float getEntitySpriteX(int i){
-            return entitySprites[i].getX();
-        }
-        public float getEntitySpriteY(int i){
-            return entitySprites[i].getY();
-        }
-        
-        public void setEntitySpriteX(int i,float x){
-            entitySprites[i].setX(x);
-        }
-        public void setEntitySpriteY(int i,float y){
-            entitySprites[i].setY(y);
-        }
         public boolean getIsLoading(){
             return roomLoading;
         }
