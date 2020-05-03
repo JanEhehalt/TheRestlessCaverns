@@ -14,9 +14,9 @@ import com.badlogic.gdx.graphics.GL20;
  *
  * @author bfz
  */
-public class MenuScreen{
+public class PauseScreen{
     
-    public MenuScreen() {
+    public PauseScreen() {
     }
     
     

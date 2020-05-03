@@ -30,10 +30,18 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
     SpriteBatch batch;
     Dungeon d;
     DungeonGenerator dg;
-    MainMenu v;
     Timer tEntities;
-    GameScreen m;
     
+    //SCREENS
+    
+    MainMenuScreen mm;
+    GameScreen gs;
+    HudContainer hc;
+    PauseScreen ps; 
+    SettingsScreen ss;
+    ControlsScreen cs;
+    
+    //
     int tileX;
     int tileY;
     
@@ -48,7 +56,6 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
     int roomAmount;
     float volume;
     
-    Entity[] arrows;
     
     Texture verticalAttack;
     Texture horizontalAttack;
@@ -57,18 +64,17 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
     
     Timer entityMovement;
     
-    HudContainer hc;
+    
     
     @Override
     public void create(){
-        volume = 0.01f;
+        volume = 0.05f;
         
-        arrows = new Entity[10];
         roomX = 10;
         roomY = 6;
         
         batch = new SpriteBatch();
-        v = new MainMenu(volume);
+        mm = new MainMenuScreen(volume);
         dg = new DungeonGenerator();
         
         
@@ -97,14 +103,14 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
         entityMovement.scheduleTask(new Timer.Task() {
                     @Override
                     public void run() {
-                        if(m != null){
+                        if(gs != null){
                             //m.updateEntitySprite(d.getCurrentEntities());
 
                             for(int i = 0; i < d.getCurrentEntities().length; i++){
                                 if(d.getCurrentEntities()[i] != null){
                                         // Gets the collisions relevant sprites
-                                        MapObjects mapObjects = m.getM().getMaps()[level][roomPosX][roomPosY].getMap().getLayers().get(0).getObjects();
-                                        Rectangle playerSprite = m.getPlayer().getCollisionSprite();
+                                        MapObjects mapObjects = gs.getM().getMaps()[level][roomPosX][roomPosY].getMap().getLayers().get(0).getObjects();
+                                        Rectangle playerSprite = gs.getPlayer().getCollisionSprite();
 
                                         Entity temp = d.getCurrentEntities()[i];
 
@@ -112,7 +118,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                                         int y = (int) temp.getyPos();
 
                                         Entity arrow = d.getCurrentEntities()[i].move((int) d.getPlayer().getxPos(), (int) d.getPlayer().getyPos());
-                                        Sprite tempObject = m.entitySprites[i];
+                                        Sprite tempObject = gs.entitySprites[i];
                                         tempObject.setPosition(temp.getxPos(), temp.getyPos());
 
 
@@ -142,10 +148,10 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                                             }
                                             
                                             if(d.getCurrentEntities()[i].getId() != 2){
-                                                for(int j = 0; j < m.entitySprites.length; j++){
+                                                for(int j = 0; j < gs.entitySprites.length; j++){
                                                     if(i != j){
                                                         if(d.getCurrentEntities()[j] != null && d.getCurrentEntities()[j].getId() != 2){
-                                                            if(Intersector.overlaps(tempObject.getBoundingRectangle(), m.entitySprites[j].getBoundingRectangle())){
+                                                            if(Intersector.overlaps(tempObject.getBoundingRectangle(), gs.entitySprites[j].getBoundingRectangle())){
                                                                 overlaps = true;
                                                                 break;
                                                             }   
@@ -163,13 +169,13 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                                             tempObject.setPosition(x, y);
                                         }
 
-                                        m.entitySprites[i] = tempObject;
+                                        gs.entitySprites[i] = tempObject;
 
                                         if(arrow != null){
                                             for(int k = 5; k < d.getCurrentEntities().length; k++){
                                                 if(d.getCurrentEntities()[k] == null){
                                                     d.getCurrentEntities()[k] = arrow;
-                                                    m.updateEntitySprite(d.getCurrentEntities());
+                                                    gs.updateEntitySprite(d.getCurrentEntities());
                                                     break;
                                                 }
                                             }
@@ -177,7 +183,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                                         
                                         if(delete && d.getCurrentEntities()[i].getId() == 2 || d.getCurrentEntities()[i].getToDelete()){
                                             d.getCurrentEntities()[i] = null;
-                                            m.updateEntitySprite(d.getCurrentEntities());
+                                            gs.updateEntitySprite(d.getCurrentEntities());
                                             
                                         }
                                     }
@@ -194,14 +200,20 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
     public void render(){
         
         //PASSIERT IN MAINMENU
-        if(v != null){
-            v.render(batch);
+        if(mm != null){
+            mm.render(batch);
+        }
+        if(ss != null){
+            ss.render(batch, volume);
+        }
+        if(cs != null){
+            cs.render(batch);
         }
         
         //PASSIERT IN GAMESCREEN
-        if(m != null){
+        if(gs != null){
             
-            if(v == null){
+            if(mm == null){
                 // Position des Players, etc. werden aktualisiert
                 updateObjects(level, roomPosX, roomPosY);
                 
@@ -217,7 +229,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
 
                 
                 // Render methode zum rendern der einzelnen Sprites wird aufgerufen
-                m.render(batch, d.getPlayer(), d.getCurrentEntities(), arrows,  tileX, tileY, level, roomPosX, roomPosY);
+                gs.render(batch, d.getPlayer(), d.getCurrentEntities(), tileX, tileY, level, roomPosX, roomPosY);
                 hc.updateHud(batch, d.getPlayer());
                 d.getPlayer().updateItems();
             }
@@ -232,7 +244,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
         
     public void updateObjects(int level, int roomPosX, int roomPosY){
         
-        MapLayers layers = m.getM().getMaps()[level][roomPosX][roomPosY].getMap().getLayers();
+        MapLayers layers = gs.getM().getMaps()[level][roomPosX][roomPosY].getMap().getLayers();
         MapObjects objects = layers.get(0).getObjects();
         //System.out.println(objects.getCount());
         
@@ -244,12 +256,12 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
         float x = d.getPlayer().getxPos();
         d.getPlayer().updateX();
         
-        m.getPlayer().updateCollisionX((int) d.getPlayer().getxPos());
+        gs.getPlayer().updateCollisionX((int) d.getPlayer().getxPos());
         
         for(RectangleMapObject rectangleObject : objects.getByType(RectangleMapObject.class)){
             Rectangle rectangle = rectangleObject.getRectangle();
             
-            if(Intersector.overlaps(rectangle, m.getPlayer().getCollisionSprite())){
+            if(Intersector.overlaps(rectangle, gs.getPlayer().getCollisionSprite())){
                 
                 d.getPlayer().setxPos(x);
 
@@ -259,12 +271,12 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
         
         float y = d.getPlayer().getyPos();
         d.getPlayer().updateY();
-        m.getPlayer().updateCollision((int) d.getPlayer().getxPos(),(int) d.getPlayer().getyPos());
+        gs.getPlayer().updateCollision((int) d.getPlayer().getxPos(),(int) d.getPlayer().getyPos());
         
         for(RectangleMapObject rectangleObject : objects.getByType(RectangleMapObject.class)){
             Rectangle rectangle = rectangleObject.getRectangle();
             
-            if(Intersector.overlaps(rectangle, m.getPlayer().getCollisionSprite())){
+            if(Intersector.overlaps(rectangle, gs.getPlayer().getCollisionSprite())){
                 
                 d.getPlayer().setyPos(y);
 
@@ -296,7 +308,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
             roomPosY += 1;
             d.getPlayer().setxPos((roomX / 2)* 48);
             d.getPlayer().setyPos(48);
-            m.startLoadingScreen();
+            gs.startLoadingScreen();
         }
 
         // rechts
@@ -306,7 +318,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
             roomPosX += 1;
             d.getPlayer().setxPos(48);
             d.getPlayer().setyPos((roomY / 2)*48);
-            m.startLoadingScreen();
+            gs.startLoadingScreen();
         }
 
         // unten
@@ -316,7 +328,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
             roomPosY -= 1;
             d.getPlayer().setxPos((roomX / 2)*48);
             d.getPlayer().setyPos(roomY*48 - 48);
-            m.startLoadingScreen();
+            gs.startLoadingScreen();
         }
 
         // links
@@ -326,7 +338,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
             roomPosX -= 1;
             d.getPlayer().setxPos((roomX*48) - 48);
             d.getPlayer().setyPos((roomY / 2)*48);
-            m.startLoadingScreen();
+            gs.startLoadingScreen();
         }
         
         if(roomPosX == d.getCurrentLevel().getExit()[0] && roomPosY == d.getCurrentLevel().getExit()[1]){
@@ -335,7 +347,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                 
                 d.getPlayer().setMovementY(0f);
                 d.getPlayer().setMovementX(0f);
-                m.startLoadingScreen();
+                gs.startLoadingScreen();
                 
                 level++;
                 
@@ -360,11 +372,11 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
     public ArrayList<ItemContainer> playerPickUp(){
         
         ArrayList<ItemContainer> tempItems = d.getCurrentRoom().getItems();
-        ArrayList<AnimatedObject> tempSprites = m.getM().getMaps()[level][roomPosX][roomPosY].getMapItems();
+        ArrayList<AnimatedObject> tempSprites = gs.getM().getMaps()[level][roomPosX][roomPosY].getMapItems();
         ArrayList<ItemContainer> garbageCollector = new ArrayList<>();
         
         for(int i = 0; i < tempItems.size(); i++){
-            if(Intersector.overlaps(m.getPlayer().getCollisionSprite(), tempSprites.get(i).getSprite().getBoundingRectangle())){
+            if(Intersector.overlaps(gs.getPlayer().getCollisionSprite(), tempSprites.get(i).getSprite().getBoundingRectangle())){
                 garbageCollector.add(tempItems.get(i));
                 
                 tempItems.remove(i);
@@ -382,46 +394,46 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
     public boolean keyDown(int keycode) {
             
                 if(keycode == Input.Keys.A){
-                    if(v != null){
+                    if(mm != null){
                     }
-                    if(m != null){
+                    if(gs != null){
                             d.getPlayer().setMovementX(-3f);
                     }
                 }
                 
                 if(keycode == Input.Keys.D){
-                    if(v != null){
+                    if(mm != null){
                     }
-                    if(m != null){
+                    if(gs != null){
                             d.getPlayer().setMovementX(+3f);
                     }
                 }
                 
                 if(keycode == Input.Keys.S){
-                    if(v != null){
+                    if(mm != null){
                     }
-                    if(m != null){
+                    if(gs != null){
                             d.getPlayer().setMovementY(-3f);
                     }
                 } 
                 
                 if(keycode == Input.Keys.W){
-                    if(v != null){
+                    if(mm != null){
                     }
-                    if(m != null){
+                    if(gs != null){
                             d.getPlayer().setMovementY(3f);
                     }
                 } 
                 
                 if(keycode == Input.Keys.E){
-                    if(v != null){}
-                    if(m != null && m.getIsLoading() == false){
-                        d.setCurrentEntities(m.playerAttack(d.getCurrentEntities(), d.getPlayer(), batch));
+                    if(mm != null){}
+                    if(gs != null && gs.getIsLoading() == false){
+                        d.setCurrentEntities(gs.playerAttack(d.getCurrentEntities(), d.getPlayer(), batch));
                     }
                 }
                 if(keycode == Input.Keys.F){
-                    if(v != null){}
-                    if(m != null && m.getIsLoading() == false){
+                    if(mm != null){}
+                    if(gs != null && gs.getIsLoading() == false){
                         //Item k = new Sword(1);
                         //m.addItem(k);
                         //d.setCurrentItemContainer(m.playerPickUp(d.getCurrentItemContainer(), d.getPlayer()));
@@ -434,38 +446,16 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                 }
                 
                 if(keycode == Input.Keys.R){
-                    if(v != null){}
-                    if(m != null && m.getIsLoading() == false){
+                    if(mm != null){}
+                    if(gs != null && gs.getIsLoading() == false){
                         d.getPlayer().getInv().equipItem();
                     }
                 }
                 
-                if(keycode == Input.Keys.UP){
-                    volume += 0.1f;
-                    
-                    if(v != null){
-                        v.music.setVolume(volume);
-                    }
-                    if(m != null){
-                        m.music.setVolume(volume);
-                    }
-                }
                 
-                if(keycode == Input.Keys.DOWN){
-                    if(volume >= 0.1f){
-                        volume -= 0.1f;
-                    }
-                    
-                    if(v != null){
-                        v.music.setVolume(volume);
-                    }
-                    if(m != null){
-                        m.music.setVolume(volume);
-                    }
-                }
                 
                 if(keycode == Input.Keys.Q){
-                    if(m != null && m.getIsLoading() == false){
+                    if(gs != null && gs.getIsLoading() == false){
                         d.getPlayer().getInv().dropItem();
                     }
                 }
@@ -475,33 +465,33 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
     @Override
     public boolean keyUp(int keycode) {
                 if(keycode == Input.Keys.A){
-                    if(v != null){
+                    if(mm != null){
                     }
-                    if(m != null){
+                    if(gs != null){
                     d.getPlayer().setMovementX(0);
                     }
                 }
                 
                 if(keycode == Input.Keys.D){
-                    if(v != null){
+                    if(mm != null){
                     }
-                    if(m != null){
+                    if(gs != null){
                     d.getPlayer().setMovementX(0);
                     }
                 }
                 
                 if(keycode == Input.Keys.S){
-                    if(v != null){
+                    if(mm != null){
                     }
-                    if(m != null){
+                    if(gs != null){
                     d.getPlayer().setMovementY(0);
                     }
                 } 
                 
                 if(keycode == Input.Keys.W){
-                    if(v != null){
+                    if(mm != null){
                     }
-                    if(m != null){
+                    if(gs != null){
                     d.getPlayer().setMovementY(0);
                     }
                 } 
@@ -518,38 +508,88 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
   public boolean touchDown(int screenX, int screenY, int pointer, int button)
   {
     if(button == Input.Buttons.LEFT){
-      if(v != null){
-          switch(v.click(screenX, screenY)){
-              case -1:
-                  
-                  return true;
-              case 0:
-                  v.cleanUp();
-                  v = null;
-                  m = new GameScreen(d, volume);
-                  hc = new HudContainer();
-                  m.startLoadingScreen();
-                  return true;
-                  
-              case 1:
-                  v.cleanUp();
-                  v = null;
-                  m = new GameScreen(d, volume);
-                  return true;
-                  
-          }
+        switch(click(screenX, screenY)){
+            case -1:  // -1: nothing hit -- 0: go ingame -- 1: EXIT game -- 2: goto settings -- 3: goto controls -- 4: goto MainMenuScreen -- 9: volume down -- 10: volume up
+
+              return true;
+            case 0:
+                mm.cleanUp();
+                mm = null;
+                gs = new GameScreen(d, volume);
+                hc = new HudContainer();
+                gs.startLoadingScreen();
+                return true;
+
+            case 1:
+                mm.cleanUp();
+                mm = null;
+                gs = new GameScreen(d, volume);
+                return true;
+
+            case 2:
+                mm.hide();
+                cs = null;
+                ss = new SettingsScreen();
+                return true;
+
+            case 3:
+                mm.hide();
+                ss = null;
+                cs = new ControlsScreen();
+                return true;
+
+            case 4:
+                ss = null;
+                cs = null;
+                mm.appear();
+                return true;
+                
+            case 9:
+                if(volume > 0f){
+                    volume -= 0.05f;
+                }
+                if(mm != null){
+                    mm.music.setVolume(volume);
+                }
+                if(gs != null){
+                    gs.music.setVolume(volume);
+                }
+                return true;   
+            case 10:
+                volume += 0.05f;
+                    
+                if(mm != null){
+                    mm.music.setVolume(volume);
+                }
+                if(gs != null){
+                    gs.music.setVolume(volume);
+                }
+                return true;
+        }
           
-        return true;
-      }
-      if(m != null && m.getIsLoading() == false){
-        
-        
-        return true;
-      }
+        if(gs != null && gs.getIsLoading() == false){
+
+
+          return true;
+        }
     }
       return true;
   }
 
+    public int click(int x, int y){
+        if(mm != null && mm.getHidden() ==  false){
+            return mm.click(x, y);
+        }
+        if(ss != null){
+            return ss.click(x, y);
+        }
+        if(cs != null){
+            return cs.click(x, y);
+        }
+        return -1;
+    }
+  
+  
     @Override
     public boolean touchUp(int i, int i1, int i2, int i3) {
         return false;
@@ -567,7 +607,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
 
     @Override
     public boolean scrolled(int i) {
-        if(m != null){
+        if(gs != null){
         if(i == -1 && d.getPlayer().getInv().getSelected() == 0){return true;}
         else if(i == 1 && d.getPlayer().getInv().getSelected() == 7){return true;}
         else{

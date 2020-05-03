@@ -176,7 +176,7 @@ public class GameScreen {
                 
 	}
 
-	public void render (SpriteBatch batch, Player p, Entity[] e, Entity[] arrows, int tileX, int tileY, int level, int roomPosX, int roomPosY) {
+	public void render (SpriteBatch batch, Player p, Entity[] e, int tileX, int tileY, int level, int roomPosX, int roomPosY) {
             
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
