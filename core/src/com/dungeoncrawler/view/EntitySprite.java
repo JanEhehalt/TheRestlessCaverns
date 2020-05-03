@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
+import com.dungeoncrawler.model.Entity;
 
 /**
  *
@@ -45,15 +46,24 @@ public class EntitySprite {
         fullCollisionSprite = sprites[0].getBoundingRectangle();
     }
     
-    public void updateAnimation(boolean moves){
-        if(attackState == 1){
-            updateAttack();
-        }
-        else if(moves){
-            updateWalking();
-        }
-        else{
-            updateIdle();
+    public void updateAnimation(Entity e){
+            if(e != null){
+                boolean moves = false;
+            if(e.getMovementX() != 0 || e.getMovementY() != 0){
+                moves = true;
+            }
+            
+            direction = e.getDirection();
+
+            if(attackState == 1){
+                updateAttack();
+            }
+            else if(moves){
+                updateWalking();
+            }
+            else{
+                updateIdle();
+            }
         }
     }
     

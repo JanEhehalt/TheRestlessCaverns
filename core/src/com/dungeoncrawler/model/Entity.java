@@ -1,9 +1,5 @@
 package com.dungeoncrawler.model;
 
-import com.badlogic.gdx.maps.MapObject;
-import com.badlogic.gdx.maps.MapObjects;
-import com.badlogic.gdx.math.Rectangle;
-
 public abstract class Entity {
     
     protected float xPos;

@@ -71,6 +71,13 @@ public class Archer extends Entity{
             yPos += movementY;
         }
         
+        if(alpha >= Math.PI / -2 && alpha <= Math.PI / 2){
+            setDirection(1);
+        }
+        else{
+            setDirection(0);
+        }
+        
         counter++;
         
         return false;
@@ -109,6 +116,13 @@ public class Archer extends Entity{
         a.setMovementX(movementX);
         a.setMovementY(movementY);
         a.setAngle(alpha);
+        
+        if(alpha >= Math.PI / -2 && alpha <= Math.PI / 2){
+            setDirection(1);
+        }
+        else{
+            setDirection(0);
+        }
         
         return a;
     }

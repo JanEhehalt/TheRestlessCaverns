@@ -33,6 +33,7 @@ public class GameScreen {
         TextureRegion[][] swordsmanRegions;
         Texture swordsmanTexture;
         Texture healthBar;
+        Entity[] entities;
         
         Texture[] arrowTextures;
         Sprite[] arrowSprites;
@@ -75,6 +76,8 @@ public class GameScreen {
                 controls.setX(-400f);
                 controls.setY(0);
                 */
+                
+                entities = d.getCurrentEntities();
             
                 //PLAYER
                 Texture[] playerTexture = new Texture[4];
@@ -145,7 +148,7 @@ public class GameScreen {
                         
                         for(int i = 0; i < entitySprites.length; i++){
                             if(entitySprites[i] != null){
-                                entitySprites[i].updateAnimation(true);
+                                entitySprites[i].updateAnimation(entities[i]);
                             }
                         }
                     }
@@ -183,6 +186,7 @@ public class GameScreen {
 
 	public void render (SpriteBatch batch, Player p, Entity[] e, int tileX, int tileY, int level, int roomPosX, int roomPosY) {
 
+            entities = e;
             Gdx.gl.glClearColor(0, 0, 0, 1);
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
@@ -293,7 +297,7 @@ public class GameScreen {
                 entitySprites[i].update((int) e.getxPos(), (int) e.getyPos());
                 
                 if(e.getId() == 2){
-                    entitySprites[i].getSprites()[0].setRotation((float) Math.toDegrees(e.getAngle() + Math.PI));
+                    entitySprites[i].getSprites()[0].setRotation((float) Math.toDegrees(e.getAngle()));
                 }
             }
         }
