@@ -142,6 +142,12 @@ public class GameScreen {
                         else{
                             player.updateWalking();
                         }
+                        
+                        for(int i = 0; i < entitySprites.length; i++){
+                            if(entitySprites[i] != null){
+                                entitySprites[i].updateAnimation(true);
+                            }
+                        }
                     }
                 }, 0, animationSpeed);
                 

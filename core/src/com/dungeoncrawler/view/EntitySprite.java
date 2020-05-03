@@ -22,6 +22,7 @@ public class EntitySprite {
     private Rectangle fullCollisionSprite;
     private TextureRegion[][][] regions;
     private  int[] frames;
+    private int attackState;
     
     // 0: links, 1: rechts
     private int direction;
@@ -29,20 +30,52 @@ public class EntitySprite {
     public EntitySprite(Texture[] textures){
         sprites = new Sprite[1];
         regions = new TextureRegion[1][][];
-        frames = new int[2];
+        
+        // 0: idle, 1: walking, 2: attack
+        frames = new int[3];
         direction = 0;
+        attackState = 0;
         
         for(int i = 0; i < regions.length; i++){
             regions[i] = TextureRegion.split(textures[i], 64, 64);
             sprites[i] = new Sprite(regions[i][0][0]);
         }
-        
+
         collisionSprite = new Rectangle(0, 0, 32, 16);
         fullCollisionSprite = sprites[0].getBoundingRectangle();
     }
     
+    public void updateAnimation(boolean moves){
+        if(attackState == 1){
+            updateAttack();
+        }
+        else if(moves){
+            updateWalking();
+        }
+        else{
+            updateIdle();
+        }
+    }
+    
+    public void updateAttack(){
+        frames[0] = 0;
+        frames[1] = 0;
+        
+        if(frames[2] >= 9){
+            frames[2] = 0;
+            attackState = 2;
+        }
+        else{
+            frames[2]++;
+            
+            sprites[0].setRegion(regions[0][3][frames[2]]);
+            updateFlip();
+        }
+    }
+    
     public void updateIdle(){
         frames[1] = 0;
+        frames[2] = 0;
         
         if(frames[0] >= 9){
             frames[0] = 0;
@@ -57,6 +90,7 @@ public class EntitySprite {
     
     public void updateWalking(){
         frames[0] = 0;
+        frames[2] = 0;
         
         if(frames[1] >= 9){
             frames[1] = 0;
@@ -173,5 +207,17 @@ public class EntitySprite {
      */
     public Rectangle getFullCollisionSprite() {
         return fullCollisionSprite;
+    }
+    
+    public int getAttackState(){
+        return this.attackState;
+    }
+    
+    public void resetAttackState(){
+        this.attackState = 0;
+    }
+    
+    public void startAttack(){
+        this.attackState = 1;
     }
 }

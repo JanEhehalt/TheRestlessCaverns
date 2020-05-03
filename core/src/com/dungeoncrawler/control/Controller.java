@@ -126,7 +126,18 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                                                 d.getCurrentEntities()[i].attack(d.getPlayer());
                                             }
                                             else{
-                                                
+                                                switch(m.entitySprites[i].getAttackState()){
+                                                    case 0:
+                                                        m.entitySprites[i].startAttack();
+                                                        break;
+                                                    case 1:
+                                                        break;
+                                                    case 2:
+                                                        d.getCurrentEntities()[i].attack(d.getPlayer());
+                                                        m.entitySprites[i].resetAttackState();
+                                                        break;
+                                                    default:
+                                                }
                                             }
                                             
                                         }
