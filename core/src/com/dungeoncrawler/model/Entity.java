@@ -18,6 +18,7 @@ public abstract class Entity {
     protected int direction;
     protected Inventory inv;
     protected boolean toDelete;
+    private double angle;
     
     
 
@@ -151,6 +152,20 @@ public abstract class Entity {
     
     public boolean getToDelete(){
         return this.toDelete;
+    }
+
+    /**
+     * @return the angle
+     */
+    public double getAngle() {
+        return angle;
+    }
+
+    /**
+     * @param angle the angle to set
+     */
+    public void setAngle(double angle) {
+        this.angle = angle;
     }
     
 }

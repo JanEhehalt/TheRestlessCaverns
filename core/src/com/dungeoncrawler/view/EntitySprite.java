@@ -27,7 +27,7 @@ public class EntitySprite {
     // 0: links, 1: rechts
     private int direction;
     
-    public EntitySprite(Texture[] textures){
+    public EntitySprite(Texture[] textures, int width, int height){
         sprites = new Sprite[1];
         regions = new TextureRegion[1][][];
         
@@ -36,12 +36,12 @@ public class EntitySprite {
         direction = 0;
         attackState = 0;
         
-        for(int i = 0; i < regions.length; i++){
-            regions[i] = TextureRegion.split(textures[i], 64, 64);
+        for(int i = 0; i < sprites.length; i++){
+            regions[i] = TextureRegion.split(textures[i], width, height);
             sprites[i] = new Sprite(regions[i][0][0]);
+            collisionSprite = new Rectangle(0, 0, 32, 16);
         }
-
-        collisionSprite = new Rectangle(0, 0, 32, 16);
+        
         fullCollisionSprite = sprites[0].getBoundingRectangle();
     }
     
@@ -84,7 +84,7 @@ public class EntitySprite {
             frames[0]++;
         }
         
-        sprites[0].setRegion(regions[0][0][frames[0]]);
+        sprites[0].setRegion(regions[0][2][frames[0]]);
         updateFlip();
     }
     
@@ -99,7 +99,7 @@ public class EntitySprite {
             frames[1]++;
         }
         
-        sprites[0].setRegion(regions[0][2][frames[1]]);
+        sprites[0].setRegion(regions[0][0][frames[1]]);
         updateFlip();
     }
     

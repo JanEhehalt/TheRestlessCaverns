@@ -108,6 +108,7 @@ public class Archer extends Entity{
 
         a.setMovementX(movementX);
         a.setMovementY(movementY);
+        a.setAngle(alpha);
         
         return a;
     }
