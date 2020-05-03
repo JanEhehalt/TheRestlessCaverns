@@ -32,7 +32,7 @@ public class Arrow extends Entity{
     }
 
     @Override
-    public Entity move(int xPosPlayer, int yPosPlayer) {
+    public boolean move(int xPosPlayer, int yPosPlayer) {
         lifetime++;
         
         xPos += movementX;
@@ -42,6 +42,6 @@ public class Arrow extends Entity{
             this.toDelete = true;
         }
         
-        return null;
+        return false;
     }
 }
