@@ -14,18 +14,19 @@ import com.badlogic.gdx.math.Rectangle;
  *
  * @author jonathan
  */
-public class PlayerSprite {
+public class EntitySprite {
     
     // 0: pants, 1: body, 2: head, 3: hair, 4: collision
     private Sprite[] sprites;
     private Rectangle collisionSprite;
+    private Rectangle fullCollisionSprite;
     private TextureRegion[][][] regions;
     private  int[] frames;
     
     // 0: links, 1: rechts
     private int direction;
     
-    public PlayerSprite(Texture[] textures){
+    public EntitySprite(Texture[] textures){
         sprites = new Sprite[1];
         regions = new TextureRegion[1][][];
         frames = new int[2];
@@ -37,6 +38,7 @@ public class PlayerSprite {
         }
         
         collisionSprite = new Rectangle(0, 0, 32, 16);
+        fullCollisionSprite = sprites[0].getBoundingRectangle();
     }
     
     public void updateIdle(){
@@ -164,5 +166,12 @@ public class PlayerSprite {
      */
     public void setDirection(int direction) {
         this.direction = direction;
+    }
+
+    /**
+     * @return the fullCollisionSprite
+     */
+    public Rectangle getFullCollisionSprite() {
+        return fullCollisionSprite;
     }
 }
