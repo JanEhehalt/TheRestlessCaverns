@@ -576,7 +576,9 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                 }
                 return true;   
             case 10:
-                volume += 0.05f;
+                if(volume < 1f){
+                    volume += 0.05f;
+                }
                     
                 if(mm != null){
                     mm.music.setVolume(volume);
