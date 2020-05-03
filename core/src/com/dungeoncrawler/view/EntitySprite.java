@@ -61,7 +61,7 @@ public class EntitySprite {
         frames[0] = 0;
         frames[1] = 0;
         
-        if(frames[2] >= 9){
+        if(frames[2] >= 6){
             frames[2] = 0;
             attackState = 2;
         }

@@ -118,6 +118,9 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                                         int y = (int) temp.getyPos();
 
                                         Entity arrow = d.getCurrentEntities()[i].move((int) d.getPlayer().getxPos(), (int) d.getPlayer().getyPos());
+                                        if(arrow != null && gs.entitySprites[i].getAttackState() == 0){
+                                            gs.entitySprites[i].startAttack();
+                                        }
 
                                         EntitySprite tempObject = gs.entitySprites[i];
                                         tempObject.update((int) temp.getxPos(), (int) temp.getyPos());
@@ -132,17 +135,19 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                                                 d.getCurrentEntities()[i].attack(d.getPlayer());
                                             }
                                             else{
-                                                switch(gs.entitySprites[i].getAttackState()){
-                                                    case 0:
-                                                        gs.entitySprites[i].startAttack();
-                                                        break;
-                                                    case 1:
-                                                        break;
-                                                    case 2:
-                                                        d.getCurrentEntities()[i].attack(d.getPlayer());
-                                                        gs.entitySprites[i].resetAttackState();
-                                                        break;
-                                                    default:
+                                                if(d.getCurrentEntities()[i].getId() != 0){
+                                                    switch(gs.entitySprites[i].getAttackState()){
+                                                        case 0:
+                                                            gs.entitySprites[i].startAttack();
+                                                            break;
+                                                        case 1:
+                                                            break;
+                                                        case 2:
+                                                            d.getCurrentEntities()[i].attack(d.getPlayer());
+                                                            gs.entitySprites[i].resetAttackState();
+                                                            break;
+                                                        default:
+                                                    }
                                                 }
                                             }
                                             
@@ -183,11 +188,12 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
 
                                         gs.entitySprites[i] = tempObject;
 
-                                        if(arrow != null){
+                                        if(arrow != null && gs.entitySprites[i].getAttackState() == 2){
                                             for(int k = 5; k < d.getCurrentEntities().length; k++){
                                                 if(d.getCurrentEntities()[k] == null){
                                                     d.getCurrentEntities()[k] = arrow;
                                                     gs.generateNewEntitySprite(arrow, k);
+                                                    gs.entitySprites[i].resetAttackState();
                                                     break;
                                                 }
                                             }
