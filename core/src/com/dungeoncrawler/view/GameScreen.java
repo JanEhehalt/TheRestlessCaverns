@@ -302,8 +302,8 @@ public class GameScreen {
             entitySprites[i] = null;
         }
         
-        public Entity[] playerAttack(Entity e[], Player p, SpriteBatch batch){
-            if(p.getDirection() == 0){
+        public Entity[] playerAttack(Entity e[], Player p, int attackDirection, SpriteBatch batch){
+            if(attackDirection == 0){
                 Texture attackTexture = new Texture("sprites/AttackHori.png");
                 Sprite attackSprite = new Sprite(attackTexture);
                 attackSprite.setX(p.getxPos() - 8f);
@@ -324,7 +324,7 @@ public class GameScreen {
                     }
                 }
             }
-            else if(p.getDirection()== 1){
+            else if(attackDirection== 1){
                 Texture attackTexture = new Texture("sprites/AttackVert.png");
                 Sprite attackSprite = new Sprite(attackTexture);
                 attackSprite.setX(p.getxPos()+ 32f);
@@ -344,7 +344,7 @@ public class GameScreen {
                     }
                 }
             }
-            else if(p.getDirection()== 2){
+            else if(attackDirection== 2){
                 Texture attackTexture = new Texture("sprites/AttackHori.png");
                 Sprite attackSprite = new Sprite(attackTexture);
                 attackSprite.setX(p.getxPos() - 8f);
@@ -364,7 +364,7 @@ public class GameScreen {
                     }
                 }
             }
-            else if(p.getDirection()== 3){
+            else if(attackDirection== 3){
                 Texture attackTexture = new Texture("sprites/AttackVert.png");
                 Sprite attackSprite = new Sprite(attackTexture);
                 attackSprite.setX(p.getxPos() - 32f);

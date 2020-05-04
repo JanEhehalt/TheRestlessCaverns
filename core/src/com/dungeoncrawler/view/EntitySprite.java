@@ -25,11 +25,6 @@ public class EntitySprite {
     private  int[] frames;
     private int attackState;
     
-    private Texture healthBarContainerTexture;
-    private Sprite healthBarContainerSprite;
-    private Texture healthBarTexture;
-    private Sprite healthBarSprite;
-    boolean healthBarExists;
     
     
     // 0: links, 1: rechts
@@ -39,7 +34,6 @@ public class EntitySprite {
         sprites = new Sprite[1];
         regions = new TextureRegion[1][][];
 
-        healthBarExists = true;
         
         // 0: idle, 1: walking, 2: attack
         frames = new int[3];
@@ -137,28 +131,11 @@ public class EntitySprite {
     public void update(int xPos, int yPos){
         for(int i = 0; i < sprites.length; i++){
             sprites[i].setPosition(xPos - 16, yPos);
-            if(healthBarExists == true){
-            }
+            
         }
         
         updateCollision(xPos, yPos);
         
-    }
-    
-    public void updateHealthBar(float hp, float maxHp, float xPos, float yPos){
-        float n = hp / maxHp;
-        healthBarTexture = new Texture("sprites/entityHealthBar.png");
-        int newWidth = (int) (n * healthBarTexture.getWidth());
-        TextureRegion[][] playerHealthRegion = TextureRegion.split(healthBarTexture,newWidth, healthBarTexture.getHeight());
-        healthBarSprite = new Sprite(playerHealthRegion[0][0]);
-        healthBarSprite.setPosition(xPos, yPos);
-        healthBarContainerSprite.setPosition(xPos, yPos);
-    }
-    
-    public void createHealthBar(){
-        healthBarContainerTexture = new Texture("sprites/entityHealthBarContainer.png");
-        healthBarContainerSprite = new Sprite(healthBarContainerTexture);
-        healthBarExists = true;
     }
     
     
@@ -181,15 +158,7 @@ public class EntitySprite {
         return sprites;
     }
 
-    public Sprite getHealthBarContainerSprite(){
-        return healthBarContainerSprite;
-    }
-    public Sprite getHealthBarSprite(){
-        return healthBarSprite;
-    }
-    public boolean healthBarIsExisting(){
-        return healthBarExists;
-    }
+    
     /**
      * @param sprites the sprites to set
      */

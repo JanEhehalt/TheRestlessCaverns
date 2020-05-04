@@ -463,12 +463,33 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                     }
                 } 
                 
-                if(keycode == Input.Keys.E){
+                if(keycode == Input.Keys.UP){
                     if(mm != null){}
                     if(gs != null && gs.getIsLoading() == false){
-                        d.setCurrentEntities(gs.playerAttack(d.getCurrentEntities(), d.getPlayer(), batch));
+                        d.setCurrentEntities(gs.playerAttack(d.getCurrentEntities(), d.getPlayer(), 0, batch));
                     }
                 }
+                if(keycode == Input.Keys.RIGHT){
+                    if(mm != null){}
+                    if(gs != null && gs.getIsLoading() == false){
+                        d.setCurrentEntities(gs.playerAttack(d.getCurrentEntities(), d.getPlayer(), 1, batch));
+                    }
+                }
+                if(keycode == Input.Keys.DOWN){
+                    if(mm != null){}
+                    if(gs != null && gs.getIsLoading() == false){
+                        d.setCurrentEntities(gs.playerAttack(d.getCurrentEntities(), d.getPlayer(), 2, batch));
+                    }
+                }
+                if(keycode == Input.Keys.LEFT){
+                    if(mm != null){}
+                    if(gs != null && gs.getIsLoading() == false){
+                        d.setCurrentEntities(gs.playerAttack(d.getCurrentEntities(), d.getPlayer(), 3, batch));
+                    }
+                }
+                
+                
+                
                 if(keycode == Input.Keys.F){
                     if(mm != null){}
                     if(gs != null && gs.getIsLoading() == false){
