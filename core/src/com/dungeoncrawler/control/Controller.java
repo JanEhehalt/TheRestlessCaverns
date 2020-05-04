@@ -215,15 +215,21 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                                             }
                                         }
                                         
-                                        if(delete && d.getCurrentEntities()[i].getId() == 2 || d.getCurrentEntities()[i].getToDelete()){
-                                            d.getCurrentEntities()[i] = null;
-                                            gs.deleteEntitySprite(i);      
+                                        if(delete || d.getCurrentEntities()[i].getToDelete()){
+                                            if(d.getCurrentEntities()[i].getId() == 2){
+                                                d.getCurrentEntities()[i] = null;
+                                                gs.deleteEntitySprite(i);
+                                            }
+                                            else{
+                                                
+                                            }
                                         }
+                                        
                                     }
                                 } 
-                            }
-                    }
-        },0, 0.03f);
+                            }   
+                        }
+            },0, 0.03f);
        
         
         

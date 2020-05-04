@@ -19,38 +19,39 @@ public class Swordsman extends Entity {
     
     @Override
     public boolean move(int xPosPlayer, int yPosPlayer){
-        float deltaX = xPosPlayer - (int) xPos;
-        float deltaY = yPosPlayer - (int) yPos;
-        
-        double alpha;
-        if(deltaX == 0 && deltaY >= 0){
-            alpha = Math.PI / 2;
-        }
-        else if(deltaX == 0 && deltaY < 0){
-            alpha = Math.PI / -2;
-        }
-        else{
-            alpha = Math.abs(Math.atan(deltaY / deltaX));
-            
-            if(deltaX < 0 && deltaY < 0){
-                alpha = Math.PI + alpha;
+        if(!toDelete){
+            float deltaX = xPosPlayer - (int) xPos;
+            float deltaY = yPosPlayer - (int) yPos;
+
+            double alpha;
+            if(deltaX == 0 && deltaY >= 0){
+                alpha = Math.PI / 2;
             }
-            else if(deltaX < 0 && deltaY > 0){
-                alpha = Math.PI - alpha;
+            else if(deltaX == 0 && deltaY < 0){
+                alpha = Math.PI / -2;
             }
-            else if(deltaX > 0 && deltaY < 0){
-                alpha = 2*Math.PI - alpha;
+            else{
+                alpha = Math.abs(Math.atan(deltaY / deltaX));
+
+                if(deltaX < 0 && deltaY < 0){
+                    alpha = Math.PI + alpha;
+                }
+                else if(deltaX < 0 && deltaY > 0){
+                    alpha = Math.PI - alpha;
+                }
+                else if(deltaX > 0 && deltaY < 0){
+                    alpha = 2*Math.PI - alpha;
+                }
             }
+
+            movementX = (int) (3 * Math.cos(alpha));
+            movementY = (int) (3 * Math.sin(alpha));
+
+            xPos += movementX;
+            yPos += movementY;
+
+            updateDirection();
         }
-        
-        movementX = (int) (3 * Math.cos(alpha));
-        movementY = (int) (3 * Math.sin(alpha));
-        
-        xPos += movementX;
-        yPos += movementY;
-        
-        updateDirection();
-        
         return false;
     }
     

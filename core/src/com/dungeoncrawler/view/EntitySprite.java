@@ -22,10 +22,9 @@ public class EntitySprite {
     private Rectangle collisionSprite;
     private Rectangle fullCollisionSprite;
     private TextureRegion[][][] regions;
-    private  int[] frames;
+    private int[] frames;
     private int attackState;
-    
-    
+    private int die;
     
     // 0: links, 1: rechts
     private int direction;
@@ -33,12 +32,12 @@ public class EntitySprite {
     public EntitySprite(Texture[] textures, int width, int height){
         sprites = new Sprite[1];
         regions = new TextureRegion[1][][];
-
         
-        // 0: idle, 1: walking, 2: attack
-        frames = new int[3];
+        // 0: idle, 1: walking, 2: attack, 3: die
+        frames = new int[4];
         direction = 0;
         attackState = 0;
+        die = 0;
         
         for(int i = 0; i < sprites.length; i++){
             regions[i] = TextureRegion.split(textures[i], width, height);
@@ -58,7 +57,10 @@ public class EntitySprite {
             
             direction = e.getDirection();
 
-            if(attackState == 1){
+            if(die >= 1){
+                updateDie();
+            }
+            else if(attackState == 1){
                 updateAttack();
             }
             else if(moves){
@@ -67,6 +69,17 @@ public class EntitySprite {
             else{
                 updateIdle();
             }
+        }
+    }
+    
+    public void updateDie(){
+        if(frames[3] >= 9){
+            die = 2;
+        }
+        else{
+            frames[3]++;
+            sprites[0].setRegion(regions[0][4][frames[3]]);
+            updateFlip();
         }
     }
     
@@ -131,14 +144,11 @@ public class EntitySprite {
     public void update(int xPos, int yPos){
         for(int i = 0; i < sprites.length; i++){
             sprites[i].setPosition(xPos - 16, yPos);
-            
         }
         
         updateCollision(xPos, yPos);
         
     }
-    
-    
     
     public void updateCollision(int xPos, int yPos){
         collisionSprite.setPosition(xPos, yPos);
@@ -157,7 +167,6 @@ public class EntitySprite {
     public Sprite[] getSprites() {
         return sprites;
     }
-
     
     /**
      * @param sprites the sprites to set
