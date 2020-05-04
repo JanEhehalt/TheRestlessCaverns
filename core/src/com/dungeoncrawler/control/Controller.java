@@ -135,30 +135,31 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
 
                                         boolean overlaps = false;
                                         boolean delete = false;
-                                        if(Intersector.overlaps(tempObject.getCollisionSprite(), playerSprite)){
-                                            overlaps = true;
-                                            
-                                            if(d.getCurrentEntities()[i].getId() == 2){
+                                        
+                                        if(d.getCurrentEntities()[i].getId() == 2){
+                                            if(Intersector.overlaps(tempObject.getCollisionSprite(), gs.getPlayer().getFullCollisionSprite())){
+                                                overlaps = true;
                                                 delete = true;
                                                 d.getCurrentEntities()[i].attack(d.getPlayer());
                                             }
-                                            else{
-                                                if(d.getCurrentEntities()[i].getId() != 0){
-                                                    switch(gs.entitySprites[i].getAttackState()){
-                                                        case 0:
-                                                            gs.entitySprites[i].startAttack();
-                                                            break;
-                                                        case 1:
-                                                            break;
-                                                        case 2:
-                                                            d.getCurrentEntities()[i].attack(d.getPlayer());
-                                                            gs.entitySprites[i].resetAttackState();
-                                                            break;
-                                                        default:
-                                                    }
+                                        }
+                                        else if(Intersector.overlaps(tempObject.getCollisionSprite(), playerSprite)){
+                                            
+                                            overlaps = true;
+                                            if(d.getCurrentEntities()[i].getId() != 0){
+                                                switch(gs.entitySprites[i].getAttackState()){
+                                                    case 0:
+                                                        gs.entitySprites[i].startAttack();
+                                                        break;
+                                                    case 1:
+                                                        break;
+                                                    case 2:
+                                                        d.getCurrentEntities()[i].attack(d.getPlayer());
+                                                        gs.entitySprites[i].resetAttackState();
+                                                        break;
+                                                    default:
                                                 }
                                             }
-                                            
                                         }
                                         else{
                                             for(RectangleMapObject rectangleObject : mapObjects.getByType(RectangleMapObject.class)){
@@ -185,6 +186,10 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                                                 }
                                             }
                                                
+                                        }
+                                        
+                                        if(gs.entitySprites[i].getAttackState() == 2 && d.getCurrentEntities()[i].getId() != 0){
+                                            gs.entitySprites[i].resetAttackState();
                                         }
                                         
                                         if(overlaps){

@@ -43,7 +43,7 @@ public class EntitySprite {
             collisionSprite = new Rectangle(0, 0, 32, 16);
         }
         
-        fullCollisionSprite = sprites[0].getBoundingRectangle();
+        this.fullCollisionSprite = sprites[0].getBoundingRectangle();
     }
     
     public void updateAnimation(Entity e){
@@ -134,6 +134,7 @@ public class EntitySprite {
     
     public void updateCollision(int xPos, int yPos){
         collisionSprite.setPosition(xPos, yPos);
+        getFullCollisionSprite().setPosition(xPos, yPos);
     }
     public void updateCollisionX(int xPos){
         collisionSprite.setX(xPos);
