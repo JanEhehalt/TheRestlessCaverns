@@ -20,6 +20,7 @@ import java.util.ArrayList;
 
 public class GameScreen {
     
+    
         //PLAYER
         Texture p;
         EntitySprite player;
@@ -76,6 +77,7 @@ public class GameScreen {
                 controls.setX(-400f);
                 controls.setY(0);
                 */
+                
                 
                 entities = d.getCurrentEntities();
             
@@ -215,8 +217,9 @@ public class GameScreen {
             }
 
             //MAP
-            tmr.setView(camera);
-            tmr.render();
+                tmr.setView(camera);
+            
+                tmr.render();
             
             camera.zoom = 700f; // Standart 700f
 
@@ -224,7 +227,7 @@ public class GameScreen {
             batch.setProjectionMatrix(camera.combined);
             
             updateEntitySprites(e);
-            
+        
             //BATCH
             batch.begin();
 
@@ -291,10 +294,10 @@ public class GameScreen {
                 }
                 if(e.getId() == 2){
                     tx[0] = new Texture("sprites/arrow.png");
-                    entitySprites[i] = new EntitySprite(tx, 18, 9);
+                    entitySprites[i] = new EntitySprite(tx, 36, 15);
                 }
 
-                entitySprites[i].update((int) e.getxPos(), (int) e.getyPos());
+                entitySprites[i].update((int) e.getxPos() + 32, (int) e.getyPos() + 32);
                 
                 if(e.getId() == 2){
                     entitySprites[i].getSprites()[0].setRotation((float) Math.toDegrees(e.getAngle()));
@@ -427,12 +430,11 @@ public class GameScreen {
         public void stop(){
             animations.stop();
             animatePlayer.stop();
-            camera = null;
+            
         }
         public void resume(){
             animations.start();
             animatePlayer.start();
-            
         }
        
 }

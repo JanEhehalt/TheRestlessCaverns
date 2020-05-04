@@ -200,6 +200,8 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                                             for(int k = 5; k < d.getCurrentEntities().length; k++){
                                                 if(d.getCurrentEntities()[k] == null){
                                                     Entity arrow = d.getCurrentEntities()[i].shoot((int) d.getPlayer().getxPos(), (int) d.getPlayer().getyPos());
+                                                    arrow.setxPos(d.getCurrentEntities()[i].getxPos() + 32);
+                                                    arrow.setyPos(d.getCurrentEntities()[i].getyPos() + 32);
                                                     d.getCurrentEntities()[k] = arrow;
                                                     gs.generateNewEntitySprite(arrow, k);
                                                     gs.entitySprites[i].resetAttackState();
@@ -491,12 +493,10 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                     }
                 }
                 if(keycode == Input.Keys.ESCAPE){
-                    if(gs != null && gs.getIsLoading() == false){
+                    if(gs != null && gs.getIsLoading() == false && isPaused == false){
                         stop();
                     }
-                }
-                if(keycode == Input.Keys.TAB){
-                    if(gs != null && gs.getIsLoading() == false){
+                    else if(gs != null && gs.getIsLoading() == false && isPaused == true){
                         resume();
                     }
                 }
@@ -684,6 +684,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
         gs.resume();
         
         ps = null;
+        gs.startLoadingScreen();
     }
     
 }
