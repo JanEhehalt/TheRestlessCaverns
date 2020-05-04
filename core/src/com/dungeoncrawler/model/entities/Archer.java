@@ -110,8 +110,8 @@ public class Archer extends Entity{
             }
         }
         Arrow a = new Arrow(this.xPos, this.yPos, this.lvl, 0);
-        movementX = (int) (7 * Math.cos(alpha));
-        movementY = (int) (7 * Math.sin(alpha));
+        movementX = (int) (6 * Math.cos(alpha));
+        movementY = (int) (6 * Math.sin(alpha));
 
         a.setMovementX(movementX);
         a.setMovementY(movementY);

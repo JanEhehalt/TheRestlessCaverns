@@ -243,10 +243,7 @@ public class GameScreen {
                 if(e[i] != null){
 
                     entitySprites[i].getSprites()[0].draw(batch);
-                    if(entitySprites[i].healthBarExists == true){
-                        entitySprites[i].getHealthBarContainerSprite().draw(batch);
-                        entitySprites[i].getHealthBarSprite().draw(batch);
-                    }
+
                 }
             }
 
@@ -275,12 +272,10 @@ public class GameScreen {
                 if(e.getId() == 0){ //nimmt entity ID -> 0 = Archer || 1 = Swordsman || 2 = Arrow
                     tx[0] = new Texture("sprites/archer.png");
                     entitySprites[i] = new EntitySprite(tx, 64, 64);
-                    entitySprites[i].createHealthBar();
                 }
                 if(e.getId() == 1){
                     tx[0] = new Texture("sprites/swordsman.png");
                     entitySprites[i] = new EntitySprite(tx, 64, 64);
-                    entitySprites[i].createHealthBar();
                 }
                 if(e.getId() == 2){
                     tx[0] = new Texture("sprites/arrow.png");
@@ -288,9 +283,7 @@ public class GameScreen {
                 }
 
                 entitySprites[i].update((int) e.getxPos() + 32, (int) e.getyPos() + 32);
-                if(e.getId() != 2 && e.getId() != -1){
-                    entitySprites[i].updateHealthBar(e.getHp(), e.getMaxhp(), e.getxPos(), e.getyPos());
-                }
+                
                 if(e.getId() == 2){
                     entitySprites[i].getSprites()[0].setRotation((float) Math.toDegrees(e.getAngle()));
                 }
