@@ -287,6 +287,10 @@ public class GameScreen {
                 if(e.getId() == 2){
                     entitySprites[i].getSprites()[0].setRotation((float) Math.toDegrees(e.getAngle()));
                 }
+                
+                if(e.isToDelete()){
+                    entitySprites[i].setDie(2);
+                }
             }
         }
         
@@ -314,7 +318,7 @@ public class GameScreen {
                         if(Intersector.overlaps(entitySprites[i].getCollisionSprite(), attackSprite.getBoundingRectangle())){
                             if(e[i] != null){
                                 if(e[i].getHp() - p.getDmg() <= 0){
-                                    e[i] = null;
+                                    e[i].setToDelete(true);
                                 }
                                 else{
                                     e[i].setHp(e[i].getHp() - p.getDmg());
@@ -334,7 +338,7 @@ public class GameScreen {
                         if(Intersector.overlaps(entitySprites[i].getCollisionSprite(), attackSprite.getBoundingRectangle())){
                             if(e[i] != null){
                                 if(e[i].getHp() - p.getDmg() <= 0){
-                                    e[i] = null;
+                                    e[i].setToDelete(true);
                                 }
                                 else{
                                     e[i].setHp(e[i].getHp() - p.getDmg());
@@ -354,7 +358,7 @@ public class GameScreen {
                         if(Intersector.overlaps(entitySprites[i].getCollisionSprite(), attackSprite.getBoundingRectangle())){
                             if(e[i] != null){
                                 if(e[i].getHp() - p.getDmg() <= 0){
-                                    e[i] = null;
+                                    e[i].setToDelete(true);
                                 }
                                 else{
                                     e[i].setHp(e[i].getHp() - p.getDmg());
@@ -374,7 +378,7 @@ public class GameScreen {
                         if(Intersector.overlaps(entitySprites[i].getCollisionSprite(), attackSprite.getBoundingRectangle())){
                             if(e[i] != null){
                                 if(e[i].getHp() - p.getDmg() <= 0){
-                                    e[i] = null;
+                                    e[i].setToDelete(true);
                                 }
                                 else{
                                     e[i].setHp(e[i].getHp() - p.getDmg());

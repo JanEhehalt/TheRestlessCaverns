@@ -13,7 +13,7 @@ public abstract class Entity {
     protected int id;
     protected int direction;
     protected Inventory inv;
-    protected boolean toDelete;
+    private boolean toDelete;
     private double angle;
     
     
@@ -147,7 +147,7 @@ public abstract class Entity {
     }
     
     public boolean getToDelete(){
-        return this.toDelete;
+        return this.isToDelete();
     }
 
     /**
@@ -162,6 +162,20 @@ public abstract class Entity {
      */
     public void setAngle(double angle) {
         this.angle = angle;
+    }
+
+    /**
+     * @return the toDelete
+     */
+    public boolean isToDelete() {
+        return toDelete;
+    }
+
+    /**
+     * @param toDelete the toDelete to set
+     */
+    public void setToDelete(boolean toDelete) {
+        this.toDelete = toDelete;
     }
     
 }

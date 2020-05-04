@@ -23,7 +23,7 @@ public class Archer extends Entity{
 
     @Override
     public boolean move(int xPosPlayer, int yPosPlayer) {
-        if(!toDelete){
+        if(!isToDelete()){
             float deltaX = xPosPlayer - (int) xPos;
             float deltaY = yPosPlayer - (int) yPos;
 
@@ -89,7 +89,7 @@ public class Archer extends Entity{
     public Entity shoot(int xPosPlayer, int yPosPlayer){
         Arrow a = null;
         
-        if(!toDelete){
+        if(!isToDelete()){
             float deltaX = xPosPlayer - (int) xPos;
             float deltaY = yPosPlayer - (int) yPos;
 

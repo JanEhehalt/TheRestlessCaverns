@@ -167,7 +167,11 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
 
                                                 if(Intersector.overlaps(tempObject.getCollisionSprite(), rectangle)){
                                                     overlaps = true;
-                                                    delete = true;
+                                                    
+                                                    if(d.getCurrentEntities()[i].getId() == 2){
+                                                        delete = true;
+                                                    }
+                                                    
                                                     break;
                                                 }
                                             }
@@ -215,13 +219,18 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                                             }
                                         }
                                         
-                                        if(delete || d.getCurrentEntities()[i].getToDelete()){
+                                        if(delete || d.getCurrentEntities()[i].isToDelete()){
                                             if(d.getCurrentEntities()[i].getId() == 2){
                                                 d.getCurrentEntities()[i] = null;
                                                 gs.deleteEntitySprite(i);
                                             }
                                             else{
-                                                
+                                                if(gs.entitySprites[i].getDie() == 0){
+                                                    gs.entitySprites[i].setDie(1);
+                                                }
+                                                else if(gs.entitySprites[i].getDie() == 2){
+                                                    //d.getCurrentEntities()[i] = null;
+                                                }
                                             }
                                         }
                                         

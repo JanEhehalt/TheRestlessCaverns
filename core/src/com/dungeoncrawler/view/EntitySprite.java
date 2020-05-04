@@ -57,7 +57,7 @@ public class EntitySprite {
             
             direction = e.getDirection();
 
-            if(die >= 1){
+            if(getDie() >= 1){
                 updateDie();
             }
             else if(attackState == 1){
@@ -73,8 +73,11 @@ public class EntitySprite {
     }
     
     public void updateDie(){
-        if(frames[3] >= 9){
-            die = 2;
+        if(die == 2){
+            sprites[0].setRegion(regions[0][4][9]);
+        }
+        else if(frames[3] >= 9){
+            setDie(2);
         }
         else{
             frames[3]++;
@@ -248,5 +251,19 @@ public class EntitySprite {
     
     public void startAttack(){
         this.attackState = 1;
+    }
+
+    /**
+     * @return the die
+     */
+    public int getDie() {
+        return die;
+    }
+
+    /**
+     * @param die the die to set
+     */
+    public void setDie(int die) {
+        this.die = die;
     }
 }

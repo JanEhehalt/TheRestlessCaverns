@@ -39,7 +39,7 @@ public class Arrow extends Entity{
         yPos += movementY;
         
         if(this.lifetime > 50){
-            this.toDelete = true;
+            this.setToDelete(true);
         }
         
         return false;

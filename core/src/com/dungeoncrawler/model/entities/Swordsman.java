@@ -19,7 +19,7 @@ public class Swordsman extends Entity {
     
     @Override
     public boolean move(int xPosPlayer, int yPosPlayer){
-        if(!toDelete){
+        if(!isToDelete()){
             float deltaX = xPosPlayer - (int) xPos;
             float deltaY = yPosPlayer - (int) yPos;
 
