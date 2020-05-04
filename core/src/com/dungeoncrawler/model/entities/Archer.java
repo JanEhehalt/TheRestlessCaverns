@@ -121,7 +121,7 @@ public class Archer extends Entity{
             a.setMovementY(movementY);
             a.setAngle(alpha);
 
-            if(alpha >= Math.PI / -2 && alpha <= Math.PI / 2){
+            if((alpha >= 0 && alpha <= Math.PI / 2) || (alpha <= 2 * Math.PI && alpha >= 2 * Math.PI - Math.PI / 2)){
                 setDirection(1);
             }
             else{

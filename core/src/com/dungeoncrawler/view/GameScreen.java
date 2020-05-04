@@ -22,7 +22,6 @@ public class GameScreen {
     
     
         //PLAYER
-        Texture p;
         EntitySprite player;
         
         
@@ -58,6 +57,8 @@ public class GameScreen {
         int roomChangeRow;
         
         boolean playerMoving;
+        
+        Player p;
         
         HudContainer hc;
         
@@ -140,7 +141,11 @@ public class GameScreen {
                 animatePlayer.scheduleTask(new Timer.Task() {
                     @Override
                     public void run() {
-                        if(!playerMoving){
+                        
+                        if(player.getAttackState() == 1){
+                            player.updateAttack();
+                        }
+                        else if(!playerMoving){
                             player.updateIdle();
                         }
                         else{
@@ -152,6 +157,9 @@ public class GameScreen {
                                 entitySprites[i].updateAnimation(entities[i]);
                             }
                         }
+                        if(player.getAttackState() == 2){
+                            playerAttack(entities, p, player.getDirection());
+                         }
                     }
                 }, 0, animationSpeed);
                 
@@ -190,7 +198,9 @@ public class GameScreen {
             entities = e;
             Gdx.gl.glClearColor(0, 0, 0, 1);
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
+            
+            this.p = p;
+            
             playerMoving = (p.getMovementX() != 0 || p.getMovementY() != 0);
 
             //setzt player Sprite auf richtige Position
@@ -227,6 +237,8 @@ public class GameScreen {
             
             updateEntitySprites(e);
         
+            
+            
             //BATCH
             batch.begin();
 
@@ -306,89 +318,61 @@ public class GameScreen {
             entitySprites[i] = null;
         }
         
-        public Entity[] playerAttack(Entity e[], Player p, int attackDirection, SpriteBatch batch){
-            if(attackDirection == 0){
-                Texture attackTexture = new Texture("sprites/AttackHori.png");
-                Sprite attackSprite = new Sprite(attackTexture);
-                attackSprite.setX(p.getxPos() - 8f);
-                attackSprite.setY(p.getyPos() + 32f);
+        public Entity[] playerAttack(Entity e[], Player p, int attackDirection){
+            if(player.getAttackState() == 0){
+                player.startAttack();
+            }
+            else if(player.getAttackState() == 1){
+                player.resetAttackState();
+                player.startAttack();
+            }
+            else if(player.getAttackState() == 2){
                 
-                for(int i = 0; i< e.length ; i++){
-                    if(e[i] != null){
-                        if(Intersector.overlaps(entitySprites[i].getCollisionSprite(), attackSprite.getBoundingRectangle())){
-                            if(e[i] != null){
-                                if(e[i].getHp() - p.getDmg() <= 0){
-                                    e[i].setToDelete(true);
-                                }
-                                else{
-                                    e[i].setHp(e[i].getHp() - p.getDmg());
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            else if(attackDirection== 1){
-                Texture attackTexture = new Texture("sprites/AttackVert.png");
-                Sprite attackSprite = new Sprite(attackTexture);
-                attackSprite.setX(p.getxPos()+ 32f);
-                attackSprite.setY(p.getyPos()- 2f);
-                for(int i = 0; i< e.length ; i++){
-                    if(entitySprites[i] != null){
-                        if(Intersector.overlaps(entitySprites[i].getCollisionSprite(), attackSprite.getBoundingRectangle())){
-                            if(e[i] != null){
-                                if(e[i].getHp() - p.getDmg() <= 0){
-                                    e[i].setToDelete(true);
-                                }
-                                else{
-                                    e[i].setHp(e[i].getHp() - p.getDmg());
+                if(attackDirection== 0){
+                    Texture attackTexture = new Texture("sprites/AttackVert.png");
+                    Sprite attackSprite = new Sprite(attackTexture);
+                    attackSprite.setX(p.getxPos() - 32f);
+                    attackSprite.setY(p.getyPos() - 8f);
+                    for(int i = 0; i < e.length ; i++){
+                        if(entitySprites[i] != null){
+                            if(Intersector.overlaps(entitySprites[i].getCollisionSprite(), attackSprite.getBoundingRectangle())){
+                                if(e[i] != null){
+                                    if(e[i].getHp() - p.getDmg() <= 0){
+                                        e[i].setToDelete(true);
+                                    }
+                                    else{
+                                        e[i].setHp(e[i].getHp() - p.getDmg());
+                                    }
                                 }
                             }
                         }
                     }
                 }
-            }
-            else if(attackDirection== 2){
-                Texture attackTexture = new Texture("sprites/AttackHori.png");
-                Sprite attackSprite = new Sprite(attackTexture);
-                attackSprite.setX(p.getxPos() - 8f);
-                attackSprite.setY(p.getyPos());
-                for(int i = 0; i<e.length ; i++){
-                    if(entitySprites[i] != null){
-                        if(Intersector.overlaps(entitySprites[i].getCollisionSprite(), attackSprite.getBoundingRectangle())){
-                            if(e[i] != null){
-                                if(e[i].getHp() - p.getDmg() <= 0){
-                                    e[i].setToDelete(true);
-                                }
-                                else{
-                                    e[i].setHp(e[i].getHp() - p.getDmg());
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            else if(attackDirection== 3){
-                Texture attackTexture = new Texture("sprites/AttackVert.png");
-                Sprite attackSprite = new Sprite(attackTexture);
-                attackSprite.setX(p.getxPos() - 32f);
-                attackSprite.setY(p.getyPos() - 8f);
-                for(int i = 0; i < e.length ; i++){
-                    if(entitySprites[i] != null){
-                        if(Intersector.overlaps(entitySprites[i].getCollisionSprite(), attackSprite.getBoundingRectangle())){
-                            if(e[i] != null){
-                                if(e[i].getHp() - p.getDmg() <= 0){
-                                    e[i].setToDelete(true);
-                                }
-                                else{
-                                    e[i].setHp(e[i].getHp() - p.getDmg());
+                else if(attackDirection== 1){
+                    Texture attackTexture = new Texture("sprites/AttackVert.png");
+                    Sprite attackSprite = new Sprite(attackTexture);
+                    attackSprite.setX(p.getxPos()+ 32f);
+                    attackSprite.setY(p.getyPos()- 2f);
+                    for(int i = 0; i< e.length ; i++){
+                        if(entitySprites[i] != null){
+                            if(Intersector.overlaps(entitySprites[i].getCollisionSprite(), attackSprite.getBoundingRectangle())){
+                                if(e[i] != null){
+                                    if(e[i].getHp() - p.getDmg() <= 0){
+                                        e[i].setToDelete(true);
+                                    }
+                                    else{
+                                        e[i].setHp(e[i].getHp() - p.getDmg());
+                                    }
                                 }
                             }
                         }
                     }
                 }
+                
+                player.resetAttackState();
             }
-            return e;
+            
+                return e;
         }
         
         public void cleanUp(){

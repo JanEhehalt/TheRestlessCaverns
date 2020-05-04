@@ -45,7 +45,7 @@ public class EntitySprite {
             collisionSprite = new Rectangle(0, 0, 32, 16);
         }
         
-        this.fullCollisionSprite = sprites[0].getBoundingRectangle();
+        this.fullCollisionSprite = new Rectangle(0,0,32,64);
     }
     
     public void updateAnimation(Entity e){
@@ -247,6 +247,7 @@ public class EntitySprite {
     
     public void resetAttackState(){
         this.attackState = 0;
+        frames[2] = 0;
     }
     
     public void startAttack(){
