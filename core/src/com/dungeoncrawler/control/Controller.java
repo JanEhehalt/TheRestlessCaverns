@@ -59,11 +59,6 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
     float volume;
     
     
-    Texture verticalAttack;
-    Texture horizontalAttack;
-    Sprite verticalAttackSprite;
-    Sprite horizontalAttackSprite;
-    
     Timer entityMovement;
     
     boolean isPaused;
@@ -195,7 +190,9 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                                         if(gs.entitySprites[i].getAttackState() == 2 && d.getCurrentEntities()[i].getId() != 0){
                                             gs.entitySprites[i].resetAttackState();
                                         }
-                                        
+                                        if(gs.player.getAttackState() == 2){
+                                            playerAttack(d.getCurrentEntities(), d.getPlayer(), d.getPlayer().getDirection());
+                                        }
                                         if(overlaps){
                                             d.getCurrentEntities()[i].setxPos(x);
                                             d.getCurrentEntities()[i].setyPos(y);
@@ -334,6 +331,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                 System.out.println("Es laedt, es laedt, ich will nicht, dass es laedt, wenn es laedt, muss man immer so lange warten!!!!!");
             }
         }
+        d.getPlayer().updateDirection();
     }
     
     public void updateRoom(){
@@ -442,6 +440,66 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
         return garbageCollector;
         
     }
+    
+    public Entity[] playerAttack(Entity e[], Player p, int attackDirection){
+            EntitySprite player = gs.getPlayer();
+            EntitySprite[] entitySprites = gs.entitySprites;
+            
+            if(player.getAttackState() == 0){
+                player.startAttack();
+            }
+            else if(player.getAttackState() == 1){
+                player.resetAttackState();
+                player.startAttack();
+            }
+            else if(player.getAttackState() == 2){
+                
+                if(attackDirection== 0){
+                    Texture attackTexture = new Texture("sprites/AttackVert.png");
+                    Sprite attackSprite = new Sprite(attackTexture);
+                    attackSprite.setX(p.getxPos() - 32f);
+                    attackSprite.setY(p.getyPos() - 8f);
+                    for(int i = 0; i < e.length ; i++){
+                        if(entitySprites[i] != null){
+                            if(Intersector.overlaps(entitySprites[i].getCollisionSprite(), attackSprite.getBoundingRectangle())){
+                                if(e[i] != null){
+                                    if(e[i].getHp() - p.getDmg() <= 0){
+                                        e[i].setToDelete(true);
+                                    }
+                                    else{
+                                        e[i].setHp(e[i].getHp() - p.getDmg());
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                else if(attackDirection== 1){
+                    Texture attackTexture = new Texture("sprites/AttackVert.png");
+                    Sprite attackSprite = new Sprite(attackTexture);
+                    attackSprite.setX(p.getxPos()+ 32f);
+                    attackSprite.setY(p.getyPos()- 2f);
+                    for(int i = 0; i< e.length ; i++){
+                        if(entitySprites[i] != null){
+                            if(Intersector.overlaps(entitySprites[i].getCollisionSprite(), attackSprite.getBoundingRectangle())){
+                                if(e[i] != null){
+                                    if(e[i].getHp() - p.getDmg() <= 0){
+                                        e[i].setToDelete(true);
+                                    }
+                                    else{
+                                        e[i].setHp(e[i].getHp() - p.getDmg());
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                
+                player.resetAttackState();
+            }
+            
+                return e;
+        }
         
     @Override
     public boolean keyDown(int keycode) {
@@ -481,7 +539,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                 if(keycode == Input.Keys.SPACE){
                     if(mm != null){}
                     if(gs != null && gs.getIsLoading() == false){
-                        d.setCurrentEntities(gs.playerAttack(d.getCurrentEntities(), d.getPlayer(), 0));
+                        d.setCurrentEntities(playerAttack(d.getCurrentEntities(), d.getPlayer(), 0));
                     }
                 }
                 
@@ -533,7 +591,9 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                     if(mm != null){
                     }
                     if(gs != null){
-                    d.getPlayer().setMovementX(0);
+                        if(d.getPlayer().getMovementX() < 0){
+                            d.getPlayer().setMovementX(0);
+                        }
                     }
                 }
                 
@@ -541,7 +601,9 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                     if(mm != null){
                     }
                     if(gs != null){
-                    d.getPlayer().setMovementX(0);
+                        if(d.getPlayer().getMovementX() > 0){
+                            d.getPlayer().setMovementX(0);
+                        }
                     }
                 }
                 
@@ -549,7 +611,10 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                     if(mm != null){
                     }
                     if(gs != null){
-                    d.getPlayer().setMovementY(0);
+                        if(d.getPlayer().getMovementY() < 0){
+                            d.getPlayer().setMovementY(0);
+                        }
+                    
                     }
                 } 
                 
@@ -557,7 +622,9 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                     if(mm != null){
                     }
                     if(gs != null){
-                    d.getPlayer().setMovementY(0);
+                        if(d.getPlayer().getMovementY() > 0){
+                            d.getPlayer().setMovementY(0);
+                        }
                     }
                 } 
                 

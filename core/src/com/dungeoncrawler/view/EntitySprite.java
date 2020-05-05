@@ -51,30 +51,30 @@ public class EntitySprite {
     public void updateAnimation(Entity e){
             if(e != null){
                 boolean moves = false;
-            if(e.getMovementX() != 0 || e.getMovementY() != 0){
-                moves = true;
-            }
-            
-            direction = e.getDirection();
+                if(e.getMovementX() != 0 || e.getMovementY() != 0){
+                    moves = true;
+                }
+                direction = e.getDirection();
 
-            if(getDie() >= 1){
-                updateDie();
-            }
-            else if(attackState == 1){
-                updateAttack();
-            }
-            else if(moves){
-                updateWalking();
-            }
-            else{
-                updateIdle();
-            }
+                if(getDie() >= 1){
+                    updateDie();
+                }
+                else if(attackState == 1){
+                    updateAttack();
+                }
+                else if(moves){
+                    updateWalking();
+                }
+                else{
+                    updateIdle();
+                }
         }
     }
     
     public void updateDie(){
         if(die == 2){
             sprites[0].setRegion(regions[0][4][9]);
+            updateFlip();
         }
         else if(frames[3] >= 9){
             setDie(2);

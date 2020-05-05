@@ -22,20 +22,12 @@ public class GameScreen {
     
     
         //PLAYER
-        EntitySprite player;
+        public EntitySprite player;
         
         
         //ENTITIES
-        Texture[] entityTextures;
         public EntitySprite[] entitySprites;
-        TextureRegion[][] archerRegions;
-        Texture archerTexture;
-        TextureRegion[][] swordsmanRegions;
-        Texture swordsmanTexture;
         Entity[] entities;
-        
-        Texture[] arrowTextures;
-        Sprite[] arrowSprites;
         
         //MAP
         private Map m;
@@ -56,8 +48,6 @@ public class GameScreen {
         TextureRegion[][] roomChangeTextureRegion;
         int roomChangeRow;
         
-        boolean playerMoving;
-        
         Player p;
         
         HudContainer hc;
@@ -71,13 +61,6 @@ public class GameScreen {
         
 	public GameScreen(Dungeon d, float volume) {
                 //CONTROLS
-                /*
-                ctr = new Texture("controls.png");
-                controls = new Sprite(ctr);
-                controls.setX(-400f);
-                controls.setY(0);
-                */
-                
                 
                 entities = d.getCurrentEntities();
             
@@ -93,11 +76,8 @@ public class GameScreen {
                 player.update(200, 200);
                 
                 //ENTITIES
-                entityTextures = new Texture[5];
                 entitySprites = new EntitySprite[15];
                 
-                arrowTextures = new Texture[10];
-                arrowSprites = new Sprite[10];
                     
                 //MAP
                 float w = Gdx.graphics.getWidth();
@@ -141,25 +121,14 @@ public class GameScreen {
                 animatePlayer.scheduleTask(new Timer.Task() {
                     @Override
                     public void run() {
-                        
-                        if(player.getAttackState() == 1){
-                            player.updateAttack();
-                        }
-                        else if(!playerMoving){
-                            player.updateIdle();
-                        }
-                        else{
-                            player.updateWalking();
-                        }
+                        player.updateAnimation(p);
                         
                         for(int i = 0; i < entitySprites.length; i++){
                             if(entitySprites[i] != null){
                                 entitySprites[i].updateAnimation(entities[i]);
                             }
                         }
-                        if(player.getAttackState() == 2){
-                            playerAttack(entities, p, player.getDirection());
-                         }
+                        
                     }
                 }, 0, animationSpeed);
                 
@@ -189,7 +158,7 @@ public class GameScreen {
                            roomChangeRow++;
                        }
                     }
-                },0, 0.01f);
+                },0, 0.02f);
                 
 	}
 
@@ -201,7 +170,7 @@ public class GameScreen {
             
             this.p = p;
             
-            playerMoving = (p.getMovementX() != 0 || p.getMovementY() != 0);
+            //playerMoving = (p.getMovementX() != 0 || p.getMovementY() != 0);
 
             //setzt player Sprite auf richtige Position
             player.update((int) p.getxPos(), (int) p.getyPos());
@@ -226,9 +195,8 @@ public class GameScreen {
             }
 
             //MAP
-                tmr.setView(camera);
-            
-                tmr.render();
+            tmr.setView(camera);
+            tmr.render();
             
             camera.zoom = 700f; // Standart 700f
 
@@ -318,62 +286,7 @@ public class GameScreen {
             entitySprites[i] = null;
         }
         
-        public Entity[] playerAttack(Entity e[], Player p, int attackDirection){
-            if(player.getAttackState() == 0){
-                player.startAttack();
-            }
-            else if(player.getAttackState() == 1){
-                player.resetAttackState();
-                player.startAttack();
-            }
-            else if(player.getAttackState() == 2){
-                
-                if(attackDirection== 0){
-                    Texture attackTexture = new Texture("sprites/AttackVert.png");
-                    Sprite attackSprite = new Sprite(attackTexture);
-                    attackSprite.setX(p.getxPos() - 32f);
-                    attackSprite.setY(p.getyPos() - 8f);
-                    for(int i = 0; i < e.length ; i++){
-                        if(entitySprites[i] != null){
-                            if(Intersector.overlaps(entitySprites[i].getCollisionSprite(), attackSprite.getBoundingRectangle())){
-                                if(e[i] != null){
-                                    if(e[i].getHp() - p.getDmg() <= 0){
-                                        e[i].setToDelete(true);
-                                    }
-                                    else{
-                                        e[i].setHp(e[i].getHp() - p.getDmg());
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-                else if(attackDirection== 1){
-                    Texture attackTexture = new Texture("sprites/AttackVert.png");
-                    Sprite attackSprite = new Sprite(attackTexture);
-                    attackSprite.setX(p.getxPos()+ 32f);
-                    attackSprite.setY(p.getyPos()- 2f);
-                    for(int i = 0; i< e.length ; i++){
-                        if(entitySprites[i] != null){
-                            if(Intersector.overlaps(entitySprites[i].getCollisionSprite(), attackSprite.getBoundingRectangle())){
-                                if(e[i] != null){
-                                    if(e[i].getHp() - p.getDmg() <= 0){
-                                        e[i].setToDelete(true);
-                                    }
-                                    else{
-                                        e[i].setHp(e[i].getHp() - p.getDmg());
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-                
-                player.resetAttackState();
-            }
-            
-                return e;
-        }
+        
         
         public void cleanUp(){
             music.dispose();
