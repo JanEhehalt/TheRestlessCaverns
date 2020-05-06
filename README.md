@@ -29,7 +29,24 @@ https://send.firefox.com/download/04dde021f2f23c45/#HErUzC8M5guBWYE-wRZLgg
 
 ## 3) Controls
 
+**W**: move up  
+**A**: move left  
+**S**: move down  
+**D**: move right  
+**SPACE**: Attack  
+**F**: pick up  
+**R**: equip selected item  
+**scroll-wheel**: change selected item  
+**Q**: drop selected Item  
+**ESC**: pause Game / resume Game  
+
 ## 4) Information about the code
+
+### Model
+
+### View
+
+### Control
 
 ## 5) Contact
 
