@@ -11,6 +11,8 @@
 4) Information about code  
 5) Contact Information  
 
+[TOC]
+
 ## 1) General Information
 
 The project was created by @GammelJAN, @JonathanHager  
