@@ -1,6 +1,12 @@
-# The Restless Caverns - Der beste Dungeoncrawler aller Zeiten
+# The Restless Caverns - The best dungeon crawler of all time
 
-*Model-View-Control
+"The Restless Caverns" is the best dungeon crawler the world has ever seen.
+
+The project was created by @GammelJAN and @JonathanHager
+The project is still being updated, and far from finished.
+
+Language: JAVA
+Engine: libGDX - https://libgdx.badlogicgames.com/
 
 ## Model
 
