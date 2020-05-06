@@ -2,15 +2,6 @@
 
 "The Restless Caverns" is the best dungeon crawler the world has ever seen.  
 
-## Contents
-
-0) General Information  
-1) Installation  
-2) Known Issues  
-3) Controls  
-4) Information about code  
-5) Contact Information  
-
 [[_TOC_]] 
 
 ## 1) General Information
