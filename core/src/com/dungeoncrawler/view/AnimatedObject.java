@@ -53,6 +53,10 @@ public class AnimatedObject {
     public void setSprite(Sprite sprite) {
         this.sprite = sprite;
     }
+    
+    public void setSpritePosition(int xPos, int yPos){
+        sprite.setPosition(xPos, yPos);
+    }
 
     /**
      * @return the texture

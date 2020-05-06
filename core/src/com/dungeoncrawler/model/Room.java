@@ -28,8 +28,8 @@ public class Room {
         enemy.setyPos(yPos);
     }
     
-    public void spawnItem(int xPos, int yPos){
-        // TODO: Zu Implementieren
+    public void spawnItem(int xPos, int yPos, Item i){
+        items.add(new ItemContainer(xPos, yPos, i));
     }
 
     /**

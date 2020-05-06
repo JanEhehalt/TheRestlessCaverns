@@ -430,6 +430,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
             if(Intersector.overlaps(gs.getPlayer().getCollisionSprite(), tempSprites.get(i).getSprite().getBoundingRectangle())){
                 garbageCollector.add(tempItems.get(i));
                 
+                
                 tempItems.remove(i);
                 tempSprites.remove(i);
             }
@@ -570,7 +571,11 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                 
                 if(keycode == Input.Keys.Q){
                     if(gs != null && gs.getIsLoading() == false){
-                        d.getPlayer().getInv().dropItem();
+                        if(d.getPlayer().getInv().getItem(d.getPlayer().getInv().getSelected()) != null){
+                            d.getCurrentRoom().spawnItem((int)d.getPlayer().getxPos(), (int)d.getPlayer().getyPos(), d.getPlayer().getInv().getItem(d.getPlayer().getInv().getSelected()));
+                            gs.getM().getMaps()[level][roomPosX][roomPosY].addItem(48, 48,(int)d.getPlayer().getxPos(), (int)d.getPlayer().getyPos(), d.getPlayer().getInv().getItem(d.getPlayer().getInv().getSelected()));
+                            d.getPlayer().getInv().dropItem();
+                        }
                     }
                 }
                 if(keycode == Input.Keys.ESCAPE){

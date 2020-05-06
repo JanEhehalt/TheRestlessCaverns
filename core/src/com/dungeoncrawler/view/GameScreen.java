@@ -184,7 +184,7 @@ public class GameScreen {
             }
 
             tm = getM().getMaps()[level][roomPosX][roomPosY].getMap();
-            objects = getM().getMaps()[level][roomPosX][roomPosY].getObjects();
+            objects = getM().getMaps()[level][roomPosX][roomPosY].getObjects(); 
             mapItems = getM().getMaps()[level][roomPosX][roomPosY].getMapItems();
 
             if(tm == null){
