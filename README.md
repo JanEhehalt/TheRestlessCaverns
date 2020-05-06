@@ -4,7 +4,7 @@
 
 [[_TOC_]] 
 
-## 0) General Information
+## General Information
 
 "The Restless Caverns" is the best dungeon crawler the world has ever seen.  
 
@@ -17,7 +17,7 @@ Engine: libGDX - https://libgdx.badlogicgames.com/
 <img src="docs/general.PNG" style="width:auto;">
 
 
-## 1) Installation
+## Installation
 
 #### newest Build:  
 
@@ -25,9 +25,9 @@ Download executable -jar here:
 https://send.firefox.com/download/04dde021f2f23c45/#HErUzC8M5guBWYE-wRZLgg  
 
 
-## 2) Known Issues
+## Known Issues
 
-## 3) Controls
+## Controls
 
 **W**: move up  
 **A**: move left  
@@ -40,7 +40,7 @@ https://send.firefox.com/download/04dde021f2f23c45/#HErUzC8M5guBWYE-wRZLgg
 **Q**: drop selected Item  
 **ESC**: pause Game / resume Game  
 
-## 4) Information about the code
+## Information about the code
 
 ### Model
 
@@ -48,7 +48,7 @@ https://send.firefox.com/download/04dde021f2f23c45/#HErUzC8M5guBWYE-wRZLgg
 
 ### Control
 
-## 5) Contact
+## Contact
 
 Mail:  
 therestlesscaverns@gmail.com  
