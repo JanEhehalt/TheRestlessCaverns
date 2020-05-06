@@ -2,7 +2,7 @@
 
 "The Restless Caverns" is the best dungeon crawler the world has ever seen.  
 
-The project was created by @GammelJAN and @JonathanHager  
+The project was created by @GammelJAN, @JonathanHager and @Gammler5000  
 The project is still being updated, and far from finished.  
 The future of this game is HUGE.
 
