@@ -4,6 +4,7 @@
 
 The project was created by @GammelJAN and @JonathanHager  
 The project is still being updated, and far from finished.  
+The future of this game is HUGE.
 
 Language: JAVA  
 Engine: libGDX - https://libgdx.badlogicgames.com/  
