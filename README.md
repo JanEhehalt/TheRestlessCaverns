@@ -11,7 +11,7 @@
 4) Information about code  
 5) Contact Information  
 
-[TOC]
+[[_TOC_]] 
 
 ## 1) General Information
 
