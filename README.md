@@ -14,7 +14,7 @@ The future of this game is **HUGE**.
 
 Engine: libGDX - https://libgdx.badlogicgames.com/  
 
-<img src="docs/general.PNG" style="width: 20%; height:auto;">
+<img src="docs/general.PNG" style="width: 400px; height:auto;">
 
 
 ## Installation
