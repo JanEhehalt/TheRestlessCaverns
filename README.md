@@ -2,17 +2,23 @@
 
 "The Restless Caverns" is the best dungeon crawler the world has ever seen.  
 
-The project was created by @GammelJAN, @JonathanHager and @Gammler5000  
-The project is still being updated, and far from finished.  
-The future of this game is HUGE.
+## Contents
 
-Language: JAVA  
+0) General Information  
+1) Installation  
+2) Known Issues  
+3) Controls  
+4) Information about code  
+5) Contact Information  
+
+## 1) General Information
+
+The project was created by @GammelJAN, @JonathanHager  
+The project is still being updated, and far from finished.  
+The future of this game is HUGE.  
+
 Engine: libGDX - https://libgdx.badlogicgames.com/  
 
-## Model
+<img src="docs/general.png" style="width:auto;">
 
 
-## View
-
-
-## Control
