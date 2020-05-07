@@ -218,7 +218,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                             
 
                             if(delete || d.getCurrentEntities()[i].isToDelete()){
-                                if(d.getCurrentEntities()[i].getId() == 2){
+                                if(d.getCurrentEntities()[i].getType()== 2){
                                     d.getCurrentEntities()[i] = null;
                                     gs.deleteEntitySprite(i);
                                 }
