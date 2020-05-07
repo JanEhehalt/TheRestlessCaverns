@@ -455,42 +455,23 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
             }
             else if(player.getAttackState() == 2){
                 
-                if(attackDirection== 0){
-                    Texture attackTexture = new Texture("sprites/AttackVert.png");
-                    Sprite attackSprite = new Sprite(attackTexture);
-                    attackSprite.setX(p.getxPos() - 32f);
-                    attackSprite.setY(p.getyPos() - 8f);
-                    for(int i = 0; i < e.length ; i++){
-                        if(entitySprites[i] != null){
-                            if(Intersector.overlaps(entitySprites[i].getCollisionSprite(), attackSprite.getBoundingRectangle())){
-                                if(e[i] != null){
-                                    if(e[i].getHp() - p.getDmg() <= 0){
-                                        e[i].setToDelete(true);
-                                    }
-                                    else{
-                                        e[i].setHp(e[i].getHp() - p.getDmg());
-                                    }
-                                }
-                            }
-                        }
-                    }
+                Rectangle collision = new Rectangle(0, 0, gs.player.getCollisionSprite().getWidth(), gs.player.getFullCollisionSprite().getHeight());
+                
+                if(attackDirection == 0){
+                    collision.setPosition(p.getxPos() - 32f, p.getyPos());
                 }
                 else if(attackDirection== 1){
-                    Texture attackTexture = new Texture("sprites/AttackVert.png");
-                    Sprite attackSprite = new Sprite(attackTexture);
-                    attackSprite.setX(p.getxPos()+ 32f);
-                    attackSprite.setY(p.getyPos()- 2f);
-                    for(int i = 0; i< e.length ; i++){
-                        if(entitySprites[i] != null){
-                            if(Intersector.overlaps(entitySprites[i].getCollisionSprite(), attackSprite.getBoundingRectangle())){
-                                if(e[i] != null){
-                                    if(e[i].getHp() - p.getDmg() <= 0){
-                                        e[i].setToDelete(true);
-                                    }
-                                    else{
-                                        e[i].setHp(e[i].getHp() - p.getDmg());
-                                    }
-                                }
+                    collision.setPosition(p.getxPos() + 32f, p.getyPos());
+                }
+
+                for(int i = 0; i < e.length ; i++){
+                    if(entitySprites[i] != null && e[i] != null){
+                        if(Intersector.overlaps(entitySprites[i].getCollisionSprite(), collision)){
+                            if(e[i].getHp() - p.getDmg() <= 0){
+                                e[i].setToDelete(true);
+                            }
+                            else{
+                                e[i].setHp(e[i].getHp() - p.getDmg());
                             }
                         }
                     }
