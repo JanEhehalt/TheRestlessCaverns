@@ -18,17 +18,13 @@ import com.dungeoncrawler.model.entities.Player;
  * @author bfz
  */
 public class HudContainer {
-    Texture HudTexture;
     Sprite HudSprite;
     Texture[] InventoryItemTextures;
     Sprite[] InventoryItemSprites;
     float[] invXPos;
     float[] invYPos;
     int selected;
-    Texture selectedTexture;
     Sprite selectedSprite;
-    
-    Texture playerHealthTexture;
     Sprite playerHealthSprite;
     float playerHealthX;
     float playerHealthY;
@@ -37,14 +33,17 @@ public class HudContainer {
     float HudPosX;
     float HudPosY;
     
+    Sprite Inventory;
+    Sprite healthBarContainer;
+    
     public HudContainer(){
         
         
         font = new BitmapFont();
         font.setColor(1, 1, 1, 1);
-        selectedTexture = new Texture("sprites/selected.png");
+        Texture selectedTexture = new Texture("sprites/selected.png");
         selectedSprite = new Sprite(selectedTexture);
-        HudTexture = new Texture("sprites/hud.png");
+        Texture HudTexture = new Texture("sprites/hud.png");
         HudSprite = new Sprite(HudTexture);
         HudSprite.setX(-HudSprite.getWidth());
         HudSprite.setY(20f);
@@ -53,9 +52,12 @@ public class HudContainer {
         invXPos = new float[8];
         invYPos = new float[8];
         
+        Texture inv = new Texture("sprites/hudInventory.png");
+        Inventory = new Sprite(inv);
         
+        Texture healthContainer = new Texture("sprites/playerHealthBarContainer.png");
+        healthBarContainer = new Sprite(healthContainer);
         
-        playerHealthTexture = new Texture("sprites/playerHealthBar.png");
         playerHealthSprite = new Sprite();
         
         HudPosX = HudSprite.getX();
@@ -64,27 +66,33 @@ public class HudContainer {
         playerHealthX = HudPosX+36f;
         playerHealthY = HudPosY+260f;
         
+        healthBarContainer.setPosition(HudPosX + 8,HudPosY + 252);
+        Inventory.setPosition(HudPosX + 7,HudPosY + 7);
+        
+        float InvX = Inventory.getX();
+        float InvY = Inventory.getY();
+        
         //Equipped 1
-        invXPos[0] = HudPosX + 37f;
-        invYPos[0] = HudPosY + 112f;
+        invXPos[0] = InvX + 30f;
+        invYPos[0] = InvY + 105f;
         //Equipped 2
-        invXPos[1] = HudPosX + 85f;
-        invYPos[1] = HudPosY + 112f;
+        invXPos[1] = InvX + 78f;
+        invYPos[1] = InvY + 115f;
 
         
-        invXPos[2] = HudPosX + 10f;
-        invYPos[2] = HudPosY + 61f;
-        invXPos[3] = HudPosX + 61f;
-        invYPos[3] = HudPosY + 61f;
-        invXPos[4] = HudPosX + 112f;
-        invYPos[4] = HudPosY + 61f;
+        invXPos[2] = InvX + 3f;
+        invYPos[2] = InvY + 54f;
+        invXPos[3] = InvX + 54f;
+        invYPos[3] = InvY + 54f;
+        invXPos[4] = InvX + 105f;
+        invYPos[4] = InvY + 54f;
 
-        invXPos[5] = HudPosX + 10f;
-        invYPos[5] = HudPosY + 10f;
-        invXPos[6] = HudPosX + 61f;
-        invYPos[6] = HudPosY + 10f;
-        invXPos[7] = HudPosX + 112f;
-        invYPos[7] = HudPosY + 10f;
+        invXPos[5] = InvX + 3f;
+        invYPos[5] = InvY + 3f;
+        invXPos[6] = InvX + 54f;
+        invYPos[6] = InvY + 3f;
+        invXPos[7] = InvX + 105f;
+        invYPos[7] = InvY + 3f;
         
         selected = 2;
         selectedSprite.setX(invXPos[selected] - 2f);
@@ -108,6 +116,7 @@ public class HudContainer {
             selectedSprite.setY(invYPos[selected] - 2f);
             
             float n = p.getHp() / p.getMaxhp();
+            Texture playerHealthTexture = new Texture("sprites/playerHealthBar.png");
             int newWidth = (int) (n * playerHealthTexture.getWidth());
             TextureRegion[][] playerHealthRegion = TextureRegion.split(playerHealthTexture,newWidth, playerHealthTexture.getHeight());
             playerHealthSprite = new Sprite(playerHealthRegion[0][0]);
@@ -115,6 +124,10 @@ public class HudContainer {
             
             batch.begin();
             HudSprite.draw(batch);
+            
+            healthBarContainer.draw(batch);
+            Inventory.draw(batch);
+            
             for(int i = 0; i < InventoryItemSprites.length ;i++){
                     if(InventoryItemSprites[i] != null){
                         InventoryItemSprites[i].draw(batch);
