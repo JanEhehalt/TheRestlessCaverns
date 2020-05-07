@@ -180,7 +180,6 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                                         if(i != j){
                                             if(d.getCurrentEntities()[j] != null && d.getCurrentEntities()[j].getId() != 2){
                                                 if(Intersector.overlaps(tempObject.getCollisionSprite(), gs.entitySprites[j].getCollisionSprite())){
-
                                                     overlaps = true;
                                                     break;
                                                 }   
@@ -191,7 +190,19 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
 
                             }
 
-                            if(gs.entitySprites[i].getAttackState() == 2 && d.getCurrentEntities()[i].getType() != 0){
+                            if(d.getCurrentEntities()[i].getType() == 1 && gs.entitySprites[i].getAttackState() == 2){
+                                Entity arrow = d.getCurrentEntities()[i].shoot((int) d.getPlayer().getxPos(), (int) d.getPlayer().getyPos());
+                                
+                                for(int k = 5; k < d.getCurrentEntities().length; k++){
+                                    if(d.getCurrentEntities()[k] == null){
+                                        d.getCurrentEntities()[k] = arrow;
+                                        gs.generateNewEntitySprite(arrow, k);
+                                        break;
+                                    }
+                                }
+                            }
+                            
+                            if(gs.entitySprites[i].getAttackState() == 2){
                                 gs.entitySprites[i].resetAttackState();
                             }
                             
@@ -204,18 +215,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
 
                             gs.entitySprites[i] = tempObject;
 
-                            if(d.getCurrentEntities()[i].getType()== 0 && gs.entitySprites[i].getAttackState() == 2){
-                                Entity arrow = d.getCurrentEntities()[i].shoot((int) d.getPlayer().getxPos(), (int) d.getPlayer().getyPos());
-                                
-                                for(int k = 5; k < d.getCurrentEntities().length; k++){
-                                    if(d.getCurrentEntities()[k] == null){
-                                        d.getCurrentEntities()[k] = arrow;
-                                        gs.generateNewEntitySprite(arrow, k);
-                                        gs.entitySprites[i].resetAttackState();
-                                        break;
-                                    }
-                                }
-                            }
+                            
 
                             if(delete || d.getCurrentEntities()[i].isToDelete()){
                                 if(d.getCurrentEntities()[i].getId() == 2){
