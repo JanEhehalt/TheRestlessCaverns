@@ -27,6 +27,7 @@ public class Player extends Entity {
         this.dmg = 3*lvl;
         this.standartDmg = dmg;
         id = -1;
+        type = -1;
         inv = new Inventory(3,2);
         // TODO: Sinnvolle Werte finden
         

@@ -21,6 +21,7 @@ public class Arrow extends Entity{
         this.direction = direction;
         this.dmg = 3*lvl;
         this.id = 2;
+        type = 2;
         this.lifetime = 0;
     }
     
