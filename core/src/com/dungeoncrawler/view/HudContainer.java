@@ -77,7 +77,7 @@ public class HudContainer {
         invYPos[0] = InvY + 105f;
         //Equipped 2
         invXPos[1] = InvX + 78f;
-        invYPos[1] = InvY + 115f;
+        invYPos[1] = InvY + 105f;
 
         
         invXPos[2] = InvX + 3f;
