@@ -103,143 +103,138 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
         entityMovement = new Timer();
         
         entityMovement.scheduleTask(new Timer.Task() {
-                    @Override
-                    public void run() {
-                        if(gs != null){
-                            //m.updateEntitySprite(d.getCurrentEntities());
+            @Override
+            public void run() {
+                if(gs != null){
+                    for(int i = 0; i < d.getCurrentEntities().length; i++){
+                        if(d.getCurrentEntities()[i] != null){
+                            // Gets the collisions relevant sprites
+                            MapObjects mapObjects = gs.getM().getMaps()[level][roomPosX][roomPosY].getMap().getLayers().get(0).getObjects();
+                            Rectangle playerSprite = gs.getPlayer().getCollisionSprite();
 
-                            for(int i = 0; i < d.getCurrentEntities().length; i++){
-                                if(d.getCurrentEntities()[i] != null){
-                                        // Gets the collisions relevant sprites
-                                        MapObjects mapObjects = gs.getM().getMaps()[level][roomPosX][roomPosY].getMap().getLayers().get(0).getObjects();
-                                        Rectangle playerSprite = gs.getPlayer().getCollisionSprite();
+                            Entity temp = d.getCurrentEntities()[i];
 
-                                        Entity temp = d.getCurrentEntities()[i];
+                            int x = (int) temp.getxPos();
+                            int y = (int) temp.getyPos();
 
-                                        int x = (int) temp.getxPos();
-                                        int y = (int) temp.getyPos();
+                            boolean attacks = d.getCurrentEntities()[i].move((int) d.getPlayer().getxPos(), (int) d.getPlayer().getyPos());
 
-                                        boolean attacks = d.getCurrentEntities()[i].move((int) d.getPlayer().getxPos(), (int) d.getPlayer().getyPos());
-                                        
-                                        if(attacks && gs.entitySprites[i].getAttackState() == 0){
+                            // Attacke wird gestartet, wenn noch keine laueft
+                            if(attacks && gs.entitySprites[i].getAttackState() == 0){
+                                gs.entitySprites[i].startAttack();
+                            }
+
+                            EntitySprite tempObject = gs.entitySprites[i];
+                            tempObject.update((int) temp.getxPos(), (int) temp.getyPos());
+
+                            boolean overlaps = false;
+                            boolean delete = false;
+
+                            if(d.getCurrentEntities()[i].getId() == 2){
+                                if(Intersector.overlaps(tempObject.getCollisionSprite(), gs.getPlayer().getFullCollisionSprite())){
+                                    overlaps = true;
+                                    delete = true;
+                                    d.getCurrentEntities()[i].attack(d.getPlayer());
+                                }
+                            }
+                            else if(Intersector.overlaps(tempObject.getCollisionSprite(), playerSprite)){
+
+                                overlaps = true;
+                                if(d.getCurrentEntities()[i].getId() != 0){
+                                    switch(gs.entitySprites[i].getAttackState()){
+                                        case 0:
                                             gs.entitySprites[i].startAttack();
-                                        }
-
-                                        EntitySprite tempObject = gs.entitySprites[i];
-                                        tempObject.update((int) temp.getxPos(), (int) temp.getyPos());
-
-                                        boolean overlaps = false;
-                                        boolean delete = false;
-                                        
-                                        if(d.getCurrentEntities()[i].getId() == 2){
-                                            if(Intersector.overlaps(tempObject.getCollisionSprite(), gs.getPlayer().getFullCollisionSprite())){
-                                                overlaps = true;
-                                                delete = true;
-                                                d.getCurrentEntities()[i].attack(d.getPlayer());
-                                            }
-                                        }
-                                        else if(Intersector.overlaps(tempObject.getCollisionSprite(), playerSprite)){
-                                            
-                                            overlaps = true;
-                                            if(d.getCurrentEntities()[i].getId() != 0){
-                                                switch(gs.entitySprites[i].getAttackState()){
-                                                    case 0:
-                                                        gs.entitySprites[i].startAttack();
-                                                        break;
-                                                    case 1:
-                                                        break;
-                                                    case 2:
-                                                        d.getCurrentEntities()[i].attack(d.getPlayer());
-                                                        gs.entitySprites[i].resetAttackState();
-                                                        break;
-                                                    default:
-                                                }
-                                            }
-                                        }
-                                        else{
-                                            for(RectangleMapObject rectangleObject : mapObjects.getByType(RectangleMapObject.class)){
-                                                Rectangle rectangle = rectangleObject.getRectangle();
-
-                                                if(Intersector.overlaps(tempObject.getCollisionSprite(), rectangle)){
-                                                    overlaps = true;
-                                                    
-                                                    if(d.getCurrentEntities()[i].getId() == 2){
-                                                        delete = true;
-                                                    }
-                                                    
-                                                    break;
-                                                }
-                                            }
-                                            
-                                            if(d.getCurrentEntities()[i].getId() != 2){
-                                                for(int j = 0; j < gs.entitySprites.length; j++){
-                                                    if(i != j){
-                                                        if(d.getCurrentEntities()[j] != null && d.getCurrentEntities()[j].getId() != 2){
-                                                            if(Intersector.overlaps(tempObject.getCollisionSprite(), gs.entitySprites[j].getCollisionSprite())){
-
-                                                                overlaps = true;
-                                                                break;
-                                                            }   
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                               
-                                        }
-                                        
-                                        if(gs.entitySprites[i].getAttackState() == 2 && d.getCurrentEntities()[i].getId() != 0){
+                                            break;
+                                        case 1:
+                                            break;
+                                        case 2:
+                                            d.getCurrentEntities()[i].attack(d.getPlayer());
                                             gs.entitySprites[i].resetAttackState();
-                                        }
-                                        if(gs.player.getAttackState() == 2){
-                                            playerAttack(d.getCurrentEntities(), d.getPlayer(), d.getPlayer().getDirection());
-                                        }
-                                        if(overlaps){
-                                            d.getCurrentEntities()[i].setxPos(x);
-                                            d.getCurrentEntities()[i].setyPos(y);
-
-                                            tempObject.update(x, y);
-                                        }
-
-                                        gs.entitySprites[i] = tempObject;
-
-                                        if(d.getCurrentEntities()[i].getId() == 0 && gs.entitySprites[i].getAttackState() == 2){
-                                            for(int k = 5; k < d.getCurrentEntities().length; k++){
-                                                if(d.getCurrentEntities()[k] == null){
-                                                    Entity arrow = d.getCurrentEntities()[i].shoot((int) d.getPlayer().getxPos(), (int) d.getPlayer().getyPos());
-                                                    arrow.setxPos(d.getCurrentEntities()[i].getxPos() + 32);
-                                                    arrow.setyPos(d.getCurrentEntities()[i].getyPos() + 32);
-                                                    d.getCurrentEntities()[k] = arrow;
-                                                    gs.generateNewEntitySprite(arrow, k);
-                                                    gs.entitySprites[i].resetAttackState();
-                                                    break;
-                                                }
-                                            }
-                                        }
-                                        
-                                        if(delete || d.getCurrentEntities()[i].isToDelete()){
-                                            if(d.getCurrentEntities()[i].getId() == 2){
-                                                d.getCurrentEntities()[i] = null;
-                                                gs.deleteEntitySprite(i);
-                                            }
-                                            else{
-                                                if(gs.entitySprites[i].getDie() == 0){
-                                                    gs.entitySprites[i].setDie(1);
-                                                }
-                                                else if(gs.entitySprites[i].getDie() == 2){
-                                                    //d.getCurrentEntities()[i] = null;
-                                                }
-                                            }
-                                        }
-                                        
+                                            break;
+                                        default:
                                     }
-                                } 
-                            }   
+                                }
+                            }
+                            else{
+                                for(RectangleMapObject rectangleObject : mapObjects.getByType(RectangleMapObject.class)){
+                                    Rectangle rectangle = rectangleObject.getRectangle();
+
+                                    if(Intersector.overlaps(tempObject.getCollisionSprite(), rectangle)){
+                                        overlaps = true;
+
+                                        if(d.getCurrentEntities()[i].getId() == 2){
+                                            delete = true;
+                                        }
+
+                                        break;
+                                    }
+                                }
+
+                                if(d.getCurrentEntities()[i].getId() != 2){
+                                    for(int j = 0; j < gs.entitySprites.length; j++){
+                                        if(i != j){
+                                            if(d.getCurrentEntities()[j] != null && d.getCurrentEntities()[j].getId() != 2){
+                                                if(Intersector.overlaps(tempObject.getCollisionSprite(), gs.entitySprites[j].getCollisionSprite())){
+
+                                                    overlaps = true;
+                                                    break;
+                                                }   
+                                            }
+                                        }
+                                    }
+                                }
+
+                            }
+
+                            if(gs.entitySprites[i].getAttackState() == 2 && d.getCurrentEntities()[i].getId() != 0){
+                                gs.entitySprites[i].resetAttackState();
+                            }
+                            if(gs.player.getAttackState() == 2){
+                                playerAttack(d.getCurrentEntities(), d.getPlayer(), d.getPlayer().getDirection());
+                            }
+                            if(overlaps){
+                                d.getCurrentEntities()[i].setxPos(x);
+                                d.getCurrentEntities()[i].setyPos(y);
+
+                                tempObject.update(x, y);
+                            }
+
+                            gs.entitySprites[i] = tempObject;
+
+                            if(d.getCurrentEntities()[i].getId() == 0 && gs.entitySprites[i].getAttackState() == 2){
+                                for(int k = 5; k < d.getCurrentEntities().length; k++){
+                                    if(d.getCurrentEntities()[k] == null){
+                                        Entity arrow = d.getCurrentEntities()[i].shoot((int) d.getPlayer().getxPos(), (int) d.getPlayer().getyPos());
+                                        arrow.setxPos(d.getCurrentEntities()[i].getxPos() + 32);
+                                        arrow.setyPos(d.getCurrentEntities()[i].getyPos() + 32);
+                                        d.getCurrentEntities()[k] = arrow;
+                                        gs.generateNewEntitySprite(arrow, k);
+                                        gs.entitySprites[i].resetAttackState();
+                                        break;
+                                    }
+                                }
+                            }
+
+                            if(delete || d.getCurrentEntities()[i].isToDelete()){
+                                if(d.getCurrentEntities()[i].getId() == 2){
+                                    d.getCurrentEntities()[i] = null;
+                                    gs.deleteEntitySprite(i);
+                                }
+                                else{
+                                    if(gs.entitySprites[i].getDie() == 0){
+                                        gs.entitySprites[i].setDie(1);
+                                    }
+                                    else if(gs.entitySprites[i].getDie() == 2){
+                                        //d.getCurrentEntities()[i] = null;
+                                    }
+                                }
+                            }
                         }
-            },0, 0.03f);
+                    } 
+                }   
+            }
+        },0, 0.03f);
        
-        
-        
-        
     }
     
     
