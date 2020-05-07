@@ -298,6 +298,10 @@ public class DungeonGenerator {
                     temp = new Swordsman(xPos, yPos, lvl);
                     break;
                     
+                case 2:
+                    temp = new Wizard(xPos, yPos, lvl);
+                    break;
+                    
                 default:
                     temp = null;
             }

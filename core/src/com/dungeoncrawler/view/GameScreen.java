@@ -249,17 +249,28 @@ public class GameScreen {
         public void generateNewEntitySprite(Entity e, int i){
             if(e != null){
                 Texture[] tx = new Texture[1];
-                if(e.getId() == 0){ //nimmt entity ID -> 0 = Archer || 1 = Swordsman || 2 = Arrow
-                    tx[0] = new Texture("sprites/archer.png");
-                    entitySprites[i] = new EntitySprite(tx, 64, 64);
-                }
-                if(e.getId() == 1){
-                    tx[0] = new Texture("sprites/swordsman.png");
-                    entitySprites[i] = new EntitySprite(tx, 64, 64);
-                }
-                if(e.getId() == 2){
-                    tx[0] = new Texture("sprites/arrow.png");
-                    entitySprites[i] = new EntitySprite(tx, 36, 15);
+                
+                //nimmt entity ID -> 0 = Archer || 1 = Swordsman || 2 = Arrow || 3 = Wizard
+                switch(e.getId()){
+                    case 0:
+                        tx[0] = new Texture("sprites/archer.png");
+                        entitySprites[i] = new EntitySprite(tx, 64, 64);
+                        break;
+                    
+                    case 1:
+                        tx[0] = new Texture("sprites/swordsman.png");
+                        entitySprites[i] = new EntitySprite(tx, 64, 64);
+                        break;
+                        
+                    case 2:
+                        tx[0] = new Texture("sprites/arrow.png");
+                        entitySprites[i] = new EntitySprite(tx, 36, 15);
+                        break;
+                    
+                    case 3:
+                        tx[0] = new Texture("sprites/wizard.png");
+                        entitySprites[i] = new EntitySprite(tx, 64, 64);
+                        break;
                 }
 
                 entitySprites[i].update((int) e.getxPos() + 32, (int) e.getyPos() + 32);

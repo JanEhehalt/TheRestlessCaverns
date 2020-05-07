@@ -1,25 +1,33 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package com.dungeoncrawler.model.entities;
 
 import com.dungeoncrawler.model.Entity;
 
-public class Archer extends Entity{
-    
+/**
+ *
+ * @author jonathan
+ */
+public class Wizard extends Entity{
+
     int counter;
     
-    public Archer(float xPos, float yPos, int lvl) {
+    public Wizard(float xPos, float yPos, int lvl) {
         super(xPos, yPos, lvl);
         
         this.maxhp = 5*lvl;
         this.hp = this.maxhp;
         this.direction = 1;
         this.dmg = 3*lvl;
-        this.id = 0;
+        this.id = 3;
         this.type = 1;
         counter = 0;
         // TODO: Sinnvolle Werte finden
         
-        direction = 2;
-        
+        direction = 1;
     }
 
     @Override
@@ -132,5 +140,4 @@ public class Archer extends Entity{
         
         return a;
     }
-    
 }
