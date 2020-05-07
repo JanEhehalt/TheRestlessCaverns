@@ -11,6 +11,7 @@ public abstract class Entity {
     protected float movementX;
     protected float movementY;
     protected int id;
+    protected int type;
     protected int direction;
     protected Inventory inv;
     private boolean toDelete;
@@ -176,6 +177,13 @@ public abstract class Entity {
      */
     public void setToDelete(boolean toDelete) {
         this.toDelete = toDelete;
+    }
+
+    /**
+     * @return the type
+     */
+    public int getType() {
+        return type;
     }
     
 }

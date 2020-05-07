@@ -14,6 +14,7 @@ public class Archer extends Entity{
         this.direction = 2;
         this.dmg = 3*lvl;
         this.id = 0;
+        this.type = 1;
         counter = 0;
         // TODO: Sinnvolle Werte finden
         
@@ -113,7 +114,7 @@ public class Archer extends Entity{
                     alpha = 2*Math.PI - alpha;
                 }
             }
-            a = new Arrow(this.xPos, this.yPos, this.lvl, 0);
+            a = new Arrow(this.xPos + 32, this.yPos + 32, this.lvl, 0);
             movementX = (int) (6 * Math.cos(alpha));
             movementY = (int) (6 * Math.sin(alpha));
 
