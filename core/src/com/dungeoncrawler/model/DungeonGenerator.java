@@ -288,7 +288,7 @@ public class DungeonGenerator {
             
             Entity temp;
             
-            int id = (int) (Math.random() * 2);
+            int id = (int) (Math.random() * 3);
             switch(id){
                 case 0:
                     temp = new Archer(xPos, yPos, lvl);
