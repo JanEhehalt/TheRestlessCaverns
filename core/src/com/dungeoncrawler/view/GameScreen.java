@@ -271,11 +271,16 @@ public class GameScreen {
                         tx[0] = new Texture("sprites/wizard.png");
                         entitySprites[i] = new EntitySprite(tx, 64, 64);
                         break;
+                        
+                    case 4:
+                        tx[0] = new Texture("sprites/spell.png");
+                        entitySprites[i] = new EntitySprite(tx, 32, 32);
+                        break;
                 }
 
                 entitySprites[i].update((int) e.getxPos() + 32, (int) e.getyPos() + 32);
                 
-                if(e.getId() == 2){
+                if(e.getType() == 2){
                     entitySprites[i].getSprites()[0].setRotation((float) Math.toDegrees(e.getAngle()));
                 }
                 

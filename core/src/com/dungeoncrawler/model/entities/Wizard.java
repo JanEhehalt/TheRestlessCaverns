@@ -96,7 +96,7 @@ public class Wizard extends Entity{
     
     @Override
     public Entity shoot(int xPosPlayer, int yPosPlayer){
-        Arrow a = null;
+        Projectile a = null;
         
         if(!isToDelete()){
             float deltaX = xPosPlayer - (int) xPos;
@@ -122,7 +122,7 @@ public class Wizard extends Entity{
                     alpha = 2*Math.PI - alpha;
                 }
             }
-            a = new Arrow(this.xPos + 32, this.yPos + 32, this.lvl, 0);
+            a = new Projectile(this.xPos + 32, this.yPos + 32, this.lvl, 4);
             movementX = (int) (6 * Math.cos(alpha));
             movementY = (int) (6 * Math.sin(alpha));
 

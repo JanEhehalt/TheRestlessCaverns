@@ -8,19 +8,18 @@ package com.dungeoncrawler.model.entities;
 import com.dungeoncrawler.model.Entity;
     
 
-public class Arrow extends Entity{
+public class Projectile extends Entity{
     float xStart;
     float yStart;
     int direction;
     int lifetime;
     
-    public Arrow(float xPos, float yPos, int lvl, int direction){
+    public Projectile(float xPos, float yPos, int lvl, int id){
         super(xPos, yPos, lvl);
         xStart = xPos;
         yStart = yPos;
-        this.direction = direction;
         this.dmg = 3*lvl;
-        this.id = 2;
+        this.id = id;
         type = 2;
         this.lifetime = 0;
     }
