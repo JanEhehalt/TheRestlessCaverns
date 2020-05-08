@@ -122,7 +122,7 @@ public class Wizard extends Entity{
                     alpha = 2*Math.PI - alpha;
                 }
             }
-            a = new Projectile(this.xPos + 32, this.yPos + 32, this.lvl, 4);
+            a = new Projectile(this.xPos + 32, this.yPos + 32, this.lvl, 4, true);
             movementX = (int) (6 * Math.cos(alpha));
             movementY = (int) (6 * Math.sin(alpha));
 
