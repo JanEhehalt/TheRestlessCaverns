@@ -206,19 +206,6 @@ public class GameScreen {
             
             updateEntitySprites(e);
         
-            
-            
-            //BATCH
-            batch.begin();
-
-            for(AnimatedObject object : objects){
-                object.getSprite().draw(batch);
-            }
-
-            for(AnimatedObject mapItem : mapItems){
-                mapItem.getSprite().draw(batch);
-            }
-
             ArrayList<EntitySprite> temp = new ArrayList<>();
             
             for(EntitySprite entity : entitySprites){
@@ -239,29 +226,20 @@ public class GameScreen {
             
             Arrays.sort(renderArray);
             
-            for(EntitySprite eSprite : renderArray){
-                if(eSprite != null){
-                    for(int i = 0; i < eSprite.getSprites().length; i++){
-                        eSprite.getSprites()[i].draw(batch);
-                    }
-                }
+            //BATCH
+            batch.begin();
+
+            for(AnimatedObject object : objects){
+                object.getSprite().draw(batch);
+            }
+
+            for(AnimatedObject mapItem : mapItems){
+                mapItem.getSprite().draw(batch);
             }
             
-            /*
-            //DRAW'T JEDES ENTITY - prueft vorher ob vorhanden
-            for(int i = 0; i < renderArray.length; i++){
-                if(e[i] != null){
-
-                    entitySprites[i].getSprites()[0].draw(batch);
-
-                }
+            for(EntitySprite eSprite : renderArray){
+                eSprite.getSprites()[0].draw(batch);
             }
-
-            // Player wird gedrawt
-            for(Sprite sprite : player.getSprites()){
-                sprite.draw(batch);
-            }
-            */
             
             roomChangeSprite.setRegion(roomChangeTextureRegion[0][roomChangeRow]);
             if(roomLoading == true){
@@ -272,6 +250,8 @@ public class GameScreen {
 	}
         
         public void generateEntitySprites(Entity[] e){
+            entitySprites = new EntitySprite[15];
+            
             for(int i = 0; i < e.length; i++){
                 generateNewEntitySprite(e[i], i);
             }
