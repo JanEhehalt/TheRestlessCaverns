@@ -17,6 +17,7 @@ import com.dungeoncrawler.model.Dungeon;
 import com.dungeoncrawler.model.Entity;
 import com.dungeoncrawler.model.entities.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class GameScreen {
     
@@ -218,8 +219,37 @@ public class GameScreen {
                 mapItem.getSprite().draw(batch);
             }
 
+            ArrayList<EntitySprite> temp = new ArrayList<>();
+            
+            for(EntitySprite entity : entitySprites){
+                if(entity != null){
+                    temp.add(entity);
+                }
+            }
+            
+            EntitySprite[] renderArray = new EntitySprite[temp.size() + 1];
+            for(int i = 0; i < renderArray.length; i++){
+                if(i == renderArray.length - 1){
+                    renderArray[i] = player;
+                }
+                else{
+                    renderArray[i] = temp.get(i);
+                }
+            }
+            
+            Arrays.sort(renderArray);
+            
+            for(EntitySprite eSprite : renderArray){
+                if(eSprite != null){
+                    for(int i = 0; i < eSprite.getSprites().length; i++){
+                        eSprite.getSprites()[i].draw(batch);
+                    }
+                }
+            }
+            
+            /*
             //DRAW'T JEDES ENTITY - prueft vorher ob vorhanden
-            for(int i = 0; i < e.length; i++){
+            for(int i = 0; i < renderArray.length; i++){
                 if(e[i] != null){
 
                     entitySprites[i].getSprites()[0].draw(batch);
@@ -231,6 +261,7 @@ public class GameScreen {
             for(Sprite sprite : player.getSprites()){
                 sprite.draw(batch);
             }
+            */
             
             roomChangeSprite.setRegion(roomChangeTextureRegion[0][roomChangeRow]);
             if(roomLoading == true){

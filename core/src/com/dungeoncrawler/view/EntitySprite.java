@@ -15,7 +15,7 @@ import com.dungeoncrawler.model.Entity;
  *
  * @author jonathan
  */
-public class EntitySprite {
+public class EntitySprite implements Comparable<EntitySprite> {
     
     // 0: pants, 1: body, 2: head, 3: hair, 4: collision
     private Sprite[] sprites;
@@ -266,5 +266,18 @@ public class EntitySprite {
      */
     public void setDie(int die) {
         this.die = die;
+    }
+
+    @Override
+    public int compareTo(EntitySprite t) {
+        if(collisionSprite.getY() > t.getCollisionSprite().getY()){
+            return -1;
+        }
+        else if(collisionSprite.getY() == t.getCollisionSprite().getY()){
+            return 0;
+        }
+        else{
+            return 1;
+        }
     }
 }
