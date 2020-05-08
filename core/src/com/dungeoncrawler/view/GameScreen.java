@@ -305,7 +305,7 @@ public class GameScreen {
                         
                     case 4:
                         tx[0] = new Texture("sprites/spell.png");
-                        entitySprites[i] = new EntitySprite(tx, 32, 32);
+                        entitySprites[i] = new EntitySprite(tx, 16, 16);
                         break;
                 }
 
