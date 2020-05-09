@@ -7,6 +7,7 @@ package com.dungeoncrawler.model;
 
 import com.dungeoncrawler.model.entities.*;
 import com.dungeoncrawler.model.items.Amulet;
+import com.dungeoncrawler.model.items.Key;
 import java.util.ArrayList;
 
 /**
@@ -84,6 +85,25 @@ public class DungeonGenerator {
                 
                 // i darf nur erhöht werden, wenn auch ein Raum generiert wurde
                 i++;
+            }
+            
+            
+        }
+        
+        int keyRoom = (int) (Math.random()*roomAmount);
+        
+        int i = 0;
+        for(int x = 0; x < roomAmount; x++){
+            for(int y = 0; y < roomAmount; y++){
+                if(tempLevel.getRooms()[x][y] != null){
+                    if(i == keyRoom){
+                        Item tempItem = new Key(lvl);
+                        ItemContainer tempContainer = new ItemContainer(((sizeX / 2) + 1) * 48, ((sizeY / 2) + 1) * 48, tempItem);
+                        tempLevel.getRooms()[x][y].getItems().add(tempContainer);
+                    }
+                    
+                    i++;
+                }
             }
         }
             
