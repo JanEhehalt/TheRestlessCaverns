@@ -83,4 +83,12 @@ public class Player extends Entity {
         return a;
     }
     
+    public boolean checkKey(){
+        return inv.checkKey();
+    }
+    
+    public void deleteKey(){
+        inv.deleteKey();
+    }
+    
 }
