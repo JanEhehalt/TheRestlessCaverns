@@ -53,6 +53,14 @@ public class Inventory {
         }
     }
     
+    public boolean checkKey(){
+        return false;
+    }
+    
+    public void deleteKey(){
+        
+    }
+    
     
     public void scroll(int i){
         selected += i;
