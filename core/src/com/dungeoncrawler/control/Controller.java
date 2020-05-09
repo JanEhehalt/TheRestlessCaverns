@@ -279,6 +279,8 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
         //PASSIERT IN GAMESCREEN
         if(gs != null && mm == null && isPaused == false){
             
+                float tempX = d.getPlayer().getxPos();
+                float tempY = d.getPlayer().getyPos();
                 // Position des Players, etc. werden aktualisiert
                 updateObjects(level, roomPosX, roomPosY);
                 
@@ -288,7 +290,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                 tileY = (int) d.getPlayer().getyPos() / 48;
                 
                 if(tileX == 0 || tileX == roomX || tileY == 0 || tileY == roomY){
-                    updateRoom();
+                    updateRoom((int) tempX, (int) tempY);
                 }
                 
 
@@ -310,12 +312,13 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
         
         MapLayers layers = gs.getM().getMaps()[level][roomPosX][roomPosY].getMap().getLayers();
         MapObjects objects = layers.get(0).getObjects();
+        MapObjects door = layers.get(3).getObjects();
         //System.out.println(objects.getCount());
         
-        updatePlayer(objects);
+        updatePlayer(objects, door);
     }
     
-    public void updatePlayer(MapObjects objects){
+    public void updatePlayer(MapObjects objects, MapObjects door){
         
         float x = d.getPlayer().getxPos();
         d.getPlayer().updateX();
@@ -332,6 +335,16 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                 System.out.println("Es laedt, es laedt, ich will nicht, dass es laedt, wenn es laedt, muss man immer so lange warten!!!!!");
             }
         }
+        /*
+        for(RectangleMapObject rectangleObject : door.getByType(RectangleMapObject.class)){
+            Rectangle tempDoor = rectangleObject.getRectangle();
+            System.out.println("Door array");
+            
+            if(Intersector.overlaps(gs.getPlayer().getCollisionSprite(), tempDoor) && !d.getPlayer().checkKey()){
+                d.getPlayer().setxPos(x);
+            }
+        }
+        */
         
         float y = d.getPlayer().getyPos();
         d.getPlayer().updateY();
@@ -347,10 +360,20 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                 System.out.println("Es laedt, es laedt, ich will nicht, dass es laedt, wenn es laedt, muss man immer so lange warten!!!!!");
             }
         }
+        /*
+        for(RectangleMapObject rectangleObject : door.getByType(RectangleMapObject.class)){
+            Rectangle tempDoor = rectangleObject.getRectangle();
+            
+            if(Intersector.overlaps(gs.getPlayer().getCollisionSprite(), tempDoor) && !d.getPlayer().checkKey()){
+                d.getPlayer().setyPos(y);
+            }
+        }
+*/
+        
         d.getPlayer().updateDirection();
     }
     
-    public void updateRoom(){
+    public void updateRoom(int tempX, int tempY){
         
         //System.out.println(roomX + " " + roomY);
         //System.out.println("pos Player tiles: " + tileX + " " + tileY);
