@@ -30,6 +30,7 @@ public class Player extends Entity {
         type = -1;
         inv = new Inventory(3,2);
         // TODO: Sinnvolle Werte finden
+        this.targetsPlayer = false;
         
     }
     
@@ -55,5 +56,59 @@ public class Player extends Entity {
         return false;
     }
     
+    @Override
+    public Entity shoot(int xPosPlayer, int yPosPlayer){
+        Projectile a = null;
+        
+        if(!isToDelete()){
+            float deltaX = xPosPlayer - (int) xPos;
+            float deltaY = yPosPlayer - (int) yPos;
+
+            double alpha;
+            if(deltaY == 0){
+                if(deltaX < 0){
+                    alpha = Math.PI;
+                }
+                else{
+                    alpha = 0;
+                }
+            }
+            else if(deltaX == 0 && deltaY >= 0){
+                alpha = Math.PI / 2;
+            }
+            else if(deltaX == 0 && deltaY < 0){
+                alpha = Math.PI / -2;
+            }
+            else{
+                alpha = Math.abs(Math.atan(deltaY / deltaX));
+                
+                if(deltaX < 0 && deltaY < 0){
+                    alpha = Math.PI + alpha;
+                }
+                else if(deltaX < 0 && deltaY > 0){
+                    alpha = Math.PI - alpha;
+                }
+                else if(deltaX > 0 && deltaY < 0){
+                    alpha = 2*Math.PI - alpha;
+                }
+            }
+            a = new Projectile(this.xPos + 32, this.yPos + 32, this.lvl, 2, false);
+            int tempMovementX = (int) (6 * Math.cos(alpha));
+            int tempMovementY = (int) (6 * Math.sin(alpha));
+
+            a.setMovementX(tempMovementX);
+            a.setMovementY(tempMovementY);
+            a.setAngle(alpha);
+
+            if((alpha >= 0 && alpha <= Math.PI / 2) || (alpha <= 2 * Math.PI && alpha >= 2 * Math.PI - Math.PI / 2)){
+                setDirection(1);
+            }
+            else{
+                setDirection(0);
+            }
+        }
+        
+        return a;
+    }
     
 }

@@ -16,6 +16,7 @@ public abstract class Entity {
     protected Inventory inv;
     private boolean toDelete;
     private double angle;
+    protected boolean targetsPlayer;
     
     
 
@@ -27,6 +28,7 @@ public abstract class Entity {
         this.movementY = 0;
         this.direction = 2;
         this.toDelete = false;
+        this.targetsPlayer = true;
     }
     
     public void attack(Entity e){
@@ -184,6 +186,13 @@ public abstract class Entity {
      */
     public int getType() {
         return type;
+    }
+
+    /**
+     * @return the targetsPlayer
+     */
+    public boolean isTargetsPlayer() {
+        return targetsPlayer;
     }
     
 }

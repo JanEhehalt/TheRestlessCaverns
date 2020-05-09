@@ -14,7 +14,7 @@ public class Projectile extends Entity{
     int direction;
     int lifetime;
     
-    public Projectile(float xPos, float yPos, int lvl, int id){
+    public Projectile(float xPos, float yPos, int lvl, int id, boolean targetsPlayer){
         super(xPos, yPos, lvl);
         xStart = xPos;
         yStart = yPos;
@@ -22,6 +22,7 @@ public class Projectile extends Entity{
         this.id = id;
         type = 2;
         this.lifetime = 0;
+        this.targetsPlayer = targetsPlayer;
     }
     
     public float getxStart(){

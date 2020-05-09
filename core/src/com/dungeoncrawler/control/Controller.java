@@ -139,7 +139,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                             if(Intersector.overlaps(tempObject.getCollisionSprite(), playerSprite)){
                                 overlaps = true;
                                 
-                                if(d.getCurrentEntities()[i].getType() == 2){
+                                if(d.getCurrentEntities()[i].getType() == 2 && d.getCurrentEntities()[i].isTargetsPlayer()){
                                     delete = true;
                                     d.getCurrentEntities()[i].attack(d.getPlayer());
                                 }
@@ -562,6 +562,64 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                     }
                     else if(gs != null && gs.getIsLoading() == false && isPaused == true){
                         resume();
+                    }
+                }
+                
+                if(keycode == Input.Keys.LEFT){
+                    if(mm != null){}
+                    if(gs != null && gs.getIsLoading() == false){
+                        Entity lol = d.getPlayer().shoot((int) d.getPlayer().getxPos() - 1, (int) d.getPlayer().getyPos());
+                        
+                        for(int k = 5; k < d.getCurrentEntities().length; k++){
+                            if(d.getCurrentEntities()[k] == null){
+                                d.getCurrentEntities()[k] = lol;
+                                gs.generateNewEntitySprite(lol, k);
+                                break;
+                            }
+                        }
+                    }
+                }
+                
+                if(keycode == Input.Keys.UP){
+                    if(mm != null){}
+                    if(gs != null && gs.getIsLoading() == false){
+                        Entity lol = d.getPlayer().shoot((int) d.getPlayer().getxPos(), (int) d.getPlayer().getyPos() + 1);
+                        
+                        for(int k = 5; k < d.getCurrentEntities().length; k++){
+                            if(d.getCurrentEntities()[k] == null){
+                                d.getCurrentEntities()[k] = lol;
+                                gs.generateNewEntitySprite(lol, k);
+                                break;
+                            }
+                        }
+                    }
+                }
+                if(keycode == Input.Keys.RIGHT){
+                    if(mm != null){}
+                    if(gs != null && gs.getIsLoading() == false){
+                        Entity lol = d.getPlayer().shoot((int) d.getPlayer().getxPos() + 1, (int) d.getPlayer().getyPos());
+                        
+                        for(int k = 5; k < d.getCurrentEntities().length; k++){
+                            if(d.getCurrentEntities()[k] == null){
+                                d.getCurrentEntities()[k] = lol;
+                                gs.generateNewEntitySprite(lol, k);
+                                break;
+                            }
+                        }
+                    }
+                }
+                if(keycode == Input.Keys.DOWN){
+                    if(mm != null){}
+                    if(gs != null && gs.getIsLoading() == false){
+                        Entity lol = d.getPlayer().shoot((int) d.getPlayer().getxPos(), (int) d.getPlayer().getyPos() - 1);
+                        
+                        for(int k = 5; k < d.getCurrentEntities().length; k++){
+                            if(d.getCurrentEntities()[k] == null){
+                                d.getCurrentEntities()[k] = lol;
+                                gs.generateNewEntitySprite(lol, k);
+                                break;
+                            }
+                        }
                     }
                 }
                 
