@@ -31,12 +31,14 @@ public abstract class Entity {
         this.targetsPlayer = true;
     }
     
-    public void attack(Entity e){
+    public boolean attack(Entity e){
         if(e.getHp() - this.dmg < 0){
             e.setHp(1);
+            return true;
         }
         else{
             e.setHp(e.getHp() - this.dmg);
+            return false;
         }
     }
     

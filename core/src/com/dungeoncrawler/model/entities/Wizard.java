@@ -5,6 +5,7 @@
  */
 package com.dungeoncrawler.model.entities;
 
+import com.dungeoncrawler.StaticMath;
 import com.dungeoncrawler.model.Entity;
 
 /**
@@ -33,31 +34,9 @@ public class Wizard extends Entity{
     @Override
     public boolean move(int xPosPlayer, int yPosPlayer) {
         if(!isToDelete()){
-            float deltaX = xPosPlayer - (int) xPos;
-            float deltaY = yPosPlayer - (int) yPos;
-
-            double alpha;
-            if(deltaX == 0 && deltaY >= 0){
-                alpha = Math.PI / 2;
-            }
-            else if(deltaX == 0 && deltaY < 0){
-                alpha = Math.PI / -2;
-            }
-            else{
-                alpha = Math.abs(Math.atan(deltaY / deltaX));
-
-                if(deltaX < 0 && deltaY < 0){
-                    alpha = Math.PI + alpha;
-                }
-                else if(deltaX < 0 && deltaY > 0){
-                    alpha = Math.PI - alpha;
-                }
-                else if(deltaX > 0 && deltaY < 0){
-                    alpha = 2*Math.PI - alpha;
-                }
-            }
-
-            int distance = (int) Math.abs((deltaY / Math.sin(alpha)));
+            
+            double alpha = StaticMath.calculateAngle((int) this.xPos, (int) this.yPos, xPosPlayer, yPosPlayer);
+            int distance = (int) StaticMath.calculateDistance((int) this.xPos, (int) this.yPos, xPosPlayer, yPosPlayer, alpha);
 
             if(distance >= 104 && distance <= 184 && counter % 40 == 0){
                 return true;
@@ -99,35 +78,14 @@ public class Wizard extends Entity{
         Projectile a = null;
         
         if(!isToDelete()){
-            float deltaX = xPosPlayer - (int) xPos;
-            float deltaY = yPosPlayer - (int) yPos;
-
-            double alpha;
-            if(deltaX == 0 && deltaY >= 0){
-                alpha = Math.PI / 2;
-            }
-            else if(deltaX == 0 && deltaY < 0){
-                alpha = Math.PI / -2;
-            }
-            else{
-                alpha = Math.abs(Math.atan(deltaY / deltaX));
-
-                if(deltaX < 0 && deltaY < 0){
-                    alpha = Math.PI + alpha;
-                }
-                else if(deltaX < 0 && deltaY > 0){
-                    alpha = Math.PI - alpha;
-                }
-                else if(deltaX > 0 && deltaY < 0){
-                    alpha = 2*Math.PI - alpha;
-                }
-            }
+            double alpha = StaticMath.calculateAngle((int) this.xPos, (int) this.yPos, xPosPlayer, yPosPlayer);
+            
             a = new Projectile(this.xPos + 32, this.yPos + 32, this.lvl, 4, true);
-            movementX = (int) (6 * Math.cos(alpha));
-            movementY = (int) (6 * Math.sin(alpha));
+            int tempX = (int) (6 * Math.cos(alpha));
+            int tempY = (int) (6 * Math.sin(alpha));
 
-            a.setMovementX(movementX);
-            a.setMovementY(movementY);
+            a.setMovementX(tempX);
+            a.setMovementY(tempY);
             a.setAngle(alpha);
 
             if((alpha >= 0 && alpha <= Math.PI / 2) || (alpha <= 2 * Math.PI && alpha >= 2 * Math.PI - Math.PI / 2)){

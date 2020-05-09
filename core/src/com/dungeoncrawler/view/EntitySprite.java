@@ -24,6 +24,7 @@ public class EntitySprite implements Comparable<EntitySprite> {
     private TextureRegion[][][] regions;
     private int[] frames;
     private int attackState;
+    private int secondaryAttackState;
     private int die;
     
     // 0: links, 1: rechts
@@ -33,19 +34,20 @@ public class EntitySprite implements Comparable<EntitySprite> {
         sprites = new Sprite[1];
         regions = new TextureRegion[1][][];
         
-        // 0: idle, 1: walking, 2: attack, 3: die
-        frames = new int[4];
+        // 0: idle, 1: walking, 2: attack, 3: die, 4: secondaryAttack
+        frames = new int[5];
         direction = 0;
         attackState = 0;
+        secondaryAttackState = 0;
         die = 0;
         
         for(int i = 0; i < sprites.length; i++){
             regions[i] = TextureRegion.split(textures[i], width, height);
             sprites[i] = new Sprite(regions[i][0][0]);
-            collisionSprite = new Rectangle(0, 0, 32, 16);
+            collisionSprite = new Rectangle(0, 0, sprites[0].getWidth() / 2, sprites[0].getHeight() / 4);
         }
         
-        this.fullCollisionSprite = new Rectangle(0,0,32,64);
+        this.fullCollisionSprite = new Rectangle(0, 0, collisionSprite.getWidth(), sprites[0].getHeight());
     }
     
     public void updateAnimation(Entity e){
@@ -61,6 +63,9 @@ public class EntitySprite implements Comparable<EntitySprite> {
                 }
                 else if(attackState == 1){
                     updateAttack();
+                }
+                else if(secondaryAttackState == 1){
+                    updateSecondaryAttack();
                 }
                 else if(moves){
                     updateWalking();
@@ -89,6 +94,7 @@ public class EntitySprite implements Comparable<EntitySprite> {
     public void updateAttack(){
         frames[0] = 0;
         frames[1] = 0;
+        frames[4] = 0;
         
         if(frames[2] >= 6){
             frames[2] = 0;
@@ -102,11 +108,27 @@ public class EntitySprite implements Comparable<EntitySprite> {
         }
     }
     
-    
+    public void updateSecondaryAttack(){
+        frames[0] = 0;
+        frames[1] = 0;
+        frames[2] = 0;
+        
+        if(frames[4] >= 3){
+            frames[4] = 0;
+            secondaryAttackState = 2;
+        }
+        else{
+            frames[4]++;
+            
+            sprites[0].setRegion(regions[0][1][frames[4]]);
+            updateFlip();
+        }
+    }
     
     public void updateIdle(){
         frames[1] = 0;
         frames[2] = 0;
+        frames[4] = 0;
         
         if(frames[0] >= 9){
             frames[0] = 0;
@@ -122,6 +144,7 @@ public class EntitySprite implements Comparable<EntitySprite> {
     public void updateWalking(){
         frames[0] = 0;
         frames[2] = 0;
+        frames[4] = 0;
         
         if(frames[1] >= 9){
             frames[1] = 0;
@@ -146,7 +169,7 @@ public class EntitySprite implements Comparable<EntitySprite> {
     
     public void update(int xPos, int yPos){
         for(int i = 0; i < sprites.length; i++){
-            sprites[i].setPosition(xPos - 16, yPos);
+            sprites[i].setPosition(xPos - sprites[0].getWidth() / 4, yPos);
         }
         
         updateCollision(xPos, yPos);
@@ -252,6 +275,19 @@ public class EntitySprite implements Comparable<EntitySprite> {
     
     public void startAttack(){
         this.attackState = 1;
+    }
+    
+    public int getSecondaryAttackState(){
+        return this.secondaryAttackState;
+    }
+    
+    public void resetSecondaryAttackState(){
+        this.secondaryAttackState = 0;
+        frames[4] = 0;
+    }
+    
+    public void startSecondaryAttack(){
+        this.secondaryAttackState = 1;
     }
 
     /**
