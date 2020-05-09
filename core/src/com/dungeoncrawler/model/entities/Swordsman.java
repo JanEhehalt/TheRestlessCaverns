@@ -1,5 +1,6 @@
 package com.dungeoncrawler.model.entities;
 
+import com.dungeoncrawler.StaticMath;
 import com.dungeoncrawler.model.Entity;
 
 public class Swordsman extends Entity {
@@ -21,29 +22,7 @@ public class Swordsman extends Entity {
     @Override
     public boolean move(int xPosPlayer, int yPosPlayer){
         if(!isToDelete()){
-            float deltaX = xPosPlayer - (int) xPos;
-            float deltaY = yPosPlayer - (int) yPos;
-
-            double alpha;
-            if(deltaX == 0 && deltaY >= 0){
-                alpha = Math.PI / 2;
-            }
-            else if(deltaX == 0 && deltaY < 0){
-                alpha = Math.PI / -2;
-            }
-            else{
-                alpha = Math.abs(Math.atan(deltaY / deltaX));
-
-                if(deltaX < 0 && deltaY < 0){
-                    alpha = Math.PI + alpha;
-                }
-                else if(deltaX < 0 && deltaY > 0){
-                    alpha = Math.PI - alpha;
-                }
-                else if(deltaX > 0 && deltaY < 0){
-                    alpha = 2*Math.PI - alpha;
-                }
-            }
+            double alpha = StaticMath.calculateAngle((int) this.xPos, (int) this.yPos, xPosPlayer, yPosPlayer);
 
             movementX = (int) (3 * Math.cos(alpha));
             movementY = (int) (3 * Math.sin(alpha));
