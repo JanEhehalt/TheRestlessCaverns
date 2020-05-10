@@ -9,8 +9,6 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.MapLayers;
 import com.badlogic.gdx.maps.MapObjects;
@@ -335,7 +333,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                 System.out.println("Es laedt, es laedt, ich will nicht, dass es laedt, wenn es laedt, muss man immer so lange warten!!!!!");
             }
         }
-        /*
+        
         for(RectangleMapObject rectangleObject : door.getByType(RectangleMapObject.class)){
             Rectangle tempDoor = rectangleObject.getRectangle();
             System.out.println("Door array");
@@ -344,7 +342,6 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                 d.getPlayer().setxPos(x);
             }
         }
-        */
         
         float y = d.getPlayer().getyPos();
         d.getPlayer().updateY();
@@ -360,7 +357,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                 System.out.println("Es laedt, es laedt, ich will nicht, dass es laedt, wenn es laedt, muss man immer so lange warten!!!!!");
             }
         }
-        /*
+        
         for(RectangleMapObject rectangleObject : door.getByType(RectangleMapObject.class)){
             Rectangle tempDoor = rectangleObject.getRectangle();
             
@@ -368,7 +365,6 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                 d.getPlayer().setyPos(y);
             }
         }
-*/
         
         d.getPlayer().updateDirection();
     }
@@ -432,6 +428,8 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
         if(roomPosX == d.getCurrentLevel().getExit()[0] && roomPosY == d.getCurrentLevel().getExit()[1]){
             if(level < 6){
                 System.out.println("Nächstes Level, here we go");
+                
+                d.getPlayer().deleteKey();
                 
                 d.getPlayer().setMovementY(0f);
                 d.getPlayer().setMovementX(0f);

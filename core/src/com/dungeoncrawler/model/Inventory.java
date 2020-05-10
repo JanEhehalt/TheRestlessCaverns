@@ -57,8 +57,10 @@ public class Inventory {
     
     public boolean checkKey(){
         for(int i = 0; i < items.length; i++){
-            if(items[i].getId() == 0){
-                return true;
+            if(items[i] != null){
+                if(items[i].getId() == 0){
+                    return true;
+                }
             }
         }
         return false;
@@ -66,9 +68,11 @@ public class Inventory {
     
     public void deleteKey(){
         for(int i = 0; i < items.length; i++){
-            if(items[i].getId() == 0){
-                items[i] = null;
-                i = items.length + 1;
+            if(items[i] != null){
+                if(items[i].getId() == 0){
+                    items[i] = null;
+                    i = items.length + 1;
+                }
             }
         }
     }
