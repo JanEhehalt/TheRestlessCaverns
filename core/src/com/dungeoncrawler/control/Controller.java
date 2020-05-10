@@ -462,12 +462,14 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
         ArrayList<ItemContainer> garbageCollector = new ArrayList<>();
         
         for(int i = tempItems.size() - 1; i >= 0; i--){
-            if(Intersector.overlaps(gs.getPlayer().getCollisionSprite(), tempSprites.get(i).getSprite().getBoundingRectangle())){
-                garbageCollector.add(tempItems.get(i));
-                
-                
-                tempItems.remove(i);
-                tempSprites.remove(i);
+            if(tempSprites.get(i).getSprite() != null){
+                if(Intersector.overlaps(gs.getPlayer().getCollisionSprite(), tempSprites.get(i).getSprite().getBoundingRectangle())){
+                    garbageCollector.add(tempItems.get(i));
+
+
+                    tempItems.remove(i);
+                    tempSprites.remove(i);
+                }
             }
         }
         
