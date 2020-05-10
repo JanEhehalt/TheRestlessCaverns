@@ -431,8 +431,6 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                 
                 d.getPlayer().deleteKey();
                 
-                d.getPlayer().setMovementY(0f);
-                d.getPlayer().setMovementX(0f);
                 gs.startLoadingScreen();
                 
                 level++;
@@ -463,7 +461,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
         ArrayList<AnimatedObject> tempSprites = gs.getM().getMaps()[level][roomPosX][roomPosY].getMapItems();
         ArrayList<ItemContainer> garbageCollector = new ArrayList<>();
         
-        for(int i = 0; i < tempItems.size(); i++){
+        for(int i = tempItems.size() - 1; i >= 0; i--){
             if(Intersector.overlaps(gs.getPlayer().getCollisionSprite(), tempSprites.get(i).getSprite().getBoundingRectangle())){
                 garbageCollector.add(tempItems.get(i));
                 
