@@ -331,7 +331,7 @@ public class MapGenerator {
                 AnimatedObject itemSprite = null;
                 switch(item.getId()){
                     case 0:
-                        itemSprite = new AnimatedObject(key, 32, 32);
+                        itemSprite = new AnimatedObject(key, 48, 48);
                         break;
                     
                     case 2:
