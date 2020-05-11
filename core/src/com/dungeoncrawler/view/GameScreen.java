@@ -299,6 +299,8 @@ public class GameScreen {
                 if(e.isToDelete()){
                     entitySprites[i].setDie(2);
                 }
+                
+                entitySprites[i].updateAnimation(e);
             }
         }
         
