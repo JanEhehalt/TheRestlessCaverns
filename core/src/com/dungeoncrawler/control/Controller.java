@@ -193,7 +193,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                             if(temp.getType() == 2 && !temp.isTargetsPlayer()){
                                 for(int j = 0; j < gs.entitySprites.length; j++){
                                     if(i != j){
-                                        if(d.getCurrentEntities()[j] != null && d.getCurrentEntities()[j].getType() != 2){
+                                        if(d.getCurrentEntities()[j] != null && d.getCurrentEntities()[j].getType() != 2 && !d.getCurrentEntities()[j].getToDelete()){
                                             if(Intersector.overlaps(tempObject.getFullCollisionSprite(), gs.entitySprites[j].getFullCollisionSprite())){
                                                 delete = true;
                                                 boolean isDead = d.getCurrentEntities()[i].attack(d.getCurrentEntities()[j]);
@@ -437,9 +437,6 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                 int roomAmount = d.getLevel()[level].getRooms().length;
                 roomPosX = roomAmount / 2;
                 roomPosY = roomAmount / 2;
-            }
-            else if (level >= 6){
-                
             }
         }
         
