@@ -36,11 +36,11 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
     
     MainMenuScreen mm;
     GameScreen gs;
-    
     HudContainer hc;
     PauseScreen ps; 
     SettingsScreen ss;
     ControlsScreen cs;
+    EndScreen es;
     
     //
     int tileX;
@@ -274,6 +274,9 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
         if(ps != null){
             ps.render(batch, volume);
         }
+        if(es != null){
+            es.render(batch, volume);
+        }
         
         //PASSIERT IN GAMESCREEN
         if(gs != null && mm == null && isPaused == false){
@@ -438,8 +441,9 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                 roomPosX = roomAmount / 2;
                 roomPosY = roomAmount / 2;
             }
-            else if (level >= 6){
-                
+            else{ // Dungeon Exit
+                es = new EndScreen();
+                gs = null;
             }
         }
         
@@ -795,6 +799,9 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                     gs.music.setVolume(volume);
                 }
                 return true;
+            case 11:
+                create();
+                break;
         }
           
         if(gs != null && gs.getIsLoading() == false){

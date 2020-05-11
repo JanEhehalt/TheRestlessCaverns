@@ -29,16 +29,16 @@ public class Player extends Entity {
         this.standartDmg = dmg;
         id = -1;
         type = -1;
-        inv = new Inventory(3,2);
+        inv = new Inventory();
         // TODO: Sinnvolle Werte finden
         this.targetsPlayer = false;
         
     }
     
-    public void updateStats(int lvl){
-        this.lvl = lvl;
-        this.standartMaxHp = 100 * lvl;
-        this.standartDmg = 100 * lvl;
+    public void updateStats(int ey){
+        lvl = ey;
+        standartMaxHp = 100 * ey;
+        standartDmg = 100 * ey;
         updateItems();
     }
     

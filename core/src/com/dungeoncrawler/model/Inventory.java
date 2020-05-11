@@ -10,9 +10,7 @@ public class Inventory {
     int width;
     int height;
     
-    public Inventory(int width, int height){
-        this.width = width;
-        this.height = height;
+    public Inventory(){
         items = new Item[8];
         selected = 2;
     }
