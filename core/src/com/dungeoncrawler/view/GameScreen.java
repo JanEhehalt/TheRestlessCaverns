@@ -197,7 +197,6 @@ public class GameScreen {
             tmr.render();
             
             camera.zoom = 700f; // Standart 700f
-
             camera.update();
             batch.setProjectionMatrix(camera.combined);
             
@@ -345,7 +344,7 @@ public class GameScreen {
         public void stop(){
             animations.stop();
             animatePlayer.stop();
-            
+            camera.normalizeUp();
         }
         public void resume(){
             animations.start();

@@ -13,7 +13,7 @@ public class Archer extends Entity{
         this.maxhp = 75*lvl;
         this.hp = this.maxhp;
         this.direction = 1;
-        this.dmg = 25*lvl;
+        this.dmg = 10*lvl;
         this.id = 0;
         this.type = 1;
         counter = 0;

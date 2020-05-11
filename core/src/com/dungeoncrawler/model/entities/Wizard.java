@@ -22,7 +22,7 @@ public class Wizard extends Entity{
         this.maxhp = 80*lvl;
         this.hp = this.maxhp;
         this.direction = 1;
-        this.dmg = 30*lvl;
+        this.dmg = 15*lvl;
         this.id = 3;
         this.type = 1;
         counter = 0;

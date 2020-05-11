@@ -387,6 +387,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
             roomPosY += 1;
             d.getPlayer().setxPos((roomX / 2)* 48);
             d.getPlayer().setyPos(48);
+            d.getPlayer().updateStats(level);
             gs.startLoadingScreen();
         }
 

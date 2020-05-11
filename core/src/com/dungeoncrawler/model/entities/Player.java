@@ -23,9 +23,9 @@ public class Player extends Entity {
         
         this.maxhp = 100 * lvl;
         this.hp = this.maxhp;
-        this.standartMaxHp = 5 * lvl;
+        this.standartMaxHp = 100 * lvl;
         
-        this.dmg = 50*lvl;
+        this.dmg = 60*lvl;
         this.standartDmg = dmg;
         id = -1;
         type = -1;
@@ -33,6 +33,13 @@ public class Player extends Entity {
         // TODO: Sinnvolle Werte finden
         this.targetsPlayer = false;
         
+    }
+    
+    public void updateStats(int lvl){
+        this.lvl = lvl;
+        this.standartMaxHp = 100 * lvl;
+        this.standartDmg = 100 * lvl;
+        updateItems();
     }
     
     public void pickUp(Item item){
@@ -60,13 +67,19 @@ public class Player extends Entity {
                     // nix lol weil key
                     break;
                 case 1:
-                    this.hp = hp + inv.getItem(x).getHeal();
+                    if(hp + inv.getItem(x).getHeal() >= maxhp){
+                        hp = maxhp;
+                    }
+                    else{
+                        this.hp = hp + inv.getItem(x).getHeal();
+                    }
+                    inv.setItem(x, null);
                     break;
                 case 2:
                     // nix lol weil amulet
                     break;
             }
-            inv.setItem(x, null);
+            
         }
     }
 

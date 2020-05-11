@@ -15,7 +15,7 @@ public class Potion extends Item {
     
     public Potion(int lvl) {
         super(lvl);
-        this.heal = lvl * 3;
+        this.heal = lvl * 40;
         this.dmg = 0;
         this.id = 1;
     }
