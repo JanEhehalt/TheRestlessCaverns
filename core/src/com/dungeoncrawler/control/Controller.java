@@ -87,7 +87,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
         
         roomAmount = d.getLevel()[0].getRooms().length;
             
-        level = 0;
+        level = 6;
 
         roomPosX = roomAmount / 2;
         roomPosY = roomAmount / 2;
@@ -444,6 +444,8 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
             else{ // Dungeon Exit
                 es = new EndScreen();
                 gs = null;
+                
+                return;
             }
         }
         
