@@ -36,6 +36,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
     
     MainMenuScreen mm;
     GameScreen gs;
+    
     HudContainer hc;
     PauseScreen ps; 
     SettingsScreen ss;
@@ -436,6 +437,9 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                 int roomAmount = d.getLevel()[level].getRooms().length;
                 roomPosX = roomAmount / 2;
                 roomPosY = roomAmount / 2;
+            }
+            else if (level >= 6){
+                
             }
         }
         

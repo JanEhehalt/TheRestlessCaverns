@@ -108,7 +108,7 @@ public class DungeonGenerator {
         }
             
         // Exit wird generiert
-        if(lvl >= 7){
+        if(lvl >= 7 && false){
             tempLevel.setExit(-1, 0);
             tempLevel.setExit(-1, 1);
         }
