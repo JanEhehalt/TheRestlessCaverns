@@ -188,10 +188,7 @@ public class GameScreen {
             objects = getM().getMaps()[level][roomPosX][roomPosY].getObjects(); 
             mapItems = getM().getMaps()[level][roomPosX][roomPosY].getMapItems();
 
-            if(tm == null){
-                System.out.println("Dein scheiß geht net");
-            }
-            else{
+            if(tm != null){
                 tmr = new OrthogonalTiledMapRenderer(tm);
             }
 

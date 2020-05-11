@@ -8,10 +8,10 @@ public class Swordsman extends Entity {
     public Swordsman(float xPos, float yPos, int lvl) {
         super(xPos, yPos, lvl);
         
-        this.maxhp = 5*lvl;
+        this.maxhp = 100*lvl;
         this.hp = this.maxhp;
         this.direction = 1;
-        this.dmg = 3*lvl;
+        this.dmg = 35*lvl;
         this.id = 1;
         this.type = 0;
         

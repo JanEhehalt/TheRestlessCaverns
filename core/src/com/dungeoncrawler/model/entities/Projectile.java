@@ -14,11 +14,11 @@ public class Projectile extends Entity{
     int direction;
     int lifetime;
     
-    public Projectile(float xPos, float yPos, int lvl, int id, boolean targetsPlayer){
+    public Projectile(float xPos, float yPos, int lvl, int dmg, int id, boolean targetsPlayer){
         super(xPos, yPos, lvl);
         xStart = xPos;
         yStart = yPos;
-        this.dmg = 3*lvl;
+        this.dmg = dmg;
         this.id = id;
         type = 2;
         this.lifetime = 0;

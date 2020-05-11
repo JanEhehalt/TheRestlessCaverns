@@ -21,11 +21,11 @@ public class Player extends Entity {
     public Player() {
         super(200, 200, 1);
         
-        this.maxhp = 20 * lvl;
+        this.maxhp = 100 * lvl;
         this.hp = this.maxhp;
         this.standartMaxHp = 5 * lvl;
         
-        this.dmg = 3*lvl;
+        this.dmg = 50*lvl;
         this.standartDmg = dmg;
         id = -1;
         type = -1;
@@ -52,6 +52,23 @@ public class Player extends Entity {
             //this.maxhp = this.standartMaxHp;
         }
     }
+    
+    public void useItem(int x){
+        if(inv.getItem(x) != null){
+            switch(inv.getItem(x).getId()){
+                case 0:
+                    // nix lol weil key
+                    break;
+                case 1:
+                    this.hp = hp + inv.getItem(x).getHeal();
+                    break;
+                case 2:
+                    // nix lol weil amulet
+                    break;
+            }
+            inv.setItem(x, null);
+        }
+    }
 
     public boolean move(int x, int y){
         return false;
@@ -64,7 +81,7 @@ public class Player extends Entity {
         if(!isToDelete()){
             double alpha = StaticMath.calculateAngle((int) this.xPos, (int) this.yPos, xPosPlayer, yPosPlayer);
             
-            a = new Projectile(this.xPos + 32, this.yPos + 32, this.lvl, 5, false);
+            a = new Projectile(this.xPos + 32, this.yPos + 32, this.lvl,(int) this.dmg,  5, false);
             int tempMovementX = (int) (8 * Math.cos(alpha));
             int tempMovementY = (int) (8 * Math.sin(alpha));
 

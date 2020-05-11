@@ -55,6 +55,12 @@ public class Inventory {
         }
     }
     
+    public void setItem(int x, Item i){
+        items[x] = i;
+    }
+    
+   
+    
     public boolean checkKey(){
         for(int i = 0; i < items.length; i++){
             if(items[i] != null){

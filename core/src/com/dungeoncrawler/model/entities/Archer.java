@@ -10,10 +10,10 @@ public class Archer extends Entity{
     public Archer(float xPos, float yPos, int lvl) {
         super(xPos, yPos, lvl);
         
-        this.maxhp = 5*lvl;
+        this.maxhp = 75*lvl;
         this.hp = this.maxhp;
         this.direction = 1;
-        this.dmg = 3*lvl;
+        this.dmg = 25*lvl;
         this.id = 0;
         this.type = 1;
         counter = 0;
@@ -37,7 +37,6 @@ public class Archer extends Entity{
                 movementX = (int) (3 * Math.cos(alpha));
                 movementY = (int) (3 * Math.sin(alpha));
 
-                System.out.println(distance);
                 if(distance < 124){
                     movementX *= -1;
                     movementY *= -1;
@@ -72,7 +71,7 @@ public class Archer extends Entity{
         if(!isToDelete()){
             double alpha = StaticMath.calculateAngle((int) this.xPos, (int) this.yPos, xPosPlayer, yPosPlayer);
             
-            a = new Projectile(this.xPos + 32, this.yPos + 32, this.lvl, 2, true);
+            a = new Projectile(this.xPos + 32, this.yPos + 32, this.lvl,(int) this.dmg,  2, true);
             int tempX = (int) (6 * Math.cos(alpha));
             int tempY = (int) (6 * Math.sin(alpha));
 

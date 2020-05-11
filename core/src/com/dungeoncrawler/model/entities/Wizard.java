@@ -19,10 +19,10 @@ public class Wizard extends Entity{
     public Wizard(float xPos, float yPos, int lvl) {
         super(xPos, yPos, lvl);
         
-        this.maxhp = 5*lvl;
+        this.maxhp = 80*lvl;
         this.hp = this.maxhp;
         this.direction = 1;
-        this.dmg = 3*lvl;
+        this.dmg = 30*lvl;
         this.id = 3;
         this.type = 1;
         counter = 0;
@@ -45,7 +45,6 @@ public class Wizard extends Entity{
                 movementX = (int) (3 * Math.cos(alpha));
                 movementY = (int) (3 * Math.sin(alpha));
 
-                System.out.println(distance);
                 if(distance < 124){
                     movementX *= -1;
                     movementY *= -1;
@@ -80,7 +79,7 @@ public class Wizard extends Entity{
         if(!isToDelete()){
             double alpha = StaticMath.calculateAngle((int) this.xPos, (int) this.yPos, xPosPlayer, yPosPlayer);
             
-            a = new Projectile(this.xPos + 32, this.yPos + 32, this.lvl, 4, true);
+            a = new Projectile(this.xPos + 32, this.yPos + 32, this.lvl,(int) this.dmg, 4, true);
             int tempX = (int) (6 * Math.cos(alpha));
             int tempY = (int) (6 * Math.sin(alpha));
 

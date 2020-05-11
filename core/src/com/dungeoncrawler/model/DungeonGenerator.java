@@ -240,15 +240,14 @@ public class DungeonGenerator {
             if(tempItem == null){
                 System.out.println("Es gibt Probleme, schau mal beim Raumgenerator nach. Es sind sogar sehr problematische Probleme mit den Items");
             }
-            ItemContainer tempContainer;
+           
             if(tempItem != null){
+                ItemContainer tempContainer;
                 tempContainer = new ItemContainer(xPos, yPos, tempItem);
-            }
-            else{
-                tempContainer = null;
+                tempRoom.getItems().add(tempContainer);
             }
             
-            tempRoom.getItems().add(tempContainer);
+            
         }
         
         // Entities werden generiert

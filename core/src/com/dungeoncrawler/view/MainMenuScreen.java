@@ -89,8 +89,6 @@ public class MainMenuScreen{
                 music.setVolume(volume);
                 music.play();
                 
-                System.out.println(startButtonSprite.getWidth());
-                System.out.println(startButtonSprite.getHeight());
 	}
 
         

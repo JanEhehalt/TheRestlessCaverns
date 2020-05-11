@@ -297,6 +297,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                 gs.render(batch, d.getPlayer(), d.getCurrentEntities(), tileX, tileY, level, roomPosX, roomPosY);
                 hc.updateHud(batch, d.getPlayer());
                 d.getPlayer().updateItems();
+                
         }
     }
     
@@ -311,7 +312,6 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
         MapLayers layers = gs.getM().getMaps()[level][roomPosX][roomPosY].getMap().getLayers();
         MapObjects objects = layers.get(0).getObjects();
         MapObjects door = layers.get(3).getObjects();
-        //System.out.println(objects.getCount());
         
         updatePlayer(objects, door);
     }
@@ -330,13 +330,11 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                 
                 d.getPlayer().setxPos(x);
 
-                System.out.println("Es laedt, es laedt, ich will nicht, dass es laedt, wenn es laedt, muss man immer so lange warten!!!!!");
             }
         }
         
         for(RectangleMapObject rectangleObject : door.getByType(RectangleMapObject.class)){
             Rectangle tempDoor = rectangleObject.getRectangle();
-            System.out.println("Door array");
             
             if(Intersector.overlaps(gs.getPlayer().getCollisionSprite(), tempDoor) && !d.getPlayer().checkKey()){
                 d.getPlayer().setxPos(x);
@@ -354,7 +352,6 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                 
                 d.getPlayer().setyPos(y);
 
-                System.out.println("Es laedt, es laedt, ich will nicht, dass es laedt, wenn es laedt, muss man immer so lange warten!!!!!");
             }
         }
         
@@ -371,8 +368,6 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
     
     public void updateRoom(int tempX, int tempY){
         
-        //System.out.println(roomX + " " + roomY);
-        //System.out.println("pos Player tiles: " + tileX + " " + tileY);
         
         // Temp variablen werden wieder auf ihre Plätze geschrieben
         
@@ -427,7 +422,6 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
         
         if(roomPosX == d.getCurrentLevel().getExit()[0] && roomPosY == d.getCurrentLevel().getExit()[1]){
             if(level < 6){
-                System.out.println("Nächstes Level, here we go");
                 
                 d.getPlayer().deleteKey();
                 
@@ -596,6 +590,13 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                         }
                     }
                 }
+                
+                if(keycode == Input.Keys.Q){
+                    if(gs != null && gs.getIsLoading() == false){
+                        d.getPlayer().useItem(d.getPlayer().getInv().getSelected());
+                    }
+                }
+                
                 if(keycode == Input.Keys.ESCAPE){
                     if(gs != null && gs.getIsLoading() == false && isPaused == false){
                         stop();
