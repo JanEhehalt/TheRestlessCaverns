@@ -37,6 +37,7 @@ public abstract class Entity {
             return true;
         }
         else{
+            
             e.setHp(e.getHp() - this.dmg);
             return false;
         }

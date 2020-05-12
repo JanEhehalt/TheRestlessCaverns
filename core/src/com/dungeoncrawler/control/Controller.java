@@ -391,7 +391,6 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
             roomPosY += 1;
             d.getPlayer().setxPos((roomX / 2)* 48);
             d.getPlayer().setyPos(48);
-            d.getPlayer().updateStats(level);
             gs.startLoadingScreen();
         }
 
@@ -429,6 +428,8 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
             if(level < 6){
                 
                 d.getPlayer().deleteKey();
+                
+                d.getPlayer().updateStats(level + 1);
                 
                 gs.startLoadingScreen();
                 
@@ -512,10 +513,18 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                             if(e[i].getHp() - p.getDmg() <= 0){
                                 e[i].setHp(0);
                                 e[i].setToDelete(true);
+                                System.out.println("TOTTOTTOT");
                             }
                             else{
+                                
+                                System.out.println(e[i].getHp());
+                                System.out.println("-");
+                                System.out.println(p.getDmg());
+                                System.out.println("=");
+                                System.out.println(e[i].getHp() - p.getDmg());
+                                
                                 e[i].setHp(e[i].getHp() - p.getDmg());
-                                System.out.println("HIT");
+            
                             }
                         }
                     }

@@ -288,6 +288,15 @@ public class GameScreen {
                         tx[0] = new Texture("sprites/laser.png");
                         entitySprites[i] = new EntitySprite(tx, 36, 15);
                         break;
+                        
+                    case 6:
+                        tx[0] = new Texture("sprites/firewizard.png");
+                        entitySprites[i] = new EntitySprite(tx, 64, 64);
+                        break;
+                        
+                    case 7:
+                        tx[0] = new Texture("sprites/firespell.png");
+                        entitySprites[i] = new EntitySprite(tx, 16, 16);
                 }
 
                 entitySprites[i].update((int) e.getxPos() + 32, (int) e.getyPos() + 32);
