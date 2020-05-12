@@ -16,6 +16,12 @@ Engine: libGDX - https://libgdx.badlogicgames.com/
 
 <img src="docs/general.PNG">
 
+Credits for Entity-Sprites:  
+Calciumtrice  
+Twitter: https://twitter.com/calciumtrice  
+OpenGameArt: https://opengameart.org/users/calciumtrice  
+
+
 
 ## Installation
 
