@@ -510,10 +510,12 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                     if(entitySprites[i] != null && e[i] != null){
                         if(Intersector.overlaps(entitySprites[i].getCollisionSprite(), collision)){
                             if(e[i].getHp() - p.getDmg() <= 0){
+                                e[i].setHp(0);
                                 e[i].setToDelete(true);
                             }
                             else{
                                 e[i].setHp(e[i].getHp() - p.getDmg());
+                                System.out.println("HIT");
                             }
                         }
                     }

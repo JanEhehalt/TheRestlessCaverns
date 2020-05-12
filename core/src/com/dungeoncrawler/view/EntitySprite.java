@@ -153,7 +153,6 @@ public class EntitySprite implements Comparable<EntitySprite> {
             frames[1]++;
         }
         
-        System.out.println(die);
         
         sprites[0].setRegion(regions[0][0][frames[1]]);
         updateFlip();
