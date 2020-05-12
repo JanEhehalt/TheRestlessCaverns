@@ -66,6 +66,10 @@ public class Player extends Entity {
                     // nix lol weil key
                     break;
                 case 1:
+                    if(hp == maxhp){
+                        
+                    }
+                    else{
                     if(hp + inv.getItem(x).getHeal() >= maxhp){
                         hp = maxhp;
                     }
@@ -73,6 +77,7 @@ public class Player extends Entity {
                         this.hp = hp + inv.getItem(x).getHeal();
                     }
                     inv.setItem(x, null);
+                    }
                     break;
                 case 2:
                     // nix lol weil amulet
