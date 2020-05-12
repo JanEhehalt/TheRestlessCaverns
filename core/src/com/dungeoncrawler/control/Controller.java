@@ -87,7 +87,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
         
         roomAmount = d.getLevel()[0].getRooms().length;
             
-        level = 6;
+        level = 0;
 
         roomPosX = roomAmount / 2;
         roomPosY = roomAmount / 2;
@@ -602,7 +602,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                     }
                 }
                 
-                if(keycode == Input.Keys.Q){
+                if(keycode == Input.Keys.E){
                     if(gs != null && gs.getIsLoading() == false){
                         d.getPlayer().useItem(d.getPlayer().getInv().getSelected());
                     }

@@ -27,8 +27,9 @@ public class MapGenerator {
     TextureRegion[][][] allTiles;
     TextureRegion[][] splitTiles;
     Texture torchT;
-    Texture sword;
+    Texture amulet;
     Texture key;
+    Texture potion;
     
     public MapGenerator(Texture[] tiles){
         allTiles = new TextureRegion[7][][];
@@ -37,8 +38,9 @@ public class MapGenerator {
             allTiles[i] = TextureRegion.split(tiles[i], 48, 48);
         }
         torchT = new Texture("sprites/torch.png");
-        sword = new Texture("sprites/amulet.png");
+        amulet = new Texture("sprites/amulet.png");
         key = new Texture("sprites/key.png");
+        potion = new Texture("sprites/potion.png");
     }
     
     public Map generateMap(Dungeon d){
@@ -333,9 +335,13 @@ public class MapGenerator {
                     case 0:
                         itemSprite = new AnimatedObject(key, 48, 48);
                         break;
-                    
+                        
+                    case 1:
+                        itemSprite = new AnimatedObject(potion, 48, 48);
+                        break;
+                        
                     case 2:
-                        itemSprite = new AnimatedObject(sword, 48, 48);
+                        itemSprite = new AnimatedObject(amulet, 48, 48);
                         break;
                 }
                 

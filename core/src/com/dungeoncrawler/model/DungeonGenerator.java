@@ -7,6 +7,7 @@ package com.dungeoncrawler.model;
 
 import com.dungeoncrawler.model.entities.*;
 import com.dungeoncrawler.model.items.Amulet;
+import com.dungeoncrawler.model.items.Potion;
 import com.dungeoncrawler.model.items.Key;
 import java.util.ArrayList;
 
@@ -229,10 +230,10 @@ public class DungeonGenerator {
                     tempItem = new Amulet(lvl);
                     break;
                     
-                /*case 1:
-                    temp = new Swordsman(xPos, yPos, lvl);
+                case 1:
+                    tempItem = new Potion(lvl);
                     break;
-                */    
+                    
                 default:
                     tempItem = null;
             }
