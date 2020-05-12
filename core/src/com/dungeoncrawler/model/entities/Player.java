@@ -26,7 +26,7 @@ public class Player extends Entity {
         this.standartMaxHp = 100 * lvl;
         
         this.dmg = 60*lvl;
-        this.standartDmg = dmg;
+        this.standartDmg = this.dmg;
         id = -1;
         type = -1;
         inv = new Inventory();
@@ -56,7 +56,6 @@ public class Player extends Entity {
         }
         else{
             this.dmg = this.standartDmg;
-            //this.maxhp = this.standartMaxHp;
         }
     }
     
