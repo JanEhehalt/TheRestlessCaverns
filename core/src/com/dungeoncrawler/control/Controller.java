@@ -598,6 +598,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                     if(mm != null){}
                     if(gs != null && gs.getIsLoading() == false){
                         d.getPlayer().getInv().equipItem();
+                        d.getPlayer().updateItems();
                     }
                 }
                 
@@ -609,6 +610,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                             d.getCurrentRoom().spawnItem((int)d.getPlayer().getxPos(), (int)d.getPlayer().getyPos(), d.getPlayer().getInv().getItem(d.getPlayer().getInv().getSelected()));
                             gs.getM().getMaps()[level][roomPosX][roomPosY].addItem(48, 48,(int)d.getPlayer().getxPos(), (int)d.getPlayer().getyPos(), d.getPlayer().getInv().getItem(d.getPlayer().getInv().getSelected()));
                             d.getPlayer().getInv().dropItem();
+                            d.getPlayer().updateItems();
                         }
                     }
                 }

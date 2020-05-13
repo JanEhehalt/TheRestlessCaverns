@@ -67,10 +67,10 @@ public class GameScreen {
             
                 //PLAYER
                 Texture[] playerTexture = new Texture[4];
-                playerTexture[0] = new Texture(Gdx.files.internal("sprites/player.png"));
-                playerTexture[1] = new Texture(Gdx.files.internal("sprites/player.png"));
-                playerTexture[2] = new Texture(Gdx.files.internal("sprites/player.png"));
-                playerTexture[3] = new Texture(Gdx.files.internal("sprites/player.png"));
+                playerTexture[0] = new Texture(Gdx.files.internal("sprites/playerblue.png"));
+                playerTexture[1] = new Texture(Gdx.files.internal("sprites/playerblue.png"));
+                playerTexture[2] = new Texture(Gdx.files.internal("sprites/playerblue.png"));
+                playerTexture[3] = new Texture(Gdx.files.internal("sprites/playerblue.png"));
                 
                 player = new EntitySprite(playerTexture, 64, 64);
                 

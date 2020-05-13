@@ -163,7 +163,7 @@ public class DungeonGenerator {
     
     private Room generateRoom(int sizeX, int sizeY, int tileSize, int lvl){
         int itemAmount = (int) (Math.random() * 2);
-        int enemyAmount = (int) (Math.random() * 6);
+        int enemyAmount = (int) (Math.random() * 5);
         
         Room tempRoom = new Room(new ArrayList<ItemContainer>(itemAmount), new Entity[15]);
         
