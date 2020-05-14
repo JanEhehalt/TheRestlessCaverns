@@ -19,11 +19,7 @@ public class MainMenuScreen{
         
     
         //MENU-SCREEN
-	Texture startButtonTexture;
-        Texture quitButtonTexture;
-        Texture backgroundTexture;
-        Texture settingsButtonTexture;
-        
+	
         Sprite startButtonSprite;
         Sprite quitButtonSprite;
         Sprite backgroundSprite;
@@ -41,6 +37,18 @@ public class MainMenuScreen{
         // Sound
         public Music music;
         
+        //PLAYER PREVIEW
+        Sprite playerSprite;
+        TextureRegion[][][] playerRegion;
+        int shownPlayer;
+        Timer preview;
+        int animationState;
+        
+        Sprite skinContainer;
+        Sprite buttonRight;
+        Sprite buttonLeft;
+        
+        
 	public MainMenuScreen(float volume) {
             
                 //MENU-SCREEN
@@ -50,10 +58,10 @@ public class MainMenuScreen{
                 
                 hidden = false;
                 
-                backgroundTexture = new Texture("sprites/MAINSCREEN.png");
-                startButtonTexture = new Texture("sprites/startButton.png");
-                quitButtonTexture = new Texture("sprites/quitButton.png");
-                settingsButtonTexture = new Texture("sprites/settingsButton.png");
+                Texture backgroundTexture = new Texture("sprites/MAINSCREEN.png");
+                Texture startButtonTexture = new Texture("sprites/startButton.png");
+                Texture quitButtonTexture = new Texture("sprites/quitButton.png");
+                Texture settingsButtonTexture = new Texture("sprites/settingsButton.png");
                 
                 backgroundSprite = new Sprite(backgroundTexture);
                 startButtonSprite = new Sprite(startButtonTexture);
@@ -82,7 +90,41 @@ public class MainMenuScreen{
                 
                 //ENTITIES
                 
-                //PLAYER
+                //PLAYER PREVIEW
+                
+                playerRegion = new TextureRegion[3][][];
+                shownPlayer = 2;
+                animationState = 0;
+                
+                playerRegion[0] = TextureRegion.split(new Texture("sprites/player.png"), 64, 64);
+                playerRegion[1] = TextureRegion.split(new Texture("sprites/playerblue.png"), 64, 64);
+                playerRegion[2] = TextureRegion.split(new Texture("sprites/playerpurple.png"), 64, 64);
+                playerSprite = new Sprite(playerRegion[shownPlayer][0][animationState]);
+                
+                
+                skinContainer = new Sprite(new Texture("sprites/skinContainer.png"));
+                buttonLeft = new Sprite(new Texture("sprites/right.png"));
+                buttonRight = new Sprite(new Texture("sprites/left.png"));
+                
+                skinContainer.setPosition(800, 400);
+                buttonRight.setPosition(skinContainer.getX() + 8, skinContainer.getY()+8);
+                buttonLeft.setPosition(skinContainer.getX() + 110, skinContainer.getY()+8);
+                playerSprite.setPosition(skinContainer.getX() + 51, skinContainer.getY() + 8);
+                
+                preview = new Timer();
+                preview.scheduleTask(new Timer.Task() {
+                    @Override
+                    public void run() {
+                        if(animationState >= 9){
+                            animationState = 0;
+                        }
+                        else{
+                            animationState++;
+                        }
+                        playerSprite.setRegion(playerRegion[shownPlayer][0][animationState]);
+                    }
+                },0, 0.1f);
+                
                 
                 // Sound
                 music = Gdx.audio.newMusic(Gdx.files.internal("music/mainmenu.mp3"));
@@ -99,10 +141,15 @@ public class MainMenuScreen{
                 batch.begin();
                 //batch.setProjectionMatrix(camera.combined);
                 if(hidden == false){
+                    
                     backgroundSprite.draw(batch);
                     startButtonSprite.draw(batch);
                     quitButtonSprite.draw(batch);
                     settingsButtonSprite.draw(batch);
+                    skinContainer.draw(batch);
+                    buttonLeft.draw(batch);
+                    buttonRight.draw(batch);
+                    playerSprite.draw(batch);
                 }
                 batch.end();
 	}
@@ -121,6 +168,18 @@ public class MainMenuScreen{
                 }
                 if(Intersector.overlaps(r, settingsButtonSprite.getBoundingRectangle())){
                     return 2;   //Settings
+                }
+                if(Intersector.overlaps(r, buttonLeft.getBoundingRectangle())){
+                    if(shownPlayer != 0){
+                    shownPlayer--;   //Settings
+                    }
+                    return 6;
+                }
+                if(Intersector.overlaps(r, buttonRight.getBoundingRectangle())){
+                    if(shownPlayer != 2){
+                    shownPlayer++;   //Settings
+                    }
+                    return 6;
                 }
             }
             return -1;
@@ -143,6 +202,9 @@ public class MainMenuScreen{
             return hidden;
         }
         
+        public int getSkin(){
+            return shownPlayer;
+        }
         
        
         }

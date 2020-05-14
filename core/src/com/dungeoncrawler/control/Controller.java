@@ -791,6 +791,11 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                 resume();
                 return true;
                 
+            case 6:
+                playerSkin = mm.getSkin();
+                return true;
+                
+                
             case 9:
                 if(volume > 0f){
                     volume -= 0.05f;
