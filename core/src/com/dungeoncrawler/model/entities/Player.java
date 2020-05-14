@@ -18,9 +18,11 @@ public class Player extends Entity {
     float standartDmg;
     float standartMaxHp;
     
+    int skin;
+    
     public Player() {
         super(200, 200, 1);
-        
+        this.skin = 0;
         this.maxhp = 100 * lvl;
         this.hp = this.maxhp;
         this.standartMaxHp = 100 * lvl;
@@ -123,6 +125,13 @@ public class Player extends Entity {
     
     public void deleteKey(){
         inv.deleteKey();
+    }
+    
+    public void setSkin(int i){
+        skin = i;
+    }
+    public int getSkin(){
+        return skin;
     }
     
 }

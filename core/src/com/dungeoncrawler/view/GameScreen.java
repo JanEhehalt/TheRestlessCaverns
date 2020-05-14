@@ -67,10 +67,27 @@ public class GameScreen {
             
                 //PLAYER
                 Texture[] playerTexture = new Texture[4];
-                playerTexture[0] = new Texture(Gdx.files.internal("sprites/playerblue.png"));
-                playerTexture[1] = new Texture(Gdx.files.internal("sprites/playerblue.png"));
-                playerTexture[2] = new Texture(Gdx.files.internal("sprites/playerblue.png"));
-                playerTexture[3] = new Texture(Gdx.files.internal("sprites/playerblue.png"));
+                switch(d.getPlayer().getSkin()){
+                    case 0:
+                        playerTexture[0] = new Texture(Gdx.files.internal("sprites/player.png"));
+                        playerTexture[1] = new Texture(Gdx.files.internal("sprites/player.png"));
+                        playerTexture[2] = new Texture(Gdx.files.internal("sprites/player.png"));
+                        playerTexture[3] = new Texture(Gdx.files.internal("sprites/player.png"));
+                        break;
+                    case 1:
+                        playerTexture[0] = new Texture(Gdx.files.internal("sprites/playerblue.png"));
+                        playerTexture[1] = new Texture(Gdx.files.internal("sprites/playerblue.png"));
+                        playerTexture[2] = new Texture(Gdx.files.internal("sprites/playerblue.png"));
+                        playerTexture[3] = new Texture(Gdx.files.internal("sprites/playerblue.png"));
+                        break;
+                    case 2:
+                        playerTexture[0] = new Texture(Gdx.files.internal("sprites/playerpurple.png"));
+                        playerTexture[1] = new Texture(Gdx.files.internal("sprites/playerpurple.png"));
+                        playerTexture[2] = new Texture(Gdx.files.internal("sprites/playerpurple.png"));
+                        playerTexture[3] = new Texture(Gdx.files.internal("sprites/playerpurple.png"));
+                        break;
+                }
+                
                 
                 player = new EntitySprite(playerTexture, 64, 64);
                 

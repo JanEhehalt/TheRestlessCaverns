@@ -93,7 +93,7 @@ public class MainMenuScreen{
                 //PLAYER PREVIEW
                 
                 playerRegion = new TextureRegion[3][][];
-                shownPlayer = 2;
+                shownPlayer = 0;
                 animationState = 0;
                 
                 playerRegion[0] = TextureRegion.split(new Texture("sprites/player.png"), 64, 64);
@@ -103,12 +103,12 @@ public class MainMenuScreen{
                 
                 
                 skinContainer = new Sprite(new Texture("sprites/skinContainer.png"));
-                buttonLeft = new Sprite(new Texture("sprites/right.png"));
-                buttonRight = new Sprite(new Texture("sprites/left.png"));
+                buttonLeft = new Sprite(new Texture("sprites/left.png"));
+                buttonRight = new Sprite(new Texture("sprites/right.png"));
                 
                 skinContainer.setPosition(800, 400);
-                buttonRight.setPosition(skinContainer.getX() + 8, skinContainer.getY()+8);
-                buttonLeft.setPosition(skinContainer.getX() + 110, skinContainer.getY()+8);
+                buttonLeft.setPosition(skinContainer.getX() + 8, skinContainer.getY()+8);
+                buttonRight.setPosition(skinContainer.getX() + 110, skinContainer.getY()+8);
                 playerSprite.setPosition(skinContainer.getX() + 51, skinContainer.getY() + 8);
                 
                 preview = new Timer();
@@ -170,16 +170,18 @@ public class MainMenuScreen{
                     return 2;   //Settings
                 }
                 if(Intersector.overlaps(r, buttonLeft.getBoundingRectangle())){
-                    if(shownPlayer != 0){
-                    shownPlayer--;   //Settings
+                    if(shownPlayer > 0){
+                        shownPlayer--;
+                        return 6;
                     }
-                    return 6;
+                    return -1;
                 }
                 if(Intersector.overlaps(r, buttonRight.getBoundingRectangle())){
-                    if(shownPlayer != 2){
-                    shownPlayer++;   //Settings
+                    if(shownPlayer < 2){
+                        shownPlayer++;
+                        return 6;
                     }
-                    return 6;
+                    return -1;
                 }
             }
             return -1;

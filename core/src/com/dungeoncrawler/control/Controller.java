@@ -62,11 +62,13 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
     
     boolean isPaused;
     
+    int playerSkin;
+    
     
     
     @Override
     public void create(){
-        
+        playerSkin = 0;
         isPaused = false;
         
         volume = 0.05f;
@@ -792,7 +794,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                 return true;
                 
             case 6:
-                playerSkin = mm.getSkin();
+                d.getPlayer().setSkin(mm.getSkin());
                 return true;
                 
                 
