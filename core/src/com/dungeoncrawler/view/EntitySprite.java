@@ -62,12 +62,15 @@ public class EntitySprite implements Comparable<EntitySprite> {
                     updateDie();
                 }
                 else if(attackState == 1){
+                    updateFlip();
                     updateAttack();
                 }
                 else if(secondaryAttackState == 1){
+                    updateFlip();
                     updateSecondaryAttack();
                 }
                 else if(moves){
+                    updateFlip();
                     updateWalking();
                 }
                 else{
@@ -99,6 +102,7 @@ public class EntitySprite implements Comparable<EntitySprite> {
         if(frames[2] >= 6){
             frames[2] = 0;
             attackState = 2;
+            updateFlip();
         }
         else{
             frames[2]++;

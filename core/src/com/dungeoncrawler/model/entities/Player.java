@@ -133,5 +133,8 @@ public class Player extends Entity {
     public int getSkin(){
         return skin;
     }
+    public boolean inventoryFull(){
+        return inv.inventoryFull();
+    }
     
 }

@@ -53,6 +53,16 @@ public class Inventory {
         }
     }
     
+    
+    public boolean inventoryFull(){
+        for(int i = 2; i<items.length; i++){
+            if(items[i] == null){
+                return false;
+            }
+        }
+        return true;
+    }
+    
     public void setItem(int x, Item i){
         items[x] = i;
     }

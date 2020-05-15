@@ -585,13 +585,12 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                 if(keycode == Input.Keys.F){
                     if(mm != null){}
                     if(gs != null && gs.getIsLoading() == false){
-                        //Item k = new Sword(1);
-                        //m.addItem(k);
-                        //d.setCurrentItemContainer(m.playerPickUp(d.getCurrentItemContainer(), d.getPlayer()));
-                        ArrayList<ItemContainer> garbage = playerPickUp();
-                        
-                        for(ItemContainer item : garbage){
-                            d.getPlayer().getInv().addItem(item.getItem());
+                        if(!d.getPlayer().inventoryFull()){
+                            ArrayList<ItemContainer> garbage = playerPickUp();
+
+                            for(ItemContainer item : garbage){
+                                d.getPlayer().getInv().addItem(item.getItem());
+                            }
                         }
                     }
                 }
