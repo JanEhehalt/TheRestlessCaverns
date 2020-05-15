@@ -6,6 +6,9 @@ import com.dungeoncrawler.model.Entity;
 public class Archer extends Entity{
     
     int counter;
+    final int minRange;
+    final int maxRange;
+    final int attackSpeed;
     
     public Archer(float xPos, float yPos, int lvl) {
         super(xPos, yPos, lvl);
@@ -16,6 +19,9 @@ public class Archer extends Entity{
         this.dmg = 7*lvl;
         this.id = 0;
         this.type = 1;
+        minRange = 164;
+        maxRange = 184;
+        attackSpeed = 60;
         counter = 0;
         // TODO: Sinnvolle Werte finden
         
@@ -30,18 +36,18 @@ public class Archer extends Entity{
             double alpha = StaticMath.calculateAngle((int) this.xPos, (int) this.yPos, xPosPlayer, yPosPlayer);
             int distance = (int) StaticMath.calculateDistance((int) this.xPos, (int) this.yPos, xPosPlayer, yPosPlayer, alpha);
 
-            if(distance >= 104 && distance <= 184 && counter % 40 == 0){
+            if(distance >= minRange && distance <= maxRange && counter % attackSpeed == 0){
                 return true;
             }
             else{
                 movementX = (int) (3 * Math.cos(alpha));
                 movementY = (int) (3 * Math.sin(alpha));
 
-                if(distance < 124){
+                if(distance < minRange){
                     movementX *= -1;
                     movementY *= -1;
                 }
-                else if(distance >= 124 && distance <= 164){
+                else if(distance >= minRange && distance <= maxRange){
                     movementX = 0;
                     movementY = 0;
                 }

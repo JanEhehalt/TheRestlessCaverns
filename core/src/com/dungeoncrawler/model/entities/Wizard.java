@@ -15,6 +15,9 @@ import com.dungeoncrawler.model.Entity;
 public class Wizard extends Entity{
 
     int counter;
+    final int minRange;
+    final int maxRange;
+    final int attackSpeed;
     
     public Wizard(float xPos, float yPos, int lvl) {
         super(xPos, yPos, lvl);
@@ -25,6 +28,9 @@ public class Wizard extends Entity{
         this.dmg = 10*lvl;
         this.id = 3;
         this.type = 1;
+        minRange = 144;
+        maxRange = 164;
+        attackSpeed = 60; // higher = slower
         counter = 0;
         // TODO: Sinnvolle Werte finden
         
@@ -38,18 +44,18 @@ public class Wizard extends Entity{
             double alpha = StaticMath.calculateAngle((int) this.xPos, (int) this.yPos, xPosPlayer, yPosPlayer);
             int distance = (int) StaticMath.calculateDistance((int) this.xPos, (int) this.yPos, xPosPlayer, yPosPlayer, alpha);
 
-            if(distance >= 104 && distance <= 184 && counter % 40 == 0){
+            if(distance >= minRange && distance <= maxRange && counter % attackSpeed == 0){
                 return true;
             }
             else{
                 movementX = (int) (3 * Math.cos(alpha));
                 movementY = (int) (3 * Math.sin(alpha));
 
-                if(distance < 124){
+                if(distance < 144){
                     movementX *= -1;
                     movementY *= -1;
                 }
-                else if(distance >= 124 && distance <= 164){
+                else if(distance >= minRange && distance <= maxRange){
                     movementX = 0;
                     movementY = 0;
                 }

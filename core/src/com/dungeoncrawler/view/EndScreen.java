@@ -33,6 +33,7 @@ public class EndScreen {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
                 
                 batch.begin();
+                backButton.draw(batch);
                 batch.end();
 	}
     
@@ -42,8 +43,8 @@ public class EndScreen {
             if(Intersector.overlaps(r, backButton.getBoundingRectangle())){
                 return 11;   //NEUSTART
             }
-            
-            return -1;
+            return 11;
+            //return -1;
             
     }
 }

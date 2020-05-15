@@ -89,7 +89,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
         
         roomAmount = d.getLevel()[0].getRooms().length;
             
-        level = 0;
+        level = 6;
 
         roomPosX = roomAmount / 2;
         roomPosY = roomAmount / 2;
@@ -251,6 +251,8 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                                     }
                                 }
                             }
+                            
+                            gs.updateDamageContainer();
                         }
                     } 
                 }   
@@ -300,9 +302,11 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
 
                 
                 // Render methode zum rendern der einzelnen Sprites wird aufgerufen
+                if(gs != null){
                 gs.render(batch, d.getPlayer(), d.getCurrentEntities(), tileX, tileY, level, roomPosX, roomPosY);
                 hc.updateHud(batch, d.getPlayer());
                 d.getPlayer().updateItems();
+                }
                 
         }
     }
@@ -512,21 +516,16 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                 for(int i = 0; i < e.length ; i++){
                     if(entitySprites[i] != null && e[i] != null){
                         if(Intersector.overlaps(entitySprites[i].getCollisionSprite(), collision)){
-                            if(e[i].getHp() - p.getDmg() <= 0){
-                                e[i].setHp(0);
-                                e[i].setToDelete(true);
-                                System.out.println("TOTTOTTOT");
-                            }
-                            else{
-                                
-                                System.out.println(e[i].getHp());
-                                System.out.println("-");
-                                System.out.println(p.getDmg());
-                                System.out.println("=");
-                                System.out.println(e[i].getHp() - p.getDmg());
-                                
-                                e[i].setHp(e[i].getHp() - p.getDmg());
-            
+                            if(entitySprites[i].getDie() == 0){
+                                if(e[i].getHp() - p.getDmg() <= 0){
+                                    e[i].setHp(0);
+                                    gs.createDmgFont((int) p.getDmg(),(int)e[i].getxPos() + 10,(int) e[i].getyPos() + 20);
+                                    e[i].setToDelete(true);
+                                }
+                                else{
+                                    e[i].setHp(e[i].getHp() - p.getDmg());
+                                    gs.createDmgFont((int) p.getDmg(),(int)e[i].getxPos() + 10,(int) e[i].getyPos() + 20);
+                                }
                             }
                         }
                     }

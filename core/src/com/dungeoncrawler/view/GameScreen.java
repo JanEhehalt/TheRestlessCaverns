@@ -5,6 +5,7 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -29,6 +30,10 @@ public class GameScreen {
         //ENTITIES
         public EntitySprite[] entitySprites;
         Entity[] entities;
+        
+        //DMG visualization
+        BitmapFont font;
+        DamageFontContainer[] dmgContainer;
         
         //MAP
         private Map m;
@@ -112,6 +117,10 @@ public class GameScreen {
                         break;
                 }
                 
+                //DMG visualization
+                font = new BitmapFont();
+                font.setColor(1, 0, 0, 1);
+                dmgContainer = new DamageFontContainer[10];
                 
                 player = new EntitySprite(playerTexture, 64, 64);
                 
@@ -283,6 +292,13 @@ public class GameScreen {
                 roomChangeSprite.draw(batch);
             }
             
+            for(int x = 0; x < dmgContainer.length; x++){
+                if(dmgContainer[x] != null){
+                    String text = ""+dmgContainer[x].getValue();
+                    font.draw(batch, text, dmgContainer[x].getCurrentX(), dmgContainer[x].getCurrentY());
+                }
+            }
+            
             batch.end();
 	}
         
@@ -366,7 +382,19 @@ public class GameScreen {
             entitySprites[i] = null;
         }
         
-        
+        public void updateDamageContainer(){
+            for(int x = 0; x < dmgContainer.length; x++){
+                if(dmgContainer[x] != null){
+                    if(dmgContainer[x].getCurrentLifetime() >= dmgContainer[x].getLifetime()){
+                        dmgContainer[x] = null;
+                    }
+                    else{
+                        dmgContainer[x].setCurrentLifetime(dmgContainer[x].getCurrentLifetime() + 1);
+                        dmgContainer[x].setCurrentY(dmgContainer[x].getCurrentY() + 1);
+                    }
+                }
+            }
+        }
         
         public void cleanUp(){
             music.dispose();
@@ -401,6 +429,15 @@ public class GameScreen {
         public void resume(){
             animations.start();
             animatePlayer.start();
+        }
+        
+        public void createDmgFont(int value, int startX, int startY){
+            for(int i = 0; i < dmgContainer.length; i++){
+                if(dmgContainer[i]== null){
+                    dmgContainer[i] = new DamageFontContainer(value, startX, startY);
+                    i = dmgContainer.length + 1;
+                }
+            }
         }
        
 }
