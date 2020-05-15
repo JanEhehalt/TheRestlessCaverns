@@ -5,6 +5,8 @@
  */
 package com.dungeoncrawler.view;
 
+import sun.awt.OSInfo;
+
 /**
  *
  * @author Jan
@@ -22,6 +24,7 @@ public class DamageFontContainer {
         this.currentY = startY;
         this.lifetime = 60;
         this.currentLifetime = 0;
+        
     }
 
     /**
