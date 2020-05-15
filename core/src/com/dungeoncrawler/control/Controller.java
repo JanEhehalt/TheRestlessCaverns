@@ -89,7 +89,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
         
         roomAmount = d.getLevel()[0].getRooms().length;
             
-        level = 6;
+        level = 0;
 
         roomPosX = roomAmount / 2;
         roomPosY = roomAmount / 2;
@@ -321,12 +321,13 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
         
         MapLayers layers = gs.getM().getMaps()[level][roomPosX][roomPosY].getMap().getLayers();
         MapObjects objects = layers.get(0).getObjects();
-        MapObjects door = layers.get(3).getObjects();
+        MapObjects exit = layers.get(3).getObjects();
+        MapObjects door = layers.get(4).getObjects();
         
-        updatePlayer(objects, door);
+        updatePlayer(objects, exit, door);
     }
     
-    public void updatePlayer(MapObjects objects, MapObjects door){
+    public void updatePlayer(MapObjects objects, MapObjects exit, MapObjects door){
         
         float x = d.getPlayer().getxPos();
         d.getPlayer().updateX();
@@ -343,11 +344,21 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
             }
         }
         
-        for(RectangleMapObject rectangleObject : door.getByType(RectangleMapObject.class)){
+        for(RectangleMapObject rectangleObject : exit.getByType(RectangleMapObject.class)){
             Rectangle tempDoor = rectangleObject.getRectangle();
             
             if(Intersector.overlaps(gs.getPlayer().getCollisionSprite(), tempDoor) && !d.getPlayer().checkKey()){
                 d.getPlayer().setxPos(x);
+            }
+        }
+        
+        if(hasEnemies()){
+            for(RectangleMapObject rectangleObject : door.getByType(RectangleMapObject.class)){
+                Rectangle tempDoor = rectangleObject.getRectangle();
+
+                if(Intersector.overlaps(gs.getPlayer().getCollisionSprite(), tempDoor)){
+                    d.getPlayer().setxPos(x);
+                }
             }
         }
         
@@ -365,11 +376,21 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
             }
         }
         
-        for(RectangleMapObject rectangleObject : door.getByType(RectangleMapObject.class)){
+        for(RectangleMapObject rectangleObject : exit.getByType(RectangleMapObject.class)){
             Rectangle tempDoor = rectangleObject.getRectangle();
             
             if(Intersector.overlaps(gs.getPlayer().getCollisionSprite(), tempDoor) && !d.getPlayer().checkKey()){
                 d.getPlayer().setyPos(y);
+            }
+        }
+        
+        if(hasEnemies()){
+            for(RectangleMapObject rectangleObject : door.getByType(RectangleMapObject.class)){
+                Rectangle tempDoor = rectangleObject.getRectangle();
+
+                if(Intersector.overlaps(gs.getPlayer().getCollisionSprite(), tempDoor)){
+                    d.getPlayer().setyPos(y);
+                }
             }
         }
         
@@ -893,6 +914,16 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
         
         ps = null;
         gs.startLoadingScreen();
+    }
+    
+    public boolean hasEnemies(){
+        for(Entity e : d.getCurrentEntities()){
+            if(e != null && !e.isToDelete()){
+                return true;
+            }
+        }
+        
+        return false;
     }
     
 }

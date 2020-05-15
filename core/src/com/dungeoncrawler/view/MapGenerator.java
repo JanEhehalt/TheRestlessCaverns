@@ -86,7 +86,8 @@ public class MapGenerator {
                     
                     // Wenn es Fehler gibt, dann wohl hier: Viel Spaß beim Suchen!        Danke!
                     MapLayer collisionLayer = tempRoom.getLayers().get(0);
-                    MapLayer doorLayer = tempRoom.getLayers().get(3);
+                    MapLayer exitLayer = tempRoom.getLayers().get(3);
+                    MapLayer doorLayer = tempRoom.getLayers().get(4);
                     TiledMapTileLayer staticLayer = (TiledMapTileLayer) tempRoom.getLayers().get(2);
                     
                     RectangleMapObject bottom = (RectangleMapObject) collisionLayer.getObjects().get(0);
@@ -105,7 +106,7 @@ public class MapGenerator {
                             staticLayer.getCell((tempX / 2) + 2, tempY + 3).setTile(new StaticTiledMapTile(splitTiles[2][5])); //oben3+1
                             
                             RectangleMapObject door = new RectangleMapObject((mapDimensionX / 2) * 48, mapDimensionY*48 - 48, 48, 48);
-                            doorLayer.getObjects().add(door);
+                            exitLayer.getObjects().add(door);
                         }
                         else{
                             // X: Exakte Mitte der Gesamtlänge, Y: Gesamtlänge
@@ -123,6 +124,9 @@ public class MapGenerator {
                         
                         collisionLayer.getObjects().add(tempLeft);
                         collisionLayer.getObjects().add(tempRight);
+                        
+                        RectangleMapObject door = new RectangleMapObject((mapDimensionX / 2) * 48, mapDimensionY*48 - 48, 48, 48);
+                        doorLayer.getObjects().add(door);
                     }
                     
                     // Ausgang rechts    
@@ -132,7 +136,7 @@ public class MapGenerator {
                             staticLayer.getCell(tempX + 1, (tempY / 2) + 1).setTile(new StaticTiledMapTile(splitTiles[0][6])); //rechts
                             
                             RectangleMapObject door = new RectangleMapObject(mapDimensionX*48 - 48, (mapDimensionY / 2) * 48, 48, 48);
-                            doorLayer.getObjects().add(door);
+                            exitLayer.getObjects().add(door);
                         }
                         else{
                             // X: Gesamtlänge, Y: Exakte Mitte der Gesamtlänge
@@ -145,6 +149,9 @@ public class MapGenerator {
                             AnimatedObject tempObject = new AnimatedObject(torchT, 48, 96);
                             tempObject.getSprite().setPosition((tempX + 1) * 48, ((tempY / 2) + 2) * 48);
                             temp.getObjects().add(tempObject);
+                            
+                            RectangleMapObject door = new RectangleMapObject(mapDimensionX*48 - 48, (mapDimensionY / 2) * 48, 48, 48);
+                            doorLayer.getObjects().add(door);
                         }
                         
                         collisionLayer.getObjects().remove(right);
@@ -163,7 +170,7 @@ public class MapGenerator {
                             staticLayer.getCell((tempX / 2) + 1, 0).setTile(new StaticTiledMapTile(splitTiles[1][6])); //unten
                             
                             RectangleMapObject door = new RectangleMapObject((mapDimensionX / 2) * 48, 0, 48, 48);
-                            doorLayer.getObjects().add(door);
+                            exitLayer.getObjects().add(door);
                         }
                         else{
                             // X: Exakte Mitte der Gesamtlänge, Y: 0
@@ -179,6 +186,9 @@ public class MapGenerator {
                         
                         collisionLayer.getObjects().add(tempLeft);
                         collisionLayer.getObjects().add(tempRight);
+                        
+                        RectangleMapObject door = new RectangleMapObject((mapDimensionX / 2) * 48, 0, 48, 48);
+                        doorLayer.getObjects().add(door);
                     }
                     
                     // Ausgang links
@@ -188,7 +198,7 @@ public class MapGenerator {
                             staticLayer.getCell(0, (tempY / 2) + 1).setTile(new StaticTiledMapTile(splitTiles[2][6])); //links
                             
                             RectangleMapObject door = new RectangleMapObject(0, (mapDimensionY / 2) * 48, 48, 48);
-                            doorLayer.getObjects().add(door);
+                            exitLayer.getObjects().add(door);
                         }
                         else{
                             // X: 0, Y: Exakte Mitte der Gesamtlänge
@@ -210,6 +220,9 @@ public class MapGenerator {
                         
                         collisionLayer.getObjects().add(tempTop);
                         collisionLayer.getObjects().add(tempBottom);
+                        
+                        RectangleMapObject door = new RectangleMapObject(0, (mapDimensionY / 2) * 48, 48, 48);
+                        doorLayer.getObjects().add(door);
                     }
                     
                     temp.setMap(tempRoom);
@@ -240,6 +253,7 @@ public class MapGenerator {
         MapLayer collisionLayer = new MapLayer();
         TiledMapTileLayer dynamicLayer = new TiledMapTileLayer(mapDimensionX, mapDimensionY + 2, 48, 48);
         TiledMapTileLayer staticLayer = new TiledMapTileLayer(mapDimensionX, mapDimensionY + 2, 48, 48);
+        MapLayer exitLayer = new MapLayer();
         MapLayer doorLayer = new MapLayer();
         
         RectangleMapObject bottom = new RectangleMapObject(0, 0, mapDimensionX*48, 48);
@@ -323,6 +337,7 @@ public class MapGenerator {
         layers.add(collisionLayer);
         layers.add(dynamicLayer);
         layers.add(staticLayer);
+        layers.add(exitLayer);
         layers.add(doorLayer);
         
         for(int i = 0; i < r.getItems().size(); i++){
