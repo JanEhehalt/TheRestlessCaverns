@@ -92,7 +92,7 @@ public class MainMenuScreen{
                 
                 //PLAYER PREVIEW
                 
-                playerRegion = new TextureRegion[5][][];
+                playerRegion = new TextureRegion[7][][];
                 shownPlayer = 0;
                 animationState = 0;
                 
@@ -101,6 +101,8 @@ public class MainMenuScreen{
                 playerRegion[2] = TextureRegion.split(new Texture("sprites/playerpurple.png"), 64, 64);
                 playerRegion[3] = TextureRegion.split(new Texture("sprites/playergreen.png"), 64, 64);
                 playerRegion[4] = TextureRegion.split(new Texture("sprites/playerorange.png"), 64, 64);
+                playerRegion[5] = TextureRegion.split(new Texture("sprites/playerblack.png"), 64, 64);
+                playerRegion[6] = TextureRegion.split(new Texture("sprites/playerred.png"), 64, 64);
                 playerSprite = new Sprite(playerRegion[shownPlayer][0][animationState]);
                 
                 

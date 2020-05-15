@@ -98,6 +98,18 @@ public class GameScreen {
                         playerTexture[2] = new Texture(Gdx.files.internal("sprites/playerorange.png"));
                         playerTexture[3] = new Texture(Gdx.files.internal("sprites/playerorange.png"));
                         break;
+                    case 5:
+                        playerTexture[0] = new Texture(Gdx.files.internal("sprites/playerblack.png"));
+                        playerTexture[1] = new Texture(Gdx.files.internal("sprites/playerblack.png"));
+                        playerTexture[2] = new Texture(Gdx.files.internal("sprites/playerblack.png"));
+                        playerTexture[3] = new Texture(Gdx.files.internal("sprites/playerblack.png"));
+                        break;
+                    case 6:
+                        playerTexture[0] = new Texture(Gdx.files.internal("sprites/playerred.png"));
+                        playerTexture[1] = new Texture(Gdx.files.internal("sprites/playerred.png"));
+                        playerTexture[2] = new Texture(Gdx.files.internal("sprites/playerred.png"));
+                        playerTexture[3] = new Texture(Gdx.files.internal("sprites/playerred.png"));
+                        break;
                 }
                 
                 
