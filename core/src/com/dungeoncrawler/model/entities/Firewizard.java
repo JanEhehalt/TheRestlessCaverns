@@ -22,7 +22,7 @@ public class Firewizard extends Entity{
         this.maxhp = 80*lvl;
         this.hp = this.maxhp;
         this.direction = 1;
-        this.dmg = 25*lvl;
+        this.dmg = 12*lvl;
         this.id = 6;
         this.type = 1;
         counter = 0;
