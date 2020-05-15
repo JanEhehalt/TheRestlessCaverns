@@ -72,7 +72,7 @@ public class MainMenuScreen{
                 backgroundSprite.setY(0);
                 startButtonSprite.setX(backgroundSprite.getX() + 100);
                 startButtonSprite.setY(backgroundSprite.getY() + 350);
-                quitButtonSprite.setX(backgroundSprite.getX() + 50);
+                quitButtonSprite.setX(backgroundSprite.getX() + 100);
                 quitButtonSprite.setY(backgroundSprite.getY() + 50);
                 
                 settingsButtonSprite.setX(backgroundSprite.getX() + 100);
