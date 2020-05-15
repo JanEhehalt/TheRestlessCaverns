@@ -106,10 +106,10 @@ public class MainMenuScreen{
                 buttonLeft = new Sprite(new Texture("sprites/left.png"));
                 buttonRight = new Sprite(new Texture("sprites/right.png"));
                 
-                skinContainer.setPosition(800, 400);
-                buttonLeft.setPosition(skinContainer.getX() + 8, skinContainer.getY()+8);
-                buttonRight.setPosition(skinContainer.getX() + 110, skinContainer.getY()+8);
-                playerSprite.setPosition(skinContainer.getX() + 51, skinContainer.getY() + 8);
+                skinContainer.setPosition(backgroundSprite.getX() + 100, backgroundSprite.getX() + 150);
+                buttonLeft.setPosition(skinContainer.getX() + 7, skinContainer.getY()+25);
+                buttonRight.setPosition(skinContainer.getX() + 106, skinContainer.getY()+25);
+                playerSprite.setPosition(skinContainer.getX() + 50, skinContainer.getY() + 15);
                 
                 preview = new Timer();
                 preview.scheduleTask(new Timer.Task() {
@@ -177,7 +177,7 @@ public class MainMenuScreen{
                     return -1;
                 }
                 if(Intersector.overlaps(r, buttonRight.getBoundingRectangle())){
-                    if(shownPlayer < 2){
+                    if(shownPlayer < playerRegion.length - 1){
                         shownPlayer++;
                         return 6;
                     }
