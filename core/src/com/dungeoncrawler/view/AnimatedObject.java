@@ -25,19 +25,34 @@ public class AnimatedObject {
         frame = (int) (Math.random()*texture[0].length);
         row = (int) (Math.random()*texture.length);
         
-        sprite = new Sprite(texture[row][frame]);
+        sprite = new Sprite(texture[getRow()][getFrame()]);
     }
 
-    public void updateTexture(){
-        if(frame >= texture[0].length - 1){
-            frame = 0;
+    public void updateAnimation(){
+        if(getFrame() >= texture[0].length - 1){
+            setFrame(0);
         }
         else{
-            frame++;
+            setFrame(getFrame() + 1);
         }
         
-        sprite.setRegion(texture[row][frame]);
+        sprite.setRegion(texture[getRow()][getFrame()]);
         
+    }
+    
+    public void updateTexture(){
+        sprite.setRegion(texture[getRow()][getFrame()]);
+    }
+    
+    public void updateBackwards(){
+        if(getFrame() <= 0){
+            setFrame(texture[0].length - 1);
+        }
+        else{
+            setFrame(getFrame() - 1);
+        }
+        
+        sprite.setRegion(texture[getRow()][getFrame()]);
     }
     
     /**
@@ -70,5 +85,33 @@ public class AnimatedObject {
      */
     public void setTexture(TextureRegion[][] texture) {
         this.texture = texture;
+    }
+
+    /**
+     * @return the frame
+     */
+    public int getFrame() {
+        return frame;
+    }
+
+    /**
+     * @param frame the frame to set
+     */
+    public void setFrame(int frame) {
+        this.frame = frame;
+    }
+
+    /**
+     * @return the row
+     */
+    public int getRow() {
+        return row;
+    }
+
+    /**
+     * @param row the row to set
+     */
+    public void setRow(int row) {
+        this.row = row;
     }
 }

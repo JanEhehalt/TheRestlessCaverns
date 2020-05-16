@@ -7,6 +7,7 @@ package com.dungeoncrawler.view;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.utils.Timer;
 import com.dungeoncrawler.model.Item;
 import java.util.ArrayList;
 
@@ -18,13 +19,22 @@ public class MapContainer {
     private TiledMap map;
     private ArrayList<AnimatedObject> objects;
     private ArrayList<AnimatedObject> mapItems;
+    private ArrayList<AnimatedObject> doors;
+    private boolean doorsDown;
     private EntitySprite[] enemies;
+    private Timer doorTimer;
+    private int doorState;
     
     public MapContainer(TiledMap map){
         this.map = map;
         this.objects = new ArrayList<>();
         this.mapItems = new ArrayList<>();
         this.enemies = new EntitySprite[15];
+        doors = new ArrayList<>();
+        doorTimer = new Timer();
+        
+        // 0: up, 1: animation, 2: down
+        doorState = 0;
     }
     
     
@@ -46,6 +56,52 @@ public class MapContainer {
                 ao3.setSpritePosition(xPos, yPos);
                 break;
                 
+        }
+    }
+    
+    public void lowerDoors(){
+        if(doorState == 0){
+            doorState = 1;
+
+            for(AnimatedObject door : doors){
+                door.setFrame(9);
+            }
+
+            doorTimer.scheduleTask(new Timer.Task() {
+                @Override
+                public void run() {
+                    for(AnimatedObject door : doors){
+                        door.updateBackwards();
+                    }
+                    if(doors.get(0).getFrame() == 0){
+                        doorState = 2;
+                        doorTimer.clear();
+                    }
+                }
+            }, 0, 0.08f);
+        }
+    }
+    
+    public void raiseDoors(){
+        if(doorState == 2){
+            doorState = 1;
+
+            for(AnimatedObject door : doors){
+                door.setFrame(0);
+            }
+
+            doorTimer.scheduleTask(new Timer.Task() {
+                @Override
+                public void run() {
+                    for(AnimatedObject door : doors){
+                        door.updateAnimation();
+                    }
+                    if(doors.get(0).getFrame() >= 9){
+                        doorState = 0;
+                        doorTimer.clear();
+                    }
+                }
+            }, 0, 0.08f);
         }
     }
 
@@ -108,6 +164,27 @@ public class MapContainer {
     
     public void setEnemies(EntitySprite enemy, int i) {
         this.enemies[i] = enemy;
+    }
+
+    /**
+     * @return the doorsDown
+     */
+    public boolean isDoorsDown() {
+        return doorsDown;
+    }
+
+    /**
+     * @return the doors
+     */
+    public ArrayList<AnimatedObject> getDoors() {
+        return doors;
+    }
+
+    /**
+     * @param doors the doors to set
+     */
+    public void setDoors(ArrayList<AnimatedObject> doors) {
+        this.doors = doors;
     }
     
 }

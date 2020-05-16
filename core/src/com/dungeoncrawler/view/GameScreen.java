@@ -42,6 +42,7 @@ public class GameScreen {
         OrthographicCamera camera;
         public ArrayList<AnimatedObject> objects;
         public ArrayList<AnimatedObject> mapItems;
+        public ArrayList<AnimatedObject> doors;
         
         Timer animations;
         Timer animatePlayer;
@@ -162,7 +163,7 @@ public class GameScreen {
                     public void run() {
                         if(objects != null){
                             for(AnimatedObject object : objects){
-                                object.updateTexture();        
+                                object.updateAnimation();        
                             }
                         }
                     }
@@ -237,6 +238,7 @@ public class GameScreen {
             tm = getM().getMaps()[level][roomPosX][roomPosY].getMap();
             objects = getM().getMaps()[level][roomPosX][roomPosY].getObjects(); 
             mapItems = getM().getMaps()[level][roomPosX][roomPosY].getMapItems();
+            doors = getM().getMaps()[level][roomPosX][roomPosY].getDoors();
 
             if(tm != null){
                 tmr = new OrthogonalTiledMapRenderer(tm);
@@ -281,6 +283,10 @@ public class GameScreen {
 
             for(AnimatedObject mapItem : mapItems){
                 mapItem.getSprite().draw(batch);
+            }
+            
+            for(AnimatedObject door : doors){
+                door.getSprite().draw(batch);
             }
             
             for(EntitySprite eSprite : renderArray){

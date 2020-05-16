@@ -270,7 +270,11 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                             
                             gs.updateDamageContainer();
                         }
-                    } 
+                    }
+                    
+                    if(!hasEnemies()){
+                        gs.getM().getMaps()[level][roomPosX][roomPosY].raiseDoors();
+                    }
                 }   
             }
         },0, 0.03f);
@@ -435,6 +439,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
             d.getPlayer().setxPos((roomX / 2)* 48);
             d.getPlayer().setyPos(48);
             gs.startLoadingScreen();
+            gs.getM().getMaps()[level][roomPosX][roomPosY].lowerDoors();
             clearEnemies();
         }
 
@@ -446,6 +451,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
             d.getPlayer().setxPos(48);
             d.getPlayer().setyPos((roomY / 2)*48);
             gs.startLoadingScreen();
+            gs.getM().getMaps()[level][roomPosX][roomPosY].lowerDoors();
             clearEnemies();
         }
 
@@ -457,6 +463,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
             d.getPlayer().setxPos((roomX / 2)*48);
             d.getPlayer().setyPos(roomY*48 - 48);
             gs.startLoadingScreen();
+            gs.getM().getMaps()[level][roomPosX][roomPosY].lowerDoors();
             clearEnemies();
         }
 
@@ -468,6 +475,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
             d.getPlayer().setxPos((roomX*48) - 48);
             d.getPlayer().setyPos((roomY / 2)*48);
             gs.startLoadingScreen();
+            gs.getM().getMaps()[level][roomPosX][roomPosY].lowerDoors();
             clearEnemies();
         }
         
@@ -479,6 +487,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                 d.getPlayer().updateStats(level + 1);
                 
                 gs.startLoadingScreen();
+                gs.getM().getMaps()[level][roomPosX][roomPosY].lowerDoors();
                 
                 level++;
                 
