@@ -363,6 +363,10 @@ public class GameScreen {
                         tx[0] = new Texture("sprites/earthspell.png");
                         entitySprites[i] = new EntitySprite(tx, 16, 16);
                         break;
+                    case 10:
+                        tx[0] = new Texture("sprites/fireswordsman.png");
+                        entitySprites[i] = new EntitySprite(tx, 64, 64);
+                        break;
                 }
 
                 entitySprites[i].update((int) e.getxPos() + 32, (int) e.getyPos() + 32);
