@@ -199,6 +199,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                                             if(Intersector.overlaps(tempObject.getFullCollisionSprite(), gs.entitySprites[j].getFullCollisionSprite())){
                                                 delete = true;
                                                 boolean isDead = d.getCurrentEntities()[i].attack(d.getCurrentEntities()[j]);
+                                                gs.createDmgFont((int) d.getPlayer().getDmg(),(int) d.getCurrentEntities()[j].getxPos(),(int) d.getCurrentEntities()[j].getyPos());
                                                 if(isDead){
                                                     gs.entitySprites[j].setDie(1);
                                                     d.getCurrentEntities()[j].setToDelete(true);
