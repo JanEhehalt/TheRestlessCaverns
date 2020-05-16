@@ -14,7 +14,7 @@ public class DesktopLauncher {
         config.title = "The Restless Caverns - Der beste Dungeon Crawler ALLER ZEITEN";
         config.resizable = true;
 
-        //config.addIcon("logo.png", Files.FileType.Internale);
+        
         new LwjglApplication(new Controller(), config);
     }
 }

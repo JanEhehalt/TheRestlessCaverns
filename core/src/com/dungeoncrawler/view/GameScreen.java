@@ -328,7 +328,7 @@ public class GameScreen {
                         
                     case 2:
                         tx[0] = new Texture("sprites/arrow.png");
-                        entitySprites[i] = new EntitySprite(tx, 36, 15);
+                        entitySprites[i] = new EntitySprite(tx, 24, 12);
                         break;
                     
                     case 3:
