@@ -118,6 +118,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                         if(d.getCurrentEntities()[i] != null){
                             // Gets the collisions relevant sprites
                             MapObjects mapObjects = gs.getM().getMaps()[level][roomPosX][roomPosY].getMap().getLayers().get(0).getObjects();
+                            MapObjects doors = gs.getM().getMaps()[level][roomPosX][roomPosY].getMap().getLayers().get(4).getObjects();
                             Rectangle playerSprite = gs.getPlayer().getFullCollisionSprite();
 
                             Entity temp = d.getCurrentEntities()[i];
@@ -165,6 +166,20 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                             else{
                                 
                                 for(RectangleMapObject rectangleObject : mapObjects.getByType(RectangleMapObject.class)){
+                                    Rectangle rectangle = rectangleObject.getRectangle();
+
+                                    if(Intersector.overlaps(tempObject.getCollisionSprite(), rectangle)){
+                                        overlaps = true;
+
+                                        if(d.getCurrentEntities()[i].getType() == 2){
+                                            delete = true;
+                                        }
+
+                                        break;
+                                    }
+                                }
+                                
+                                for(RectangleMapObject rectangleObject : doors.getByType(RectangleMapObject.class)){
                                     Rectangle rectangle = rectangleObject.getRectangle();
 
                                     if(Intersector.overlaps(tempObject.getCollisionSprite(), rectangle)){
@@ -420,6 +435,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
             d.getPlayer().setxPos((roomX / 2)* 48);
             d.getPlayer().setyPos(48);
             gs.startLoadingScreen();
+            clearEnemies();
         }
 
         // rechts
@@ -430,6 +446,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
             d.getPlayer().setxPos(48);
             d.getPlayer().setyPos((roomY / 2)*48);
             gs.startLoadingScreen();
+            clearEnemies();
         }
 
         // unten
@@ -440,6 +457,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
             d.getPlayer().setxPos((roomX / 2)*48);
             d.getPlayer().setyPos(roomY*48 - 48);
             gs.startLoadingScreen();
+            clearEnemies();
         }
 
         // links
@@ -450,6 +468,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
             d.getPlayer().setxPos((roomX*48) - 48);
             d.getPlayer().setyPos((roomY / 2)*48);
             gs.startLoadingScreen();
+            clearEnemies();
         }
         
         if(roomPosX == d.getCurrentLevel().getExit()[0] && roomPosY == d.getCurrentLevel().getExit()[1]){
@@ -920,11 +939,25 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
     public boolean hasEnemies(){
         for(Entity e : d.getCurrentEntities()){
             if(e != null && !e.isToDelete()){
-                return true;
+                if(e.isTargetsPlayer()){
+                    return true;
+                }
             }
         }
         
         return false;
     }
     
+    public void clearEnemies(){
+        for(int i = 0; i < d.getCurrentEntities().length; i++){
+            Entity e = d.getCurrentEntities()[i];
+            
+            if(e != null && !e.isToDelete()){
+                if(!e.isTargetsPlayer()){
+                    d.getCurrentEntities()[i] = null;
+                    //gs.deleteEntitySprite(i);
+                }
+            }
+        }
+    }
 }
