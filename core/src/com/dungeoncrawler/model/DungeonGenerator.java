@@ -45,7 +45,7 @@ public class DungeonGenerator {
         int xPos = roomAmount / 2;
         int yPos = roomAmount / 2;
 
-        tempLevel.setRoom(generateRoom(sizeX, sizeY, tileSize, lvl), xPos, yPos);
+        tempLevel.setRoom(generateRoom(sizeX, sizeY, tileSize, lvl, false), xPos, yPos);
         
         // Schleife läuft so lange, bis die entsprechende Anzahl an Räumen generiert wurde
         for(int i = 1; i < roomAmount;){
@@ -82,7 +82,7 @@ public class DungeonGenerator {
             
             // An der neuen Stelle vom Cursor gibt es noch keinen Raum
             if(tempLevel.getRooms()[xPos][yPos] == null){
-                tempLevel.setRoom(generateRoom(sizeX, sizeY, tileSize, lvl), xPos, yPos);
+                tempLevel.setRoom(generateRoom(sizeX, sizeY, tileSize, lvl, true), xPos, yPos);
                 
                 // i darf nur erhöht werden, wenn auch ein Raum generiert wurde
                 i++;
@@ -148,7 +148,7 @@ public class DungeonGenerator {
 
                 // An der neuen Stelle vom Cursor gibt es noch keinen Raum
                 if(tempLevel.getRooms()[xPos][yPos] == null){
-                    tempLevel.setRoom(generateRoom(sizeX, sizeY, tileSize, lvl), xPos, yPos);
+                    tempLevel.setRoom(generateRoom(sizeX, sizeY, tileSize, lvl, false), xPos, yPos);
 
                     tempLevel.setExit(xPos, 0);
                     tempLevel.setExit(yPos, 1);
@@ -161,182 +161,184 @@ public class DungeonGenerator {
         return tempLevel;
     }
     
-    private Room generateRoom(int sizeX, int sizeY, int tileSize, int lvl){
+    private Room generateRoom(int sizeX, int sizeY, int tileSize, int lvl, boolean allowEnemies){
         int itemAmount = (int) (Math.random() * 2);
         int enemyAmount = (int) (Math.random() * 5);
         
         Room tempRoom = new Room(new ArrayList<ItemContainer>(itemAmount), new Entity[15]);
         
-        // Items werden generiert
-        int[][] belegt = new int[itemAmount][2];
-        for(int j = 0; j < belegt.length; j++){
-            belegt[j][0] = -1;
-            belegt[j][1] = -1;
-        }
-        
-        for(int i = 0; i < itemAmount; i++){
-            
-            int xTile;
-            int yTile;
-            
-            boolean istFertig = false;
-            do {
-                System.out.println("läuft");
-                
-                // Tiles des Entities werden generiert
+        if(allowEnemies){
+            // Items werden generiert
+            int[][] belegt = new int[itemAmount][2];
+            for(int j = 0; j < belegt.length; j++){
+                belegt[j][0] = -1;
+                belegt[j][1] = -1;
+            }
 
-                xTile = generateTile(sizeX);
-                yTile = generateTile(sizeY);
+            for(int i = 0; i < itemAmount; i++){
 
-                
-                // Test, ob Tiles bereits belegt
-                boolean hatGeklappt = true;
-                for(int j = 0; j < belegt.length; j++){
-                    if(j != i){
-                        if(xTile == belegt[j][0] && yTile == belegt[j][1]){
-                            hatGeklappt = false;
-                            break;
-                        }
-                    }
-                }
-                
-                if(hatGeklappt == true){
-                    // Tiles zum Array hinzufügen
+                int xTile;
+                int yTile;
+
+                boolean istFertig = false;
+                do {
+                    System.out.println("läuft");
+
+                    // Tiles des Entities werden generiert
+
+                    xTile = generateTile(sizeX);
+                    yTile = generateTile(sizeY);
+
+
+                    // Test, ob Tiles bereits belegt
+                    boolean hatGeklappt = true;
                     for(int j = 0; j < belegt.length; j++){
-                        if(belegt[j][0] == -1){
-                            belegt[j][0] = xTile;
-                            belegt[j][1] = yTile;
+                        if(j != i){
+                            if(xTile == belegt[j][0] && yTile == belegt[j][1]){
+                                hatGeklappt = false;
+                                break;
+                            }
                         }
                     }
-                    
-                    istFertig = true;
-                }
-                
-            } while(!istFertig);
-            
-            
-            // Berechnung der Positionen
-            
-            int xPos = xTile * tileSize;
-            int yPos = yTile * tileSize;
-            
-            // Typ des Entities wird generiert
-            
-            Item tempItem;
-            
-            int id = (int) (Math.random() * 2);
-            switch(id){
-                case 0:
-                    tempItem = new Amulet(lvl);
-                    break;
-                    
-                case 1:
-                    tempItem = new Potion(lvl);
-                    break;
-                    
-                default:
-                    tempItem = null;
-            }
-            
-            if(tempItem == null){
-                System.out.println("Es gibt Probleme, schau mal beim Raumgenerator nach. Es sind sogar sehr problematische Probleme mit den Items");
-            }
-           
-            if(tempItem != null){
-                ItemContainer tempContainer;
-                tempContainer = new ItemContainer(xPos, yPos, tempItem);
-                tempRoom.getItems().add(tempContainer);
-            }
-            
-            
-        }
-        
-        // Entities werden generiert
-        belegt = new int[enemyAmount][2];
-        for(int j = 0; j < belegt.length; j++){
-            belegt[j][0] = -1;
-            belegt[j][1] = -1;
-        }
-        
-        for(int i = 0; i < enemyAmount; i++){
-            
-            int xTile;
-            int yTile;
-            
-            boolean istFertig = false;
-            do {
-                System.out.println("läuft");
-                
-                // Tiles des Entities werden generiert
 
-                xTile = generateTile(sizeX);
-                yTile = generateTile(sizeY);
-
-                
-                // Test, ob Tiles bereits belegt
-                boolean hatGeklappt = true;
-                for(int j = 0; j < belegt.length; j++){
-                    if(j != i){
-                        if(xTile == belegt[j][0] && yTile == belegt[j][1]){
-                            hatGeklappt = false;
-                            break;
+                    if(hatGeklappt == true){
+                        // Tiles zum Array hinzufügen
+                        for(int j = 0; j < belegt.length; j++){
+                            if(belegt[j][0] == -1){
+                                belegt[j][0] = xTile;
+                                belegt[j][1] = yTile;
+                            }
                         }
+
+                        istFertig = true;
                     }
+
+                } while(!istFertig);
+
+
+                // Berechnung der Positionen
+
+                int xPos = xTile * tileSize;
+                int yPos = yTile * tileSize;
+
+                // Typ des Entities wird generiert
+
+                Item tempItem;
+
+                int id = (int) (Math.random() * 2);
+                switch(id){
+                    case 0:
+                        tempItem = new Amulet(lvl);
+                        break;
+
+                    case 1:
+                        tempItem = new Potion(lvl);
+                        break;
+
+                    default:
+                        tempItem = null;
                 }
-                
-                if(hatGeklappt == true){
-                    // Tiles zum Array hinzufügen
+
+                if(tempItem == null){
+                    System.out.println("Es gibt Probleme, schau mal beim Raumgenerator nach. Es sind sogar sehr problematische Probleme mit den Items");
+                }
+
+                if(tempItem != null){
+                    ItemContainer tempContainer;
+                    tempContainer = new ItemContainer(xPos, yPos, tempItem);
+                    tempRoom.getItems().add(tempContainer);
+                }
+
+
+            }
+
+            // Entities werden generiert
+            belegt = new int[enemyAmount][2];
+            for(int j = 0; j < belegt.length; j++){
+                belegt[j][0] = -1;
+                belegt[j][1] = -1;
+            }
+
+            for(int i = 0; i < enemyAmount; i++){
+
+                int xTile;
+                int yTile;
+
+                boolean istFertig = false;
+                do {
+                    System.out.println("läuft");
+
+                    // Tiles des Entities werden generiert
+
+                    xTile = generateTile(sizeX);
+                    yTile = generateTile(sizeY);
+
+
+                    // Test, ob Tiles bereits belegt
+                    boolean hatGeklappt = true;
                     for(int j = 0; j < belegt.length; j++){
-                        if(belegt[j][0] == -1){
-                            belegt[j][0] = xTile;
-                            belegt[j][1] = yTile;
+                        if(j != i){
+                            if(xTile == belegt[j][0] && yTile == belegt[j][1]){
+                                hatGeklappt = false;
+                                break;
+                            }
                         }
                     }
-                    
-                    istFertig = true;
+
+                    if(hatGeklappt == true){
+                        // Tiles zum Array hinzufügen
+                        for(int j = 0; j < belegt.length; j++){
+                            if(belegt[j][0] == -1){
+                                belegt[j][0] = xTile;
+                                belegt[j][1] = yTile;
+                            }
+                        }
+
+                        istFertig = true;
+                    }
+
+                } while(!istFertig);
+
+
+                // Berechnung der Positionen
+
+                int xPos = xTile * tileSize;
+                int yPos = yTile * tileSize;
+
+                // Typ des Entities wird generiert
+
+                Entity temp;
+
+                int id = (int) (Math.random() * 6);
+                switch(id){
+                    case 0:
+                        temp = new Archer(xPos, yPos, lvl);
+                        break;
+                    case 1:
+                        temp = new Swordsman(xPos, yPos, lvl);
+                        break;
+                    case 2:
+                        temp = new Wizard(xPos, yPos, lvl);
+                        break;
+                    case 3:
+                        temp = new Firewizard(xPos, yPos, lvl);
+                        break;
+                    case 4:
+                        temp = new Earthwizard(xPos, yPos, lvl);
+                        break;
+                    case 5:
+                        temp = new Fireswordsman(xPos, yPos, lvl);
+                        break;
+                    default:
+                        temp = null;
                 }
-                
-            } while(!istFertig);
-            
-            
-            // Berechnung der Positionen
-            
-            int xPos = xTile * tileSize;
-            int yPos = yTile * tileSize;
-            
-            // Typ des Entities wird generiert
-            
-            Entity temp;
-            
-            int id = (int) (Math.random() * 6);
-            switch(id){
-                case 0:
-                    temp = new Archer(xPos, yPos, lvl);
-                    break;
-                case 1:
-                    temp = new Swordsman(xPos, yPos, lvl);
-                    break;
-                case 2:
-                    temp = new Wizard(xPos, yPos, lvl);
-                    break;
-                case 3:
-                    temp = new Firewizard(xPos, yPos, lvl);
-                    break;
-                case 4:
-                    temp = new Earthwizard(xPos, yPos, lvl);
-                    break;
-                case 5:
-                    temp = new Fireswordsman(xPos, yPos, lvl);
-                    break;
-                default:
-                    temp = null;
+
+                if(temp == null){
+                    System.out.println("Es gibt Probleme, schau mal beim Raumgenerator nach. Es sind sogar sehr problematische Probleme");
+                }
+
+                tempRoom.setEnemies(temp, i);
             }
-            
-            if(temp == null){
-                System.out.println("Es gibt Probleme, schau mal beim Raumgenerator nach. Es sind sogar sehr problematische Probleme");
-            }
-            
-            tempRoom.setEnemies(temp, i);
         }
         
         return tempRoom;
