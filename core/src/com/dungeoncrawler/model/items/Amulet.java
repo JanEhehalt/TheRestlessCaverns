@@ -15,8 +15,8 @@ public class Amulet extends Item {
     
     public Amulet(int lvl) {
         super(lvl);
-        this.dmg = 25 * (lvl + 1);
-        this.heal = 0 * (lvl + 1);
+        this.dmg = 25 * lvl;
+        this.heal = 0 * lvl;
         this.id = 2;
     }
     

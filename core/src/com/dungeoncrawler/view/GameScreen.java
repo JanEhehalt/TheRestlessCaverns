@@ -334,7 +334,7 @@ public class GameScreen {
                         
                     case 2:
                         tx[0] = new Texture("sprites/arrow.png");
-                        entitySprites[i] = new EntitySprite(tx, 24, 12);
+                        entitySprites[i] = new EntitySprite(tx, 24, 5);
                         break;
                     
                     case 3:
@@ -372,6 +372,14 @@ public class GameScreen {
                     case 10:
                         tx[0] = new Texture("sprites/fireswordsman.png");
                         entitySprites[i] = new EntitySprite(tx, 64, 64);
+                        break;
+                    case 11:
+                        tx[0] = new Texture("sprites/icearcher.png");
+                        entitySprites[i] = new EntitySprite(tx, 64, 64);
+                        break;
+                    case 12:
+                        tx[0] = new Texture("sprites/icearrow.png");
+                        entitySprites[i] = new EntitySprite(tx, 24, 5);
                         break;
                 }
 

@@ -309,7 +309,7 @@ public class DungeonGenerator {
 
                 Entity temp;
 
-                int id = (int) (Math.random() * 6);
+                int id = (int) (Math.random() * 7);
                 switch(id){
                     case 0:
                         temp = new Archer(xPos, yPos, lvl);
@@ -328,6 +328,9 @@ public class DungeonGenerator {
                         break;
                     case 5:
                         temp = new Fireswordsman(xPos, yPos, lvl);
+                        break;
+                    case 6:
+                        temp = new Icearcher(xPos, yPos, lvl);
                         break;
                     default:
                         temp = null;

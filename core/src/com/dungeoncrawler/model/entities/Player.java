@@ -27,7 +27,7 @@ public class Player extends Entity {
         this.hp = this.maxhp;
         this.standartMaxHp = 100 * lvl;
         
-        this.dmg = 60*lvl;
+        this.dmg = 20*lvl;
         this.standartDmg = this.dmg;
         id = -1;
         type = -1;
@@ -40,7 +40,7 @@ public class Player extends Entity {
     public void updateStats(int ey){
         lvl = ey;
         standartMaxHp = 100 * ey;
-        standartDmg = 100 * ey;
+        standartDmg = 20 * ey;
         updateItems();
     }
     

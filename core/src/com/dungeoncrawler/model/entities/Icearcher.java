@@ -1,40 +1,32 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.dungeoncrawler.model.entities;
 
 import com.dungeoncrawler.StaticMath;
 import com.dungeoncrawler.model.Entity;
 
-/**
- *
- * @author jonathan
- */
-public class Firewizard extends Entity{
-
+public class Icearcher extends Entity{
+    
     int counter;
     final int minRange;
     final int maxRange;
     final int attackSpeed;
     
-    public Firewizard(float xPos, float yPos, int lvl) {
+    public Icearcher(float xPos, float yPos, int lvl) {
         super(xPos, yPos, lvl);
         
-        this.maxhp = 80*lvl;
+        this.maxhp = 100*lvl;
         this.hp = this.maxhp;
         this.direction = 1;
         this.dmg = 12*lvl;
-        this.id = 6;
+        this.id = 11;
         this.type = 1;
         minRange = 64;
-        maxRange = 124;
-        attackSpeed = 60;
+        maxRange = 184;
+        attackSpeed = 50;
         counter = 0;
         // TODO: Sinnvolle Werte finden
         
-        direction = 1;
+        direction = 2;
+        
     }
 
     @Override
@@ -48,8 +40,8 @@ public class Firewizard extends Entity{
                 return true;
             }
             else{
-                movementX = (int) (3 * Math.cos(alpha));
-                movementY = (int) (3 * Math.sin(alpha));
+                movementX = (int) (4 * Math.cos(alpha));
+                movementY = (int) (4 * Math.sin(alpha));
 
                 if(distance < minRange){
                     movementX *= -1;
@@ -85,7 +77,7 @@ public class Firewizard extends Entity{
         if(!isToDelete()){
             double alpha = StaticMath.calculateAngle((int) this.xPos, (int) this.yPos, xPosPlayer, yPosPlayer);
             
-            a = new Projectile(this.xPos + 32, this.yPos + 32, this.lvl,(int) this.dmg, 7, true);
+            a = new Projectile(this.xPos + 32, this.yPos + 32, this.lvl,(int) this.dmg,  12, true);
             int tempX = (int) (6 * Math.cos(alpha));
             int tempY = (int) (6 * Math.sin(alpha));
 
@@ -103,4 +95,5 @@ public class Firewizard extends Entity{
         
         return a;
     }
+    
 }

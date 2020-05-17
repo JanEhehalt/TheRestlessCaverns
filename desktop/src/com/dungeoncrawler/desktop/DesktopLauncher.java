@@ -2,7 +2,8 @@ package com.dungeoncrawler.desktop;
 
 import com.badlogic.gdx.Files;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
-import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
+import com.badlogic.gdx.backends.lwjgl.LwjglApplicati
+        onConfiguration;
 import com.dungeoncrawler.control.Controller;
 
 public class DesktopLauncher {
