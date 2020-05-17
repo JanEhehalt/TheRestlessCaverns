@@ -431,6 +431,8 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
         // Level
         d.setLevel(d.getCurrentLevel(), level);
         
+        clearEnemies();
+        
         // oben
         if(tileX == (roomX / 2) && tileY == roomY){
             System.out.println("oben");
@@ -438,9 +440,6 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
             roomPosY += 1;
             d.getPlayer().setxPos((roomX / 2)* 48);
             d.getPlayer().setyPos(48);
-            gs.startLoadingScreen();
-            gs.getM().getMaps()[level][roomPosX][roomPosY].lowerDoors();
-            clearEnemies();
         }
 
         // rechts
@@ -450,9 +449,6 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
             roomPosX += 1;
             d.getPlayer().setxPos(48);
             d.getPlayer().setyPos((roomY / 2)*48);
-            gs.startLoadingScreen();
-            gs.getM().getMaps()[level][roomPosX][roomPosY].lowerDoors();
-            clearEnemies();
         }
 
         // unten
@@ -462,9 +458,6 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
             roomPosY -= 1;
             d.getPlayer().setxPos((roomX / 2)*48);
             d.getPlayer().setyPos(roomY*48 - 48);
-            gs.startLoadingScreen();
-            gs.getM().getMaps()[level][roomPosX][roomPosY].lowerDoors();
-            clearEnemies();
         }
 
         // links
@@ -474,9 +467,6 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
             roomPosX -= 1;
             d.getPlayer().setxPos((roomX*48) - 48);
             d.getPlayer().setyPos((roomY / 2)*48);
-            gs.startLoadingScreen();
-            gs.getM().getMaps()[level][roomPosX][roomPosY].lowerDoors();
-            clearEnemies();
         }
         
         if(roomPosX == d.getCurrentLevel().getExit()[0] && roomPosY == d.getCurrentLevel().getExit()[1]){
@@ -487,7 +477,6 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                 d.getPlayer().updateStats(level + 1);
                 
                 gs.startLoadingScreen();
-                gs.getM().getMaps()[level][roomPosX][roomPosY].lowerDoors();
                 
                 level++;
                 
@@ -511,6 +500,12 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
         d.setCurrentEntities(d.getCurrentRoom().getEnemies());
         
         gs.generateEntitySprites(d.getCurrentEntities());
+        
+        gs.startLoadingScreen();
+        
+        if(hasEnemies()){
+            gs.getM().getMaps()[level][roomPosX][roomPosY].lowerDoors();
+        }
     }
     
     public void attack(Entity attacker, Entity[] e){
