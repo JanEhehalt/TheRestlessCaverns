@@ -33,6 +33,7 @@ public class MapGenerator {
     Texture doorTop;
     Texture doorLeft;
     Texture doorRight;
+    Texture doorBottom;
     
     public MapGenerator(Texture[] tiles){
         allTiles = new TextureRegion[7][][];
@@ -47,6 +48,7 @@ public class MapGenerator {
         doorTop = new Texture("sprites/door.png");
         doorLeft = new Texture("sprites/doorleft.png");
         doorRight = new Texture("sprites/doorright.png");
+        doorBottom = new Texture("sprites/doorbottom.png");
         
     }
     
@@ -201,9 +203,9 @@ public class MapGenerator {
                             staticLayer.getCell((tempX / 2) + 1, 0).setTile(new StaticTiledMapTile(splitTiles[0][0])); //unten1
                             staticLayer.getCell((tempX / 2) + 2, 0).setTile(new StaticTiledMapTile(splitTiles[4][4])); //unten2
                             
-                            AnimatedObject door = new AnimatedObject(this.doorTop, 48, 144);
+                            AnimatedObject door = new AnimatedObject(this.doorBottom, 48, 48);
                             
-                            door.setSpritePosition(((tempX / 2) + 1) * 48, -2 * 48);
+                            door.setSpritePosition(((tempX / 2) + 1) * 48, 0);
                             door.setFrame(9);
                             door.updateTexture();
                             
