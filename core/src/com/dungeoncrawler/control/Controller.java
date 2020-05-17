@@ -270,7 +270,11 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                             
                             gs.updateDamageContainer();
                         }
-                    } 
+                    }
+                    
+                    if(!hasEnemies()){
+                        gs.getM().getMaps()[level][roomPosX][roomPosY].raiseDoors();
+                    }
                 }   
             }
         },0, 0.03f);
@@ -427,6 +431,8 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
         // Level
         d.setLevel(d.getCurrentLevel(), level);
         
+        clearEnemies();
+        
         // oben
         if(tileX == (roomX / 2) && tileY == roomY){
             System.out.println("oben");
@@ -434,8 +440,6 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
             roomPosY += 1;
             d.getPlayer().setxPos((roomX / 2)* 48);
             d.getPlayer().setyPos(48);
-            gs.startLoadingScreen();
-            clearEnemies();
         }
 
         // rechts
@@ -445,8 +449,6 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
             roomPosX += 1;
             d.getPlayer().setxPos(48);
             d.getPlayer().setyPos((roomY / 2)*48);
-            gs.startLoadingScreen();
-            clearEnemies();
         }
 
         // unten
@@ -456,8 +458,6 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
             roomPosY -= 1;
             d.getPlayer().setxPos((roomX / 2)*48);
             d.getPlayer().setyPos(roomY*48 - 48);
-            gs.startLoadingScreen();
-            clearEnemies();
         }
 
         // links
@@ -467,8 +467,6 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
             roomPosX -= 1;
             d.getPlayer().setxPos((roomX*48) - 48);
             d.getPlayer().setyPos((roomY / 2)*48);
-            gs.startLoadingScreen();
-            clearEnemies();
         }
         
         if(roomPosX == d.getCurrentLevel().getExit()[0] && roomPosY == d.getCurrentLevel().getExit()[1]){
@@ -502,6 +500,12 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
         d.setCurrentEntities(d.getCurrentRoom().getEnemies());
         
         gs.generateEntitySprites(d.getCurrentEntities());
+        
+        gs.startLoadingScreen();
+        
+        if(hasEnemies()){
+            gs.getM().getMaps()[level][roomPosX][roomPosY].lowerDoors();
+        }
     }
     
     public void attack(Entity attacker, Entity[] e){

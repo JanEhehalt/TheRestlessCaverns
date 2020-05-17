@@ -30,6 +30,9 @@ public class MapGenerator {
     Texture amulet;
     Texture key;
     Texture potion;
+    Texture doorTop;
+    Texture doorLeft;
+    Texture doorRight;
     
     public MapGenerator(Texture[] tiles){
         allTiles = new TextureRegion[7][][];
@@ -41,6 +44,10 @@ public class MapGenerator {
         amulet = new Texture("sprites/amulet.png");
         key = new Texture("sprites/key.png");
         potion = new Texture("sprites/potion.png");
+        doorTop = new Texture("sprites/door.png");
+        doorLeft = new Texture("sprites/doorleft.png");
+        doorRight = new Texture("sprites/doorright.png");
+        
     }
     
     public Map generateMap(Dungeon d){
@@ -115,6 +122,14 @@ public class MapGenerator {
                             staticLayer.getCell((tempX / 2) + 1, tempY + 3).setTile(new StaticTiledMapTile(splitTiles[0][0])); //oben3
                             staticLayer.getCell((tempX / 2) + 0, tempY + 3).setTile(new StaticTiledMapTile(splitTiles[3][5])); //oben3-1
                             staticLayer.getCell((tempX / 2) + 2, tempY + 3).setTile(new StaticTiledMapTile(splitTiles[2][5])); //oben3+1
+                            
+                            AnimatedObject door = new AnimatedObject(this.doorTop, 48, 144);
+                            
+                            door.setSpritePosition(((tempX / 2) + 1) * 48, (tempY + 1) * 48);
+                            door.setFrame(9);
+                            door.updateTexture();
+                            
+                            temp.getDoors().add(door);
                         }
                         
                         collisionLayer.getObjects().remove(top);
@@ -150,8 +165,13 @@ public class MapGenerator {
                             tempObject.getSprite().setPosition((tempX + 1) * 48, ((tempY / 2) + 2) * 48);
                             temp.getObjects().add(tempObject);
                             
-                            RectangleMapObject door = new RectangleMapObject(mapDimensionX*48 - 48, (mapDimensionY / 2) * 48, 48, 48);
-                            doorLayer.getObjects().add(door);
+                            AnimatedObject door = new AnimatedObject(this.doorRight, 48, 144);
+                            door.setSpritePosition((tempX + 1) * 48, ((tempY / 2) + 1) * 48);
+                            
+                            door.setFrame(9);
+                            door.updateTexture();
+                            
+                            temp.getDoors().add(door);
                         }
                         
                         collisionLayer.getObjects().remove(right);
@@ -161,6 +181,9 @@ public class MapGenerator {
                         
                         collisionLayer.getObjects().add(tempTop);
                         collisionLayer.getObjects().add(tempBottom);
+                        
+                        RectangleMapObject door = new RectangleMapObject(mapDimensionX*48 - 48, (mapDimensionY / 2) * 48, 48, 48);
+                        doorLayer.getObjects().add(door);
                     }
                     
                     // Ausgang unten
@@ -177,6 +200,14 @@ public class MapGenerator {
                             staticLayer.getCell((tempX / 2) + 0, 0).setTile(new StaticTiledMapTile(splitTiles[4][5])); //unten-1
                             staticLayer.getCell((tempX / 2) + 1, 0).setTile(new StaticTiledMapTile(splitTiles[0][0])); //unten1
                             staticLayer.getCell((tempX / 2) + 2, 0).setTile(new StaticTiledMapTile(splitTiles[4][4])); //unten2
+                            
+                            AnimatedObject door = new AnimatedObject(this.doorTop, 48, 144);
+                            
+                            door.setSpritePosition(((tempX / 2) + 1) * 48, -2 * 48);
+                            door.setFrame(9);
+                            door.updateTexture();
+                            
+                            temp.getDoors().add(door);
                         }
                         
                         collisionLayer.getObjects().remove(bottom);
@@ -211,6 +242,14 @@ public class MapGenerator {
                             AnimatedObject tempObject = new AnimatedObject(torchT, 48, 96);
                             tempObject.getSprite().setPosition(0, ((tempY / 2) + 2) * 48);
                             temp.getObjects().add(tempObject);
+                            
+                            AnimatedObject door = new AnimatedObject(this.doorLeft, 48, 144);
+                            
+                            door.setSpritePosition(0, ((tempY / 2) + 1) * 48);
+                            door.setFrame(9);
+                            door.updateTexture();
+                            
+                            temp.getDoors().add(door);
                         }
                         
                         collisionLayer.getObjects().remove(left);
