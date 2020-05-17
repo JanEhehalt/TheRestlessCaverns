@@ -9,6 +9,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -57,7 +58,7 @@ public class PauseScreen{
     }
     
     
-    public void render (SpriteBatch batch, float volume) {
+    public void render (SpriteBatch batch, float volume, OrthographicCamera camera) {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
                 
@@ -65,7 +66,8 @@ public class PauseScreen{
                 volumeButtonSprite.setPosition(-140, 150);
                 volumeDownSprite.setPosition(volumeButtonSprite.getX() + 230, volumeButtonSprite.getY()+28);
                 volumeUpSprite.setPosition(volumeButtonSprite.getX() + 340, volumeButtonSprite.getY()+28);
-                backButtonSprite.setPosition(-140, 50);
+                //backButtonSprite.setPosition(-140, 50);
+                backButtonSprite.setPosition(0, 0);
                 
                 
                 float n = 0;
@@ -86,7 +88,10 @@ public class PauseScreen{
                 }
                 
                 
+                
                 batch.begin();
+                camera.update();
+                batch.setProjectionMatrix(camera.combined);
                 volumeButtonSprite.draw(batch);
                 volumeUpSprite.draw(batch);
                 volumeDownSprite.draw(batch);
@@ -101,13 +106,13 @@ public class PauseScreen{
             
         
             Rectangle r = new Rectangle();
-            r.set(x, h-y, 1, 1);
-            if(Intersector.overlaps(r, backButtonSprite.getBoundingRectangle())){
+            r.set(x, h-y, 1600, 900);
+            /*if(Intersector.overlaps(r, backButtonSprite.getBoundingRectangle())){
                 return 5;   //proceed Game
             }
             if(Intersector.overlaps(r, volumeDownSprite.getBoundingRectangle())){
                 return 9;   //volume DOWN
-            }
+            }*/
             if(Intersector.overlaps(r, volumeUpSprite.getBoundingRectangle())){
                 return 10;   //volume UP
             }

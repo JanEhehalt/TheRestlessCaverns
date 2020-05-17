@@ -443,9 +443,12 @@ public class GameScreen {
         public void stop(){
             animations.stop();
             animatePlayer.stop();
-            camera.normalizeUp();
+            camera.zoom = 1600;
+            camera.translate(-175f, -215f);
         }
         public void resume(){
+            camera.zoom = 700;
+            camera.translate(175f, 215f);
             animations.start();
             animatePlayer.start();
         }
@@ -457,6 +460,9 @@ public class GameScreen {
                     i = dmgContainer.length + 1;
                 }
             }
+        }
+        public OrthographicCamera getCamera(){
+            return camera;
         }
        
 }

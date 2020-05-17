@@ -64,10 +64,13 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
     
     int playerSkin;
     
-    
+    boolean checkDoor;
     
     @Override
     public void create(){
+        
+        checkDoor = false;
+        
         playerSkin = 0;
         isPaused = false;
         
@@ -286,6 +289,9 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
     public void render(){
         
         //PASSIERT IN MAINMENU
+        if(es != null){
+            es.render(batch, volume, gs.getCamera());
+        }
         if(mm != null){
             mm.render(batch);
         }
@@ -296,14 +302,11 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
             cs.render(batch);
         }
         if(ps != null){
-            ps.render(batch, volume);
-        }
-        if(es != null){
-            es.render(batch, volume);
+            ps.render(batch, volume, gs.getCamera());
         }
         
         //PASSIERT IN GAMESCREEN
-        if(gs != null && mm == null && isPaused == false){
+        if(gs != null && mm == null && isPaused == false && es == null){
             
                 float tempX = d.getPlayer().getxPos();
                 float tempY = d.getPlayer().getyPos();
@@ -372,7 +375,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
             }
         }
         
-        if(hasEnemies()){
+        if(hasEnemies() && checkDoor){
             for(RectangleMapObject rectangleObject : door.getByType(RectangleMapObject.class)){
                 Rectangle tempDoor = rectangleObject.getRectangle();
 
@@ -404,7 +407,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
             }
         }
         
-        if(hasEnemies()){
+        if(hasEnemies() && checkDoor){
             for(RectangleMapObject rectangleObject : door.getByType(RectangleMapObject.class)){
                 Rectangle tempDoor = rectangleObject.getRectangle();
 
@@ -489,7 +492,8 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
             }
             else{ // Dungeon Exit
                 es = new EndScreen();
-                gs = null;
+                gs.stop();
+                entityMovement.stop();
                 
                 return;
             }
@@ -865,7 +869,6 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                 }
                 return true;
             case 11:
-                create();
                 break;
         }
           
@@ -879,6 +882,9 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
     }
 
     public int click(int x, int y){
+        if(ps != null){
+            return ps.click(x,y);
+        }
         if(mm != null && mm.getHidden() ==  false){
             return mm.click(x, y);
         }
@@ -889,6 +895,9 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
             return cs.click(x, y);
         }
         if(gs != null && isPaused == true){
+        
+        }
+        if(es != null){
         
         }
         return -1;
@@ -925,8 +934,8 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
     }
     
     public void stop(){
-        entityMovement.stop();
         isPaused = true;
+        entityMovement.stop();
         gs.stop();
         
         ps = new PauseScreen();

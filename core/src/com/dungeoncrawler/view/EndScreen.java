@@ -7,6 +7,7 @@ package com.dungeoncrawler.view;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -28,11 +29,13 @@ public class EndScreen {
         backButton.setPosition(100, 100);
     }
         
-    public void render (SpriteBatch batch, float volume) {
+    public void render (SpriteBatch batch, float volume, OrthographicCamera camera) {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
                 
                 batch.begin();
+                camera.update();
+                batch.setProjectionMatrix(camera.combined);
                 backButton.draw(batch);
                 batch.end();
 	}
@@ -43,7 +46,7 @@ public class EndScreen {
             if(Intersector.overlaps(r, backButton.getBoundingRectangle())){
                 return 11;   //NEUSTART
             }
-            return 11;
+            return -1;
             //return -1;
             
     }
