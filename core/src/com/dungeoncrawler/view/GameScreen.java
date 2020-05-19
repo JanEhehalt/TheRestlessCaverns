@@ -48,8 +48,10 @@ public class GameScreen {
         Timer animatePlayer;
         
         Timer roomChangeTimer;
+        Timer doorUnlockTimer;
         int roomChangeAnimationState;
         boolean roomLoading;
+        boolean unlockDoor;
         Texture roomChangeTexture;
         Sprite roomChangeSprite;
         TextureRegion[][] roomChangeTextureRegion;
@@ -192,9 +194,7 @@ public class GameScreen {
                 
                 roomChangeTimer = new Timer();
                 roomLoading = false;
-                roomChangeTexture = new Texture("sprites/RoomChange.png");
-                roomChangeSprite = new Sprite(roomChangeTexture);
-                roomChangeTextureRegion = roomChangeSprite.split(roomChangeTexture, 528, 432);
+                roomChangeSprite = new Sprite();
                 roomChangeRow = 0;
                 roomChangeSprite.setPosition(0f, 0f);
                 
@@ -210,7 +210,7 @@ public class GameScreen {
                            roomChangeRow++;
                        }
                     }
-                },0, 0.02f);
+                },0, 0.03f);
                 
 	}
 
@@ -293,8 +293,8 @@ public class GameScreen {
                 eSprite.getSprites()[0].draw(batch);
             }
             
-            roomChangeSprite.setRegion(roomChangeTextureRegion[0][roomChangeRow]);
             if(roomLoading == true){
+                roomChangeSprite.setRegion(roomChangeTextureRegion[0][roomChangeRow]);
                 roomChangeSprite.draw(batch);
             }
             
@@ -428,6 +428,16 @@ public class GameScreen {
         }
         
         public void startLoadingScreen(){
+            roomChangeSprite = new Sprite(new Texture("sprites/roomChange.png"));
+            roomChangeSprite.setPosition(0,0);
+            roomChangeTextureRegion = roomChangeSprite.split(528,432);
+            roomLoading = true;
+            roomChangeTimer.start();
+        }
+        public void startUnlockScreen(){
+            roomChangeSprite = new Sprite(new Texture("sprites/unlock.png"));
+            roomChangeSprite.setPosition(400,400);
+            roomChangeTextureRegion = roomChangeSprite.split(48,64);
             roomLoading = true;
             roomChangeTimer.start();
         }

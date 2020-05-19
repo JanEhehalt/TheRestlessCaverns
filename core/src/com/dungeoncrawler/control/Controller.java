@@ -69,7 +69,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
     @Override
     public void create(){
         
-        checkDoor = true;
+        checkDoor = false;
         
         playerSkin = 0;
         isPaused = false;
@@ -404,6 +404,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
             
             if(Intersector.overlaps(gs.getPlayer().getCollisionSprite(), tempDoor) && !d.getPlayer().checkKey()){
                 d.getPlayer().setyPos(y);
+                
             }
         }
         
@@ -476,10 +477,10 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
             if(level < 6){
                 
                 d.getPlayer().deleteKey();
+                gs.startUnlockScreen();
                 
                 d.getPlayer().updateStats(level + 1);
                 
-                gs.startLoadingScreen();
                 
                 level++;
                 
