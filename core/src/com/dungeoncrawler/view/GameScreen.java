@@ -381,6 +381,14 @@ public class GameScreen {
                         tx[0] = new Texture("sprites/icearrow.png");
                         entitySprites[i] = new EntitySprite(tx, 24, 5);
                         break;
+                    case 13:
+                        tx[0] = new Texture("sprites/firearcher.png");
+                        entitySprites[i] = new EntitySprite(tx, 64, 64);
+                        break;
+                    case 14:
+                        tx[0] = new Texture("sprites/firearrow.png");
+                        entitySprites[i] = new EntitySprite(tx, 24, 5);
+                        break;
                 }
 
                 entitySprites[i].update((int) e.getxPos() + 32, (int) e.getyPos() + 32);
@@ -425,6 +433,7 @@ public class GameScreen {
         
         public void cleanUp(){
             music.dispose();
+            animations.clear();
         }
         
         public void startLoadingScreen(){
@@ -459,6 +468,7 @@ public class GameScreen {
         }
         
         public void stop(){
+            cleanUp();
             animations.stop();
             animatePlayer.stop();
             camera.zoom = 1600;

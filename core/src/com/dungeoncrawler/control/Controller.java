@@ -65,11 +65,13 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
     int playerSkin;
     
     boolean checkDoor;
+    boolean checkDie;
     
     @Override
     public void create(){
         
-        checkDoor = false;
+        checkDoor = true;
+        checkDie = true;
         
         playerSkin = 0;
         isPaused = false;
@@ -325,10 +327,10 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
 
                 
                 // Render methode zum rendern der einzelnen Sprites wird aufgerufen
-                if(gs != null){
-                gs.render(batch, d.getPlayer(), d.getCurrentEntities(), tileX, tileY, level, roomPosX, roomPosY);
-                hc.updateHud(batch, d.getPlayer());
-                d.getPlayer().updateItems();
+                if(gs != null){;
+                    d.getPlayer().updateItems();
+                    gs.render(batch, d.getPlayer(), d.getCurrentEntities(), tileX, tileY, level, roomPosX, roomPosY);
+                    hc.updateHud(batch, d.getPlayer());
                 }
                 
         }
@@ -418,6 +420,11 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
             }
         }
         
+        if(d.getPlayer().getHp() <= 0 && checkDie){
+            gs.stop();
+            create();   //TODO
+        }
+        
         d.getPlayer().updateDirection();
     }
     
@@ -492,9 +499,8 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                 roomPosY = roomAmount / 2;
             }
             else{ // Dungeon Exit
-                es = new EndScreen();
                 gs.stop();
-                entityMovement.stop();
+                create();
                 
                 return;
             }
@@ -513,9 +519,6 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
         }
     }
     
-    public void attack(Entity attacker, Entity[] e){
-        
-    }
     
     public ArrayList<ItemContainer> playerPickUp(){
         

@@ -32,8 +32,8 @@ public abstract class Entity {
     }
     
     public boolean attack(Entity e){
-        if(e.getHp() - this.dmg <= 1){
-            e.setHp(1);
+        if(e.getHp() - this.dmg <= 0){
+            e.setHp(0);
             return true;
         }
         else{
