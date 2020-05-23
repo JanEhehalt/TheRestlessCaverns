@@ -9,6 +9,7 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.MapLayers;
 import com.badlogic.gdx.maps.MapObjects;
@@ -67,11 +68,14 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
     boolean checkDoor;
     boolean checkDie;
     
+    boolean end;
+    
     @Override
     public void create(){
         
-        checkDoor = true;
-        checkDie = true;
+        checkDoor = false;
+        checkDie = false;
+        end = false;
         
         playerSkin = 0;
         isPaused = false;
@@ -94,7 +98,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
         
         roomAmount = d.getLevel()[0].getRooms().length;
             
-        level = 0;
+        level = 6;
 
         roomPosX = roomAmount / 2;
         roomPosY = roomAmount / 2;
@@ -289,10 +293,22 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
     
     @Override
     public void render(){
+        Gdx.gl.glClearColor(0, 0, 0, 1);
+	Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         
-        //PASSIERT IN MAINMENU
-        if(es != null){
-            es.render(batch, volume, gs.getCamera());
+        if(end == true){
+            if(es == null){
+                isPaused = true;
+                entityMovement.stop();
+                gs.stop();
+                gs.getCamera().update();
+                batch.setProjectionMatrix(gs.getCamera().combined);
+                gs = null;
+                hc = null;
+                es = new EndScreen();
+            }
+            es.render(batch, volume);
+            return;
         }
         if(mm != null){
             mm.render(batch);
@@ -499,9 +515,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                 roomPosY = roomAmount / 2;
             }
             else{ // Dungeon Exit
-                gs.stop();
-                create();
-                
+                end = true;
                 return;
             }
         }
@@ -674,7 +688,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                     }
                 }
                 
-                if(keycode == Input.Keys.ESCAPE){
+                if(keycode == Input.Keys.ESCAPE && !end){
                     if(gs != null && gs.getIsLoading() == false && isPaused == false){
                         stop();
                     }
@@ -873,6 +887,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                 }
                 return true;
             case 11:
+                //create();
                 break;
         }
           

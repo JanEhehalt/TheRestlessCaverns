@@ -217,8 +217,6 @@ public class GameScreen {
 	public void render (SpriteBatch batch, Player p, Entity[] e, int tileX, int tileY, int level, int roomPosX, int roomPosY) {
 
             entities = e;
-            Gdx.gl.glClearColor(0, 0, 0, 1);
-            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
             
             this.p = p;
             
@@ -468,15 +466,15 @@ public class GameScreen {
         }
         
         public void stop(){
-            cleanUp();
+            camera.zoom = 1600;
+            camera.translate(625f, 241f);
             animations.stop();
             animatePlayer.stop();
-            camera.zoom = 1600;
-            camera.translate(-175f, -215f);
+            music.dispose();
         }
         public void resume(){
             camera.zoom = 700;
-            camera.translate(175f, 215f);
+            camera.translate(-625f, -241f);
             animations.start();
             animatePlayer.start();
         }

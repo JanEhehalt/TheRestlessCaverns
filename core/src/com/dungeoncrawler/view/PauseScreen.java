@@ -63,10 +63,9 @@ public class PauseScreen{
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
                 
                 
-                volumeButtonSprite.setPosition(-140, 150);
+                volumeButtonSprite.setPosition(0, 150);
                 volumeDownSprite.setPosition(volumeButtonSprite.getX() + 230, volumeButtonSprite.getY()+28);
                 volumeUpSprite.setPosition(volumeButtonSprite.getX() + 340, volumeButtonSprite.getY()+28);
-                //backButtonSprite.setPosition(-140, 50);
                 backButtonSprite.setPosition(0, 0);
                 
                 
@@ -107,12 +106,12 @@ public class PauseScreen{
         
             Rectangle r = new Rectangle();
             r.set(x, h-y, 1600, 900);
-            /*if(Intersector.overlaps(r, backButtonSprite.getBoundingRectangle())){
+            if(Intersector.overlaps(r, backButtonSprite.getBoundingRectangle())){
                 return 5;   //proceed Game
             }
             if(Intersector.overlaps(r, volumeDownSprite.getBoundingRectangle())){
                 return 9;   //volume DOWN
-            }*/
+            }
             if(Intersector.overlaps(r, volumeUpSprite.getBoundingRectangle())){
                 return 10;   //volume UP
             }

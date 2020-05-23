@@ -26,28 +26,23 @@ public class EndScreen {
     
     public EndScreen(){
         backButton = new Sprite(new Texture("sprites/backButton.png"));
-        backButton.setPosition(100, 100);
+        backButton.setPosition(0, 0);
     }
         
-    public void render (SpriteBatch batch, float volume, OrthographicCamera camera) {
-		Gdx.gl.glClearColor(0, 0, 0, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+    public void render (SpriteBatch batch, float volume) {
                 
                 batch.begin();
-                camera.update();
-                batch.setProjectionMatrix(camera.combined);
                 backButton.draw(batch);
                 batch.end();
 	}
     
-    public int click(int x, int y){     // prueft ob cursor mit button (START) ueberlappt
+    public int click(int x, int y){
             
             Rectangle r = new Rectangle(x,y,1,1);
             if(Intersector.overlaps(r, backButton.getBoundingRectangle())){
                 return 11;   //NEUSTART
             }
             return -1;
-            //return -1;
             
     }
 }
