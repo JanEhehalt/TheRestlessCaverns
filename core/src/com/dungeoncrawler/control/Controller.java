@@ -98,7 +98,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
         
         roomAmount = d.getLevel()[0].getRooms().length;
             
-        level = 6;
+        level = 0;
 
         roomPosX = roomAmount / 2;
         roomPosY = roomAmount / 2;
@@ -117,15 +117,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
             public void run() {
                 
                 if(gs != null){
-                    /*if(d.getPlayer().isToDelete() && checkDie){
-                        if(gs.player.getDie() == 0){
-                           gs.player.setDie(1); 
-                        }
-                        else if(gs.player.getDie() == 2){
-                            // Ist Tot
-                        }
-                    }
-                    else*/ if(gs.player.getAttackState() == 2){
+                    if(gs.player.getAttackState() == 2){
                         playerAttack(d.getCurrentEntities(), d.getPlayer(), d.getPlayer().getDirection());
                     }
                     
@@ -448,7 +440,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
         if(d.getPlayer().getHp() <= 0 && checkDie){
             //gs.stop();
             //create();   //TODO
-            d.getPlayer().setHp(1);
+            //d.getPlayer().setHp(1);
             if(gs.player.getDie() == 0){
                gs.player.setDie(1);
                d.getPlayer().setToDelete(true);

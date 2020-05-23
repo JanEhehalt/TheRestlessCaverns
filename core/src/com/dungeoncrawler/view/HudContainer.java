@@ -115,7 +115,13 @@ public class HudContainer {
             selectedSprite.setX(invXPos[selected] - 2f);
             selectedSprite.setY(invYPos[selected] - 2f);
             
-            float n = p.getHp() / p.getMaxhp();
+            float n;
+            if(p.getHp() > 0 && p.getMaxhp() != 0){
+                n = p.getHp() / p.getMaxhp();
+            }
+            else{
+                n = 0.01f;
+            }
             Texture playerHealthTexture = new Texture("sprites/playerHealthBar.png");
             int newWidth = (int) (n * playerHealthTexture.getWidth());
             TextureRegion[][] playerHealthRegion = TextureRegion.split(playerHealthTexture,newWidth, playerHealthTexture.getHeight());
