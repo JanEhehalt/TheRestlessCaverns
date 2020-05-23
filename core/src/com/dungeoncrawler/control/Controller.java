@@ -113,8 +113,15 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
             public void run() {
                 
                 if(gs != null){
-                    
-                    if(gs.player.getAttackState() == 2){
+                    /*if(d.getPlayer().isToDelete() && checkDie){
+                        if(gs.player.getDie() == 0){
+                           gs.player.setDie(1); 
+                        }
+                        else if(gs.player.getDie() == 2){
+                            // Ist Tot
+                        }
+                    }
+                    else*/ if(gs.player.getAttackState() == 2){
                         playerAttack(d.getCurrentEntities(), d.getPlayer(), d.getPlayer().getDirection());
                     }
                     
@@ -132,7 +139,9 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                             int y = (int) temp.getyPos();
 
                             boolean attacks = d.getCurrentEntities()[i].move((int) d.getPlayer().getxPos(), (int) d.getPlayer().getyPos());
-
+                            if(d.getPlayer().isToDelete()){
+                                attacks = false;
+                            }
                             // Attacke wird gestartet, wenn noch keine laueft
                             if(attacks && gs.entitySprites[i].getAttackState() == 0){
                                 gs.entitySprites[i].startAttack();
@@ -152,7 +161,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                                     d.getCurrentEntities()[i].attack(d.getPlayer());
                                 }
                                 else{
-                                    if(d.getCurrentEntities()[i].getType() == 0){
+                                    if(d.getCurrentEntities()[i].getType() == 0 && !d.getPlayer().isToDelete()){
                                         switch(gs.entitySprites[i].getAttackState()){
                                             case 0:
                                                 gs.entitySprites[i].startAttack();
@@ -421,8 +430,16 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
         }
         
         if(d.getPlayer().getHp() <= 0 && checkDie){
-            gs.stop();
-            create();   //TODO
+            //gs.stop();
+            //create();   //TODO
+            d.getPlayer().setHp(1);
+            if(gs.player.getDie() == 0){
+               gs.player.setDie(1);
+               d.getPlayer().setToDelete(true);
+            }
+            else if(gs.player.getDie() == 2){
+                // Ist Tot
+            }
         }
         
         d.getPlayer().updateDirection();
@@ -596,7 +613,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                 if(keycode == Input.Keys.A){
                     if(mm != null){
                     }
-                    if(gs != null){
+                    if(gs != null && !d.getPlayer().isToDelete()){
                             d.getPlayer().setMovementX(-3f);
                     }
                 }
@@ -604,7 +621,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                 if(keycode == Input.Keys.D){
                     if(mm != null){
                     }
-                    if(gs != null){
+                    if(gs != null && !d.getPlayer().isToDelete()){
                             d.getPlayer().setMovementX(+3f);
                     }
                 }
@@ -612,7 +629,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                 if(keycode == Input.Keys.S){
                     if(mm != null){
                     }
-                    if(gs != null){
+                    if(gs != null && !d.getPlayer().isToDelete()){
                             d.getPlayer().setMovementY(-3f);
                     }
                 } 
@@ -620,14 +637,14 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                 if(keycode == Input.Keys.W){
                     if(mm != null){
                     }
-                    if(gs != null){
+                    if(gs != null && !d.getPlayer().isToDelete()){
                             d.getPlayer().setMovementY(3f);
                     }
                 } 
                 
                 if(keycode == Input.Keys.SPACE){
                     if(mm != null){}
-                    if(gs != null && gs.getIsLoading() == false){
+                    if(gs != null && gs.getIsLoading() == false && !d.getPlayer().isToDelete()){
                         d.setCurrentEntities(playerAttack(d.getCurrentEntities(), d.getPlayer(), 0));
                     }
                 }
@@ -636,7 +653,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                 
                 if(keycode == Input.Keys.F){
                     if(mm != null){}
-                    if(gs != null && gs.getIsLoading() == false){
+                    if(gs != null && gs.getIsLoading() == false && !d.getPlayer().isToDelete()){
                         if(!d.getPlayer().inventoryFull()){
                             ArrayList<ItemContainer> garbage = playerPickUp();
 
@@ -649,7 +666,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                 
                 if(keycode == Input.Keys.R){
                     if(mm != null){}
-                    if(gs != null && gs.getIsLoading() == false){
+                    if(gs != null && gs.getIsLoading() == false && !d.getPlayer().isToDelete()){
                         d.getPlayer().getInv().equipItem();
                         d.getPlayer().updateItems();
                     }
@@ -658,7 +675,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                 
                 
                 if(keycode == Input.Keys.Q){
-                    if(gs != null && gs.getIsLoading() == false){
+                    if(gs != null && gs.getIsLoading() == false && !d.getPlayer().isToDelete()){
                         if(d.getPlayer().getInv().getItem(d.getPlayer().getInv().getSelected()) != null){
                             d.getCurrentRoom().spawnItem((int)d.getPlayer().getxPos(), (int)d.getPlayer().getyPos(), d.getPlayer().getInv().getItem(d.getPlayer().getInv().getSelected()));
                             gs.getM().getMaps()[level][roomPosX][roomPosY].addItem(48, 48,(int)d.getPlayer().getxPos(), (int)d.getPlayer().getyPos(), d.getPlayer().getInv().getItem(d.getPlayer().getInv().getSelected()));
@@ -669,7 +686,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                 }
                 
                 if(keycode == Input.Keys.E){
-                    if(gs != null && gs.getIsLoading() == false){
+                    if(gs != null && gs.getIsLoading() == false && !d.getPlayer().isToDelete()){
                         d.getPlayer().useItem(d.getPlayer().getInv().getSelected());
                     }
                 }
@@ -685,7 +702,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                 
                 if(keycode == Input.Keys.LEFT){
                     if(mm != null){}
-                    if(gs != null && gs.getIsLoading() == false){
+                    if(gs != null && gs.getIsLoading() == false && !d.getPlayer().isToDelete()){
                         Entity lol = d.getPlayer().shoot((int) d.getPlayer().getxPos() - 1, (int) d.getPlayer().getyPos());
                         
                         for(int k = 5; k < d.getCurrentEntities().length; k++){
@@ -701,7 +718,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                 
                 if(keycode == Input.Keys.UP){
                     if(mm != null){}
-                    if(gs != null && gs.getIsLoading() == false){
+                    if(gs != null && gs.getIsLoading() == false && !d.getPlayer().isToDelete()){
                         Entity lol = d.getPlayer().shoot((int) d.getPlayer().getxPos(), (int) d.getPlayer().getyPos() + 1);
                         
                         for(int k = 5; k < d.getCurrentEntities().length; k++){
@@ -716,7 +733,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                 }
                 if(keycode == Input.Keys.RIGHT){
                     if(mm != null){}
-                    if(gs != null && gs.getIsLoading() == false){
+                    if(gs != null && gs.getIsLoading() == false && !d.getPlayer().isToDelete()){
                         Entity lol = d.getPlayer().shoot((int) d.getPlayer().getxPos() + 1, (int) d.getPlayer().getyPos());
                         
                         for(int k = 5; k < d.getCurrentEntities().length; k++){
@@ -731,7 +748,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                 }
                 if(keycode == Input.Keys.DOWN){
                     if(mm != null){}
-                    if(gs != null && gs.getIsLoading() == false){
+                    if(gs != null && gs.getIsLoading() == false && !d.getPlayer().isToDelete()){
                         Entity lol = d.getPlayer().shoot((int) d.getPlayer().getxPos(), (int) d.getPlayer().getyPos() - 1);
                         
                         for(int k = 5; k < d.getCurrentEntities().length; k++){

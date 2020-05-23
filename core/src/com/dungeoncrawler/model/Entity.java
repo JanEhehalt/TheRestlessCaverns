@@ -34,6 +34,7 @@ public abstract class Entity {
     public boolean attack(Entity e){
         if(e.getHp() - this.dmg <= 0){
             e.setHp(0);
+            e.toDelete = true;
             return true;
         }
         else{

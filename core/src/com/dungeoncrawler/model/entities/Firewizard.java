@@ -80,12 +80,12 @@ public class Firewizard extends Entity{
     
     @Override
     public Entity shoot(int xPosPlayer, int yPosPlayer){
-        Projectile a = null;
+        Spell a = null;
         
         if(!isToDelete()){
             double alpha = StaticMath.calculateAngle((int) this.xPos, (int) this.yPos, xPosPlayer, yPosPlayer);
             
-            a = new Projectile(this.xPos + 32, this.yPos + 32, this.lvl,(int) this.dmg, 7, true);
+            a = new Spell(this.xPos + 32, this.yPos + 32, this.lvl,(int) this.dmg, 7, true);
             int tempX = (int) (6 * Math.cos(alpha));
             int tempY = (int) (6 * Math.sin(alpha));
 
