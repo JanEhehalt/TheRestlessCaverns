@@ -199,7 +199,7 @@ public class MainMenuScreen{
             hidden = true;
         }
         
-        public void appear(){
+        public void show(){
             hidden = false;
         }
         

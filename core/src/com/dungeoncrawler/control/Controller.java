@@ -74,7 +74,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
     public void create(){
         
         checkDoor = false;
-        checkDie = false;
+        checkDie = true;
         end = false;
         
         playerSkin = 0;
@@ -88,7 +88,10 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
         batch = new SpriteBatch();
         mm = new MainMenuScreen(volume);
         dg = new DungeonGenerator();
-        
+        gs = null;
+        cs = null;
+        hc = null;
+        es = null;
         
         d = dg.generateDungeon(roomX - 1, roomY - 1, 48, new Player());
         dg.ichWillSpielen(d);
@@ -98,7 +101,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
         
         roomAmount = d.getLevel()[0].getRooms().length;
             
-        level = 0;
+        level = 6;
 
         roomPosX = roomAmount / 2;
         roomPosY = roomAmount / 2;
@@ -301,7 +304,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
             if(es == null){
                 isPaused = true;
                 entityMovement.stop();
-                gs.stop();
+                gs.end();
                 gs.getCamera().update();
                 batch.setProjectionMatrix(gs.getCamera().combined);
                 gs = null;
@@ -438,15 +441,13 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
         }
         
         if(d.getPlayer().getHp() <= 0 && checkDie){
-            //gs.stop();
-            //create();   //TODO
-            //d.getPlayer().setHp(1);
             if(gs.player.getDie() == 0){
                gs.player.setDie(1);
                d.getPlayer().setToDelete(true);
             }
             else if(gs.player.getDie() == 2){
-                // Ist Tot
+                end = true;
+                return;
             }
         }
         
@@ -827,7 +828,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
   {
     if(button == Input.Buttons.LEFT){
         switch(click(screenX, screenY)){
-            case -1:  // -1: nothing hit -- 0: go ingame -- 1: EXIT game -- 2: goto settings -- 3: goto controls -- 4: goto MainMenuScreen -- 9: volume down -- 10: volume up
+            case -1:  // -1: nothing hit -- 0: go ingame -- 1: EXIT game -- 2: goto settings -- 3: goto controls -- 4: goto MainMenuScreen -- 9: volume down -- 10: volume up -- 11: restart game
 
               return true;
             case 0:
@@ -860,7 +861,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
             case 4:
                 ss = null;
                 cs = null;
-                mm.appear();
+                mm.show();
                 return true;
             
             case 5:
@@ -896,7 +897,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                 }
                 return true;
             case 11:
-                //create();
+                create();
                 break;
         }
           
@@ -910,6 +911,9 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
     }
 
     public int click(int x, int y){
+        if(es != null){
+            return es.click(x, y);
+        }
         if(ps != null){
             return ps.click(x,y);
         }
@@ -923,9 +927,6 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
             return cs.click(x, y);
         }
         if(gs != null && isPaused == true){
-        
-        }
-        if(es != null){
         
         }
         return -1;

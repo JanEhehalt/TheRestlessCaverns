@@ -59,9 +59,6 @@ public class PauseScreen{
     
     
     public void render (SpriteBatch batch, float volume, OrthographicCamera camera) {
-		Gdx.gl.glClearColor(0, 0, 0, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-                
                 
                 volumeButtonSprite.setPosition(0, 150);
                 volumeDownSprite.setPosition(volumeButtonSprite.getX() + 230, volumeButtonSprite.getY()+28);

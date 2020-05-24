@@ -20,11 +20,17 @@ import com.badlogic.gdx.math.Rectangle;
  * @author Jan
  */
 public class EndScreen {
+        float w;
+        float h;
     
         Sprite backButton;
     
     
     public EndScreen(){
+        w = Gdx.graphics.getWidth();
+        h = Gdx.graphics.getHeight();
+        float wc = w/2;
+            
         backButton = new Sprite(new Texture("sprites/backButton.png"));
         backButton.setPosition(0, 0);
     }
@@ -38,7 +44,7 @@ public class EndScreen {
     
     public int click(int x, int y){
             
-            Rectangle r = new Rectangle(x,y,1,1);
+            Rectangle r = new Rectangle(x,h-y,1,1);
             if(Intersector.overlaps(r, backButton.getBoundingRectangle())){
                 return 11;   //NEUSTART
             }

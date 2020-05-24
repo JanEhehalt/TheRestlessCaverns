@@ -432,6 +432,7 @@ public class GameScreen {
         public void cleanUp(){
             music.dispose();
             animations.clear();
+            animatePlayer.clear();
         }
         
         public void startLoadingScreen(){
@@ -470,13 +471,19 @@ public class GameScreen {
             camera.translate(625f, 241f);
             animations.stop();
             animatePlayer.stop();
-            music.dispose();
         }
         public void resume(){
             camera.zoom = 700;
             camera.translate(-625f, -241f);
             animations.start();
             animatePlayer.start();
+        }
+        public void end(){
+            camera.zoom = 1600;
+            camera.translate(625f, 241f);
+            animations.stop();
+            animatePlayer.stop();
+            cleanUp();
         }
         
         public void createDmgFont(int value, int startX, int startY){

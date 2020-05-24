@@ -11,7 +11,7 @@ public class DesktopLauncher {
 
         config.width = 1600;
         config.height = 900;
-        config.title = "The fRestless Caverns - Der beste Dungeon Crawler ALLER ZEITEN";
+        config.title = "The Restless Caverns - Der beste Dungeon Crawler ALLER ZEITEN";
         config.resizable = true;
 
         
