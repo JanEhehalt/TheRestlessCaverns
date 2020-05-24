@@ -23,7 +23,7 @@ public class EndScreen {
         float w;
         float h;
     
-        Sprite backButton;
+        Sprite restartButton;
     
     
     public EndScreen(){
@@ -31,21 +31,21 @@ public class EndScreen {
         h = Gdx.graphics.getHeight();
         float wc = w/2;
             
-        backButton = new Sprite(new Texture("sprites/backButton.png"));
-        backButton.setPosition(0, 0);
+        restartButton = new Sprite(new Texture("sprites/restartButton.png"));
+        restartButton.setPosition(w / 2 - restartButton.getWidth() / 2, h / 2 - restartButton.getHeight() / 2);
     }
         
     public void render (SpriteBatch batch, float volume) {
                 
                 batch.begin();
-                backButton.draw(batch);
+                restartButton.draw(batch);
                 batch.end();
 	}
     
     public int click(int x, int y){
             
             Rectangle r = new Rectangle(x,h-y,1,1);
-            if(Intersector.overlaps(r, backButton.getBoundingRectangle())){
+            if(Intersector.overlaps(r, restartButton.getBoundingRectangle())){
                 return 11;   //NEUSTART
             }
             return -1;

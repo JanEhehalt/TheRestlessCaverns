@@ -73,7 +73,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
     @Override
     public void create(){
         
-        checkDoor = false;
+        checkDoor = true;
         checkDie = true;
         end = false;
         
@@ -101,7 +101,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
         
         roomAmount = d.getLevel()[0].getRooms().length;
             
-        level = 6;
+        level = 0;
 
         roomPosX = roomAmount / 2;
         roomPosY = roomAmount / 2;
@@ -472,7 +472,6 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
         
         // oben
         if(tileX == (roomX / 2) && tileY == roomY){
-            System.out.println("oben");
 
             roomPosY += 1;
             d.getPlayer().setxPos((roomX / 2)* 48);
@@ -481,7 +480,6 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
 
         // rechts
         if(tileX == roomX && tileY == (roomY / 2)){
-            System.out.println("rechts");
 
             roomPosX += 1;
             d.getPlayer().setxPos(48);
@@ -490,7 +488,6 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
 
         // unten
         if(tileX == (roomX / 2) && tileY == 0){
-            System.out.println("unten");
 
             roomPosY -= 1;
             d.getPlayer().setxPos((roomX / 2)*48);
@@ -499,7 +496,6 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
 
         // links
         if(tileX == 0 && tileY == (roomY / 2)){
-            System.out.println("links");
 
             roomPosX -= 1;
             d.getPlayer().setxPos((roomX*48) - 48);

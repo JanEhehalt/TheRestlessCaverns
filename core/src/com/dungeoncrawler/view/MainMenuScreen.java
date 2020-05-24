@@ -79,6 +79,7 @@ public class MainMenuScreen{
                 settingsButtonSprite.setY(backgroundSprite.getY() + 250);
                 
                 
+                
                 //camera = new OrthographicCamera(1, h/w);
                 //camera.translate(backgroundSprite.getWidth()/2, backgroundSprite.getHeight()/2);
                 //camera.zoom = 1150f;

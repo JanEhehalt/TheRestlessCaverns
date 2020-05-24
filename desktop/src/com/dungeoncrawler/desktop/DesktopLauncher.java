@@ -11,11 +11,11 @@ public class DesktopLauncher {
 
         config.width = 1600;
         config.height = 900;
-        config.title = "The Restless Caverns - Der beste Dungeon Crawler ALLER ZEITEN";
+        config.title = "THE RESTLESS CAVERNS";
         config.resizable = true;
 
         
         new LwjglApplication(new Controller(), config);
     }
 }
-//aaaaaaaa
+//
