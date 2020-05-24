@@ -141,7 +141,7 @@ public class HudContainer {
                 }
             selectedSprite.draw(batch);
             playerHealthSprite.draw(batch);
-            
+            font.draw(batch, p.getHp() + " / " + p.getMaxhp(), playerHealthSprite.getX()+18, playerHealthSprite.getY()+14);
             if(items[selected] != null){
                 
                 String selectedName = "";

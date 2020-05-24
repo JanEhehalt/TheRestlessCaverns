@@ -77,46 +77,46 @@ public class GameScreen {
                 Texture[] playerTexture = new Texture[4];
                 switch(d.getPlayer().getSkin()){
                     case 0:
-                        playerTexture[0] = new Texture(Gdx.files.internal("sprites/player.png"));
-                        playerTexture[1] = new Texture(Gdx.files.internal("sprites/player.png"));
-                        playerTexture[2] = new Texture(Gdx.files.internal("sprites/player.png"));
-                        playerTexture[3] = new Texture(Gdx.files.internal("sprites/player.png"));
+                        playerTexture[0] = new Texture(Gdx.files.internal("sprites/player/player.png"));
+                        playerTexture[1] = new Texture(Gdx.files.internal("sprites/player/player.png"));
+                        playerTexture[2] = new Texture(Gdx.files.internal("sprites/player/player.png"));
+                        playerTexture[3] = new Texture(Gdx.files.internal("sprites/player/player.png"));
                         break;
                     case 1:
-                        playerTexture[0] = new Texture(Gdx.files.internal("sprites/playerblue.png"));
-                        playerTexture[1] = new Texture(Gdx.files.internal("sprites/playerblue.png"));
-                        playerTexture[2] = new Texture(Gdx.files.internal("sprites/playerblue.png"));
-                        playerTexture[3] = new Texture(Gdx.files.internal("sprites/playerblue.png"));
+                        playerTexture[0] = new Texture(Gdx.files.internal("sprites/player/playerblue.png"));
+                        playerTexture[1] = new Texture(Gdx.files.internal("sprites/player/playerblue.png"));
+                        playerTexture[2] = new Texture(Gdx.files.internal("sprites/player/playerblue.png"));
+                        playerTexture[3] = new Texture(Gdx.files.internal("sprites/player/playerblue.png"));
                         break;
                     case 2:
-                        playerTexture[0] = new Texture(Gdx.files.internal("sprites/playerpurple.png"));
-                        playerTexture[1] = new Texture(Gdx.files.internal("sprites/playerpurple.png"));
-                        playerTexture[2] = new Texture(Gdx.files.internal("sprites/playerpurple.png"));
-                        playerTexture[3] = new Texture(Gdx.files.internal("sprites/playerpurple.png"));
+                        playerTexture[0] = new Texture(Gdx.files.internal("sprites/player/playerpurple.png"));
+                        playerTexture[1] = new Texture(Gdx.files.internal("sprites/player/playerpurple.png"));
+                        playerTexture[2] = new Texture(Gdx.files.internal("sprites/player/playerpurple.png"));
+                        playerTexture[3] = new Texture(Gdx.files.internal("sprites/player/playerpurple.png"));
                         break;
                     case 3:
-                        playerTexture[0] = new Texture(Gdx.files.internal("sprites/playergreen.png"));
-                        playerTexture[1] = new Texture(Gdx.files.internal("sprites/playergreen.png"));
-                        playerTexture[2] = new Texture(Gdx.files.internal("sprites/playergreen.png"));
-                        playerTexture[3] = new Texture(Gdx.files.internal("sprites/playergreen.png"));
+                        playerTexture[0] = new Texture(Gdx.files.internal("sprites/player/playergreen.png"));
+                        playerTexture[1] = new Texture(Gdx.files.internal("sprites/player/playergreen.png"));
+                        playerTexture[2] = new Texture(Gdx.files.internal("sprites/player/playergreen.png"));
+                        playerTexture[3] = new Texture(Gdx.files.internal("sprites/player/playergreen.png"));
                         break;
                     case 4:
-                        playerTexture[0] = new Texture(Gdx.files.internal("sprites/playerorange.png"));
-                        playerTexture[1] = new Texture(Gdx.files.internal("sprites/playerorange.png"));
-                        playerTexture[2] = new Texture(Gdx.files.internal("sprites/playerorange.png"));
-                        playerTexture[3] = new Texture(Gdx.files.internal("sprites/playerorange.png"));
+                        playerTexture[0] = new Texture(Gdx.files.internal("sprites/player/playerorange.png"));
+                        playerTexture[1] = new Texture(Gdx.files.internal("sprites/player/playerorange.png"));
+                        playerTexture[2] = new Texture(Gdx.files.internal("sprites/player/playerorange.png"));
+                        playerTexture[3] = new Texture(Gdx.files.internal("sprites/player/playerorange.png"));
                         break;
                     case 5:
-                        playerTexture[0] = new Texture(Gdx.files.internal("sprites/playerblack.png"));
-                        playerTexture[1] = new Texture(Gdx.files.internal("sprites/playerblack.png"));
-                        playerTexture[2] = new Texture(Gdx.files.internal("sprites/playerblack.png"));
-                        playerTexture[3] = new Texture(Gdx.files.internal("sprites/playerblack.png"));
+                        playerTexture[0] = new Texture(Gdx.files.internal("sprites/player/playerblack.png"));
+                        playerTexture[1] = new Texture(Gdx.files.internal("sprites/player/playerblack.png"));
+                        playerTexture[2] = new Texture(Gdx.files.internal("sprites/player/playerblack.png"));
+                        playerTexture[3] = new Texture(Gdx.files.internal("sprites/player/playerblack.png"));
                         break;
                     case 6:
-                        playerTexture[0] = new Texture(Gdx.files.internal("sprites/playerred.png"));
-                        playerTexture[1] = new Texture(Gdx.files.internal("sprites/playerred.png"));
-                        playerTexture[2] = new Texture(Gdx.files.internal("sprites/playerred.png"));
-                        playerTexture[3] = new Texture(Gdx.files.internal("sprites/playerred.png"));
+                        playerTexture[0] = new Texture(Gdx.files.internal("sprites/player/playerred.png"));
+                        playerTexture[1] = new Texture(Gdx.files.internal("sprites/player/playerred.png"));
+                        playerTexture[2] = new Texture(Gdx.files.internal("sprites/player/playerred.png"));
+                        playerTexture[3] = new Texture(Gdx.files.internal("sprites/player/playerred.png"));
                         break;
                 }
                 
@@ -319,73 +319,94 @@ public class GameScreen {
                 Texture[] tx = new Texture[1];
                 
                 //nimmt entity ID -> 0 = Archer || 1 = Swordsman || 2 = Arrow || 3 = Wizard
+                double g = Math.random();
+                String gender;
+                if(g >= 0.5){
+                    gender = "m";
+                }
+                else{
+                    gender = "w";
+                }
+                
                 switch(e.getId()){
                     case 0:
-                        tx[0] = new Texture("sprites/archer.png");
+                        tx[0] = new Texture("sprites/archer/archer_"+gender+".png");
                         entitySprites[i] = new EntitySprite(tx, 64, 64);
                         break;
                     
                     case 1:
-                        tx[0] = new Texture("sprites/swordsman.png");
+                        tx[0] = new Texture("sprites/swordsman/swordsman_"+gender+".png");
                         entitySprites[i] = new EntitySprite(tx, 64, 64);
                         break;
                         
                     case 2:
-                        tx[0] = new Texture("sprites/arrow.png");
+                        tx[0] = new Texture("sprites/projectile/arrow.png");
                         entitySprites[i] = new EntitySprite(tx, 24, 5);
                         break;
                     
                     case 3:
-                        tx[0] = new Texture("sprites/wizard.png");
+                        tx[0] = new Texture("sprites/wizard/wizard_"+gender+".png");
                         entitySprites[i] = new EntitySprite(tx, 64, 64);
                         break;
                         
                     case 4:
-                        tx[0] = new Texture("sprites/spell.png");
+                        tx[0] = new Texture("sprites/spell/spell.png");
                         entitySprites[i] = new EntitySprite(tx, 16, 16);
                         break;
                         
                     case 5:
-                        tx[0] = new Texture("sprites/laser.png");
+                        tx[0] = new Texture("sprites/projectile/laser.png");
                         entitySprites[i] = new EntitySprite(tx, 36, 15);
                         break;
                         
                     case 6:
-                        tx[0] = new Texture("sprites/firewizard.png");
+                        tx[0] = new Texture("sprites/wizard/firewizard_"+gender+".png");
                         entitySprites[i] = new EntitySprite(tx, 64, 64);
                         break;
                         
                     case 7:
-                        tx[0] = new Texture("sprites/firespell.png");
+                        tx[0] = new Texture("sprites/spell/firespell.png");
                         entitySprites[i] = new EntitySprite(tx, 16, 16);
                         break;
                     case 8:
-                        tx[0] = new Texture("sprites/earthwizard.png");
+                        tx[0] = new Texture("sprites/wizard/earthwizard_"+gender+".png");
                         entitySprites[i] = new EntitySprite(tx, 64, 64);
                         break;
                     case 9:
-                        tx[0] = new Texture("sprites/earthspell.png");
+                        tx[0] = new Texture("sprites/spell/earthspell.png");
                         entitySprites[i] = new EntitySprite(tx, 16, 16);
                         break;
                     case 10:
-                        tx[0] = new Texture("sprites/fireswordsman.png");
+                        tx[0] = new Texture("sprites/swordsman/fireswordsman_"+gender+".png");
                         entitySprites[i] = new EntitySprite(tx, 64, 64);
                         break;
                     case 11:
-                        tx[0] = new Texture("sprites/icearcher.png");
+                        tx[0] = new Texture("sprites/archer/icearcher_"+gender+".png");
                         entitySprites[i] = new EntitySprite(tx, 64, 64);
                         break;
                     case 12:
-                        tx[0] = new Texture("sprites/icearrow.png");
+                        tx[0] = new Texture("sprites/projectile/icearrow.png");
                         entitySprites[i] = new EntitySprite(tx, 24, 5);
                         break;
                     case 13:
-                        tx[0] = new Texture("sprites/firearcher.png");
+                        tx[0] = new Texture("sprites/archer/firearcher_"+gender+".png");
                         entitySprites[i] = new EntitySprite(tx, 64, 64);
                         break;
                     case 14:
-                        tx[0] = new Texture("sprites/firearrow.png");
+                        tx[0] = new Texture("sprites/projectile/firearrow.png");
                         entitySprites[i] = new EntitySprite(tx, 24, 5);
+                        break;
+                    case 15:
+                        tx[0] = new Texture("sprites/swordsman/iceswordsman_"+gender+".png");
+                        entitySprites[i] = new EntitySprite(tx, 64, 64);
+                        break;
+                    case 16:
+                        tx[0] = new Texture("sprites/wizard/icewizard_"+gender+".png");
+                        entitySprites[i] = new EntitySprite(tx, 64, 64);
+                        break;
+                    case 17:
+                        tx[0] = new Texture("sprites/spell/icespell.png");
+                        entitySprites[i] = new EntitySprite(tx, 16, 16);
                         break;
                 }
 

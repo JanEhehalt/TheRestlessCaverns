@@ -28,8 +28,8 @@ public class Earthwizard extends Entity{
         this.dmg = 12*lvl;
         this.id = 8;
         this.type = 1;
-        minRange = 64;
-        maxRange = 104;
+        minRange = 84;
+        maxRange = 144;
         attackSpeed = 50;
         counter = 0;
         // TODO: Sinnvolle Werte finden
@@ -41,7 +41,7 @@ public class Earthwizard extends Entity{
     public boolean move(int xPosPlayer, int yPosPlayer) {
         if(!isToDelete()){
             
-            double alpha = StaticMath.calculateAngle((int) this.xPos, (int) this.yPos, xPosPlayer, yPosPlayer);
+            double alpha = StaticMath.calculateAngle((int) this.xPos, (int) this.yPos, xPosPlayer + 32, yPosPlayer + 32);
             int distance = (int) StaticMath.calculateDistance((int) this.xPos, (int) this.yPos, xPosPlayer, yPosPlayer, alpha);
 
             if(distance >= minRange && distance <= maxRange && counter % attackSpeed == 0){
@@ -86,8 +86,8 @@ public class Earthwizard extends Entity{
             double alpha = StaticMath.calculateAngle((int) this.xPos, (int) this.yPos, xPosPlayer, yPosPlayer);
             
             a = new Spell(this.xPos + 32, this.yPos + 32, this.lvl,(int) this.dmg, 9, true);
-            int tempX = (int) (6 * Math.cos(alpha));
-            int tempY = (int) (6 * Math.sin(alpha));
+            int tempX = (int) (5 * Math.cos(alpha));
+            int tempY = (int) (5 * Math.sin(alpha));
 
             a.setMovementX(tempX);
             a.setMovementY(tempY);

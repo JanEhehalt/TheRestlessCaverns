@@ -39,6 +39,8 @@ public class Player extends Entity {
     
     public void updateStats(int ey){
         lvl = ey;
+        //hp = 100*ey * (hp/(100*(ey-1)));
+        //maxhp = 100 * ey;
         standartMaxHp = 100 * ey;
         standartDmg = 20 * ey;
         updateItems();

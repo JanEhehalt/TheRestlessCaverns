@@ -12,25 +12,25 @@ import com.dungeoncrawler.model.Entity;
  *
  * @author jonathan
  */
-public class Wizard extends Entity{
+public class Icewizard extends Entity{
 
     int counter;
     final int minRange;
     final int maxRange;
     final int attackSpeed;
     
-    public Wizard(float xPos, float yPos, int lvl) {
+    public Icewizard(float xPos, float yPos, int lvl) {
         super(xPos, yPos, lvl);
         
         this.maxhp = 80*lvl;
         this.hp = this.maxhp;
         this.direction = 1;
-        this.dmg = 10*lvl;
-        this.id = 3;
+        this.dmg = 12*lvl;
+        this.id = 16;
         this.type = 1;
-        minRange = 144;
-        maxRange = 164;
-        attackSpeed = 60; // higher = slower
+        minRange = 64;
+        maxRange = 124;
+        attackSpeed = 60;
         counter = 0;
         // TODO: Sinnvolle Werte finden
         
@@ -51,7 +51,7 @@ public class Wizard extends Entity{
                 movementX = (int) (3 * Math.cos(alpha));
                 movementY = (int) (3 * Math.sin(alpha));
 
-                if(distance < 144){
+                if(distance < minRange){
                     movementX *= -1;
                     movementY *= -1;
                 }
@@ -83,9 +83,9 @@ public class Wizard extends Entity{
         Spell a = null;
         
         if(!isToDelete()){
-            double alpha = StaticMath.calculateAngle((int) this.xPos, (int) this.yPos, xPosPlayer, yPosPlayer);
+            double alpha = StaticMath.calculateAngle((int) this.xPos, (int) this.yPos, xPosPlayer + 32, yPosPlayer + 32);
             
-            a = new Spell(this.xPos + 32, this.yPos + 32, this.lvl,(int) this.dmg, 4, true);
+            a = new Spell(this.xPos + 32, this.yPos + 32, this.lvl,(int) this.dmg, 17, true);
             int tempX = (int) (5 * Math.cos(alpha));
             int tempY = (int) (5 * Math.sin(alpha));
 

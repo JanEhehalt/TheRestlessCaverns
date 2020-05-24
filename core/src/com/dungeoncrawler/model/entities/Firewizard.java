@@ -41,7 +41,7 @@ public class Firewizard extends Entity{
     public boolean move(int xPosPlayer, int yPosPlayer) {
         if(!isToDelete()){
             
-            double alpha = StaticMath.calculateAngle((int) this.xPos, (int) this.yPos, xPosPlayer, yPosPlayer);
+            double alpha = StaticMath.calculateAngle((int) this.xPos, (int) this.yPos, xPosPlayer + 32, yPosPlayer + 32);
             int distance = (int) StaticMath.calculateDistance((int) this.xPos, (int) this.yPos, xPosPlayer, yPosPlayer, alpha);
 
             if(distance >= minRange && distance <= maxRange && counter % attackSpeed == 0){
@@ -83,11 +83,11 @@ public class Firewizard extends Entity{
         Spell a = null;
         
         if(!isToDelete()){
-            double alpha = StaticMath.calculateAngle((int) this.xPos, (int) this.yPos, xPosPlayer, yPosPlayer);
+            double alpha = StaticMath.calculateAngle((int) this.xPos, (int) this.yPos, xPosPlayer + 32, yPosPlayer + 32);
             
             a = new Spell(this.xPos + 32, this.yPos + 32, this.lvl,(int) this.dmg, 7, true);
-            int tempX = (int) (6 * Math.cos(alpha));
-            int tempY = (int) (6 * Math.sin(alpha));
+            int tempX = (int) (5 * Math.cos(alpha));
+            int tempY = (int) (5 * Math.sin(alpha));
 
             a.setMovementX(tempX);
             a.setMovementY(tempY);
