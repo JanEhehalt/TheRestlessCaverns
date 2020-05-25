@@ -8,10 +8,10 @@ public class Fireswordsman extends Entity {
     public Fireswordsman(float xPos, float yPos, int lvl) {
         super(xPos, yPos, lvl);
         
-        this.maxhp = 130*lvl;
+        this.maxhp = 120*lvl;
         this.hp = this.maxhp;
         this.direction = 1;
-        this.dmg = 20*lvl;
+        this.dmg = 18*lvl;
         this.id = 10;
         this.type = 0;
         

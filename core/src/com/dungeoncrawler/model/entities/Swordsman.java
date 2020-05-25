@@ -11,7 +11,7 @@ public class Swordsman extends Entity {
         this.maxhp = 100*lvl;
         this.hp = this.maxhp;
         this.direction = 1;
-        this.dmg = 17*lvl;
+        this.dmg = 16*lvl;
         this.id = 1;
         this.type = 0;
         

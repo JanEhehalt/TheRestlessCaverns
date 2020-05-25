@@ -22,10 +22,10 @@ public class Firewizard extends Entity{
     public Firewizard(float xPos, float yPos, int lvl) {
         super(xPos, yPos, lvl);
         
-        this.maxhp = 80*lvl;
+        this.maxhp = 75*lvl;
         this.hp = this.maxhp;
         this.direction = 1;
-        this.dmg = 12*lvl;
+        this.dmg = 10*lvl;
         this.id = 6;
         this.type = 1;
         minRange = 64;
