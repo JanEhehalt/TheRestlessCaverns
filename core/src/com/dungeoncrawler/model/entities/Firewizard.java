@@ -25,12 +25,12 @@ public class Firewizard extends Entity{
         this.maxhp = 75*lvl;
         this.hp = this.maxhp;
         this.direction = 1;
-        this.dmg = 10*lvl;
+        this.dmg = 9*lvl;
         this.id = 6;
         this.type = 1;
-        minRange = 64;
-        maxRange = 124;
-        attackSpeed = 70;
+        minRange = 50;
+        maxRange = 130;
+        attackSpeed = 60;
         counter = 0;
         // TODO: Sinnvolle Werte finden
         

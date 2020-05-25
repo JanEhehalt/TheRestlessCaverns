@@ -16,12 +16,12 @@ public class Firearcher extends Entity{
         this.maxhp = 80*lvl;
         this.hp = this.maxhp;
         this.direction = 1;
-        this.dmg = 8*lvl;
+        this.dmg = 9*lvl;
         this.id = 13;
         this.type = 1;
-        minRange = 84;
-        maxRange = 184;
-        attackSpeed = 45;
+        minRange = 65;
+        maxRange = 200;
+        attackSpeed = 55;
         counter = 0;
         // TODO: Sinnvolle Werte finden
         

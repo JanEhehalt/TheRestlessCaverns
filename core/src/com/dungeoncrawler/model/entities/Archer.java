@@ -19,9 +19,9 @@ public class Archer extends Entity{
         this.dmg = 6*lvl;
         this.id = 0;
         this.type = 1;
-        minRange = 64;
-        maxRange = 184;
-        attackSpeed = 45;
+        minRange = 70;
+        maxRange = 210;
+        attackSpeed = 65;
         counter = 0;
         // TODO: Sinnvolle Werte finden
         

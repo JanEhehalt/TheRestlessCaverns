@@ -24,8 +24,8 @@ public class Iceswordsman extends Entity {
         if(!isToDelete()){
             double alpha = StaticMath.calculateAngle((int) this.xPos, (int) this.yPos, xPosPlayer, yPosPlayer);
 
-            movementX = (int) (3 * Math.cos(alpha));
-            movementY = (int) (3 * Math.sin(alpha));
+            movementX = (int) (4 * Math.cos(alpha));
+            movementY = (int) (4 * Math.sin(alpha));
 
             xPos += movementX;
             yPos += movementY;

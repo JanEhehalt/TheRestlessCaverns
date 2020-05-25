@@ -11,7 +11,7 @@ public class Fireswordsman extends Entity {
         this.maxhp = 120*lvl;
         this.hp = this.maxhp;
         this.direction = 1;
-        this.dmg = 18*lvl;
+        this.dmg = 17*lvl;
         this.id = 10;
         this.type = 0;
         
@@ -24,8 +24,8 @@ public class Fireswordsman extends Entity {
         if(!isToDelete()){
             double alpha = StaticMath.calculateAngle((int) this.xPos, (int) this.yPos, xPosPlayer, yPosPlayer);
 
-            movementX = (int) (3 * Math.cos(alpha));
-            movementY = (int) (3 * Math.sin(alpha));
+            movementX = (int) (4 * Math.cos(alpha));
+            movementY = (int) (4 * Math.sin(alpha));
 
             xPos += movementX;
             yPos += movementY;
