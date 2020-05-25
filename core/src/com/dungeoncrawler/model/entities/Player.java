@@ -106,8 +106,8 @@ public class Player extends Entity {
             int tempMovementX = (int) (8 * Math.cos(alpha));
             int tempMovementY = (int) (8 * Math.sin(alpha));
 
-            a.setMovementX(tempMovementX);
-            a.setMovementY(tempMovementY);
+            a.setMovementX(tempMovementX + (0.5f * movementX));
+            a.setMovementY(tempMovementY + (0.5f * movementY));
             a.setAngle(alpha);
 
             if((alpha >= 0 && alpha <= Math.PI / 2) || (alpha <= 2 * Math.PI && alpha >= 2 * Math.PI - Math.PI / 2)){
