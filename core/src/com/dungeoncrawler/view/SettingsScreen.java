@@ -68,7 +68,7 @@ public class SettingsScreen {
                 volumeButtonSprite.setPosition(200, 500);
                 volumeDownSprite.setPosition(volumeButtonSprite.getX() + 230, volumeButtonSprite.getY()+28);
                 volumeUpSprite.setPosition(volumeButtonSprite.getX() + 340, volumeButtonSprite.getY()+28);
-                backButtonSprite.setPosition(50, 50);
+                backButtonSprite.setPosition(0, 0);
                 
                 
                 float n = 0;

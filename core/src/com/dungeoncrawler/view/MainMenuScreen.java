@@ -84,9 +84,7 @@ public class MainMenuScreen{
                 startButtonSprite.setY(backgroundSprite.getY() + 350);
                 quitButtonSprite.setX(backgroundSprite.getX() + 100);
                 quitButtonSprite.setY(backgroundSprite.getY() + 50);
-                
-                settingsButtonSprite.setX(backgroundSprite.getX() + 100);
-                settingsButtonSprite.setY(backgroundSprite.getY() + 250);
+                settingsButtonSprite.setPosition(backgroundSprite.getX() + 100, backgroundSprite.getX() + 150);
                 
                 
                 
@@ -121,7 +119,7 @@ public class MainMenuScreen{
                 buttonLeft = new Sprite(new Texture("sprites/left.png"));
                 buttonRight = new Sprite(new Texture("sprites/right.png"));
                 
-                skinContainer.setPosition(backgroundSprite.getX() + 100, backgroundSprite.getX() + 150);
+                skinContainer.setPosition(backgroundSprite.getX() + 100,backgroundSprite.getY() + 250);
                 buttonLeft.setPosition(skinContainer.getX() + 7, skinContainer.getY()+25);
                 buttonRight.setPosition(skinContainer.getX() + 106, skinContainer.getY()+25);
                 playerSprite.setPosition(skinContainer.getX() + 50, skinContainer.getY() + 15);

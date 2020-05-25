@@ -30,12 +30,14 @@ public class PauseScreen{
     Texture volumeDownTexture;
     Texture volumeTexture;
     Texture backButtonTexture;
+    Texture quitButtonTexture;
     
     Sprite volumeButtonSprite;
     Sprite volumeUpSprite;
     Sprite volumeDownSprite;
     Sprite volumeSprite;
     Sprite backButtonSprite;
+    Sprite quitButtonSprite;
     
     public PauseScreen(){
         
@@ -48,22 +50,25 @@ public class PauseScreen{
             volumeDownTexture = new Texture("sprites/volumeDownButton.png");
             volumeTexture = new Texture("sprites/volume.png");
             backButtonTexture = new Texture("sprites/backButton.png");
+            quitButtonTexture = new Texture("sprites/quitButton.png");
             
             volumeButtonSprite = new Sprite(volumeButtonTexture);
             volumeUpSprite = new Sprite(volumeUpTexture);
             volumeDownSprite = new Sprite(volumeDownTexture);
             volumeSprite = new Sprite(volumeTexture);
             backButtonSprite = new Sprite(backButtonTexture);
+            quitButtonSprite = new Sprite(quitButtonTexture);
     
     }
     
     
     public void render (SpriteBatch batch, float volume, OrthographicCamera camera) {
                 
-                volumeButtonSprite.setPosition(0, 150);
+                volumeButtonSprite.setPosition(200, 500);
                 volumeDownSprite.setPosition(volumeButtonSprite.getX() + 230, volumeButtonSprite.getY()+28);
                 volumeUpSprite.setPosition(volumeButtonSprite.getX() + 340, volumeButtonSprite.getY()+28);
                 backButtonSprite.setPosition(0, 0);
+                quitButtonSprite.setPosition(200,300);
                 
                 
                 float n = 0;
@@ -93,6 +98,7 @@ public class PauseScreen{
                 volumeDownSprite.draw(batch);
                 volumeSprite.draw(batch);
                 backButtonSprite.draw(batch);
+                //quitButtonSprite.draw(batch);
                 batch.end();
 	}
     
@@ -103,6 +109,11 @@ public class PauseScreen{
         
             Rectangle r = new Rectangle();
             r.set(x, h-y, 1600, 900);
+            /*
+            if(Intersector.overlaps(r, quitButtonSprite.getBoundingRectangle())){
+                return 11;   //restart Game
+            }
+            */
             if(Intersector.overlaps(r, backButtonSprite.getBoundingRectangle())){
                 return 5;   //proceed Game
             }
@@ -112,6 +123,7 @@ public class PauseScreen{
             if(Intersector.overlaps(r, volumeUpSprite.getBoundingRectangle())){
                 return 10;   //volume UP
             }
+            
             
             return -1;
             
