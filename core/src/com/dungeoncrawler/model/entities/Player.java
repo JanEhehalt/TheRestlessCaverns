@@ -19,10 +19,12 @@ public class Player extends Entity {
     float standartMaxHp;
     
     int skin;
+    String gender;
     
     public Player() {
         super(200, 200, 1);
         this.skin = 0;
+        this.gender = "m";
         this.maxhp = 100 * lvl;
         this.hp = this.maxhp;
         this.standartMaxHp = 100 * lvl;
@@ -134,6 +136,12 @@ public class Player extends Entity {
     }
     public int getSkin(){
         return skin;
+    }
+    public void setGender(String i){
+        gender = i;
+    }
+    public String getGender(){
+        return gender;
     }
     public boolean inventoryFull(){
         return inv.inventoryFull();

@@ -309,7 +309,7 @@ public class DungeonGenerator {
 
                 Entity temp;
 
-                int id = (int) (Math.random() * 10);
+                int id = (int) (Math.random() * 12);
                 switch(id){
                     case 0:
                         temp = new Archer(xPos, yPos, lvl);
@@ -340,6 +340,18 @@ public class DungeonGenerator {
                         break;
                     case 9:
                         temp = new Icewizard(xPos, yPos, lvl);
+                        break;
+                    case 10:
+                        temp = new Waterwizard(xPos, yPos, lvl);
+                        break;
+                    case 11:
+                        //temp = new Healwizard(xPos, yPos, lvl);
+                        /*  wird nicht gespawnt
+                        BUG: HP über 100%, also crash in HUD container lol
+                        keine Lust zu beheben
+                        --TODO--
+                        */
+                        temp = null;
                         break;
                     default:
                         temp = null;

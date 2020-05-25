@@ -24,6 +24,8 @@ public class MainMenuScreen{
         Sprite quitButtonSprite;
         Sprite backgroundSprite;
         Sprite settingsButtonSprite;
+        Sprite maleButton;
+        Sprite femaleButton;
         
         boolean hidden;
         
@@ -48,6 +50,8 @@ public class MainMenuScreen{
         Sprite buttonRight;
         Sprite buttonLeft;
         
+        String gender;
+        
         
 	public MainMenuScreen(float volume) {
             
@@ -56,17 +60,23 @@ public class MainMenuScreen{
                 h = Gdx.graphics.getHeight();
                 float wc = w/2;
                 
+                gender = "m";
+                
                 hidden = false;
                 
                 Texture backgroundTexture = new Texture("sprites/MAINSCREEN.png");
                 Texture startButtonTexture = new Texture("sprites/startButton.png");
                 Texture quitButtonTexture = new Texture("sprites/quitButton.png");
                 Texture settingsButtonTexture = new Texture("sprites/settingsButton.png");
+                Texture maleButtonTexture = new Texture("sprites/male.png");
+                Texture femaleButtonTexture = new Texture("sprites/female.png");
                 
                 backgroundSprite = new Sprite(backgroundTexture);
                 startButtonSprite = new Sprite(startButtonTexture);
                 quitButtonSprite = new Sprite(quitButtonTexture);
                 settingsButtonSprite = new Sprite(settingsButtonTexture);
+                maleButton = new Sprite(maleButtonTexture);
+                femaleButton = new Sprite(femaleButtonTexture);
                 
                 backgroundSprite.setX(0);
                 backgroundSprite.setY(0);
@@ -97,13 +107,13 @@ public class MainMenuScreen{
                 shownPlayer = 0;
                 animationState = 0;
                 
-                playerRegion[0] = TextureRegion.split(new Texture("sprites/player/player.png"), 64, 64);
-                playerRegion[1] = TextureRegion.split(new Texture("sprites/player/playerblue.png"), 64, 64);
-                playerRegion[2] = TextureRegion.split(new Texture("sprites/player/playerpurple.png"), 64, 64);
-                playerRegion[3] = TextureRegion.split(new Texture("sprites/player/playergreen.png"), 64, 64);
-                playerRegion[4] = TextureRegion.split(new Texture("sprites/player/playerorange.png"), 64, 64);
-                playerRegion[5] = TextureRegion.split(new Texture("sprites/player/playerblack.png"), 64, 64);
-                playerRegion[6] = TextureRegion.split(new Texture("sprites/player/playerred.png"), 64, 64);
+                playerRegion[0] = TextureRegion.split(new Texture("sprites/player/player_"+gender+".png"), 64, 64);
+                playerRegion[1] = TextureRegion.split(new Texture("sprites/player/playerblue_"+gender+".png"), 64, 64);
+                playerRegion[2] = TextureRegion.split(new Texture("sprites/player/playerpurple_"+gender+".png"), 64, 64);
+                playerRegion[3] = TextureRegion.split(new Texture("sprites/player/playergreen_"+gender+".png"), 64, 64);
+                playerRegion[4] = TextureRegion.split(new Texture("sprites/player/playerorange_"+gender+".png"), 64, 64);
+                playerRegion[5] = TextureRegion.split(new Texture("sprites/player/playerblack_"+gender+".png"), 64, 64);
+                playerRegion[6] = TextureRegion.split(new Texture("sprites/player/playerred_"+gender+".png"), 64, 64);
                 playerSprite = new Sprite(playerRegion[shownPlayer][0][animationState]);
                 
                 
@@ -115,6 +125,9 @@ public class MainMenuScreen{
                 buttonLeft.setPosition(skinContainer.getX() + 7, skinContainer.getY()+25);
                 buttonRight.setPosition(skinContainer.getX() + 106, skinContainer.getY()+25);
                 playerSprite.setPosition(skinContainer.getX() + 50, skinContainer.getY() + 15);
+                
+                maleButton.setPosition(skinContainer.getX()+165, skinContainer.getY()+25);
+                femaleButton.setPosition(skinContainer.getX()+165, skinContainer.getY()+25);
                 
                 preview = new Timer();
                 preview.scheduleTask(new Timer.Task() {
@@ -153,7 +166,18 @@ public class MainMenuScreen{
                     skinContainer.draw(batch);
                     buttonLeft.draw(batch);
                     buttonRight.draw(batch);
+                    
+                    
                     playerSprite.draw(batch);
+                    
+                    
+                    
+                    if(gender.equals("m")){
+                        maleButton.draw(batch);
+                    }
+                    else{
+                        femaleButton.draw(batch);
+                    }
                 }
                 batch.end();
 	}
@@ -187,9 +211,40 @@ public class MainMenuScreen{
                     }
                     return -1;
                 }
+                if(Intersector.overlaps(r, buttonLeft.getBoundingRectangle())){
+                    if(shownPlayer > 0){
+                        shownPlayer--;
+                        return 6;
+                    }
+                    return -1;
+                }
+                if(Intersector.overlaps(r, maleButton.getBoundingRectangle())){
+                    if(gender.equals("m")){
+                        gender = "w";
+                        updateGender();
+                        return 6;
+                    }
+                    else{
+                        gender = "m";
+                        updateGender();
+                        return 6;
+                    }
+                }
             }
             return -1;
             
+        }
+        
+        public void updateGender(){
+            playerRegion[0] = TextureRegion.split(new Texture("sprites/player/player_"+gender+".png"), 64, 64);
+            playerRegion[1] = TextureRegion.split(new Texture("sprites/player/playerblue_"+gender+".png"), 64, 64);
+            playerRegion[2] = TextureRegion.split(new Texture("sprites/player/playerpurple_"+gender+".png"), 64, 64);
+            playerRegion[3] = TextureRegion.split(new Texture("sprites/player/playergreen_"+gender+".png"), 64, 64);
+            playerRegion[4] = TextureRegion.split(new Texture("sprites/player/playerorange_"+gender+".png"), 64, 64);
+            playerRegion[5] = TextureRegion.split(new Texture("sprites/player/playerblack_"+gender+".png"), 64, 64);
+            playerRegion[6] = TextureRegion.split(new Texture("sprites/player/playerred_"+gender+".png"), 64, 64);
+            playerSprite = new Sprite(playerRegion[shownPlayer][0][animationState]);
+            playerSprite.setPosition(skinContainer.getX() + 50, skinContainer.getY() + 15);
         }
         
         public void cleanUp(){
@@ -210,6 +265,9 @@ public class MainMenuScreen{
         
         public int getSkin(){
             return shownPlayer;
+        }
+        public String getGender(){
+            return gender;
         }
         
        

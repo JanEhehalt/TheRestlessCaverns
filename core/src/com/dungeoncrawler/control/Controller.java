@@ -868,6 +868,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                 
             case 6:
                 d.getPlayer().setSkin(mm.getSkin());
+                d.getPlayer().setGender(mm.getGender());
                 return true;
                 
                 
