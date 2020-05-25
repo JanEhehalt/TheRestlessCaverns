@@ -30,7 +30,7 @@ public class Earthwizard extends Entity{
         this.type = 1;
         minRange = 84;
         maxRange = 144;
-        attackSpeed = 45;
+        attackSpeed = 70;
         counter = 0;
         // TODO: Sinnvolle Werte finden
         

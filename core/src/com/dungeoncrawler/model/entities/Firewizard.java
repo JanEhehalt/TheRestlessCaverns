@@ -30,7 +30,7 @@ public class Firewizard extends Entity{
         this.type = 1;
         minRange = 64;
         maxRange = 124;
-        attackSpeed = 60;
+        attackSpeed = 70;
         counter = 0;
         // TODO: Sinnvolle Werte finden
         

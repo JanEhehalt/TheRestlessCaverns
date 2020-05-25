@@ -21,7 +21,7 @@ public class Archer extends Entity{
         this.type = 1;
         minRange = 64;
         maxRange = 184;
-        attackSpeed = 20;
+        attackSpeed = 45;
         counter = 0;
         // TODO: Sinnvolle Werte finden
         

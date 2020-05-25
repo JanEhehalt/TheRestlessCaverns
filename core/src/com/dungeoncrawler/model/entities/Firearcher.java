@@ -21,7 +21,7 @@ public class Firearcher extends Entity{
         this.type = 1;
         minRange = 84;
         maxRange = 184;
-        attackSpeed = 30;
+        attackSpeed = 45;
         counter = 0;
         // TODO: Sinnvolle Werte finden
         
