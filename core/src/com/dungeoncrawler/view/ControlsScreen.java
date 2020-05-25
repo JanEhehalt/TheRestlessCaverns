@@ -23,10 +23,9 @@ public class ControlsScreen {
     float h;
     BitmapFont font;
     
-    Texture backButtonTexture;
-    
     
     Sprite backButtonSprite;
+    Sprite controlsContainerSprite;
     
     public ControlsScreen(){
         w = Gdx.graphics.getWidth();
@@ -36,6 +35,9 @@ public class ControlsScreen {
     
         backButtonSprite = new Sprite(new Texture("sprites/backButton.png"));
         backButtonSprite.setPosition(0,0);
+        controlsContainerSprite = new Sprite(new Texture("sprites/controlsContainer.png"));
+        controlsContainerSprite.setPosition(480,180);
+        
         
     }
     
@@ -44,35 +46,38 @@ public class ControlsScreen {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
                 
                 batch.begin();
-                font.draw(batch,"UP:", 500, 500);
-                font.draw(batch,"W", 700, 500);
-                font.draw(batch,"LEFT:", 500, 480);
-                font.draw(batch,"A", 700, 480);
-                font.draw(batch,"DOWN:", 500, 460);
-                font.draw(batch,"S", 700, 460);
-                font.draw(batch,"RIGHT:", 500, 440);
-                font.draw(batch,"D", 700, 440);
                 
-                font.draw(batch,"SHOOT UP:", 500, 400);
-                font.draw(batch,"ARROW-KEY UP", 700, 400);
-                font.draw(batch,"SHOOT LEFT:", 500, 380);
-                font.draw(batch,"ARROW-KEY LEFT", 700, 380);
-                font.draw(batch,"SHOOT DOWN:", 500, 360);
-                font.draw(batch,"ARROW-KEY DOWN", 700, 360);
-                font.draw(batch,"SHOOT RIGHT:", 500, 340);
-                font.draw(batch,"ARROW-KEY RIGHT", 700, 340);
+                controlsContainerSprite.draw(batch);
                 
-                font.draw(batch,"MELEE ATTACK:", 500, 320);
-                font.draw(batch,"SPACE", 700, 320);
+                font.draw(batch,"UP:", controlsContainerSprite.getX() + 20, controlsContainerSprite.getY()+380);
+                font.draw(batch,"W", controlsContainerSprite.getX() + 220, controlsContainerSprite.getY()+380);
+                font.draw(batch,"LEFT:", controlsContainerSprite.getX() + 20, controlsContainerSprite.getY()+360);
+                font.draw(batch,"A", controlsContainerSprite.getX() + 220, controlsContainerSprite.getY()+360);
+                font.draw(batch,"DOWN:", controlsContainerSprite.getX() + 20, controlsContainerSprite.getY()+340);
+                font.draw(batch,"S", controlsContainerSprite.getX() + 220, controlsContainerSprite.getY()+340);
+                font.draw(batch,"RIGHT:", controlsContainerSprite.getX() + 20, controlsContainerSprite.getY()+320);
+                font.draw(batch,"D", controlsContainerSprite.getX() + 220, controlsContainerSprite.getY()+320);
                 
-                font.draw(batch,"EQUIP ITEM:", 500, 280);
-                font.draw(batch,"R", 700, 280);
-                font.draw(batch,"DROP ITEM:", 500, 260);
-                font.draw(batch,"Q", 700, 260);
-                font.draw(batch,"USE ITEM:", 500, 240);
-                font.draw(batch,"E", 700, 240);
-                font.draw(batch,"CHANCE SELECTED ITEM:", 500, 220);
-                font.draw(batch,"SCROLL WHEEL", 700, 220);
+                font.draw(batch,"SHOOT UP:", controlsContainerSprite.getX() + 20, controlsContainerSprite.getY()+280);
+                font.draw(batch,"ARROW-KEY UP", controlsContainerSprite.getX() + 220, controlsContainerSprite.getY()+280);
+                font.draw(batch,"SHOOT LEFT:", controlsContainerSprite.getX() + 20, controlsContainerSprite.getY()+260);
+                font.draw(batch,"ARROW-KEY LEFT", controlsContainerSprite.getX() + 220, controlsContainerSprite.getY()+260);
+                font.draw(batch,"SHOOT DOWN:", controlsContainerSprite.getX() + 20, controlsContainerSprite.getY()+240);
+                font.draw(batch,"ARROW-KEY DOWN", controlsContainerSprite.getX() + 220, controlsContainerSprite.getY()+240);
+                font.draw(batch,"SHOOT RIGHT:", controlsContainerSprite.getX() + 20, controlsContainerSprite.getY()+220);
+                font.draw(batch,"ARROW-KEY RIGHT", controlsContainerSprite.getX() + 220, controlsContainerSprite.getY()+220);
+                
+                font.draw(batch,"MELEE ATTACK:", controlsContainerSprite.getX() + 20, controlsContainerSprite.getY()+180);
+                font.draw(batch,"SPACE", controlsContainerSprite.getX() + 220, controlsContainerSprite.getY()+180);
+                
+                font.draw(batch,"EQUIP ITEM:", controlsContainerSprite.getX() + 20, controlsContainerSprite.getY()+140);
+                font.draw(batch,"R", controlsContainerSprite.getX() + 220, controlsContainerSprite.getY()+140);
+                font.draw(batch,"DROP ITEM:", controlsContainerSprite.getX() + 20, controlsContainerSprite.getY()+120);
+                font.draw(batch,"Q", controlsContainerSprite.getX() + 220, controlsContainerSprite.getY()+120);
+                font.draw(batch,"USE ITEM:", controlsContainerSprite.getX() + 20, controlsContainerSprite.getY()+100);
+                font.draw(batch,"E", controlsContainerSprite.getX() + 220, controlsContainerSprite.getY()+100);
+                font.draw(batch,"SELECT ITEM:", controlsContainerSprite.getX() + 20, controlsContainerSprite.getY()+80);
+                font.draw(batch,"SCROLL WHEEL", controlsContainerSprite.getX() + 220, controlsContainerSprite.getY()+80);
                 
                 backButtonSprite.draw(batch);
                 batch.end();

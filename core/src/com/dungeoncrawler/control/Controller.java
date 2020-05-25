@@ -303,7 +303,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
 	Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         
         if(end == true){
-            if(es == null && ps == null){
+            if(es == null){
                 isPaused = true;
                 entityMovement.stop();
                 gs.end();
@@ -896,9 +896,8 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                 }
                 return true;
             case 11:
-                ps = null;
-                end = true;
-                break;
+                create();
+                return true;
         }
           
         if(gs != null && gs.getIsLoading() == false){

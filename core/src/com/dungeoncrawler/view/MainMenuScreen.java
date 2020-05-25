@@ -124,8 +124,8 @@ public class MainMenuScreen{
                 buttonRight.setPosition(skinContainer.getX() + 106, skinContainer.getY()+25);
                 playerSprite.setPosition(skinContainer.getX() + 50, skinContainer.getY() + 15);
                 
-                maleButton.setPosition(skinContainer.getX()+165, skinContainer.getY()+25);
-                femaleButton.setPosition(skinContainer.getX()+165, skinContainer.getY()+25);
+                maleButton.setPosition(skinContainer.getX()+165, skinContainer.getY());
+                femaleButton.setPosition(skinContainer.getX()+165, skinContainer.getY());
                 
                 preview = new Timer();
                 preview.scheduleTask(new Timer.Task() {
