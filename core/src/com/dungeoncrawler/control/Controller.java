@@ -75,7 +75,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
     @Override
     public void create(){
         
-        checkDoor = false;
+        checkDoor = true;
         checkDie = true;
         
         kills = 0;
