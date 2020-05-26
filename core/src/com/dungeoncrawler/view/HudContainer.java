@@ -122,6 +122,10 @@ public class HudContainer {
             else{
                 n = 0.01f;
             }
+            
+            if(n > 1){
+                n = 1;
+            }
             Texture playerHealthTexture = new Texture("sprites/playerHealthBar.png");
             int newWidth = (int) (n * playerHealthTexture.getWidth());
             TextureRegion[][] playerHealthRegion = TextureRegion.split(playerHealthTexture,newWidth, playerHealthTexture.getHeight());

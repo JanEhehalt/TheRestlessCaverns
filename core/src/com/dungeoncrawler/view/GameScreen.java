@@ -76,51 +76,14 @@ public class GameScreen {
                 //PLAYER
                 Texture[] playerTexture = new Texture[4];
                 String gender = d.getPlayer().getGender();
-                switch(d.getPlayer().getSkin()){
-                    case 0:
-                        playerTexture[0] = new Texture(Gdx.files.internal("sprites/player/player_"+gender+".png"));
-                        playerTexture[1] = new Texture(Gdx.files.internal("sprites/player/player_"+gender+".png"));
-                        playerTexture[2] = new Texture(Gdx.files.internal("sprites/player/player_"+gender+".png"));
-                        playerTexture[3] = new Texture(Gdx.files.internal("sprites/player/player_"+gender+".png"));
-                        break;
-                    case 1:
-                        playerTexture[0] = new Texture(Gdx.files.internal("sprites/player/playerblue_"+gender+".png"));
-                        playerTexture[1] = new Texture(Gdx.files.internal("sprites/player/playerblue_"+gender+".png"));
-                        playerTexture[2] = new Texture(Gdx.files.internal("sprites/player/playerblue_"+gender+".png"));
-                        playerTexture[3] = new Texture(Gdx.files.internal("sprites/player/playerblue_"+gender+".png"));
-                        break;
-                    case 2:
-                        playerTexture[0] = new Texture(Gdx.files.internal("sprites/player/playerpurple_"+gender+".png"));
-                        playerTexture[1] = new Texture(Gdx.files.internal("sprites/player/playerpurple_"+gender+".png"));
-                        playerTexture[2] = new Texture(Gdx.files.internal("sprites/player/playerpurple_"+gender+".png"));
-                        playerTexture[3] = new Texture(Gdx.files.internal("sprites/player/playerpurple_"+gender+".png"));
-                        break;
-                    case 3:
-                        playerTexture[0] = new Texture(Gdx.files.internal("sprites/player/playergreen_"+gender+".png"));
-                        playerTexture[1] = new Texture(Gdx.files.internal("sprites/player/playergreen_"+gender+".png"));
-                        playerTexture[2] = new Texture(Gdx.files.internal("sprites/player/playergreen_"+gender+".png"));
-                        playerTexture[3] = new Texture(Gdx.files.internal("sprites/player/playergreen_"+gender+".png"));
-                        break;
-                    case 4:
-                        playerTexture[0] = new Texture(Gdx.files.internal("sprites/player/playerorange_"+gender+".png"));
-                        playerTexture[1] = new Texture(Gdx.files.internal("sprites/player/playerorange_"+gender+".png"));
-                        playerTexture[2] = new Texture(Gdx.files.internal("sprites/player/playerorange_"+gender+".png"));
-                        playerTexture[3] = new Texture(Gdx.files.internal("sprites/player/playerorange_"+gender+".png"));
-                        break;
-                    case 5:
-                        playerTexture[0] = new Texture(Gdx.files.internal("sprites/player/playerblack_"+gender+".png"));
-                        playerTexture[1] = new Texture(Gdx.files.internal("sprites/player/playerblack_"+gender+".png"));
-                        playerTexture[2] = new Texture(Gdx.files.internal("sprites/player/playerblack_"+gender+".png"));
-                        playerTexture[3] = new Texture(Gdx.files.internal("sprites/player/playerblack_"+gender+".png"));
-                        break;
-                    case 6:
-                        playerTexture[0] = new Texture(Gdx.files.internal("sprites/player/playerred_"+gender+".png"));
-                        playerTexture[1] = new Texture(Gdx.files.internal("sprites/player/playerred_"+gender+".png"));
-                        playerTexture[2] = new Texture(Gdx.files.internal("sprites/player/playerred_"+gender+".png"));
-                        playerTexture[3] = new Texture(Gdx.files.internal("sprites/player/playerred_"+gender+".png"));
-                        break;
-                }
                 
+                
+                playerTexture[0] = new Texture(Gdx.files.internal("sprites/player/player_"+d.getPlayer().getSkin()+"_"+gender+".png"));
+                playerTexture[1] = new Texture(Gdx.files.internal("sprites/player/player_"+d.getPlayer().getSkin()+"_"+gender+".png"));
+                playerTexture[2] = new Texture(Gdx.files.internal("sprites/player/player_"+d.getPlayer().getSkin()+"_"+gender+".png"));
+                playerTexture[3] = new Texture(Gdx.files.internal("sprites/player/player_"+d.getPlayer().getSkin()+"_"+gender+".png"));
+                        
+                                
                 //DMG visualization
                 font = new BitmapFont();
                 font.setColor(1, 0, 0, 1);

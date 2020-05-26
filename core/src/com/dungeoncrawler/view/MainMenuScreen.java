@@ -105,13 +105,10 @@ public class MainMenuScreen{
                 shownPlayer = 0;
                 animationState = 0;
                 
-                playerRegion[0] = TextureRegion.split(new Texture("sprites/player/player_"+gender+".png"), 64, 64);
-                playerRegion[1] = TextureRegion.split(new Texture("sprites/player/playerblue_"+gender+".png"), 64, 64);
-                playerRegion[2] = TextureRegion.split(new Texture("sprites/player/playerpurple_"+gender+".png"), 64, 64);
-                playerRegion[3] = TextureRegion.split(new Texture("sprites/player/playergreen_"+gender+".png"), 64, 64);
-                playerRegion[4] = TextureRegion.split(new Texture("sprites/player/playerorange_"+gender+".png"), 64, 64);
-                playerRegion[5] = TextureRegion.split(new Texture("sprites/player/playerblack_"+gender+".png"), 64, 64);
-                playerRegion[6] = TextureRegion.split(new Texture("sprites/player/playerred_"+gender+".png"), 64, 64);
+                for(int i = 0; i < playerRegion.length; i++){
+                    playerRegion[i] = TextureRegion.split(new Texture("sprites/player/player_"+i+"_"+gender+".png"), 64, 64);
+                }
+                
                 playerSprite = new Sprite(playerRegion[shownPlayer][0][animationState]);
                 
                 
@@ -234,13 +231,9 @@ public class MainMenuScreen{
         }
         
         public void updateGender(){
-            playerRegion[0] = TextureRegion.split(new Texture("sprites/player/player_"+gender+".png"), 64, 64);
-            playerRegion[1] = TextureRegion.split(new Texture("sprites/player/playerblue_"+gender+".png"), 64, 64);
-            playerRegion[2] = TextureRegion.split(new Texture("sprites/player/playerpurple_"+gender+".png"), 64, 64);
-            playerRegion[3] = TextureRegion.split(new Texture("sprites/player/playergreen_"+gender+".png"), 64, 64);
-            playerRegion[4] = TextureRegion.split(new Texture("sprites/player/playerorange_"+gender+".png"), 64, 64);
-            playerRegion[5] = TextureRegion.split(new Texture("sprites/player/playerblack_"+gender+".png"), 64, 64);
-            playerRegion[6] = TextureRegion.split(new Texture("sprites/player/playerred_"+gender+".png"), 64, 64);
+            for(int i = 0; i < playerRegion.length; i++){
+                    playerRegion[i] = TextureRegion.split(new Texture("sprites/player/player_"+i+"_"+gender+".png"), 64, 64);
+            }
             playerSprite = new Sprite(playerRegion[shownPlayer][0][animationState]);
             playerSprite.setPosition(skinContainer.getX() + 50, skinContainer.getY() + 15);
         }
