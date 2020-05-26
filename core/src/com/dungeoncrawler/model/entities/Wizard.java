@@ -30,7 +30,7 @@ public class Wizard extends Entity{
         this.type = 1;
         minRange = 144;
         maxRange = 164;
-        attackSpeed = 60; // higher = slower
+        attackSpeed = 75; // higher = slower
         counter = 0;
         // TODO: Sinnvolle Werte finden
         

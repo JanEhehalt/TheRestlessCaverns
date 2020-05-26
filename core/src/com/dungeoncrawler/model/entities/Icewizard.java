@@ -25,12 +25,12 @@ public class Icewizard extends Entity{
         this.maxhp = 80*lvl;
         this.hp = this.maxhp;
         this.direction = 1;
-        this.dmg = 12*lvl;
+        this.dmg = 10*lvl;
         this.id = 16;
         this.type = 1;
-        minRange = 64;
-        maxRange = 124;
-        attackSpeed = 60;
+        minRange = 70;
+        maxRange = 170;
+        attackSpeed = 80;
         counter = 0;
         // TODO: Sinnvolle Werte finden
         

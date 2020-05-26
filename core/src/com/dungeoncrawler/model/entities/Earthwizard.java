@@ -22,15 +22,15 @@ public class Earthwizard extends Entity{
     public Earthwizard(float xPos, float yPos, int lvl) {
         super(xPos, yPos, lvl);
         
-        this.maxhp = 80*lvl;
+        this.maxhp = 75*lvl;
         this.hp = this.maxhp;
         this.direction = 1;
-        this.dmg = 12*lvl;
+        this.dmg = 8*lvl;
         this.id = 8;
         this.type = 1;
-        minRange = 84;
-        maxRange = 144;
-        attackSpeed = 50;
+        minRange = 60;
+        maxRange = 150;
+        attackSpeed = 80;
         counter = 0;
         // TODO: Sinnvolle Werte finden
         
