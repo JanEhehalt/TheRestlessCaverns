@@ -28,9 +28,9 @@ public class Wizard extends Entity{
         this.dmg = 10*lvl;
         this.id = 3;
         this.type = 1;
-        minRange = 144;
-        maxRange = 164;
-        attackSpeed = 75; // higher = slower
+        minRange = 140;
+        maxRange = 170;
+        attackSpeed = 70; // higher = slower
         counter = 0;
         // TODO: Sinnvolle Werte finden
         

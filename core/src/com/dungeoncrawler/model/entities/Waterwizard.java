@@ -28,9 +28,9 @@ public class Waterwizard extends Entity{
         this.dmg = 12*lvl;
         this.id = 18;
         this.type = 1;
-        minRange = 64;
-        maxRange = 124;
-        attackSpeed = 60;
+        minRange = 65;
+        maxRange = 130;
+        attackSpeed = 50;
         counter = 0;
         // TODO: Sinnvolle Werte finden
         
