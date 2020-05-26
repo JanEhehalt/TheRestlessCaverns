@@ -70,12 +70,15 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
     
     boolean end;
     
+    int kills;
+    
     @Override
     public void create(){
         
         checkDoor = false;
         checkDie = true;
         
+        kills = 0;
         
         end = false;
         
@@ -160,6 +163,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                                 if(d.getCurrentEntities()[i].getType() == 2 && d.getCurrentEntities()[i].isTargetsPlayer()){
                                     delete = true;
                                     d.getCurrentEntities()[i].attack(d.getPlayer());
+                                    
                                 }
                                 else{
                                     if(d.getCurrentEntities()[i].getType() == 0 && !d.getPlayer().isToDelete()){
@@ -233,6 +237,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                                                 if(isDead){
                                                     gs.entitySprites[j].setDie(1);
                                                     d.getCurrentEntities()[j].setToDelete(true);
+                                                    kills++;
                                                 }
                                                 break;
                                             }   
@@ -311,7 +316,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                 batch.setProjectionMatrix(gs.getCamera().combined);
                 gs = null;
                 hc = null;
-                es = new EndScreen();
+                es = new EndScreen(kills);
             }
             es.render(batch, volume);
             return;
@@ -596,6 +601,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                                     e[i].setHp(0);
                                     gs.createDmgFont((int) p.getDmg(),(int)e[i].getxPos() + 10,(int) e[i].getyPos() + 20);
                                     e[i].setToDelete(true);
+                                    kills++;
                                 }
                                 else{
                                     e[i].setHp(e[i].getHp() - p.getDmg());
@@ -851,7 +857,9 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                 return true;
 
             case 3:
-                mm.hide();
+                if(mm != null){
+                    mm.hide();
+                }
                 ss = null;
                 cs = new ControlsScreen();
                 return true;
@@ -965,7 +973,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
         isPaused = true;
         entityMovement.stop();
         gs.stop();
-        
+        cs = null;
         ps = new PauseScreen();
     }
     public void resume(){

@@ -56,6 +56,11 @@ public class SettingsScreen {
             volumeSprite = new Sprite(volumeTexture);
             backButtonSprite = new Sprite(backButtonTexture);
     
+            controlsButtonSprite.setPosition(200, 600);
+            volumeButtonSprite.setPosition(200, 500);
+            volumeDownSprite.setPosition(volumeButtonSprite.getX() + 230, volumeButtonSprite.getY()+28);
+            volumeUpSprite.setPosition(volumeButtonSprite.getX() + 340, volumeButtonSprite.getY()+28);
+            backButtonSprite.setPosition(0, 0);
     }
     
     
@@ -64,11 +69,7 @@ public class SettingsScreen {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
                 
                 
-                controlsButtonSprite.setPosition(200, 600);
-                volumeButtonSprite.setPosition(200, 500);
-                volumeDownSprite.setPosition(volumeButtonSprite.getX() + 230, volumeButtonSprite.getY()+28);
-                volumeUpSprite.setPosition(volumeButtonSprite.getX() + 340, volumeButtonSprite.getY()+28);
-                backButtonSprite.setPosition(0, 0);
+                
                 
                 
                 float n = 0;

@@ -9,6 +9,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -24,21 +25,33 @@ public class EndScreen {
         float h;
     
         Sprite restartButton;
+        
+        BitmapFont font;
+        
+        int kills;
     
     
-    public EndScreen(){
+    public EndScreen(int kills){
         w = Gdx.graphics.getWidth();
         h = Gdx.graphics.getHeight();
         float wc = w/2;
+        
+        this.kills = kills;
+        
+        font = new BitmapFont();
             
         restartButton = new Sprite(new Texture("sprites/restartButton.png"));
-        restartButton.setPosition(w / 2 - restartButton.getWidth() / 2, h / 2 - restartButton.getHeight() / 2);
+        restartButton.setPosition(w / 2 - restartButton.getWidth() / 2, h / 4 - restartButton.getHeight() / 2);
     }
         
     public void render (SpriteBatch batch, float volume) {
                 
                 batch.begin();
                 restartButton.draw(batch);
+                font.getData().setScale(5);
+                font.draw(batch, "ENDE", w/2-100, h-h/8);
+                font.getData().setScale(2);
+                font.draw(batch, "Kills: "+kills, restartButton.getX()+30, restartButton.getY() + 200);
                 batch.end();
 	}
     

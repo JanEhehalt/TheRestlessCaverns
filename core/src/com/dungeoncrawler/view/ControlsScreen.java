@@ -48,7 +48,7 @@ public class ControlsScreen {
                 batch.begin();
                 
                 controlsContainerSprite.draw(batch);
-                
+                //font.getData().setScale(2);
                 font.draw(batch,"UP:", controlsContainerSprite.getX() + 20, controlsContainerSprite.getY()+380);
                 font.draw(batch,"W", controlsContainerSprite.getX() + 220, controlsContainerSprite.getY()+380);
                 font.draw(batch,"LEFT:", controlsContainerSprite.getX() + 20, controlsContainerSprite.getY()+360);
