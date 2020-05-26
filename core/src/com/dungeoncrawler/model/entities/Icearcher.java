@@ -16,12 +16,12 @@ public class Icearcher extends Entity{
         this.maxhp = 100*lvl;
         this.hp = this.maxhp;
         this.direction = 1;
-        this.dmg = 8*lvl;
+        this.dmg = 7*lvl;
         this.id = 11;
         this.type = 1;
-        minRange = 70;
-        maxRange = 230;
-        attackSpeed = 75;
+        minRange = 80;
+        maxRange = 240;
+        attackSpeed = 100;
         counter = 0;
         // TODO: Sinnvolle Werte finden
         

@@ -29,7 +29,7 @@ public class Icewizard extends Entity{
         this.id = 16;
         this.type = 1;
         minRange = 70;
-        maxRange = 170;
+        maxRange = 190;
         attackSpeed = 80;
         counter = 0;
         // TODO: Sinnvolle Werte finden
