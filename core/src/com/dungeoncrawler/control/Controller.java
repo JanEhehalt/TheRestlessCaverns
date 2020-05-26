@@ -772,6 +772,69 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                         }
                     }
                 }
+                if(keycode == Input.Keys.NUM_0){
+                    if(mm != null){
+                    }
+                    if(gs != null && !d.getPlayer().isToDelete()){
+                            d.getPlayer().getInv().setSelected(0);
+                    }
+                }
+                if(keycode == Input.Keys.NUM_1){
+                    if(mm != null){
+                    }
+                    if(gs != null && !d.getPlayer().isToDelete()){
+                            d.getPlayer().getInv().setSelected(0);
+                    }
+                }
+                if(keycode == Input.Keys.NUM_2){
+                    if(mm != null){
+                    }
+                    if(gs != null && !d.getPlayer().isToDelete()){
+                            d.getPlayer().getInv().setSelected(1);
+                    }
+                }
+                if(keycode == Input.Keys.NUM_3){
+                    if(mm != null){
+                    }
+                    if(gs != null && !d.getPlayer().isToDelete()){
+                            d.getPlayer().getInv().setSelected(2);
+                    }
+                }
+                if(keycode == Input.Keys.NUM_4){
+                    if(mm != null){
+                    }
+                    if(gs != null && !d.getPlayer().isToDelete()){
+                            d.getPlayer().getInv().setSelected(3);
+                    }
+                }
+                if(keycode == Input.Keys.NUM_5){
+                    if(mm != null){
+                    }
+                    if(gs != null && !d.getPlayer().isToDelete()){
+                            d.getPlayer().getInv().setSelected(4);
+                    }
+                }
+                if(keycode == Input.Keys.NUM_6){
+                    if(mm != null){
+                    }
+                    if(gs != null && !d.getPlayer().isToDelete()){
+                            d.getPlayer().getInv().setSelected(5);
+                    }
+                }
+                if(keycode == Input.Keys.NUM_7){
+                    if(mm != null){
+                    }
+                    if(gs != null && !d.getPlayer().isToDelete()){
+                            d.getPlayer().getInv().setSelected(6);
+                    }
+                }
+                if(keycode == Input.Keys.NUM_8){
+                    if(mm != null){
+                    }
+                    if(gs != null && !d.getPlayer().isToDelete()){
+                            d.getPlayer().getInv().setSelected(7);
+                    }
+                }
                 
                 return true;
     }
@@ -962,7 +1025,6 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
         else if(i == 1 && d.getPlayer().getInv().getSelected() == 7){return true;}
         else{
             d.getPlayer().getInv().scroll(i);
-            hc.setSelected(d.getPlayer().getInv().getSelected());
             return true;
             }
         }

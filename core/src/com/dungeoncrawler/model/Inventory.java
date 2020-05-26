@@ -118,5 +118,8 @@ public class Inventory {
     public int getSelected(){
         return selected;
     }
+    public void setSelected(int selected){
+        this.selected = selected;
+    }
     
 }

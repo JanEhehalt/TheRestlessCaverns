@@ -105,6 +105,8 @@ public class HudContainer {
     public void updateHud(SpriteBatch batch, Player p){
             InventoryItemSprites = new Sprite[8];
                 
+            selected = p.getInv().getSelected();
+            
             Item[] items = p.getInv().getItem();
             
             for(int x = 0; x < items.length; x++){
