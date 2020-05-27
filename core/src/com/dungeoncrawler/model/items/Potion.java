@@ -17,6 +17,9 @@ public class Potion extends Item {
         super(lvl);
         this.heal = lvl * 25;
         this.dmg = 0;
+        this.def = 0;
+        this.extraHp = 0;
+        this.movementBoost = 0;
         this.id = 1;
     }
     

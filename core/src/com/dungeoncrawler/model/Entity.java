@@ -17,6 +17,8 @@ public abstract class Entity {
     private boolean toDelete;
     private double angle;
     protected boolean targetsPlayer;
+    protected int standartDef;
+    protected int def;
     
     
 
@@ -29,17 +31,18 @@ public abstract class Entity {
         this.direction = 2;
         this.toDelete = false;
         this.targetsPlayer = true;
+        this.standartDef = 0;
+        this.def = 0;
     }
     
     public boolean attack(Entity e){
-        if(e.getHp() - this.dmg <= 0){
+        if(e.getHp() - (this.dmg - e.getDef()) <= 0){
             e.setHp(0);
             e.toDelete = true;
             return true;
         }
         else{
-            
-            e.setHp(e.getHp() - this.dmg);
+            e.setHp(e.getHp() - (this.dmg - e.getDef()));
             return false;
         }
     }
@@ -198,5 +201,7 @@ public abstract class Entity {
     public boolean isTargetsPlayer() {
         return targetsPlayer;
     }
-    
+    public int getDef(){
+        return def;
+    }
 }

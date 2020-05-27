@@ -26,26 +26,26 @@ public class Inventory {
         }
     }
     
-    public void equipItem(){
+    public void equipSlot(int slot){
         if(selected == 0 || selected == 1){
             Item temp0 = items[selected];
             items[selected] = null;
                 addItem(temp0);
         }
         else{
-            if(items[selected] == null || items[selected].getId() == 0){}
+            if(items[selected] == null || items[selected].getId() == 0 || items[selected].getId() == 1){}
             else{
                 switch(items[selected].getId()){
                     case 0:
                         break;
                     case 1:
-                        Item temp1 = items[0];
-                        items[0] = items[selected];
+                        Item temp1 = items[slot];
+                        items[slot] = items[selected];
                         items[selected] = temp1;
                         break;
                     case 2:
-                        Item temp2 = items[1];
-                        items[1] = items[selected];
+                        Item temp2 = items[slot];
+                        items[slot] = items[selected];
                         items[selected] = temp2;
                         break;
                 }

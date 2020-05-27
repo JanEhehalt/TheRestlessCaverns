@@ -625,7 +625,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                     if(mm != null){
                     }
                     if(gs != null && !d.getPlayer().isToDelete()){
-                            d.getPlayer().setMovementX(-3f);
+                            d.getPlayer().setMovementX(-d.getPlayer().getMovementSpeed());
                     }
                 }
                 
@@ -633,7 +633,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                     if(mm != null){
                     }
                     if(gs != null && !d.getPlayer().isToDelete()){
-                            d.getPlayer().setMovementX(+3f);
+                            d.getPlayer().setMovementX(d.getPlayer().getMovementSpeed());
                     }
                 }
                 
@@ -641,7 +641,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                     if(mm != null){
                     }
                     if(gs != null && !d.getPlayer().isToDelete()){
-                            d.getPlayer().setMovementY(-3f);
+                            d.getPlayer().setMovementY(-d.getPlayer().getMovementSpeed());
                     }
                 } 
                 
@@ -649,7 +649,7 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                     if(mm != null){
                     }
                     if(gs != null && !d.getPlayer().isToDelete()){
-                            d.getPlayer().setMovementY(3f);
+                            d.getPlayer().setMovementY(d.getPlayer().getMovementSpeed());
                     }
                 } 
                 
@@ -678,7 +678,14 @@ public class Controller extends ApplicationAdapter implements InputProcessor{
                 if(keycode == Input.Keys.R){
                     if(mm != null){}
                     if(gs != null && gs.getIsLoading() == false && !d.getPlayer().isToDelete()){
-                        d.getPlayer().getInv().equipItem();
+                        d.getPlayer().getInv().equipSlot(0);
+                        d.getPlayer().updateItems();
+                    }
+                }
+                if(keycode == Input.Keys.T){
+                    if(mm != null){}
+                    if(gs != null && gs.getIsLoading() == false && !d.getPlayer().isToDelete()){
+                        d.getPlayer().getInv().equipSlot(1);
                         d.getPlayer().updateItems();
                     }
                 }

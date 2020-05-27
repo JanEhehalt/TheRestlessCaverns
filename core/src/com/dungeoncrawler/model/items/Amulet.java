@@ -17,6 +17,7 @@ public class Amulet extends Item {
         super(lvl);
         this.dmg = 8 * lvl;
         this.heal = 0 * lvl;
+        this.movementBoost = 10;
         this.id = 2;
     }
     

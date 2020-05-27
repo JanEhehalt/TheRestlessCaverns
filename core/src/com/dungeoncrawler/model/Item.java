@@ -12,8 +12,11 @@ package com.dungeoncrawler.model;
 public abstract class Item {
     protected int dmg;
     protected int heal;
+    protected int def;
     protected int lvl;
     protected int id;
+    protected int extraHp;
+    protected int movementBoost;
     
     public Item(int lvl){
         this.lvl = lvl;
@@ -24,13 +27,22 @@ public abstract class Item {
         return this.id;
     }
     public int getDmg(){
-        return dmg;
+        return this.dmg;
     }
     public int getHeal(){
-        return heal;
+        return this.heal;
     }
     public int getLvl(){
-        return lvl;
+        return this.lvl;
+    }
+    public int getDef(){
+        return this.def;
+    }
+    public int getExtraHp(){
+        return this.extraHp;
+    }
+    public int getMovementBoost(){
+        return this.movementBoost;
     }
     /**
      * @return the amount

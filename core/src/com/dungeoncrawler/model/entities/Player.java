@@ -20,6 +20,8 @@ public class Player extends Entity {
     
     int skin;
     String gender;
+    int standartMovementSpeed;
+    int movementSpeed;
     
     public Player() {
         super(200, 200, 1);
@@ -29,6 +31,8 @@ public class Player extends Entity {
         this.maxhp = 50 * lvl;
         this.hp = this.maxhp;
         this.standartMaxHp = 50 * lvl;
+        this.standartDef = 2 * lvl;
+        this.def = standartDef;
         
         this.dmg = 20*lvl;
         this.standartDmg = this.dmg;
@@ -38,6 +42,9 @@ public class Player extends Entity {
         // TODO: Sinnvolle Werte finden
         this.targetsPlayer = false;
         
+        this.standartMovementSpeed = 3;
+        this.movementSpeed = this.standartMovementSpeed;
+        
     }
     
     public void updateStats(int ey){
@@ -46,6 +53,8 @@ public class Player extends Entity {
         this.standartMaxHp = 50 * this.lvl;
         this.standartDmg = 20 * this.lvl;
         this.dmg = this.standartDmg;
+        this.standartDef = 4 * lvl;
+        this.def = this.standartDef;
         updateItems();
     }
     
@@ -57,13 +66,31 @@ public class Player extends Entity {
     }
 
     public void updateItems(){
-        if(inv.getItem(1) != null){
+        this.dmg = this.standartDmg;
+        this.def = this.standartDef;
+        this.maxhp = this.standartMaxHp;
+        this.movementSpeed = this.standartMovementSpeed;
+        
+        if(inv.getItem(0) != null && inv.getItem(1) == null){
+            this.dmg = this.standartDmg + inv.getItem(0).getDmg();
+            this.maxhp = this.standartMaxHp + inv.getItem(0).getExtraHp();
+            this.def = this.standartDef + inv.getItem(0).getDef();
+            this.movementSpeed = this.standartMovementSpeed + inv.getItem(0).getMovementBoost();
+        }
+        if(inv.getItem(1) != null && inv.getItem(0) == null){
             this.dmg = this.standartDmg + inv.getItem(1).getDmg();
-            //this.maxhp = this.standartMaxHp + inv.getItem(1).getHeal();
+            this.maxhp = this.standartMaxHp + inv.getItem(1).getExtraHp();
+            this.def = this.standartDef + inv.getItem(1).getDef();
+            this.movementSpeed = this.standartMovementSpeed + inv.getItem(1).getMovementBoost();
         }
-        else{
-            this.dmg = this.standartDmg;
+        if(inv.getItem(1) != null &&inv.getItem(0) != null){
+            this.dmg = this.standartDmg + inv.getItem(0).getDmg() + inv.getItem(1).getDmg();
+            this.maxhp = this.standartMaxHp + inv.getItem(0).getExtraHp()+ inv.getItem(1).getExtraHp();
+            this.def = this.standartDef + inv.getItem(0).getDef() + inv.getItem(1).getDef();
+            this.movementSpeed = this.standartMovementSpeed + inv.getItem(0).getMovementBoost() + inv.getItem(1).getMovementBoost();
         }
+            
+            
     }
     
     public void useItem(int x){
@@ -147,5 +174,9 @@ public class Player extends Entity {
     public boolean inventoryFull(){
         return inv.inventoryFull();
     }
+    public int getMovementSpeed(){
+        return movementSpeed;
+    }
+    
     
 }
