@@ -30,6 +30,7 @@ public class MapGenerator {
     Texture amulet;
     Texture key;
     Texture potion;
+    Texture DmgAmulet;
     Texture doorTop;
     Texture doorLeft;
     Texture doorRight;
@@ -43,6 +44,7 @@ public class MapGenerator {
         }
         torchT = new Texture("sprites/torch.png");
         amulet = new Texture("sprites/amulet.png");
+        DmgAmulet = new Texture("sprites/dmgAmulet.png");
         key = new Texture("sprites/key.png");
         potion = new Texture("sprites/potion.png");
         doorTop = new Texture("sprites/door.png");
@@ -398,6 +400,10 @@ public class MapGenerator {
                         
                     case 2:
                         itemSprite = new AnimatedObject(amulet, 48, 48);
+                        break;
+
+                    case 3:
+                        itemSprite = new AnimatedObject(DmgAmulet, 48, 48);
                         break;
                 }
                 

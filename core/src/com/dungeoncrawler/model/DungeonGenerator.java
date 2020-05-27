@@ -7,6 +7,7 @@ package com.dungeoncrawler.model;
 
 import com.dungeoncrawler.model.entities.*;
 import com.dungeoncrawler.model.items.Amulet;
+import com.dungeoncrawler.model.items.DmgAmulet;
 import com.dungeoncrawler.model.items.Potion;
 import com.dungeoncrawler.model.items.Key;
 import java.util.ArrayList;
@@ -225,7 +226,7 @@ public class DungeonGenerator {
 
                 Item tempItem;
 
-                int id = (int) (Math.random() * 2);
+                int id = (int) (Math.random() * 3);
                 switch(id){
                     case 0:
                         tempItem = new Amulet(lvl);
@@ -233,6 +234,9 @@ public class DungeonGenerator {
 
                     case 1:
                         tempItem = new Potion(lvl);
+                        break;
+                    case 2:
+                        tempItem = new DmgAmulet(lvl);
                         break;
 
                     default:

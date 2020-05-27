@@ -11,14 +11,13 @@ import com.dungeoncrawler.model.Item;
  *
  * @author jonathan
  */
-public class Amulet extends Item {
+public class DmgAmulet extends Item {
     
-    public Amulet(int lvl) {
+    public DmgAmulet(int lvl) {
         super(lvl);
-        this.extraHp = 10 * lvl;
-        this.def = 3 * lvl;
-        this.movementBoost = 0;
-        this.id = 2;
+        this.dmg = 8 * lvl;
+        this.movementBoost = 1;
+        this.id = 3;
     }
     
 }

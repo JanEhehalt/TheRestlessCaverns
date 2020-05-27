@@ -39,21 +39,27 @@ public class MapContainer {
     
     
     public void addItem(int width, int height, int xPos, int yPos, Item i){
+        AnimatedObject ao;
         switch(i.getId()){
             case 0: // key
-                AnimatedObject ao1 = new AnimatedObject(new Texture("sprites/key.png"), width, height);
-                mapItems.add(ao1);
-                ao1.setSpritePosition(xPos, yPos);
+                ao = new AnimatedObject(new Texture("sprites/key.png"), width, height);
+                mapItems.add(ao);
+                ao.setSpritePosition(xPos, yPos);
                 break;
             case 1: // potion
-                AnimatedObject ao2 = new AnimatedObject(new Texture("sprites/potion.png"), width, height);
-                mapItems.add(ao2);
-                ao2.setSpritePosition(xPos, yPos);
+                ao = new AnimatedObject(new Texture("sprites/potion.png"), width, height);
+                mapItems.add(ao);
+                ao.setSpritePosition(xPos, yPos);
                 break;
             case 2: // amulet
-                AnimatedObject ao3 = new AnimatedObject(new Texture("sprites/amulet.png"), width, height);
-                mapItems.add(ao3);
-                ao3.setSpritePosition(xPos, yPos);
+                ao = new AnimatedObject(new Texture("sprites/amulet.png"), width, height);
+                mapItems.add(ao);
+                ao.setSpritePosition(xPos, yPos);
+                break;
+            case 3: // DamageAmulet
+                ao = new AnimatedObject(new Texture("sprites/dmgAmulet.png"), width, height);
+                mapItems.add(ao);
+                ao.setSpritePosition(xPos, yPos);
                 break;
                 
         }

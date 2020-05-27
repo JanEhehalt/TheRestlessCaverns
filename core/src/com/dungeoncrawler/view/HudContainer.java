@@ -168,6 +168,12 @@ public class HudContainer {
                         selectedName = "Amulet  ";
                         perk = "Damage: ";
                         selectedPerkValue = items[selected].getDmg();
+                        break;
+                    case 3:
+                        selectedName = "Damage-Amulet  ";
+                        perk = "Damage: ";
+                        selectedPerkValue = items[selected].getDmg();
+                        break;
                 
                 }
                 font.draw(batch, selectedName + lvl, HudPosX + 40, HudPosY + 210);
@@ -184,7 +190,6 @@ public class HudContainer {
             switch(item.getId()){
                 case 0:
                     if(InventoryItemSprites[x] == null){
-                        //InventoryItemTextures[i] = new Texture("sprites/itemTest.png");
                         InventoryItemTextures[x] = new Texture("sprites/key.png");
                         InventoryItemSprites[x] = new Sprite(InventoryItemTextures[x]);
                         InventoryItemSprites[x].setX(invXPos[x]);
@@ -194,7 +199,6 @@ public class HudContainer {
                     break;
                 case 1:
                     if(InventoryItemSprites[x] == null){
-                        //InventoryItemTextures[i] = new Texture("sprites/itemTest.png");
                         InventoryItemTextures[x] = new Texture("sprites/potion.png");
                         InventoryItemSprites[x] = new Sprite(InventoryItemTextures[x]);
                         InventoryItemSprites[x].setX(invXPos[x]);
@@ -204,8 +208,16 @@ public class HudContainer {
                     break;
                 case 2:
                         if(InventoryItemSprites[x] == null){
-                            //InventoryItemTextures[i] = new Texture("sprites/itemTest.png");
                             InventoryItemTextures[x]= new Texture("sprites/amulet.png");
+                            InventoryItemSprites[x] = new Sprite(InventoryItemTextures[x]);
+                            InventoryItemSprites[x].setX(invXPos[x]);
+                            InventoryItemSprites[x].setY(invYPos[x]);
+                            break;
+                        }
+                    break;
+                case 3:
+                        if(InventoryItemSprites[x] == null){
+                            InventoryItemTextures[x]= new Texture("sprites/dmgAmulet.png");
                             InventoryItemSprites[x] = new Sprite(InventoryItemTextures[x]);
                             InventoryItemSprites[x].setX(invXPos[x]);
                             InventoryItemSprites[x].setY(invYPos[x]);

@@ -35,20 +35,9 @@ public class Inventory {
         else{
             if(items[selected] == null || items[selected].getId() == 0 || items[selected].getId() == 1){}
             else{
-                switch(items[selected].getId()){
-                    case 0:
-                        break;
-                    case 1:
-                        Item temp1 = items[slot];
-                        items[slot] = items[selected];
-                        items[selected] = temp1;
-                        break;
-                    case 2:
-                        Item temp2 = items[slot];
-                        items[slot] = items[selected];
-                        items[selected] = temp2;
-                        break;
-                }
+                Item temp = items[slot];
+                items[slot] = items[selected];
+                items[selected] = temp;
             }
         }
     }
