@@ -128,6 +128,9 @@ public class HudContainer {
             if(n > 1){
                 n = 1;
             }
+            if(n <= 0){
+                n = 0.01f;
+            }
             Texture playerHealthTexture = new Texture("sprites/playerHealthBar.png");
             int newWidth = (int) (n * playerHealthTexture.getWidth());
             TextureRegion[][] playerHealthRegion = TextureRegion.split(playerHealthTexture,newWidth, playerHealthTexture.getHeight());
@@ -166,11 +169,11 @@ public class HudContainer {
                         break;
                     case 2:
                         selectedName = "Amulet  ";
-                        perk = "Damage: ";
-                        selectedPerkValue = items[selected].getDmg();
+                        perk = "Defense: ";
+                        selectedPerkValue = items[selected].getDef();
                         break;
                     case 3:
-                        selectedName = "Damage-Amulet  ";
+                        selectedName = "Amulet  ";
                         perk = "Damage: ";
                         selectedPerkValue = items[selected].getDmg();
                         break;

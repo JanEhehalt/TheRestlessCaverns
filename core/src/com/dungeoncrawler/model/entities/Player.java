@@ -20,8 +20,8 @@ public class Player extends Entity {
     
     int skin;
     String gender;
-    int standartMovementSpeed;
-    int movementSpeed;
+    float standartMovementSpeed;
+    float movementSpeed;
     
     public Player() {
         super(200, 200, 1);
@@ -70,6 +70,9 @@ public class Player extends Entity {
         this.def = this.standartDef;
         this.maxhp = this.standartMaxHp;
         this.movementSpeed = this.standartMovementSpeed;
+        if(hp > maxhp){
+            hp = maxhp;
+        }
         
         if(inv.getItem(0) != null && inv.getItem(1) == null){
             this.dmg = this.standartDmg + inv.getItem(0).getDmg();
@@ -100,7 +103,7 @@ public class Player extends Entity {
                     // nix lol weil key
                     break;
                 case 1:
-                    if(hp == maxhp){
+                    if(hp >= maxhp){
                         
                     }
                     else{
@@ -174,7 +177,7 @@ public class Player extends Entity {
     public boolean inventoryFull(){
         return inv.inventoryFull();
     }
-    public int getMovementSpeed(){
+    public float getMovementSpeed(){
         return movementSpeed;
     }
     

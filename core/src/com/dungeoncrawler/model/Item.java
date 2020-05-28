@@ -16,7 +16,7 @@ public abstract class Item {
     protected int lvl;
     protected int id;
     protected int extraHp;
-    protected int movementBoost;
+    protected float movementBoost;
     
     public Item(int lvl){
         this.lvl = lvl;
@@ -41,7 +41,7 @@ public abstract class Item {
     public int getExtraHp(){
         return this.extraHp;
     }
-    public int getMovementBoost(){
+    public float getMovementBoost(){
         return this.movementBoost;
     }
     /**

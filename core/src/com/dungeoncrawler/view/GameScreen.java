@@ -404,6 +404,18 @@ public class GameScreen {
                         tx[0] = new Texture("sprites/spell/darkspell.png");
                         entitySprites[i] = new EntitySprite(tx, 16, 16);
                         break;
+                    case 26:
+                        tx[0] = new Texture("sprites/swordsman/darkswordsman_"+gender+".png");
+                        entitySprites[i] = new EntitySprite(tx, 64, 64);
+                        break;
+                    case 27:
+                        tx[0] = new Texture("sprites/archer/darkarcher_"+gender+".png");
+                        entitySprites[i] = new EntitySprite(tx, 64, 64);
+                        break;
+                    case 28:
+                        tx[0] = new Texture("sprites/projectile/darkarrow.png");
+                        entitySprites[i] = new EntitySprite(tx, 24, 5);
+                        break;
                 }
 
                 entitySprites[i].update((int) e.getxPos() + 32, (int) e.getyPos() + 32);

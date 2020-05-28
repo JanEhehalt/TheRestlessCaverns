@@ -16,7 +16,7 @@ public class DmgAmulet extends Item {
     public DmgAmulet(int lvl) {
         super(lvl);
         this.dmg = 8 * lvl;
-        this.movementBoost = 1;
+        this.movementBoost = 0.5f;
         this.id = 3;
     }
     
